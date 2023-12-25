@@ -74,7 +74,7 @@ export default function DashboardAddprofile() {
       phone: phone,
       user_id: userId,
     };
-    axios.post('https://developer.dbuglab.com/DK/AS/test/backend/public/api/add-member', memberData, { headers })
+    axios.post('https://mykidz.online/api/add-member', memberData, { headers })
       .then(response => {
         console.log('Member added successfully:', response.data);
         // isMember(false);
@@ -111,7 +111,7 @@ export default function DashboardAddprofile() {
   }, [userId]);
   const fetchMembers = async () => {
     try {
-      const response = await axios.get(`https://developer.dbuglab.com/DK/AS/test/backend/public/api/members/${userId}`);
+      const response = await axios.get(`https://mykidz.online/api/members/${userId}`);
       const membersData = response.data;
       setMembers(membersData);
     } catch (error) {
