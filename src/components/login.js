@@ -18,7 +18,7 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
-    const [error,setError] = useState(false);
+    const[error,setError]=useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 

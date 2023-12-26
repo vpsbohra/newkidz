@@ -123,28 +123,48 @@ const OpenStory = () => {
   };
 
   const fetchStories = async () => {
-    try {
-      const response = await axios.get('https://mykidz.online/api/stories', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const selectedStory = response.data.find(story => story.id === parseInt(StoryId, 10));
-      console.log("Story data", selectedStory);
-      if (selectedStory) {
-        const audioParts = selectedStory.english_audio_part.split(',');
-        const imageParts = selectedStory.book_cover_images.split(',');
-        console.log("Audio Parts", audioParts);
-        console.log(audioParts[currentPage]);
-        setStories([selectedStory]);
-        setCurrentAudioIndex(0);
-        setAudio(audioParts[0]);
-        console.log("Audio", audio);
-        setcurrentImage(imageParts[currentPage]);
-      }
-    } catch (error) {
-      console.error('Error fetching stories:', error);
+    const stories = JSON.parse(localStorage.getItem('stories'));
+if(stories){
+  const selectedStory = stories.find(story => story.id === parseInt(StoryId, 10));
+  console.log("Story data", selectedStory);
+  if (selectedStory) {
+    const audioParts = selectedStory.english_audio_part.split(',');
+    const imageParts = selectedStory.book_cover_images.split(',');
+    console.log("Audio Parts", audioParts);
+    console.log(audioParts[currentPage]);
+    setStories([selectedStory]);
+    setCurrentAudioIndex(0);
+    setAudio(audioParts[0]);
+    console.log("Audio", audio);
+    setcurrentImage(imageParts[currentPage]);
+  }
+} else{
+  try {
+    const response = await axios.get('https://mykidz.online/api/stories', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    localStorage.setItem("stories", JSON.stringify(response.data));
+
+    const selectedStory = response.data.find(story => story.id === parseInt(StoryId, 10));
+    console.log("Story data", selectedStory);
+    if (selectedStory) {
+      const audioParts = selectedStory.english_audio_part.split(',');
+      const imageParts = selectedStory.book_cover_images.split(',');
+      console.log("Audio Parts", audioParts);
+      console.log(audioParts[currentPage]);
+      setStories([selectedStory]);
+      setCurrentAudioIndex(0);
+      setAudio(audioParts[0]);
+      console.log("Audio", audio);
+      setcurrentImage(imageParts[currentPage]);
     }
+  } catch (error) {
+    console.error('Error fetching stories:', error);
+  }
+}
+   
   };
   const paragraphsPerPage = 1;
   const totalPages = Math.ceil(stories[0]?.description?.split('*').length / paragraphsPerPage);
@@ -205,16 +225,24 @@ const OpenStory = () => {
     }
   };
   const fetchreadedstory = async () => {
-    try {
-      const response = await axios.get(`https://mykidz.online/api/readedstory`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-      });
-      setFdata(response.data);
-    } catch (error) {
-      console.error('Error fetching readedstory data:', error);
-    }
+    const readedstory = JSON.parse(localStorage.getItem('readedstory'));
+if(readedstory){
+  setFdata(readedstory);
+
+} else{
+  try {
+    const response = await axios.get(`https://mykidz.online/api/readedstory`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    localStorage.setItem('readedstory', JSON.stringify(response.data));
+    setFdata(response.data);
+  } catch (error) {
+    console.error('Error fetching readedstory data:', error);
+  }
+}
+   
   };
   const update = () => {
     console.log("setChildID", setChildID);
@@ -229,7 +257,9 @@ const OpenStory = () => {
     axios.patch(`https://mykidz.online/api/update-currently-reading-page/${setChildID}`, memberData, { headers })
       .then(response => {
         console.log("response", response.data);
+        localStorage.clear();
         navigate('/kids-view');
+        
       })
       .catch(error => {
         console.log("Error updating the field");

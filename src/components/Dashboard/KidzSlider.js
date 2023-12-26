@@ -73,7 +73,7 @@ const KidzSlider = () => {
   };
   const { token } = AuthUser();
   useEffect(() => {
-    fetchChildData();
+      fetchChildData();
     console.log(currntlyreading);
     const x = sessionStorage.getItem("setChildID");
     const y = sessionStorage.getItem("childId");
@@ -83,18 +83,28 @@ const KidzSlider = () => {
   }, [currntlyreading]);
 
   const fetchStories = async () => {
-    try {
-      const response = await axios.get('https://mykidz.online/api/stories', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setStories(response.data);
-      sessionStorage.setItem("StoryData", response);
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching stories:', error);
+    const stories = JSON.parse(localStorage.getItem('stories'));
+    if (stories) {
+      setStories(stories);
+      sessionStorage.setItem("StoryData", stories);
+      console.log("Local stories", stories);
     }
+    else {
+      try {
+        const response = await axios.get('https://mykidz.online/api/stories', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setStories(response.data);
+        localStorage.setItem("stories", JSON.stringify(response.data));
+        sessionStorage.setItem("StoryData", response);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+      }
+    }
+
   };
 
   const openModal = (story) => {
@@ -152,29 +162,44 @@ const KidzSlider = () => {
     }
   }
   const fetchChildData = async () => {
-
-    try {
-      const response = await axios.get(`https://mykidz.online/api/child-profiles?user_id=${user.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const abc = response.data;
+    const childdata = JSON.parse(localStorage.getItem('childdata'));
+    if(childdata){
       const x = sessionStorage.getItem('setChildID');
       const y = sessionStorage.getItem('childId');
       const cid =  y;
-      console.log("session child id", cid);
-      const child = abc.find((n) => n.id === parseInt(cid, 10));
+      // console.log("session child id", cid);
+      const child = childdata.find((n) => n.id === parseInt(cid, 10));
       if (child) {
-        console.log('test123' + child.currenty_reading
-        );
+        // console.log('test123' + child.currenty_reading );
         setCurrentyReading(child.currenty_reading);
         sessionStorage.setItem("sid", child.currenty_reading);
       }
-
-      console.log("Children123", response.data);
-    } catch (error) {
-      console.error('Error fetching child data:', error);
+      console.log("Children123", childdata);
+    } else{
+      try {
+        const response = await axios.get(`https://mykidz.online/api/child-profiles?user_id=${user.id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const abc = response.data;
+        localStorage.setItem('childdata',JSON.stringify(response.data))
+        const x = sessionStorage.getItem('setChildID');
+        const y = sessionStorage.getItem('childId');
+        const cid =  y;
+        console.log("session child id", cid);
+        const child = abc.find((n) => n.id === parseInt(cid, 10));
+        if (child) {
+          console.log('test123' + child.currenty_reading
+          );
+          setCurrentyReading(child.currenty_reading);
+          sessionStorage.setItem("sid", child.currenty_reading);
+        }
+  
+        console.log("Children123", response.data);
+      } catch (error) {
+        console.error('Error fetching child data:', error);
+      }
     }
   };
 
