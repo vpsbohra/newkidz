@@ -77,10 +77,25 @@ const ParentDashboard = () => {
   const fetchUserDetail = () => {
     setUserdetail(user);
     setUserId(user.id);
-    http.get(`/child-profiles?user_id=${userId}`).then((res) => {
-      setChildProfiles(res.data);
-    });
+
+    const childProfilesFromLocal = localStorage.getItem("childProfilesLocal");
+    
+    if(childProfilesFromLocal){
+      setChildProfiles(JSON.parse(childProfilesFromLocal));
+      console.log("if condition")
+    }else{
+      http.get(`/child-profiles?user_id=${userId}`).then((res) => {
+        setChildProfiles(res.data);
+        localStorage.setItem("childProfilesLocal", JSON.stringify(res.data)); 
+      console.log("else condition");
+
+      });
+
+    }
+   
   };
+
+  
 
   function renderElement() {
     if (userdetail) {

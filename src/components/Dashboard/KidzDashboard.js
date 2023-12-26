@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Previous_ButtonImg from  '../../images/Previous_Button.png';
+import Previous_ButtonImg from '../../images/Previous_Button.png';
 
 export default function KidzDashboard() {
   const StoryId = String(sessionStorage.getItem('childStory'));
@@ -35,15 +35,8 @@ export default function KidzDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedStory, setSelectedStory] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(-1);
-  const[chid,setChid]=useState();
-
-
-
-
+  const [chid, setChid] = useState();
   const truncateText = (text, maxLength) => {
-
-
-
     const words = text.split(' ');
     if (words.length <= maxLength) {
       return text;
@@ -51,7 +44,6 @@ export default function KidzDashboard() {
     const truncatedText = words.slice(0, maxLength).join(' ');
     return truncatedText + '...';
   };
-
 
   const handleHover = (index) => {
     setHoveredIndex(index);
@@ -98,44 +90,68 @@ export default function KidzDashboard() {
   const { token } = AuthUser();
 
   const fetchreadedstory = async () => {
-    try {
-      const response = await axios.get('https://mykidz.online/api/readedstory', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      console.log('Response:', response.data);
-  
-      if (response.data) {
-        const fdataWithNumberStoryIds = response.data.map(item => ({
+    const readedstory = JSON.parse(localStorage.getItem('readedstory'));
+    if (readedstory) {
+      console.log('LOCAL Response:', readedstory);
+      if (readedstory) {
+        const fdataWithNumberStoryIds = readedstory.map(item => ({
           ...item,
           story_id: parseInt(item.story_id, 10),
         }));
         setFdata(fdataWithNumberStoryIds);
       }
-    } catch (error) {
-      console.error('Error fetching readedstory data:', error);
     }
+    else {
+      try {
+        const response = await axios.get('https://mykidz.online/api/readedstory', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log('Response:', response.data);
+        localStorage.setItem('readedstory', JSON.stringify(response.data));
+
+        if (response.data) {
+          const fdataWithNumberStoryIds = response.data.map(item => ({
+            ...item,
+            story_id: parseInt(item.story_id, 10),
+          }));
+          setFdata(fdataWithNumberStoryIds);
+        }
+      } catch (error) {
+        console.error('Error fetching readedstory data:', error);
+      }
+    }
+
   };
-  
+
 
 
 
 
   const fetchStories = async () => {
-    try {
-      const response = await axios.get('https://mykidz.online/api/stories', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setStories(response.data);
-      sessionStorage.setItem("StoryData", response);
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching stories:', error);
+    const stories = JSON.parse(localStorage.getItem('stories'));
+    if (stories) {
+      setStories(stories);
+      sessionStorage.setItem("StoryData", stories);
+      console.log("Local stories", stories);
     }
+    else {
+      try {
+        const response = await axios.get('https://mykidz.online/api/stories', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setStories(response.data);
+        localStorage.setItem("stories", JSON.stringify(response.data));
+        sessionStorage.setItem("StoryData", response);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+      }
+    }
+
   };
 
 
@@ -146,10 +162,10 @@ export default function KidzDashboard() {
     // if (fdata.some((data) => data.child_id === ChildId)) {
     fetchStories();
     // console.log("child id of session and fdata are matching");
-// }
+    // }
     console.log("fdata is here", fdata);
     console.log("stories are here", stories);
-    console.log("ChildId",ChildId);
+    console.log("ChildId", ChildId);
     if (
       fdata.some((readStory) =>
         readStory.user_id === userid &&
@@ -205,7 +221,6 @@ export default function KidzDashboard() {
 
     if (story1 && story2 && story3 && story4) {
       setinfinite(true);
-      console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
     }
 
 
@@ -213,16 +228,16 @@ export default function KidzDashboard() {
 
 
 
- 
-const matchingStories = stories.filter(story => {
-  return fdata.some(readStory => {
-    return (
-      readStory.child_id === ChildId && 
-      readStory.user_id===userid &&
-      readStory.story_id === story.id
-    );
+
+  const matchingStories = stories.filter(story => {
+    return fdata.some(readStory => {
+      return (
+        readStory.child_id === ChildId &&
+        readStory.user_id === userid &&
+        readStory.story_id === story.id
+      );
+    });
   });
-});
 
 
 
@@ -234,31 +249,31 @@ const matchingStories = stories.filter(story => {
   };
 
   const closeModal = () => {
-     setIsModalOpen(false);
+    setIsModalOpen(false);
   };
   const nextModal = (index, data1) => {
     console.log(index);
-    let d = index-1;
+    let d = index - 1;
     console.log(stories[d]);
-  let data =  JSON.stringify(stories[d])
+    let data = JSON.stringify(stories[d])
     sessionStorage.setItem('childStory', index);
     sessionStorage.setItem('childStoryText', data1);
     sessionStorage.setItem('childStorydata', data);
     // useNavigate('/chosenstory');
   };
-  
 
-  const setCurrentstory = async ()=>{
-    console.log("current story",selectedStory.id);
+
+  const setCurrentstory = async () => {
+    console.log("current story", selectedStory.id);
     try {
-      const data ={
-        currenty_reading :JSON.stringify(selectedStory.id),
-          // id :chid,
+      const data = {
+        currenty_reading: JSON.stringify(selectedStory.id),
+        // id :chid,
       }
       await axios.patch(`https://mykidz.online/api/update-child-account/${chid}`, data, {
         headers: {
           "Content-type": "application/json",
-      "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`
         },
       });
     } catch (error) {
@@ -267,116 +282,116 @@ const matchingStories = stories.filter(story => {
   }
 
 
-console.log("matchingStories",matchingStories);
- 
-return (
-  <>
-    <div className="kidzdashboard">
-      <div className="container-fluidss display-tabless">
-        <KidsNav />
-        <div className="main-content kidzdashboard_mainsr">
-          <div className="page_ttl">
-            {/* <h1>Story of the Day</h1> */}
-          </div>
+  console.log("matchingStories", matchingStories);
 
-          <div className='kids_view_mainSlider'>
-            <KidzSlider />
-          </div>
-        </div>
-
-        <div className="main-content">
-
-          {/* <KidzOnGoingStory /> */}
-          <div className="Main_Gaming_Sec">
-            <div className="gaming-section games_item">
-              <div className='games_section'>
-                <div className='games_section_item'><img height={150} width={150} className='game_img' src={Gaming1} /></div>
-                <div className='games_section_item'><img height={150} width={150} className='game_img' src={Gaming1} /></div>
-                <div className='games_section_item'><img height={150} width={150} className='game_img' src={Gaming1} /></div>
-                <div className='games_section_item'><img height={150} width={150} className='game_img' src={Gaming1} /></div>
-              </div>
-              <button className='all_games'><span className='all_games_span'>BROWSE ALL GAMES </span></button>
+  return (
+    <>
+      <div className="kidzdashboard">
+        <div className="container-fluidss display-tabless">
+          <KidsNav />
+          <div className="main-content kidzdashboard_mainsr">
+            <div className="page_ttl">
+              {/* <h1>Story of the Day</h1> */}
             </div>
 
-            <div className="gaming-section colouring_item">
-              <Link to="/allcharacters">
-                <img src={Gaming2} />
-                {/* <h3 className='colouring_ttl'>Characters</h3> */}
-              </Link>
+            <div className='kids_view_mainSlider'>
+              <KidzSlider />
             </div>
-
           </div>
 
-        </div>
-
-
-        <div className='gaming-section_outer'>
           <div className="main-content">
-            <div className='gaming-section_title'>
-              <img src={Brother} /><span>STORIES READ</span>
+
+            {/* <KidzOnGoingStory /> */}
+            <div className="Main_Gaming_Sec">
+              <div className="gaming-section games_item">
+                <div className='games_section'>
+                  <div className='games_section_item'><img height={150} width={150} className='game_img' src={Gaming1} /></div>
+                  <div className='games_section_item'><img height={150} width={150} className='game_img' src={Gaming1} /></div>
+                  <div className='games_section_item'><img height={150} width={150} className='game_img' src={Gaming1} /></div>
+                  <div className='games_section_item'><img height={150} width={150} className='game_img' src={Gaming1} /></div>
+                </div>
+                <button className='all_games'><span className='all_games_span'>BROWSE ALL GAMES </span></button>
+              </div>
+
+              <div className="gaming-section colouring_item">
+                <Link to="/allcharacters">
+                  <img src={Gaming2} />
+                  {/* <h3 className='colouring_ttl'>Characters</h3> */}
+                </Link>
+              </div>
+
             </div>
-            <div className='slider_mainsr kids_stories_slider'>
-              <Slider {...settings}>
-                {matchingStories.map((story, index) => {
-                  return (
-                    <div
-                      className='slide_mainsr'
-                      style={hoveredIndex === index ? { border: '2px solid red' } : {}}
-                      key={index}
-                      onMouseEnter={() => handleHover(index)}
-                      onMouseLeave={handleHoverExit}
-                    >
-                      <img
-                        src={story.cover_image}
-                        onClick={() => openModal(story)}
-                        alt={`Story ${index + 1}`}
-                      />
-                      <h3 className='stories_slider_heading'>{story.title}</h3>
+
+          </div>
+
+
+          <div className='gaming-section_outer'>
+            <div className="main-content">
+              <div className='gaming-section_title'>
+                <img src={Brother} /><span>STORIES READ</span>
+              </div>
+              <div className='slider_mainsr kids_stories_slider'>
+                <Slider {...settings}>
+                  {matchingStories.map((story, index) => {
+                    return (
+                      <div
+                        className='slide_mainsr'
+                        style={hoveredIndex === index ? { border: '2px solid red' } : {}}
+                        key={index}
+                        onMouseEnter={() => handleHover(index)}
+                        onMouseLeave={handleHoverExit}
+                      >
+                        <img
+                          src={story.cover_image}
+                          onClick={() => openModal(story)}
+                          alt={`Story ${index + 1}`}
+                        />
+                        <h3 className='stories_slider_heading'>{story.title}</h3>
+                      </div>
+                    );
+                  })}
+                </Slider>
+                <Modal
+                  className='Story_Day_popupsr'
+                  isOpen={isModalOpen}
+                  onRequestClose={closeModal}
+                  contentLabel='Story Modal'
+                >
+                  {selectedStory && (
+                    <div className='Story_Day_outer'>
+                      <div className='Story_Day_outer_left'>
+                        <img src={selectedStory.cover_image} alt='Story' />
+                      </div>
+                      <div className='Story_Day_outer_right'>
+                        <h2>{selectedStory.title}</h2>
+                        <p>{truncateText(selectedStory.description, 15)}</p>
+                        <p>{selectedStory.personnages}</p>
+                        <Link className='col'
+                          to={`/chosenstory`}
+                          onClick={() => { nextModal(selectedStory.id, selectedStory.audio_text); setCurrentstory(); }}
+                        >  <button className='Play_btn_sr'>
+                            Play
+                          </button>
+                        </Link>
+                      </div>
+                      <button className='Previous_Button' onClick={closeModal}>
+                        <img src={Previous_ButtonImg} alt="protected" />
+                      </button>
                     </div>
-                  );
-                })}
-              </Slider>
-              <Modal
-                className='Story_Day_popupsr'
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                contentLabel='Story Modal'
-              >
-                {selectedStory && (
-                  <div className='Story_Day_outer'>
-                    <div className='Story_Day_outer_left'>
-                      <img src={selectedStory.cover_image} alt='Story' />
-                    </div>
-                    <div className='Story_Day_outer_right'>
-                      <h2>{selectedStory.title}</h2>
-                      <p>{truncateText(selectedStory.description, 15)}</p>
-                      <p>{selectedStory.personnages}</p>
-                      <Link className='col'
-                        to={`/chosenstory`}
-                        onClick={() => { nextModal(selectedStory.id, selectedStory.audio_text); setCurrentstory(); }}
-                      >  <button className='Play_btn_sr'>
-                          Play
-                        </button>
-                      </Link>
-                    </div>
-                    <button className='Previous_Button' onClick={closeModal}>
-                      <img src={Previous_ButtonImg} alt="protected" />
-                    </button>
-                  </div>
-                )}
-              </Modal>
+                  )}
+                </Modal>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="bottom-nav">
-          <KidzBottomNav />
-        </div>
+          <div className="bottom-nav">
+            <KidzBottomNav />
+          </div>
 
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
 
 
 }
