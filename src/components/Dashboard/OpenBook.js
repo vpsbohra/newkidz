@@ -186,7 +186,23 @@ if(stories){
       localStorage.setItem("page", nextPage);
     } else {
       localStorage.setItem("page", 0);
-      update();
+      // update();
+      const headers = {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`
+      };
+      const x = localStorage.getItem("page");
+      const memberData = {
+        currently_reading_page: x.toString(),
+      };
+      axios.patch(`https://mykidz.online/api/update-currently-reading-page/${setChildID}`, memberData, { headers })
+        .then(response => {
+          console.log("response", response.data);
+          localStorage.clear();
+        })
+        .catch(error => {
+          console.log("Error updating the field");
+        });
       setCurrentstory();
       setTimeout(() => {
         window.location.href = '/donewithbook';
@@ -258,7 +274,7 @@ if(readedstory){
       .then(response => {
         console.log("response", response.data);
         localStorage.clear();
-        navigate('/kids-view');
+         navigate('/kids-view');
         
       })
       .catch(error => {
