@@ -709,19 +709,19 @@ const ChatPopup = ({ chats, onClose, toggle, selectedDate }) => {
               />
               <div className="chat_form_input_btncnrl">
                 <div className="chat_form_input_btncnrlLeft">
-                  <Link className="confirm" to="#"><img loading="lazy" loading="lazy" src={PaperClipImage} alt="protected" /></Link>
-                  <Link className="confirm" to="#"><img loading="lazy" loading="lazy" src={EmojiImage} alt="protected" /></Link>
+                  <Link className="confirm" to="#"><img loading="lazy" src={PaperClipImage} alt="protected" /></Link>
+                  <Link className="confirm" to="#"><img loading="lazy" src={EmojiImage} alt="protected" /></Link>
                 </div>
                 <div className="chat_form_input_btncnrlRight">
                   <button onClick={submit}>
-                    <img loading="lazy" loading="lazy" src={sendImage} alt="protected" />
+                    <img loading="lazy" src={sendImage} alt="protected" />
                   </button>
                   <button onClick={startRecording}>
-                    <img loading="lazy" loading="lazy" src={SendAudioImage} alt="protected" />
+                    <img loading="lazy" src={SendAudioImage} alt="protected" />
                   </button>
                   {recorder && (
                     <>
-                      <img loading="lazy" loading="lazy" src={WaveSendAudioImage} alt="protected" />
+                      <img loading="lazy" src={WaveSendAudioImage} alt="protected" />
                       <button className='stop_reco_btn' onClick={stopRecording}> Stop</button>
                     </>
 

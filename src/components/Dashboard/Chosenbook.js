@@ -23,11 +23,11 @@ const ChosenStory = () => {
     <>
     <div className='chosen-story-section'>
       <div className='start_book_topLeft'>
-      <Link className="nav-link" to="/kids-view"  ><img loading="lazy" loading="lazy" src={ParentalSwitch} alt=''/></Link>
+      <Link className="nav-link" to="/kids-view"  ><img loading="lazy" src={ParentalSwitch} alt=''/></Link>
       </div>
       <div className='main-container-story chosenbook_page' >
       <div className='story-display-section'>
-          <img loading="lazy" loading="lazy" className='book_cover_imgsr' src={img.image_path} alt=''/>
+          <img loading="lazy" className='book_cover_imgsr' src={img.image_path} alt=''/>
           <div className='startbook_content'>
               <h2>{storiesTitle}</h2>
           </div>
@@ -37,7 +37,7 @@ const ChosenStory = () => {
         <div className='reading-mode'>
             <div className='myself-section reading_btnsr'>
             <Link className="nav-link" to="/openbook"  >
-                <img loading="lazy" loading="lazy" src={kid1} />
+                <img loading="lazy" src={kid1} />
                 <p>READ BY MYSELF</p>
                 <svg width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M18.1197 5.4741V9.88896H5.11448C4.64793 9.88888 4.18594 9.9807 3.75489 10.1592C3.32384 10.3377 2.93217 10.5993 2.60225 10.9292C2.27233 11.259 2.01061 11.6507 1.83206 12.0817C1.6535 12.5127 1.5616 12.9747 1.5616 13.4412V20.547C1.5616 21.0135 1.6535 21.4755 1.83206 21.9065C2.01061 22.3375 2.27233 22.7291 2.60225 23.059C2.93217 23.3889 3.32384 23.6505 3.75489 23.829C4.18594 24.0075 4.64793 24.0993 5.11448 24.0992H18.1197V28.5141C18.1193 29.2169 18.3274 29.904 18.7177 30.4885C19.108 31.073 19.6628 31.5286 20.3121 31.7976C20.9614 32.0667 21.6759 32.1371 22.3652 31.9999C23.0545 31.8628 23.6876 31.5243 24.1844 31.0272L35.7044 19.5072C36.0346 19.1773 36.2966 18.7855 36.4754 18.3543C36.6541 17.9231 36.7461 17.4609 36.7461 16.9941C36.7461 16.5273 36.6541 16.0651 36.4754 15.6339C36.2966 15.2027 36.0346 14.8109 35.7044 14.481L24.1844 2.96227C23.6876 2.46526 23.0546 2.12674 22.3655 1.98955C21.6763 1.85236 20.9619 1.92266 20.3127 2.19155C19.6635 2.46044 19.1086 2.91584 18.7182 3.50014C18.3279 4.08444 18.1196 4.7714 18.1197 5.4741Z" fill="#FFB579"/>
@@ -47,7 +47,7 @@ const ChosenStory = () => {
             </div>
             <div className='to-me-section reading_btnsr'>
             <Link className="nav-link" to="/code"  >
-                <img loading="lazy" loading="lazy" src={brother} />
+                <img loading="lazy" src={brother} />
                 <p>READ IT TO ME</p>
                 <svg width="39" height="34" viewBox="0 0 39 34" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M18.4674 5.4741V9.88896H5.46213C4.99559 9.88888 4.5336 9.9807 4.10255 10.1592C3.6715 10.3377 3.27983 10.5993 2.94991 10.9292C2.61998 11.259 2.35827 11.6507 2.17971 12.0817C2.00116 12.5127 1.90926 12.9747 1.90926 13.4412V20.547C1.90926 21.0135 2.00116 21.4755 2.17971 21.9065C2.35827 22.3375 2.61998 22.7291 2.94991 23.059C3.27983 23.3889 3.6715 23.6505 4.10255 23.829C4.5336 24.0075 4.99559 24.0993 5.46213 24.0992H18.4674V28.5141C18.467 29.2169 18.6751 29.904 19.0653 30.4885C19.4556 31.073 20.0105 31.5286 20.6598 31.7976C21.309 32.0667 22.0235 32.1371 22.7128 31.9999C23.4021 31.8628 24.0352 31.5242 24.5321 31.0272L36.0521 19.5072C36.3823 19.1773 36.6443 18.7855 36.823 18.3543C37.0017 17.9231 37.0937 17.4609 37.0938 16.9941C37.0937 16.5273 37.0017 16.0651 36.823 15.6339C36.6443 15.2027 36.3823 14.8109 36.0521 14.481L24.5321 2.96226C24.0353 2.46525 23.4023 2.12674 22.7131 1.98955C22.0239 1.85236 21.3096 1.92266 20.6603 2.19154C20.0111 2.46043 19.4562 2.91584 19.0659 3.50014C18.6755 4.08444 18.4672 4.77139 18.4674 5.4741Z" fill="#80DEEA"/>

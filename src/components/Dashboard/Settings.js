@@ -394,7 +394,7 @@ const Settings = () => {
 
           {isPasswordUpdate && (
             <div className="password-update">
-              <button className='closed_popup_password' onClick={() => setIsPasswordUpdate(false)}><img loading="lazy" loading="lazy" src={close_btnImage} alt="protected" /></button>
+              <button className='closed_popup_password' onClick={() => setIsPasswordUpdate(false)}><img loading="lazy" src={close_btnImage} alt="protected" /></button>
               <h2>Reset Password</h2>
               <div className="form-group">
                 <label>Current Password</label>
@@ -440,7 +440,7 @@ const Settings = () => {
             <h1>Profile</h1>
             <div className="profile_details">
               <div className="profile_image">
-                <img loading="lazy" loading="lazy" src={`https://mykidz.online/profile_images/${user.profile_image}`} alt="Profile" />
+                <img loading="lazy" src={`https://mykidz.online/profile_images/${user.profile_image}`} alt="Profile" />
               </div>
               <div className='profile_details_right'>
                 <h2>Profile Picture</h2>
@@ -449,7 +449,7 @@ const Settings = () => {
                     <>
                     <div className='profile_item_group'>
                       <input className='file_choise_profile' type="file" onChange={handleImageChange} />
-                      <span><img loading="lazy" loading="lazy" src={Image_UploadImage}/> Upload Image</span>
+                      <span><img loading="lazy" src={Image_UploadImage}/> Upload Image</span>
                     </div>
                     </>
                   )}
@@ -715,7 +715,7 @@ const Settings = () => {
               {childd ? (
                 <></>
               ) : (
-                <button className='add_profile_Sr' onClick={ShowChildProfile}><img loading="lazy" loading="lazy" src={CirclePlu01Img} alt="protected" /> Add child profile</button>
+                <button className='add_profile_Sr' onClick={ShowChildProfile}><img loading="lazy" src={CirclePlu01Img} alt="protected" /> Add child profile</button>
               )}
             </div>
             <div className="notifications information_input_sr">

@@ -117,7 +117,7 @@ export default function Login() {
                                     <span className="text-danger">{errors.password[0]}</span>
                                 )}
                                 <button className="show_passw_btn" onClick={function () { toggleShowPassword(); changeImg() }}>
-                                    <img loading="lazy" loading="lazy" src={imgSrc} alt="meet-character-1" />
+                                    <img loading="lazy" src={imgSrc} alt="meet-character-1" />
                                 </button>
                                 <span className={error?'actveError':'deactiveError'}>Please enter correct Email or Password</span>
                             </div>
@@ -140,7 +140,7 @@ export default function Login() {
                             </div>
                             <div className="form-group login_btnsr mt-3">
                                 <button type="button" onClick={submitForm} className="btn btn-primary mt-4">{formStatus === 'loading' ? (
-    <img loading="lazy" loading="lazy" src={Load} alt="Loading..." />
+    <img loading="lazy" src={Load} alt="Loading..." />
 ):(<>LOGIN</>)}</button>
                             </div>
                             <div className="form-group mt-3 or_text">
@@ -151,10 +151,10 @@ export default function Login() {
                                     <GoogleAuthLogin onError={handleError}/>
                                 </GoogleOAuthProvider>
                                 <button type="button" className="login-with-facebook-btn" >
-                                    <img loading="lazy" loading="lazy" src={FBImage} alt="meet-character-1" /> Sign in with Facebook
+                                    <img loading="lazy" src={FBImage} alt="meet-character-1" /> Sign in with Facebook
                                 </button>
                                 <button type="button" className="login-with-apple-btn" >
-                                    <img loading="lazy" loading="lazy" src={AppleImage} alt="meet-character-1" /> Sign in with Apple
+                                    <img loading="lazy" src={AppleImage} alt="meet-character-1" /> Sign in with Apple
                                 </button>
                             </div>
                             <div className="form-group Signup_btn mt-3">

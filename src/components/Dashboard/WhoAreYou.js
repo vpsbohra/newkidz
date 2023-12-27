@@ -269,7 +269,7 @@ export default function Dashboard() {
                 {showPopup && (
                     <div className="code-popup">
                         {/* <h1>Welcome, {renderElement()}</h1> */}
-                        <img loading="lazy" loading="lazy" src={protectImg1} alt="protected" />
+                        <img loading="lazy" src={protectImg1} alt="protected" />
                         <p className='digit_code_prgp'>Enter a 4-digit code to access the parental dashboard</p>
                         <form onSubmit={handleSubmit}>
                             <input type="password" maxLength={4} className="form-control" placeholder="Enter Code" value={code} onChange={handleCodeEntry} />

@@ -259,7 +259,7 @@ const BillingAndSubscription = () => {
                     checked='checked'
                   />
                   <label className="form-check-label" htmlFor="flexRadioDefault2">Credit Card</label>
-                  <img loading="lazy" loading="lazy" src={Paymnet_typeImg} alt="protected" />
+                  <img loading="lazy" src={Paymnet_typeImg} alt="protected" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="card_number" className="card-number">Card Number</label>
@@ -287,7 +287,7 @@ const BillingAndSubscription = () => {
                 <div className="form-check paypal_payment">
                   <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                   <label className="form-check-label" htmlFor="flexRadioDefault1">
-                    <img loading="lazy" loading="lazy" src={PayPalLogoImg} alt="protected" />
+                    <img loading="lazy" src={PayPalLogoImg} alt="protected" />
                   </label>
                 </div>
                 <div className="card-footer">
@@ -302,7 +302,7 @@ const BillingAndSubscription = () => {
         {member && (
           <div class="billing-info-popup">
           <div className="password-update">
-            <button className='closed_popup_password' onClick={close}><img loading="lazy" loading="lazy" src={close_BTnImage} alt="protected" /></button>
+            <button className='closed_popup_password' onClick={close}><img loading="lazy" src={close_BTnImage} alt="protected" /></button>
             <div className="add-member">
               {addMemberSuccess ? (
                 <div className="success">
@@ -378,7 +378,7 @@ const BillingAndSubscription = () => {
         {showMember && selectedMember && (
           <div className="edit_member edit_member_srmain">
             <div className="edit_member_inner_SR">
-              <button className="close closed_popup_password" onClick={() => {setShowMember(false);setText(false)}} ><img loading="lazy" loading="lazy" src={close_BTnImage} alt="protected" /></button>
+              <button className="close closed_popup_password" onClick={() => {setShowMember(false);setText(false)}} ><img loading="lazy" src={close_BTnImage} alt="protected" /></button>
               <h2>{selectedMember.first_name} {selectedMember.last_name}</h2>
               <div className="form-group">
                 <label>First Name*</label>
@@ -389,7 +389,7 @@ const BillingAndSubscription = () => {
                   name="fname"
                   defaultValue={selectedMember.first_name}
                 />
-                <img loading="lazy" loading="lazy" src={Edit_typeImg} alt="protected" />
+                <img loading="lazy" src={Edit_typeImg} alt="protected" />
                 {errors && errors.first_name && (
                   <p className="error-message">{errors.first_name}</p>
                 )}
@@ -404,7 +404,7 @@ const BillingAndSubscription = () => {
                   name="lname"
                   defaultValue={selectedMember.last_name}
                 />
-                <img loading="lazy" loading="lazy" src={Edit_typeImg} alt="protected" />
+                <img loading="lazy" src={Edit_typeImg} alt="protected" />
                 {errors && errors.last_name && (
                   <p className="error-message">{errors.last_name}</p>
                 )}
@@ -420,7 +420,7 @@ const BillingAndSubscription = () => {
                   defaultValue={selectedMember.email}
                   onClick={()=>setText(true)}
                 />
-                <img loading="lazy" loading="lazy" src={Edit_typeImg} alt="protected" />
+                <img loading="lazy" src={Edit_typeImg} alt="protected" />
                 {text && (
                   <><p>*We'll send an email to your added member, allowing them to create their 4-digit password and complete their profile.</p></>
                 )}
@@ -438,7 +438,7 @@ const BillingAndSubscription = () => {
                   name="phone"
                   defaultValue={selectedMember.phone}
                 />
-                <img loading="lazy" loading="lazy" src={Edit_typeImg} alt="protected" />
+                <img loading="lazy" src={Edit_typeImg} alt="protected" />
                 {errors && errors.phone && (
                   <p className="error-message">{errors.phone}</p>
                 )}
@@ -530,7 +530,7 @@ const BillingAndSubscription = () => {
                       </div>
                       <div className="add-member">
                         {isMember && (
-                          <button className='' onClick={() => isMember(true)}><img loading="lazy" loading="lazy" src={CirclePlu01Img} alt="protected" /> Add a member</button>
+                          <button className='' onClick={() => isMember(true)}><img loading="lazy" src={CirclePlu01Img} alt="protected" /> Add a member</button>
                         )}
                       </div>
                     </>
