@@ -471,16 +471,16 @@ const [question,setQuestion]=useState(0);
     <>
       <div className='chosen-story-section all_activity_sr'>
 
-        <Link className="nav-link top_navbtnsr" to="/Kids-view"><img src={ParentalSwitch} alt='' /></Link>
+        <Link className="nav-link top_navbtnsr" to="/Kids-view"><img loading="lazy" loading="lazy" src={ParentalSwitch} alt='' /></Link>
         {showReplayButton && (
           <button className='replay_btn no-background' onClick={handleReplay}>
-            <img src={Replay} />
+            <img loading="lazy" loading="lazy" src={Replay} />
           </button>
         )}
 
 
         <button className='close-button Share_btn_sr' onClick={handleShare}>
-          <Link className="nav-link"><img src={Sharebtn} /> </Link>
+          <Link className="nav-link"><img loading="lazy" loading="lazy" src={Sharebtn} /> </Link>
         </button>
         {showSharePopup && (
           <SharePopup onClose={handleCloseSharePopup} />
@@ -493,7 +493,7 @@ const [question,setQuestion]=useState(0);
               <div className="chat_form_input_btncnrlRight">
                 {show && (
                   <button className='no-background' onClick={startRecording}>
-                    <img src={Record} alt="protected" />
+                    <img loading="lazy" loading="lazy" src={Record} alt="protected" />
                   </button>
                 )}
                 {recorder && (
@@ -501,7 +501,7 @@ const [question,setQuestion]=useState(0);
                     <div className='RecordedAnswer_recorder'>
                       <p className='timing_recoder'>{`0:${elapsedTime.toString().padStart(2, '0')}`}</p>
                       <button className='stop_reco_btn no-background' onClick={pauseRecording}>
-                        <img src={WaveSendAudioImage} alt="protected" />
+                        <img loading="lazy" loading="lazy" src={WaveSendAudioImage} alt="protected" />
                       </button>
                     </div>
                   </>
@@ -511,7 +511,7 @@ const [question,setQuestion]=useState(0);
                     <div className='RecordedAnswer_recorder'>
                       <p className='timing_recoder'>{`0:${elapsedTime.toString().padStart(2, '0')}`}</p>
                       <button className='stop_reco_btn no-background' onClick={startRecording}>
-                        <img src={WaveSendAudioImage1} alt="protected" />
+                        <img loading="lazy" loading="lazy" src={WaveSendAudioImage1} alt="protected" />
                       </button>
                       <button className='sendAudio_btn no-background' onClick={sendAudioMessage}>
                         Send Response
@@ -535,7 +535,7 @@ const [question,setQuestion]=useState(0);
                         </audio>
                       </div>
                       <button className='stop_reco_btn no-background' onClick={startRecording}>
-                        <img src={Record} alt="protected" />
+                        <img loading="lazy" loading="lazy" src={Record} alt="protected" />
                       </button>
                       <button className='next_question sendAudio_btn no-background' onClick={handleNextQuestion}>
                         Next

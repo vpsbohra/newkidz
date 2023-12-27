@@ -819,11 +819,11 @@ if(!childProfiles.length>0){
                         <>
                           {message ? (
                             <button onClick={submit}>
-                              <img src={sendImage} alt="protected" />
+                              <img loading="lazy" loading="lazy" src={sendImage} alt="protected" />
                             </button>
                           ) : (
                             <button onClick={startRecording}>
-                              <img src={SendAudioImage} alt="protected" />
+                              <img loading="lazy" loading="lazy" src={SendAudioImage} alt="protected" />
                             </button>
                           )}
                         </>
@@ -834,7 +834,7 @@ if(!childProfiles.length>0){
                             <>
                               <p className='timing_recoder'>{`0:${elapsedTime.toString().padStart(2, '0')}`}</p>
                               <button onClick={pauseRecording} >
-                                <img src={WaveSendAudioImage} alt="protected" />
+                                <img loading="lazy" loading="lazy" src={WaveSendAudioImage} alt="protected" />
                               </button>
                               <button className='sendAudio_btn' onClick={sendAudioMessage}>Send Response</button>
                             </>
@@ -847,7 +847,7 @@ if(!childProfiles.length>0){
                             <>
                               <p className='timing_recoder'>{`0:${elapsedTime.toString().padStart(2, '0')}`}</p>
                               <button onClick={startRecording}>
-                                <img src={SendAudioImage} alt="protected" />
+                                <img loading="lazy" loading="lazy" src={SendAudioImage} alt="protected" />
                               </button>
                               <button className='sendAudio_btn' onClick={sendAudioMessage}>Send Response</button>
                             </>
@@ -860,7 +860,7 @@ if(!childProfiles.length>0){
                             <audio controls className="custom-audio">
                               <source src={`data:audio/wav;base64,${sendAudio}`} type="audio/wav" />
                             </audio>
-                            <button className='stop_reco_btn no-background' onClick={startRecording}> <img src={Record} alt="protected" /></button>
+                            <button className='stop_reco_btn no-background' onClick={startRecording}> <img loading="lazy" loading="lazy" src={Record} alt="protected" /></button>
 
                           </div>
                         </>
@@ -884,11 +884,11 @@ if(!childProfiles.length>0){
                         <>
                           {message ? (
                             <button>
-                              <img src={sendImage} alt="protected" />
+                              <img loading="lazy" loading="lazy" src={sendImage} alt="protected" />
                             </button>
                           ) : (
                             <button >
-                              <img src={SendAudioImage} alt="protected" />
+                              <img loading="lazy" loading="lazy" src={SendAudioImage} alt="protected" />
                             </button>
                           )}
                         </>
@@ -899,7 +899,7 @@ if(!childProfiles.length>0){
                             <>
                               <p className='timing_recoder'>{`0:${elapsedTime.toString().padStart(2, '0')}`}</p>
                               <button  >
-                                <img src={WaveSendAudioImage} alt="protected" />
+                                <img loading="lazy" loading="lazy" src={WaveSendAudioImage} alt="protected" />
                               </button>
                             </>
                           )}
@@ -911,7 +911,7 @@ if(!childProfiles.length>0){
                             <>
                               {/* <p className='timing_recoder'>{`0:${elapsedTime.toString().padStart(2, '0')}`}</p> */}
                               <button >
-                                <img src={SendAudioImage} alt="protected" />
+                                <img loading="lazy" loading="lazy" src={SendAudioImage} alt="protected" />
                               </button>
                               <button className='sendAudio_btn' >Send Response</button>
                             </>
@@ -924,7 +924,7 @@ if(!childProfiles.length>0){
                             <audio controls className="custom-audio">
                               <source src={`data:audio/wav;base64,${sendAudio}`} type="audio/wav" />
                             </audio>
-                            <button className='stop_reco_btn no-background' > <img src={Record} alt="protected" /></button>
+                            <button className='stop_reco_btn no-background' > <img loading="lazy" loading="lazy" src={Record} alt="protected" /></button>
 
                           </div>
                         </>

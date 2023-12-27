@@ -65,14 +65,14 @@ function Support() {
       <Modal show={showModal} onHide={() => setShowModal(false)}>
       <Modal.Body>
       <h4>Your message has been received!</h4>
-        <img  src={mailcheck} />
+        <img loading="lazy" loading="lazy"  src={mailcheck} />
         <p>Thank you for contacting us! You'll receive an email confirmation shortly. Our team is on it, and we'll get back to you soon. If you have any further questions or updates, please feel free to reply to the confirmation email. Thank you for reaching out!</p>
       </Modal.Body>
     </Modal>
     )}
       <h1 className='page_title_sr'>Help Center</h1>
         <div className="support_input_form">
-        <img src={search_keywordIMG} alt="logo" />
+        <img loading="lazy" loading="lazy" src={search_keywordIMG} alt="logo" />
           <input type="search" className="search" placeholder='Search for help using a keyword' />
           </div>
         <ul className="question-list">
@@ -83,7 +83,7 @@ function Support() {
               className="question"
             >
               {q.question}
-              <span><img src={circle_chevIMG} alt="logo" /></span>
+              <span><img loading="lazy" loading="lazy" src={circle_chevIMG} alt="logo" /></span>
             </li>
           ))}
         </ul>
@@ -99,7 +99,7 @@ function Support() {
         <div className="question-content">
           <div className="question-content_left">
             <button className="back-button" onClick={handleBackClick}>
-              <img src={circle_chev_BACKIMG} alt="logo" />
+              <img loading="lazy" loading="lazy" src={circle_chev_BACKIMG} alt="logo" />
             </button>
           </div> 
           <div className="question-content_right">

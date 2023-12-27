@@ -75,7 +75,7 @@ export default function CreateChildProfile() {
             </>
           ))}
           <div className="form-groupadd_child_sr mt-3">
-             <span className="plus" onClick={addChildProfile}><img src={CirclePluImg} alt="protected" /> Add Child Profile</span>
+             <span className="plus" onClick={addChildProfile}><img loading="lazy" loading="lazy" src={CirclePluImg} alt="protected" /> Add Child Profile</span>
           </div>
           <Link className="confirm"  onClick={handleSubmit} to="/parent-dashboard">Confirm</Link>
         </div>

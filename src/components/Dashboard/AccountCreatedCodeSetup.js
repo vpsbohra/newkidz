@@ -53,7 +53,7 @@ export default function AccountCreatedCodeSetup() {
             </div>
             <div className="row">
               <div className="account_created_formsr">
-                <img src={protectImg} alt="protected" />
+                <img loading="lazy" loading="lazy" src={protectImg} alt="protected" />
                 <p>Create a 4-digit code to access the parental dashboard</p>
                 <input
                   type="password"

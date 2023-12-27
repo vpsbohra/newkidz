@@ -605,7 +605,7 @@ const Chat = ({ dataId, userId }) => {
                                 <>
                                   {message.voice_answer == "NULL" ? (
                                     // Display base64 image here
-                                    <img src={`data:image/png;base64,${message.image}`} alt="Attached" />
+                                    <img loading="lazy" loading="lazy" src={`data:image/png;base64,${message.image}`} alt="Attached" />
                                   ) : (
                                     <>
                                       <p>{message.question_voice_answer}</p>
@@ -705,7 +705,7 @@ const Chat = ({ dataId, userId }) => {
                                         {console.log("Base64 Data:", message.attached_file)}
 
                                         {message.attached_file_type === "jpg" || message.attached_file_type === "png" || message.attached_file_type === "gif" ? (
-                                          <img
+                                          <img loading="lazy" loading="lazy"
                                             src={`data:image/${message.attached_file_type};base64,${message.attached_file}`}
                                             alt="Attached"
                                             style={{ maxWidth: '100%', maxHeight: '200px' }}
@@ -813,7 +813,7 @@ const Chat = ({ dataId, userId }) => {
             <div className="chat_form_input_btncnrlLeft" >
               <div style={{ position: 'relative' }}>
                 <button className="confirm">
-                  <img src={PaperClipImage} alt="protected" />
+                  <img loading="lazy" loading="lazy" src={PaperClipImage} alt="protected" />
                 </button>
                 <input
                   className='file_choise_profile'
@@ -831,7 +831,7 @@ const Chat = ({ dataId, userId }) => {
                 />
 
               </div>
-              <div><img
+              <div><img loading="lazy" loading="lazy"
                 className="emoji-icon"
                 src={EmojiImage}
                 onClick={() => setShowPicker(val => !val)} />
@@ -845,14 +845,14 @@ const Chat = ({ dataId, userId }) => {
             </div>
             <div className="chat_form_input_btncnrlRight chat_form_input_btncnrlRight-parrent">
               <button onClick={submit}>
-                <img src={sendImage} alt="protected" />
+                <img loading="lazy" loading="lazy" src={sendImage} alt="protected" />
               </button>
               <button onClick={startRecording}>
-                <img src={SendAudioImage} alt="protected" />
+                <img loading="lazy" loading="lazy" src={SendAudioImage} alt="protected" />
               </button>
               {recorder && (
                 <>
-                  <img src={WaveSendAudioImage} alt="protected" />
+                  <img loading="lazy" loading="lazy" src={WaveSendAudioImage} alt="protected" />
                   <button className='stop_reco_btn' onClick={stopRecording}>{`0:${elapsedTime.toString().padStart(2, '0')}`} Stop</button>
                 </>
 

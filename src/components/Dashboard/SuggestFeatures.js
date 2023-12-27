@@ -77,37 +77,37 @@ const SuggestFeatures = ({ handleLiClick }) => {
                             onClick={() => handleEmoteClick(0)}
                             className={activeEmoteIndex === 0 ? 'activeemote' : ''}
                         >
-                            <img className='normal_review' src={AngryImg} alt="protected" />
-                            <img className='active_review' src={Angry_activeImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='normal_review' src={AngryImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='active_review' src={Angry_activeImg} alt="protected" />
                             
                         </Link>
                         <Link
                             onClick={() => handleEmoteClick(1)}
                             className={activeEmoteIndex === 1 ? 'activeemote' : ''}
                         >
-                            <img className='normal_review' src={ConfusedImg} alt="protected" />
-                            <img className='active_review' src={Confused_activeImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='normal_review' src={ConfusedImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='active_review' src={Confused_activeImg} alt="protected" />
                         </Link>
                         <Link
                             onClick={() => handleEmoteClick(2)}
                             className={activeEmoteIndex === 2 ? 'activeemote' : ''}
                         >
-                            <img className='normal_review' src={NeutralImg} alt="protected" />
-                            <img className='active_review' src={Neutral_activeImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='normal_review' src={NeutralImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='active_review' src={Neutral_activeImg} alt="protected" />
                         </Link>
                         <Link
                             onClick={() => handleEmoteClick(3)}
                             className={activeEmoteIndex === 3 ? 'activeemote' : ''}
                         >
-                            <img className='normal_review' src={HappyImg} alt="protected" />
-                            <img className='active_review' src={Happy_activeImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='normal_review' src={HappyImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='active_review' src={Happy_activeImg} alt="protected" />
                         </Link>
                         <Link
                             onClick={() => handleEmoteClick(4)}
                             className={activeEmoteIndex === 4 ? 'activeemote' : ''}
                         >
-                            <img className='normal_review' src={LoveItImg} alt="protected" />
-                            <img className='active_review' src={LoveIt_activeImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='normal_review' src={LoveItImg} alt="protected" />
+                            <img loading="lazy" loading="lazy" className='active_review' src={LoveIt_activeImg} alt="protected" />
                         </Link>
                     </div>
                     <p>Your feedback matters! Share your thoughts to enhance your experience. Need urgent assistance? Click    <Link

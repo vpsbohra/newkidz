@@ -180,10 +180,15 @@ const Settings = () => {
       const { name, ...userData } = response.data;
       const [fname, lname] = name.split(' ');
       console.log(response.data);
-      const user_detail = JSON.stringify(response.data);
+      
       setUserData({ fname, lname, ...userData });
+      const userSpouse = JSON.parse(sessionStorage.getItem('userSpouse'));
+      response.data.spouse = userSpouse;
+      // console.log('12312312311111111111' , response.data);
+      const user_detail = JSON.stringify(response.data);
+      // console.log('123123123' , user_detail);
       if (user_detail) {
-        sessionStorage.setItem("user", user_detail);
+         sessionStorage.setItem("user", user_detail);
       }
 
 
@@ -389,7 +394,7 @@ const Settings = () => {
 
           {isPasswordUpdate && (
             <div className="password-update">
-              <button className='closed_popup_password' onClick={() => setIsPasswordUpdate(false)}><img src={close_btnImage} alt="protected" /></button>
+              <button className='closed_popup_password' onClick={() => setIsPasswordUpdate(false)}><img loading="lazy" loading="lazy" src={close_btnImage} alt="protected" /></button>
               <h2>Reset Password</h2>
               <div className="form-group">
                 <label>Current Password</label>
@@ -435,7 +440,7 @@ const Settings = () => {
             <h1>Profile</h1>
             <div className="profile_details">
               <div className="profile_image">
-                <img src={`https://mykidz.online/profile_images/${user.profile_image}`} alt="Profile" />
+                <img loading="lazy" loading="lazy" src={`https://mykidz.online/profile_images/${user.profile_image}`} alt="Profile" />
               </div>
               <div className='profile_details_right'>
                 <h2>Profile Picture</h2>
@@ -444,7 +449,7 @@ const Settings = () => {
                     <>
                     <div className='profile_item_group'>
                       <input className='file_choise_profile' type="file" onChange={handleImageChange} />
-                      <span><img src={Image_UploadImage}/> Upload Image</span>
+                      <span><img loading="lazy" loading="lazy" src={Image_UploadImage}/> Upload Image</span>
                     </div>
                     </>
                   )}
@@ -710,7 +715,7 @@ const Settings = () => {
               {childd ? (
                 <></>
               ) : (
-                <button className='add_profile_Sr' onClick={ShowChildProfile}><img src={CirclePlu01Img} alt="protected" /> Add child profile</button>
+                <button className='add_profile_Sr' onClick={ShowChildProfile}><img loading="lazy" loading="lazy" src={CirclePlu01Img} alt="protected" /> Add child profile</button>
               )}
             </div>
             <div className="notifications information_input_sr">

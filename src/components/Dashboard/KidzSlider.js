@@ -214,7 +214,7 @@ const KidzSlider = () => {
                 <div className='ongoin-story-section'>
                   <div className='online-story-container'>
                     <div className='story-image-section'>
-                      <img src={story.image_path} alt={`Story ${story.id}`} />
+                      <img loading="lazy" loading="lazy" src={story.image_path} alt={`Story ${story.id}`} />
                     </div>
                     <div className='story-content-section'>
                       <h2 className='story-title'>{story.title}</h2>
@@ -246,7 +246,7 @@ const KidzSlider = () => {
               >
                 <div className='slide_mainsr_img'>
                   <div className='slide_mainsr_img_inn'>
-                    <img
+                    <img loading="lazy" loading="lazy"
                       src={story.image_path}
                       onClick={() => openModal(story)}
                       alt={`Story ${index + 1}`}
