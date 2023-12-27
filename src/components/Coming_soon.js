@@ -60,14 +60,14 @@ const Coming_soon = ({ onDoorClick }) => {
         <div className="container">
             <div className="coming_soon_inner_page">
                 <div className="coming_soon_left-img">
-                    <img loading="lazy" loading="lazy" className="comsoon_img_one" src={Giovannirbg} />
-                    <img loading="lazy" loading="lazy" className="comsoon_img_two" src={Stanyrbg} />
-                    <img loading="lazy" loading="lazy" className="comsoon_img_three" src={Stephyrbg} />
+                    <img loading="lazy" className="comsoon_img_one" src={Giovannirbg} />
+                    <img loading="lazy" className="comsoon_img_two" src={Stanyrbg} />
+                    <img loading="lazy" className="comsoon_img_three" src={Stephyrbg} />
                 </div>
 
                 <div className="coming_soon_content">
                     <div className="comingsoon_logo">
-                        <img loading="lazy" loading="lazy" src={Logologo} />
+                        <img loading="lazy" src={Logologo} />
                     </div>
                     <div className="coming_soon_content_custom">
                         <h3>Sit tight, stay warm, we're coming soon</h3>
@@ -84,7 +84,7 @@ const Coming_soon = ({ onDoorClick }) => {
                     </form>
 
                     <div className="coming_soon_enter_button">
-                        <button onClick={onDoorClick}><img loading="lazy" loading="lazy" src={Door} /></button>
+                        <button onClick={onDoorClick}><img loading="lazy" src={Door} /></button>
                     </div>
                 </div>
             </div>

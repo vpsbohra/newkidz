@@ -305,17 +305,17 @@ export default function KidzDashboard() {
             <div className="Main_Gaming_Sec">
               <div className="gaming-section games_item">
                 <div className='games_section'>
-                  <div className='games_section_item'><img loading="lazy" loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
+                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
+                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
+                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
+                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
                 </div>
                 <button className='all_games'><span className='all_games_span'>BROWSE ALL GAMES </span></button>
               </div>
 
               <div className="gaming-section colouring_item">
                 <Link to="/allcharacters">
-                  <img loading="lazy" loading="lazy" src={Gaming2} />
+                  <img loading="lazy" src={Gaming2} />
                   {/* <h3 className='colouring_ttl'>Characters</h3> */}
                 </Link>
               </div>
@@ -328,7 +328,7 @@ export default function KidzDashboard() {
           <div className='gaming-section_outer'>
             <div className="main-content">
               <div className='gaming-section_title'>
-                <img loading="lazy" loading="lazy" src={Brother} /><span>STORIES READ</span>
+                <img loading="lazy" src={Brother} /><span>STORIES READ</span>
               </div>
               <div className='slider_mainsr kids_stories_slider'>
                 <Slider {...settings}>
@@ -341,7 +341,7 @@ export default function KidzDashboard() {
                         onMouseEnter={() => handleHover(index)}
                         onMouseLeave={handleHoverExit}
                       >
-                        <img loading="lazy" loading="lazy"
+                        <img loading="lazy"
                           src={story.cover_image}
                           onClick={() => openModal(story)}
                           alt={`Story ${index + 1}`}
@@ -360,7 +360,7 @@ export default function KidzDashboard() {
                   {selectedStory && (
                     <div className='Story_Day_outer'>
                       <div className='Story_Day_outer_left'>
-                        <img loading="lazy" loading="lazy" src={selectedStory.cover_image} alt='Story' />
+                        <img loading="lazy" src={selectedStory.cover_image} alt='Story' />
                       </div>
                       <div className='Story_Day_outer_right'>
                         <h2>{selectedStory.title}</h2>
@@ -375,7 +375,7 @@ export default function KidzDashboard() {
                         </Link>
                       </div>
                       <button className='Previous_Button' onClick={closeModal}>
-                        <img loading="lazy" loading="lazy" src={Previous_ButtonImg} alt="protected" />
+                        <img loading="lazy" src={Previous_ButtonImg} alt="protected" />
                       </button>
                     </div>
                   )}

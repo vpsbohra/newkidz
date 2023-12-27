@@ -86,26 +86,26 @@ const[totalscore,setTotalscore]=useState();
         <div className='all_activity_sr_inner'>
           <div className='all_activity_navSR'>
             <div className='left_activity_btns' >
-              <Link className="nav-link" to="/Kids-view"><img loading="lazy" loading="lazy" src={ParentalSwitch} alt='' /></Link>
+              <Link className="nav-link" to="/Kids-view"><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
             </div>
             <div className='right_activity_btns' >
-              <a class="nav-link toggle-profile" href=""> <span><img loading="lazy" loading="lazy" src={Vector} /></span>3,500</a>
-              <span><img loading="lazy" loading="lazy" src={sun_effect_IMG} alt='' /></span>
+              <a class="nav-link toggle-profile" href=""> <span><img loading="lazy" src={Vector} /></span>3,500</a>
+              <span><img loading="lazy" src={sun_effect_IMG} alt='' /></span>
             </div>
           </div>
           <div className='feedback-container-story' >
             <div className='popup'>
               <div className='popup-content'>
-                <img loading="lazy" loading="lazy" src={Star_Icon} />
+                <img loading="lazy" src={Star_Icon} />
                 <h3>Woohoo!</h3>
                 <p>You’ve Successfully Completed All Activities</p>
                 <button className='close-button'>
-                  <Link className="nav-link" to=""><img loading="lazy" loading="lazy" src={Vector} /> {s} POINTS EARNED</Link>
+                  <Link className="nav-link" to=""><img loading="lazy" src={Vector} /> {s} POINTS EARNED</Link>
                 </button>
               </div> 
             </div>
             <button className='close-button Share_btn_sr' onClick={handleShare}>
-              <Link className="nav-link">Share<img loading="lazy" loading="lazy" src={Share} /> </Link>
+              <Link className="nav-link">Share<img loading="lazy" src={Share} /> </Link>
             </button>
             {showSharePopup && (
               <SharePopup onClose={handleCloseSharePopup} />

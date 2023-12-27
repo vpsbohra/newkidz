@@ -190,7 +190,7 @@ export default function Faq() {
 							<div className="faq_page_head">
 								<h1>How Can We Help</h1>
 								<div className="faq_page_head_form">
-									<img loading="lazy" loading="lazy" src={search_keywordIMG} alt="logo" />
+									<img loading="lazy" src={search_keywordIMG} alt="logo" />
 									<input className="form-control mr-sm-2" type="search" placeholder="Search keyword" aria-label="Search" />
 								</div>
 							</div>
@@ -276,7 +276,7 @@ export default function Faq() {
 						<div className="question-content">
 							<div className="question-content_left">
 								<button className="back-button" onClick={handleBackClick}>
-									<img loading="lazy" loading="lazy" src={circle_chev_BACKIMG} alt="logo" />
+									<img loading="lazy" src={circle_chev_BACKIMG} alt="logo" />
 								</button>
 
 							

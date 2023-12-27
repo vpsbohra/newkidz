@@ -14,7 +14,7 @@ function Accordion({ title, content }) {
     <div className="accordion">
       <div className="accordion-header" onClick={toggleAccordion}>
         <h3>{title}</h3>
-        <img loading="lazy" loading="lazy" src={Circle_Chev_Downa}/>
+        <img loading="lazy" src={Circle_Chev_Downa}/>
         {/* <span className={isExpanded ? 'icon expanded' : 'icon'}>
           {isExpanded ? <FontAwesomeIcon icon={faCircleChevronDown} /> : <FontAwesomeIcon icon={faCircleChevronDown} />}
         </span> */}

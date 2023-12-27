@@ -10,11 +10,11 @@ const KidzStory = () => {
   return (
     <div className='ongoin-story-section'>
       <KidsNav />
-      <img loading="lazy" loading="lazy" src={Slide1} />
+      <img loading="lazy" src={Slide1} />
         <div className='online-story-container'>
         <div className='container storysection'>
             <div className='story-image-section'>
-            <img loading="lazy" loading="lazy" src={Slide4} />
+            <img loading="lazy" src={Slide4} />
             </div>
             <div>
                 <h2 className='story-title'>Course Interdite a Connectville</h2>

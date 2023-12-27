@@ -312,7 +312,7 @@ if(readedstory){
   };
   return (
     <div className='chosen-story-section openbook_page_kidz'>
-      <Link className="nav-link" onClick={update}><img loading="lazy" loading="lazy" src={ParentalSwitch} alt='' /></Link>
+      <Link className="nav-link" onClick={update}><img loading="lazy"  src={ParentalSwitch} alt='' /></Link>
       <div className="top-nav">
         <KidzBottomNav />
       </div>
@@ -321,14 +321,14 @@ if(readedstory){
           {story.id == StoryId &&
             <div className='openbook_section_sr'>
               <div className='openbook_section_left'>
-                <img loading="lazy" loading="lazy" src={currentImage} alt='' onClick={openModal} />
+                <img loading="lazy"  src={currentImage} alt='' onClick={openModal} />
               </div>
               <div className='openbook_section_right'>
                 {rep ? (<><button className='Play_Storys_sr' onClick={() => { play(); setRep(false) }} >
-                  <img loading="lazy" loading="lazy" src={Replay} /></button> </>)
+                  <img loading="lazy"  src={Replay} /></button> </>)
                   :
                   (<><button className='Play_Storys_sr' onClick={x ? play : pause} >
-                    <img loading="lazy" loading="lazy" src={x ? Play_Story_Button : Pause_Story_Button} />
+                    <img loading="lazy"  src={x ? Play_Story_Button : Pause_Story_Button} />
                   </button></>)}
                 <div className='openbook_section_right_inner'>
                   {story.description.split("*").slice(currentPage * paragraphsPerPage, (currentPage + 1) * paragraphsPerPage).map((paragraph, pIndex) => (
@@ -339,8 +339,8 @@ if(readedstory){
                 </div>
               </div>
               <div className="pagination">
-                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" loading="lazy" src={PNLeft_arrow} alt='' /></button>
-                <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" loading="lazy" src={PNRight_arrow} alt='' /></button>
+                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy"  src={PNLeft_arrow} alt='' /></button>
+                <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy"  src={PNRight_arrow} alt='' /></button>
               </div>
             </div>
           }
@@ -354,7 +354,7 @@ if(readedstory){
               <path d="M26.3915 29.3632C27.7645 30.8073 29.9308 28.5609 28.5578 27.0848L23.1574 21.4048L28.5578 15.7249C29.9308 14.2808 27.795 12.0024 26.3915 13.4785L20.9911 19.1585L15.5907 13.4785C14.2178 12.0024 12.0515 14.2808 13.455 15.7249C15.2551 17.6182 17.0247 19.5115 18.8554 21.4048L13.455 27.0848C12.0515 28.5289 14.2178 30.8073 15.5907 29.3632L20.9911 23.6832L26.3915 29.3632Z" fill="white" />
             </svg></span>
                 <div className="inagepopupdiv_modal_IMG">
-                    <img loading="lazy" loading="lazy" src={currentImage} alt='' />
+                    <img loading="lazy" src={currentImage} alt='' />
                 </div>
                   </div>
                 </div>

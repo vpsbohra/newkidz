@@ -314,16 +314,16 @@ if(childdata){
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/Kids-view" onClick={handleHome}><img loading="lazy" loading="lazy" src={HomeIcon} alt='' /></Link>
+                <Link className="nav-link" to="/Kids-view" onClick={handleHome}><img loading="lazy" src={HomeIcon} alt='' /></Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={rem < 1 ? "" : "/RecordedAnswer"}><img loading="lazy" loading="lazy" src={ActivitiesIcon} alt='' /><span>{rem < 5 ? rem : 0}</span></Link>
+                <Link className="nav-link" to={rem < 1 ? "" : "/RecordedAnswer"}><img loading="lazy" src={ActivitiesIcon} alt='' /><span>{rem < 5 ? rem : 0}</span></Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/Kids-messages" onClick={handleMessages} ><img loading="lazy" loading="lazy" src={MessagesIcon} alt='' />{num > 0 ? (<span> {num} </span>) : (<></>)}</Link>
+                <Link className="nav-link" to="/Kids-messages" onClick={handleMessages} ><img loading="lazy" src={MessagesIcon} alt='' />{num > 0 ? (<span> {num} </span>) : (<></>)}</Link>
               </li>
               {toggle ? (<li className="nav-item active">
-                <Link className="nav-link" id="parental_switch" onClick={handleParentalSwitch}><img loading="lazy" loading="lazy" src={ParentalSwitch} alt='' /></Link>
+                <Link className="nav-link" id="parental_switch" onClick={handleParentalSwitch}><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
               </li>) : (<>
                 <Link className="nav-link" onClick={handleLogout} ><svg width="76" height="76" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.6413 2.45605H5.55794C3.70211 2.45605 2.19336 3.9648 2.19336 5.82064C2.19336 6.11105 2.43419 6.35189 2.72461 6.35189C3.01503 6.35189 3.25586 6.11105 3.25586 5.82064C3.25586 4.55272 4.29003 3.51855 5.55794 3.51855H12.6413C13.9092 3.51855 14.9434 4.55272 14.9434 5.82064V12.904C14.9434 14.1719 13.9092 15.2061 12.6413 15.2061H5.55794C4.29003 15.2061 3.25586 14.1719 3.25586 12.904C3.25586 12.6136 3.01503 12.3727 2.72461 12.3727C2.43419 12.3727 2.19336 12.6136 2.19336 12.904C2.19336 14.7598 3.70211 16.2686 5.55794 16.2686H12.6413C14.4971 16.2686 16.0059 14.7598 16.0059 12.904V5.82064C16.0059 3.9648 14.4971 2.45605 12.6413 2.45605Z" fill="#00897B" />
@@ -335,7 +335,7 @@ if(childdata){
           </div>
           <div className="right-icons">
             <a className="nav-link points" disabled>
-              <img loading="lazy" loading="lazy" src={MoneyBagImage} alt="protected" /> 107 Points
+              <img loading="lazy" src={MoneyBagImage} alt="protected" /> 107 Points
             </a>
             <a className="nav-link toggle-profile" disabled>
               {cname}
@@ -346,7 +346,7 @@ if(childdata){
       {showPopup && (
         <div className="code-popup">
           {/* <h1>Welcome, {renderElement()}</h1> */}
-          <img loading="lazy" loading="lazy" src={protectImg1} alt="protected" />
+          <img loading="lazy" src={protectImg1} alt="protected" />
           <p>Enter a 4-digit code to access the parental dashboard</p>
           <form onSubmit={handleSubmit}>
             <input type="password" maxLength={4} className="form-control" placeholder="Enter Code" value={code} onChange={handleCodeEntry} />

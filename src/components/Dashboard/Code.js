@@ -193,7 +193,7 @@ const AudioPlayer = () => {
   };
   return (
     <div className='chosen-story-section openbook_page_kidz'>
-      <Link className="nav-link" to="/kids-view"><img loading="lazy" loading="lazy" src={ParentalSwitch} alt='' /></Link>
+      <Link className="nav-link" to="/kids-view"><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
       <div className="top-nav">
         <KidzBottomNav />
       </div>
@@ -202,10 +202,10 @@ const AudioPlayer = () => {
           {story.id == StoryId &&
             <div className='openbook_section_sr'>
               <div className='openbook_section_left'>
-                <img loading="lazy" loading="lazy" src={currentImage} alt='' />
+                <img loading="lazy" src={currentImage} alt='' />
               </div>
               <div className='openbook_section_right'>
-              <button className='Play_Storys_sr' onClick={x ? play : pause} ><img loading="lazy" loading="lazy" src={x ? Play_Story_Button : btn} /></button>
+              <button className='Play_Storys_sr' onClick={x ? play : pause} ><img loading="lazy" src={x ? Play_Story_Button : btn} /></button>
 
                 <div className='openbook_section_right_inner'>
                   {story.audio_text.split("*").slice(currentPage * paragraphsPerPage, (currentPage + 1) * paragraphsPerPage).map((paragraph, pIndex) => (
@@ -216,8 +216,8 @@ const AudioPlayer = () => {
                 </div>
               </div>
                <div className="pagination">
-                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" loading="lazy" src={PNLeft_arrow} alt='' /></button>
-                <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" loading="lazy" src={PNRight_arrow} alt='' /></button>
+                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
+                <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" src={PNRight_arrow} alt='' /></button>
               </div> 
             </div>
           }

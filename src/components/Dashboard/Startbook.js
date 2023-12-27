@@ -11,16 +11,16 @@ const ChosenStory = () => {
     <>
     <div className='chosen-story-section'>
      <div className='start_book_topLeft'>
-     <Link className="nav-link" to="/kids-view"  ><img loading="lazy" loading="lazy" src={ParentalSwitch} alt=''/></Link>
+     <Link className="nav-link" to="/kids-view"  ><img loading="lazy" src={ParentalSwitch} alt=''/></Link>
       </div> 
       <div className='main-container-story' >
         <div className='story-display-section'>
-          <img loading="lazy" loading="lazy" className='book_cover_imgsr' src={BookCoverImg} alt=''/>
+          <img loading="lazy" className='book_cover_imgsr' src={BookCoverImg} alt=''/>
           <div className='startbook_content'>
               <h2>Stany and the Secret Stomachache</h2>
           </div>
           <div className='startbook_content_btn'>
-          <button className='Update_pass_btn'><img loading="lazy" loading="lazy" className='' src={Next_Button_bookImg} alt=''/></button>
+          <button className='Update_pass_btn'><img loading="lazy" className='' src={Next_Button_bookImg} alt=''/></button>
           </div>
         </div>
       </div>

@@ -483,7 +483,7 @@ console.log("Number(userId)",Number(userId))} else {
             </div>
             {shownonotifications ? (
               <div className='notification_item_sr'>
-                <img loading="lazy" loading="lazy" src={silent} />
+                <img loading="lazy" src={silent} />
                 <span>There are no new notifications</span>
               </div>) : (
               <>
@@ -496,7 +496,7 @@ console.log("Number(userId)",Number(userId))} else {
 
                         <div className='inner-container_notification'>
                           <div className='inner_notification_left'>
-                            <img loading="lazy" loading="lazy" src={NotificationVector} />
+                            <img loading="lazy" src={NotificationVector} />
                           </div>
                           <div className='inner_notification_right'>
                             <p><span style={{ color: '#26a69a' }}> {story.child_name}</span> would like to share something with <span style={{ color: '#8A6CB1' }}>{story.name} ({story.number})</span></p>
@@ -537,7 +537,7 @@ console.log("Number(userId)",Number(userId))} else {
             {/* <button onClick={() => isMember(true)} className='notification-Member'>Add as a Family Member</button> */}
             {member && (
               <div className="password-update Add_Member_popup">
-                <button className='closed_popup_password' onClick={close}><img loading="lazy" loading="lazy" src={close_btnImage} alt="protected" /></button>
+                <button className='closed_popup_password' onClick={close}><img loading="lazy" src={close_btnImage} alt="protected" /></button>
                 <div className="add-member">
                   {addMemberSuccess ? (
                     <div className="success">
@@ -629,7 +629,7 @@ console.log("Number(userId)",Number(userId))} else {
                     {story.id == currentyReading && (
                       <>
                         <div className='inner-container-left'>
-                          <img loading="lazy" loading="lazy" src={story.image_path} alt='Story' width={137} height={137} />
+                          <img loading="lazy" src={story.image_path} alt='Story' width={137} height={137} />
                         </div>
                         <div className='inner-container-right'>
                           <h4>{story.title}</h4>

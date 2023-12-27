@@ -274,7 +274,7 @@ export default function All_characters() {
                                             to={`/selectedcharacter?imagetoken=${character.imagetoken}&charname=${character.name}&description=${encodeURIComponent(character.description)}&sliderImages=${character.sliderImages.join(",")}`}
                                         >
                                             <div className="kidz_profile_popupsr_content">
-                                                <img loading="lazy" loading="lazy" src={character.image} alt="Selected Image" className="modal-image" />
+                                                <img loading="lazy" src={character.image} alt="Selected Image" className="modal-image" />
                                                 <h3>{character.name}</h3>
                                             </div>
                                         </Link>
