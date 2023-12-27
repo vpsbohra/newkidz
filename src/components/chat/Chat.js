@@ -790,7 +790,7 @@ const Chat = ({ dataId, userId }) => {
                     </>
                   )}
                 </>
-              ))}</>):(<div className='no-chat'> <p>No chats</p></div>)}
+              ))}</>):(<div className='no-chat'> <p> No chats </p></div>)}
               
               </>):(<div className='no-chat'>    <img src={Load} alt="Loading..." /></div>
               )}
