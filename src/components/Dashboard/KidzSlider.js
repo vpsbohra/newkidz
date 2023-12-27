@@ -207,7 +207,7 @@ const KidzSlider = () => {
                       <Link style={{ textDecoration: 'none' }} to={`/openbook`}
                       >
                         <button className='story-play-button' >
-                          Resume Story
+                          Resume Story 
                         </button>
                       </Link>
                     </div>
