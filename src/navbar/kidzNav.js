@@ -14,7 +14,7 @@ function KidsNav() {
 
   const { token } = AuthUser();
 
-  const [rem, setRem] = useState();
+  const [rem, setRem] = useState(5-localStorage.getItem('question') == 5? 0 :5-localStorage.getItem('question'));
   const [questions, setQuestions] = useState([]);
   const { http, setToken } = AuthUser();
 
@@ -32,21 +32,15 @@ function KidsNav() {
   const [childProfiles, setChildProfiles] = useState([]);
 
   useEffect(() => {
-    console.log("HELLLLLLLLLLLLLLLOOOOOOO")
     fetchQuestions();
     fetchChildData();
   }, []);
 
   const fetchQuestions = async () => {
-    try {
-      const response = await axios.get('https://mykidz.online/api/stories', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+    const question = JSON.parse(localStorage.getItem('stories'));
+    if (question) {
       const storyId = sessionStorage.getItem('childStory');
-      const selectedStory = response.data.find(story => story.id === parseInt(storyId, 10));
+      const selectedStory = question.find(story => story.id === parseInt(storyId, 10));
       console.log("Story data", selectedStory);
 
       if (selectedStory) {
@@ -55,9 +49,31 @@ function KidsNav() {
         setQuestions(questionArray);
 
       }
-    } catch (error) {
-      console.error('Error fetching questions:', error);
+    } else {
+      try {
+        const response = await axios.get('https://mykidz.online/api/stories', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        localStorage.setItem("stories", JSON.stringify(response.data));
+
+  
+        const storyId = sessionStorage.getItem('childStory');
+        const selectedStory = response.data.find(story => story.id === parseInt(storyId, 10));
+        console.log("Story data", selectedStory);
+  
+        if (selectedStory) {
+          const mcqData = selectedStory.story_mcq;
+          const questionArray = mcqData.split('-');
+          setQuestions(questionArray);
+  
+        }
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
     }
+    
   };
 
 
@@ -83,19 +99,27 @@ function KidsNav() {
     setTotalUnreadMessages(totalCounts);
   };
   const fetchAllMessages = async () => {
-    try {
-      const response = await http.get('https://mykidz.online/api/all-messages');
-      const allMessagesFromApi = response.data;
-
-      const filteredMessages = allMessagesFromApi.filter(message => message.receiverId === childId);
-
+    const allmessages = JSON.parse(localStorage.getItem('allmessages'));
+    if(!allmessages){
+      try {
+        const response = await http.get('https://mykidz.online/api/all-messages');
+        const allMessagesFromApi = response.data;
+  
+        const filteredMessages = allMessagesFromApi.filter(message => message.receiverId === childId);
+  
+        console.log('Filtered messages:', filteredMessages);
+        setAllMessages(filteredMessages);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    }
+    else{
+      const filteredMessages = allmessages.filter(message => message.receiverId === childId);
+  
       console.log('Filtered messages:', filteredMessages);
       setAllMessages(filteredMessages);
-
-
-    } catch (error) {
-      console.error('Error fetching messages:', error);
     }
+    
   };
   useEffect(() => {
     fetchTotalUnreadMessages();
@@ -197,56 +221,80 @@ function KidsNav() {
     };
   }, [showPopup]);
 
+  const fetchChildDetail = async () => {
+    try {
+      console.log('Fetching user detail');
+      let childdata = JSON.parse(localStorage.getItem('childdata'));
 
-
-
-  const fetchChildDetail = () => {
-    console.log('Fetching user detail');
-
-
-    http.get(`/child-profiles?user_id=${userId}`).then((res) => {
-      setChildProfiles(res.data);
-
-    });
+      if (!childdata) {
+        const response = await http.get(`/child-profiles?user_id=${userId}`);
+        childdata = response.data;
+        localStorage.setItem('childdata', JSON.stringify(childdata));
+      }
+      setChildProfiles(childdata);
+    } catch (error) {
+      console.error('Error fetching child detail:', error);
+    }
   };
 
-
-  if (!childProfiles.length > 0) {
-    fetchChildDetail();
-  }
-
-
+  useEffect(() => {
+    if (childProfiles.length === 0) {
+      fetchChildDetail();
+    }
+  }, [localStorage]);
   const activeChildProfiles = childProfiles.filter(child => child.id === parseInt(childId));
   const activeChildName = activeChildProfiles.map(child => child.child_name);
   const cname = sessionStorage.getItem('setChildName')
   const fetchChildData = async () => {
-    console.log("K:JFKJHKSJFDHKLJSDFHKJSHFKLJSDFHKLJSFHDKJSDH");
-    try {
-      const response = await axios.get(`https://mykidz.online/api/child-profiles?user_id=${user.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const abc = response.data;
-      const a = sessionStorage.getItem('setChildID');
-      const b = sessionStorage.getItem('childId');
-      const cid = a ? a : b;
-      console.log("session child id", cid);
-      const child = abc.find((n) => n.id === parseInt(cid));
-      if (child) {
-        console.log('test123' + child.current_question);
-        localStorage.setItem("question", child.current_question);
-        const a = localStorage.getItem("question");
-        const b = questions.length > 0 ? questions.length : 5;
-        const y = b - a;
-        setRem(y);
-        console.log("Attempted question", a);
-        console.log("Total question", b);
-        console.log("REMAINING QUESTIONS", y);
+    const childdata = JSON.parse(localStorage.getItem('childdata'));
+if(childdata){
+  const a = sessionStorage.getItem('setChildID');
+  const b = sessionStorage.getItem('childId');
+  const cid = a ? a : b;
+  // console.log("session child id", cid);
+  const child = childdata.find((n) => n.id === parseInt(cid));
+  if (child) {
+    // console.log('test123' + child.current_question);
+    // localStorage.setItem("question", child.current_question);
+    // const a = localStorage.getItem("question");
+    // const b = questions.length > 0 ? questions.length : 5;
+    // const y = b - a;
+    // setRem(y);
+    // console.log("Attempted question", a);
+    // console.log("Total question", b);
+    // console.log("REMAINING QUESTIONS", y);
+  }
+} else {
+  try {
+    const response = await axios.get(`https://mykidz.online/api/child-profiles?user_id=${user.id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
-    } catch (error) {
-      console.error('Error fetching child data:', error);
+    });
+    localStorage.setItem('childdata',JSON.stringify(response.data))
+
+    const abc = response.data;
+    const a = sessionStorage.getItem('setChildID');
+    const b = sessionStorage.getItem('childId');
+    const cid = a ? a : b;
+    // console.log("session child id", cid);
+    const child = abc.find((n) => n.id === parseInt(cid));
+    if (child) {
+      // console.log('test123' + child.current_question);
+      localStorage.setItem("question", child.current_question);
+      const a = localStorage.getItem("question");
+      const b = questions.length > 0 ? questions.length : 5;
+      const y = b - a;
+      setRem(y);
+      // console.log("Attempted question", a);
+      // console.log("Total question", b);
+      // console.log("REMAINING QUESTIONS", y);
     }
+  } catch (error) {
+    console.error('Error fetching child data:', error);
+  }
+}
+    
   };
 
 
@@ -266,28 +314,28 @@ function KidsNav() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/Kids-view" onClick={handleHome}><img src={HomeIcon} alt='' /></Link>
+                <Link className="nav-link" to="/Kids-view" onClick={handleHome}><img loading="lazy" loading="lazy" src={HomeIcon} alt='' /></Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={rem < 1 ? "" : "/RecordedAnswer"}><img src={ActivitiesIcon} alt='' /><span>{rem < 5 ? rem : 0}</span></Link>
+                <Link className="nav-link" to={rem < 1 ? "" : "/RecordedAnswer"}><img loading="lazy" loading="lazy" src={ActivitiesIcon} alt='' /><span>{rem < 5 ? rem : 0}</span></Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/Kids-messages" onClick={handleMessages} ><img src={MessagesIcon} alt='' />{num > 0 ? (<span> {num} </span>) : (<></>)}</Link>
+                <Link className="nav-link" to="/Kids-messages" onClick={handleMessages} ><img loading="lazy" loading="lazy" src={MessagesIcon} alt='' />{num > 0 ? (<span> {num} </span>) : (<></>)}</Link>
               </li>
               {toggle ? (<li className="nav-item active">
-                <Link className="nav-link" id="parental_switch" onClick={handleParentalSwitch}><img src={ParentalSwitch} alt='' /></Link>
-              </li>):(<>
+                <Link className="nav-link" id="parental_switch" onClick={handleParentalSwitch}><img loading="lazy" loading="lazy" src={ParentalSwitch} alt='' /></Link>
+              </li>) : (<>
                 <Link className="nav-link" onClick={handleLogout} ><svg width="76" height="76" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M12.6413 2.45605H5.55794C3.70211 2.45605 2.19336 3.9648 2.19336 5.82064C2.19336 6.11105 2.43419 6.35189 2.72461 6.35189C3.01503 6.35189 3.25586 6.11105 3.25586 5.82064C3.25586 4.55272 4.29003 3.51855 5.55794 3.51855H12.6413C13.9092 3.51855 14.9434 4.55272 14.9434 5.82064V12.904C14.9434 14.1719 13.9092 15.2061 12.6413 15.2061H5.55794C4.29003 15.2061 3.25586 14.1719 3.25586 12.904C3.25586 12.6136 3.01503 12.3727 2.72461 12.3727C2.43419 12.3727 2.19336 12.6136 2.19336 12.904C2.19336 14.7598 3.70211 16.2686 5.55794 16.2686H12.6413C14.4971 16.2686 16.0059 14.7598 16.0059 12.904V5.82064C16.0059 3.9648 14.4971 2.45605 12.6413 2.45605Z" fill="#00897B"/>
-  <path d="M2.19336 9.36232C2.19336 9.65274 2.43419 9.89357 2.72461 9.89357H10.6509L8.72419 11.8202C8.51878 12.0257 8.51878 12.3657 8.72419 12.5711C8.83044 12.6773 8.96503 12.7269 9.09961 12.7269C9.23419 12.7269 9.36877 12.6773 9.47503 12.5711L12.3084 9.73774C12.5138 9.53232 12.5138 9.19232 12.3084 8.98691L9.47503 6.15357C9.26961 5.94816 8.92961 5.94816 8.72419 6.15357C8.51878 6.35899 8.51878 6.69899 8.72419 6.90441L10.6509 8.83107H2.72461C2.43419 8.83107 2.19336 9.07191 2.19336 9.36232Z" fill="#00897B"/>
-</svg></Link>
+                  <path d="M12.6413 2.45605H5.55794C3.70211 2.45605 2.19336 3.9648 2.19336 5.82064C2.19336 6.11105 2.43419 6.35189 2.72461 6.35189C3.01503 6.35189 3.25586 6.11105 3.25586 5.82064C3.25586 4.55272 4.29003 3.51855 5.55794 3.51855H12.6413C13.9092 3.51855 14.9434 4.55272 14.9434 5.82064V12.904C14.9434 14.1719 13.9092 15.2061 12.6413 15.2061H5.55794C4.29003 15.2061 3.25586 14.1719 3.25586 12.904C3.25586 12.6136 3.01503 12.3727 2.72461 12.3727C2.43419 12.3727 2.19336 12.6136 2.19336 12.904C2.19336 14.7598 3.70211 16.2686 5.55794 16.2686H12.6413C14.4971 16.2686 16.0059 14.7598 16.0059 12.904V5.82064C16.0059 3.9648 14.4971 2.45605 12.6413 2.45605Z" fill="#00897B" />
+                  <path d="M2.19336 9.36232C2.19336 9.65274 2.43419 9.89357 2.72461 9.89357H10.6509L8.72419 11.8202C8.51878 12.0257 8.51878 12.3657 8.72419 12.5711C8.83044 12.6773 8.96503 12.7269 9.09961 12.7269C9.23419 12.7269 9.36877 12.6773 9.47503 12.5711L12.3084 9.73774C12.5138 9.53232 12.5138 9.19232 12.3084 8.98691L9.47503 6.15357C9.26961 5.94816 8.92961 5.94816 8.72419 6.15357C8.51878 6.35899 8.51878 6.69899 8.72419 6.90441L10.6509 8.83107H2.72461C2.43419 8.83107 2.19336 9.07191 2.19336 9.36232Z" fill="#00897B" />
+                </svg></Link>
               </>)}
 
             </ul>
           </div>
           <div className="right-icons">
             <a className="nav-link points" disabled>
-              <img src={MoneyBagImage} alt="protected" /> 107 Points
+              <img loading="lazy" loading="lazy" src={MoneyBagImage} alt="protected" /> 107 Points
             </a>
             <a className="nav-link toggle-profile" disabled>
               {cname}
@@ -298,14 +346,14 @@ function KidsNav() {
       {showPopup && (
         <div className="code-popup">
           {/* <h1>Welcome, {renderElement()}</h1> */}
-          <img src={protectImg1} alt="protected" />
+          <img loading="lazy" loading="lazy" src={protectImg1} alt="protected" />
           <p>Enter a 4-digit code to access the parental dashboard</p>
           <form onSubmit={handleSubmit}>
             <input type="password" maxLength={4} className="form-control" placeholder="Enter Code" value={code} onChange={handleCodeEntry} />
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <div className='btn_control_codePopup'>
-            <button type="button" onClick={() => handleCancel()}>Cancel</button>
-            <button type="submit" className="continue-code">ENTER</button>
+              <button type="button" onClick={() => handleCancel()}>Cancel</button>
+              <button type="submit" className="continue-code">ENTER</button>
             </div>
           </form>
         </div>

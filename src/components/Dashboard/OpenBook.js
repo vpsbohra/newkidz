@@ -123,28 +123,48 @@ const OpenStory = () => {
   };
 
   const fetchStories = async () => {
-    try {
-      const response = await axios.get('https://mykidz.online/api/stories', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const selectedStory = response.data.find(story => story.id === parseInt(StoryId, 10));
-      console.log("Story data", selectedStory);
-      if (selectedStory) {
-        const audioParts = selectedStory.english_audio_part.split(',');
-        const imageParts = selectedStory.book_cover_images.split(',');
-        console.log("Audio Parts", audioParts);
-        console.log(audioParts[currentPage]);
-        setStories([selectedStory]);
-        setCurrentAudioIndex(0);
-        setAudio(audioParts[0]);
-        console.log("Audio", audio);
-        setcurrentImage(imageParts[currentPage]);
-      }
-    } catch (error) {
-      console.error('Error fetching stories:', error);
+    const stories = JSON.parse(localStorage.getItem('stories'));
+if(stories){
+  const selectedStory = stories.find(story => story.id === parseInt(StoryId, 10));
+  console.log("Story data", selectedStory);
+  if (selectedStory) {
+    const audioParts = selectedStory.english_audio_part.split(',');
+    const imageParts = selectedStory.book_cover_images.split(',');
+    console.log("Audio Parts", audioParts);
+    console.log(audioParts[currentPage]);
+    setStories([selectedStory]);
+    setCurrentAudioIndex(0);
+    setAudio(audioParts[0]);
+    console.log("Audio", audio);
+    setcurrentImage(imageParts[currentPage]);
+  }
+} else{
+  try {
+    const response = await axios.get('https://mykidz.online/api/stories', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    localStorage.setItem("stories", JSON.stringify(response.data));
+
+    const selectedStory = response.data.find(story => story.id === parseInt(StoryId, 10));
+    console.log("Story data", selectedStory);
+    if (selectedStory) {
+      const audioParts = selectedStory.english_audio_part.split(',');
+      const imageParts = selectedStory.book_cover_images.split(',');
+      console.log("Audio Parts", audioParts);
+      console.log(audioParts[currentPage]);
+      setStories([selectedStory]);
+      setCurrentAudioIndex(0);
+      setAudio(audioParts[0]);
+      console.log("Audio", audio);
+      setcurrentImage(imageParts[currentPage]);
     }
+  } catch (error) {
+    console.error('Error fetching stories:', error);
+  }
+}
+   
   };
   const paragraphsPerPage = 1;
   const totalPages = Math.ceil(stories[0]?.description?.split('*').length / paragraphsPerPage);
@@ -205,16 +225,24 @@ const OpenStory = () => {
     }
   };
   const fetchreadedstory = async () => {
-    try {
-      const response = await axios.get(`https://mykidz.online/api/readedstory`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-      });
-      setFdata(response.data);
-    } catch (error) {
-      console.error('Error fetching readedstory data:', error);
-    }
+    const readedstory = JSON.parse(localStorage.getItem('readedstory'));
+if(readedstory){
+  setFdata(readedstory);
+
+} else{
+  try {
+    const response = await axios.get(`https://mykidz.online/api/readedstory`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    localStorage.setItem('readedstory', JSON.stringify(response.data));
+    setFdata(response.data);
+  } catch (error) {
+    console.error('Error fetching readedstory data:', error);
+  }
+}
+   
   };
   const update = () => {
     console.log("setChildID", setChildID);
@@ -229,7 +257,9 @@ const OpenStory = () => {
     axios.patch(`https://mykidz.online/api/update-currently-reading-page/${setChildID}`, memberData, { headers })
       .then(response => {
         console.log("response", response.data);
+        localStorage.clear();
         navigate('/kids-view');
+        
       })
       .catch(error => {
         console.log("Error updating the field");
@@ -253,7 +283,7 @@ const OpenStory = () => {
         console.log('test123' + child.currently_reading_page);
         localStorage.setItem("page", parseInt(child.currently_reading_page, 10));
 
-        const p = localStorage.getItem("page");
+        const p = JSON.parse(localStorage.getItem("page"));
         setAudio(audioArray[p]);
         setcurrentImage(coverImgDataArray[p]);
         setCurrentAudioIndex(p);
@@ -266,7 +296,7 @@ const OpenStory = () => {
   };
   return (
     <div className='chosen-story-section openbook_page_kidz'>
-      <Link className="nav-link" onClick={update}><img src={ParentalSwitch} alt='' /></Link>
+      <Link className="nav-link" onClick={update}><img loading="lazy" loading="lazy" src={ParentalSwitch} alt='' /></Link>
       <div className="top-nav">
         <KidzBottomNav />
       </div>
@@ -275,14 +305,14 @@ const OpenStory = () => {
           {story.id == StoryId &&
             <div className='openbook_section_sr'>
               <div className='openbook_section_left'>
-                <img src={currentImage} alt='' onClick={openModal} />
+                <img loading="lazy" loading="lazy" src={currentImage} alt='' onClick={openModal} />
               </div>
               <div className='openbook_section_right'>
                 {rep ? (<><button className='Play_Storys_sr' onClick={() => { play(); setRep(false) }} >
-                  <img src={Replay} /></button> </>)
+                  <img loading="lazy" loading="lazy" src={Replay} /></button> </>)
                   :
                   (<><button className='Play_Storys_sr' onClick={x ? play : pause} >
-                    <img src={x ? Play_Story_Button : Pause_Story_Button} />
+                    <img loading="lazy" loading="lazy" src={x ? Play_Story_Button : Pause_Story_Button} />
                   </button></>)}
                 <div className='openbook_section_right_inner'>
                   {story.description.split("*").slice(currentPage * paragraphsPerPage, (currentPage + 1) * paragraphsPerPage).map((paragraph, pIndex) => (
@@ -293,8 +323,8 @@ const OpenStory = () => {
                 </div>
               </div>
               <div className="pagination">
-                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img src={PNLeft_arrow} alt='' /></button>
-                <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img src={PNRight_arrow} alt='' /></button>
+                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" loading="lazy" src={PNLeft_arrow} alt='' /></button>
+                <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" loading="lazy" src={PNRight_arrow} alt='' /></button>
               </div>
             </div>
           }
@@ -308,7 +338,7 @@ const OpenStory = () => {
               <path d="M26.3915 29.3632C27.7645 30.8073 29.9308 28.5609 28.5578 27.0848L23.1574 21.4048L28.5578 15.7249C29.9308 14.2808 27.795 12.0024 26.3915 13.4785L20.9911 19.1585L15.5907 13.4785C14.2178 12.0024 12.0515 14.2808 13.455 15.7249C15.2551 17.6182 17.0247 19.5115 18.8554 21.4048L13.455 27.0848C12.0515 28.5289 14.2178 30.8073 15.5907 29.3632L20.9911 23.6832L26.3915 29.3632Z" fill="white" />
             </svg></span>
                 <div className="inagepopupdiv_modal_IMG">
-                    <img src={currentImage} alt='' />
+                    <img loading="lazy" loading="lazy" src={currentImage} alt='' />
                 </div>
                   </div>
                 </div>

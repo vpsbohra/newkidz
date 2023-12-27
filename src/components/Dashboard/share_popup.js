@@ -63,10 +63,10 @@ const SharePopup = ({ onClose }) => {
     <>
       <div className="share_with_popup">
       <div className="close-button" onClick={onClose}>
-          <img src={close_iconImage} alt="Close" /> {/* Close button */}
+          <img loading="lazy" loading="lazy" src={close_iconImage} alt="Close" /> {/* Close button */}
         </div>
         <div className="share_with_popup_user"> 
-           <img src={profile_icon} />
+           <img loading="lazy" loading="lazy" src={profile_icon} />
         </div>
         <div className='share_with_details'>
           <div className='shareinput_field'>

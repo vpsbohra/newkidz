@@ -80,7 +80,7 @@ function GoogleAuthSignup({ onError }) {
   return (
     <>
       <button onClick={() => login()} type="button" className="login-with-google-btn">
-        <img src={GoogleImage} alt="meet-character-1" />
+        <img loading="lazy" loading="lazy" src={GoogleImage} alt="meet-character-1" />
         Sign up with Google
       </button>
     </>

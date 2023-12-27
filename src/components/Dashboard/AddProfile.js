@@ -74,7 +74,7 @@ export default function DashboardAddprofile() {
       phone: phone,
       user_id: userId,
     };
-    axios.post('https://developer.dbuglab.com/DK/AS/test/backend/public/api/add-member', memberData, { headers })
+    axios.post('https://mykidz.online/DK/AS/test/backend/public/api/add-member', memberData, { headers })
       .then(response => {
         console.log('Member added successfully:', response.data);
         // isMember(false);
@@ -111,7 +111,7 @@ export default function DashboardAddprofile() {
   }, [userId]);
   const fetchMembers = async () => {
     try {
-      const response = await axios.get(`https://developer.dbuglab.com/DK/AS/test/backend/public/api/members/${userId}`);
+      const response = await axios.get(`https://mykidz.online/DK/AS/test/backend/public/api/members/${userId}`);
       const membersData = response.data;
       setMembers(membersData);
     } catch (error) {
@@ -139,13 +139,13 @@ export default function DashboardAddprofile() {
                 </div>
               ))}
               <div className={`col-md-4 profilAddNew `} onClick={() => isMember(true)} >
-                <span className='profile_type_letter'><img src={Plus} /></span> <p style={{
+                <span className='profile_type_letter'><img loading="lazy" loading="lazy" src={Plus} /></span> <p style={{
                   color: '#F28A35',
                 }}>Add New</p>
               </div>
               {member && (
                 <div className="password-update">
-                  <button className='closed_popup_password' onClick={close}><img src={close_iconImage} alt="protected" /></button>
+                  <button className='closed_popup_password' onClick={close}><img loading="lazy" loading="lazy" src={close_iconImage} alt="protected" /></button>
                   <div className="add-member">
                     {addMemberSuccess ? (
                       <div className="success">

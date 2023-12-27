@@ -80,6 +80,7 @@ export default function Dashboard() {
             const user = JSON.parse(storedUser);
             const updatedUser = { ...user, spouse: itemName };
             sessionStorage.setItem('user', JSON.stringify(updatedUser));
+            sessionStorage.setItem('userSpouse', JSON.stringify(itemName));
             setSelectedItem(itemName);
         }
     };
@@ -268,7 +269,7 @@ export default function Dashboard() {
                 {showPopup && (
                     <div className="code-popup">
                         {/* <h1>Welcome, {renderElement()}</h1> */}
-                        <img src={protectImg1} alt="protected" />
+                        <img loading="lazy" loading="lazy" src={protectImg1} alt="protected" />
                         <p className='digit_code_prgp'>Enter a 4-digit code to access the parental dashboard</p>
                         <form onSubmit={handleSubmit}>
                             <input type="password" maxLength={4} className="form-control" placeholder="Enter Code" value={code} onChange={handleCodeEntry} />

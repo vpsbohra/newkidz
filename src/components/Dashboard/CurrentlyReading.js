@@ -205,8 +205,6 @@ useEffect(() => {
 
 
 
-
-
   const [currentPlan, setCurrentPlan] = useState('');
   const [currenBilling, setCurrentBilling] = useState('');
   const [userId, setUserId] = useState('');
@@ -228,44 +226,79 @@ useEffect(() => {
   const [childProfiles, setChildProfiles] = useState([]);
   const [currentyReading, setCurrentyReading] = useState([]);
   const { user } = AuthUser();
+
+
   const fetchStories = async () => {
-    try {
-      const response = await axios.get('https://mykidz.online/api/stories', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setStories(response.data);
-      sessionStorage.setItem("StoryData", response);
-      console.log("Stories", response.data);
-    } catch (error) {
-      console.error('Error fetching stories:', error);
+
+    const storiesFromLocal = localStorage.getItem('storiesLocal');
+    if(storiesFromLocal)
+    {
+      setStories(JSON.parse(storiesFromLocal));
     }
+
+    else{
+      try {
+        const response = await axios.get('https://mykidz.online/api/stories', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setStories(response.data);
+        localStorage.setItem('storiesLocal', JSON.stringify(response.data));
+        sessionStorage.setItem("StoryData", response);
+        console.log("Stories", response.data);
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+      }
+    }
+   
   };
   const [currntlyreading, setCurrentlyreading] = useState();
 
   const fetchChildData = async () => {
+    
 
-    try {
-      const response = await axios.get(`https://mykidz.online/api/child-profiles?user_id=${user.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const abc = response.data;
+    const childProfilesFromLocal = localStorage.getItem("childProfilesLocal");
+    if(childProfilesFromLocal){
+      setChildProfiles(JSON.parse(childProfilesFromLocal));
+      console.log("if condition")
       const cid = sessionStorage.getItem('setChildID');
       console.log("session child id", cid);
-      const child = abc.find((n) => n.id === parseInt(cid, 10));
+      const child = childProfiles.find((n) => n.id === parseInt(cid, 10));
       if (child) {
         console.log('test123' + child.currenty_reading
         );
         setCurrentyReading(child.currenty_reading);
       }
 
-      console.log("Children123", response.data);
-    } catch (error) {
-      console.error('Error fetching child data:', error);
+    }else{
+      try {
+        const response = await axios.get(`https://mykidz.online/api/child-profiles?user_id=${user.id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+          setChildProfiles(response.data);
+        console.log("Children123", response.data);
+      } catch (error) {
+        console.error('Error fetching child data:', error);
+      }
+
+      const cid = sessionStorage.getItem('setChildID');
+      console.log("session child id", cid);
+      const child = childProfiles.find((n) => n.id === parseInt(cid, 10));
+      if (child) {
+        console.log('test123' + child.currenty_reading
+        );
+        setCurrentyReading(child.currenty_reading);
+      }
+
     }
+
+    
+
+
+    
   };
 
   const [chid, setChid] = useState('');
@@ -299,8 +332,7 @@ useEffect(() => {
     const { id } = user;
     console.log("frgdfgdfhdf", userId);
     const userNotifications = notifications.filter(notification => notification.user_id === Number(userId));
-    // console.log("userNotification", userNotifications);
-    // console.log("Notifications", notifications);
+
 
     if (userNotifications.length > 0) {
       // console.log("userfound");
@@ -311,10 +343,12 @@ useEffect(() => {
       const noActive = !userNotifications.some(notification => notification.status === "active");
 
       if (allInactive || noActive) {
-        // Perform your action here, e.g., show a message or execute some code
+        
         console.log("Perform your action here.");
         setshownoNotifications(true);
-      } else {
+
+      console.log("notification.user_id",userNotifications.user_id)
+console.log("Number(userId)",Number(userId))} else {
         // Handle the case where there are "active" statuses for the user
         console.log("There are active statuses for the user.");
       }
@@ -416,9 +450,7 @@ useEffect(() => {
     document.body.classList.remove('popup_active');
   };
 
-// useEffect(()=>{
-// setT(sessionStorage.getItem("TOGGLE"));
-// },[selectedDate])
+
   return (
     <>
   
@@ -451,21 +483,20 @@ useEffect(() => {
             </div>
             {shownonotifications ? (
               <div className='notification_item_sr'>
-                <img src={silent} />
+                <img loading="lazy" loading="lazy" src={silent} />
                 <span>There are no new notifications</span>
               </div>) : (
               <>
 
 
-
                 {notifications.map((story, index) => (
                   <>
-                    {story.status == "active" && (
+                    {story.status == "active" && story.user_id=== userId ? (
                       <>
 
                         <div className='inner-container_notification'>
                           <div className='inner_notification_left'>
-                            <img src={NotificationVector} />
+                            <img loading="lazy" loading="lazy" src={NotificationVector} />
                           </div>
                           <div className='inner_notification_right'>
                             <p><span style={{ color: '#26a69a' }}> {story.child_name}</span> would like to share something with <span style={{ color: '#8A6CB1' }}>{story.name} ({story.number})</span></p>
@@ -483,7 +514,7 @@ useEffect(() => {
                           </div>
                         )}
                       </>
-                    )}
+                    ):(<></>)}
                     {showForwardPopup && (
                       <ForwardPopup onClose={handleCloseForwardPopup} />
                     )}
@@ -506,7 +537,7 @@ useEffect(() => {
             {/* <button onClick={() => isMember(true)} className='notification-Member'>Add as a Family Member</button> */}
             {member && (
               <div className="password-update Add_Member_popup">
-                <button className='closed_popup_password' onClick={close}><img src={close_btnImage} alt="protected" /></button>
+                <button className='closed_popup_password' onClick={close}><img loading="lazy" loading="lazy" src={close_btnImage} alt="protected" /></button>
                 <div className="add-member">
                   {addMemberSuccess ? (
                     <div className="success">
@@ -598,7 +629,7 @@ useEffect(() => {
                     {story.id == currentyReading && (
                       <>
                         <div className='inner-container-left'>
-                          <img src={story.image_path} alt='Story' width={137} height={137} />
+                          <img loading="lazy" loading="lazy" src={story.image_path} alt='Story' width={137} height={137} />
                         </div>
                         <div className='inner-container-right'>
                           <h4>{story.title}</h4>

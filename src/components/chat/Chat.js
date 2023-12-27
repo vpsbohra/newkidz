@@ -17,6 +17,8 @@ import Picker from 'emoji-picker-react';
 import Play_audio from '../../images/Play_audio_message.png';
 import Pause_audio from '../../images/pause_btn.png';
 import axios from "axios";
+import Load from '../../images/index.gif';
+
 
 const Chat = ({ dataId, userId }) => {
   const [showPicker, setShowPicker] = useState(false);
@@ -51,6 +53,7 @@ const Chat = ({ dataId, userId }) => {
   const [highlightDay, setHighlightDay] = useState([]);
   const [selectedDates, setSelectedDates] = useState([]);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [loader,setLoader]=useState(true);
 
   useEffect(() => {
     // start();
@@ -228,6 +231,9 @@ const Chat = ({ dataId, userId }) => {
   const fetchMessages = async () => {
     try {
       const response = await http.get(`/messages/${userId}/${dataId}/${spouse}`);
+      if(response){
+        setLoader(false);
+      }
       const messagesFromApi = response.data;
       console.log("messages", response.data);
       setMessages(messagesFromApi);
@@ -562,10 +568,10 @@ const Chat = ({ dataId, userId }) => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            <div className="list-group user_list_sr_outer list-group-flush border-bottom scrollarea" >
-              {messages.map((message, index) => (
+            <div className="list-group user_list_sr_outer list-group-flush border-bottom scrollarea" style={{ textAlign: 'center' }}>
+              {!loader ? (<>
+              {messages.length !== 0 ? (<>{messages.map((message, index) => (
                 <>
-
                   {message.senderId == dataId ? (
                     <div
                       key={index}
@@ -578,11 +584,9 @@ const Chat = ({ dataId, userId }) => {
                         </div>
                         <div className={`right-side-user col-10 mb-1 small user_message_sr ${message.senderId == userId ? 'sent-by-user-message' : ''
                           }`}>
-
                           {message.message ? (
                             <div key={index}>
                               <p>{message.message}</p>
-
                             </div>
                           ) : (
                             <>
@@ -604,7 +608,6 @@ const Chat = ({ dataId, userId }) => {
                               ) : (
                                 <>
                                   {message.voice_answer == "NULL" ? (
-                                    // Display base64 image here
                                     <img src={`data:image/png;base64,${message.image}`} alt="Attached" />
                                   ) : (
                                     <>
@@ -691,7 +694,6 @@ const Chat = ({ dataId, userId }) => {
                               }`}
                           >
                             <div className="user_list_groupsr">
-
                               <div className={`chat-audio-main col-10 mb-1 small user_message_sr ${message.senderId == userId ? 'sent-by-user-message' : ''}`}>
                                 {message.message ? (
                                   <>
@@ -703,7 +705,6 @@ const Chat = ({ dataId, userId }) => {
                                       <>
                                         {console.log("File Type:", message.attached_file_type)}
                                         {console.log("Base64 Data:", message.attached_file)}
-
                                         {message.attached_file_type === "jpg" || message.attached_file_type === "png" || message.attached_file_type === "gif" ? (
                                           <img
                                             src={`data:image/${message.attached_file_type};base64,${message.attached_file}`}
@@ -711,21 +712,18 @@ const Chat = ({ dataId, userId }) => {
                                             style={{ maxWidth: '100%', maxHeight: '200px' }}
                                           />
                                         ) : null}
-
                                         {message.attached_file_type === "mp4" ? (
                                           <video controls style={{ maxWidth: '100%', maxHeight: '200px' }}>
                                             <source src={`data:video/mp4;base64,${message.attached_file}`} type="video/mp4" />
                                             Your browser does not support the video tag.
                                           </video>
                                         ) : null}
-
                                         {message.attached_file_type === "mp3" ? (
                                           <audio controls>
                                             <source src={`data:audio/mp3;base64,${message.attached_file}`} type="audio/mp3" />
                                             Your browser does not support the audio tag.
                                           </audio>
                                         ) : null}
-
                                         {message.attached_file_type === "pdf" ? (
                                           <>
                                             Attachment : PDF
@@ -734,7 +732,6 @@ const Chat = ({ dataId, userId }) => {
                                             </a>
                                           </>
                                         ) : null}
-
                                         {message.attached_file_type === "docx" ? (
                                           <>
                                             Attachment : DOCX
@@ -743,7 +740,6 @@ const Chat = ({ dataId, userId }) => {
                                             </a>
                                           </>
                                         ) : null}
-
                                         {message.attached_file_type === "txt" ? (
                                           <>
                                             Attachment : ${fname}
@@ -771,7 +767,6 @@ const Chat = ({ dataId, userId }) => {
                                           </audio>
                                         </div>
                                       </div>
-
                                     ) : (
                                       <>
                                         {message.voice_answer == "NULL" ? (<></>
@@ -795,17 +790,17 @@ const Chat = ({ dataId, userId }) => {
                     </>
                   )}
                 </>
-              ))}
+              ))}</>):(<div className='no-chat'> <p>No chats</p></div>)}
+              
+              </>):(<div className='no-chat'>    <img src={Load} alt="Loading..." /></div>
+              )}
             </div>
           </div>
         </div>
-
         <div className="chat_form_input cht-new">
-
           <input
             className="form-control"
             placeholder={fname ? `Attached file : ${fname}` : "Write a message"}
-
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
@@ -829,7 +824,6 @@ const Chat = ({ dataId, userId }) => {
                     cursor: 'pointer',
                   }}
                 />
-
               </div>
               <div><img
                 className="emoji-icon"
@@ -855,7 +849,6 @@ const Chat = ({ dataId, userId }) => {
                   <img src={WaveSendAudioImage} alt="protected" />
                   <button className='stop_reco_btn' onClick={stopRecording}>{`0:${elapsedTime.toString().padStart(2, '0')}`} Stop</button>
                 </>
-
               )}
               {recordedAudio && (
                 <button className='sendAudio_btn' onClick={sendAudioMessage}>Send Audio</button>
@@ -863,14 +856,12 @@ const Chat = ({ dataId, userId }) => {
             </div>
           </div>
         </div>
-
       </div>
       <div className="chat_filter">
         <div className="calendar">
           <Calendar onChange={handleDateChange} value={selectedDate} tileClassName={tileClassName} />
         </div>
       </div>
-
     </>
   );
 };
