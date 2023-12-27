@@ -5992,7 +5992,7 @@ extended-family .manage_member_sr button:hover {
 
 .story-open-container .openbook_section_sr .openbook_section_left img {
 	border-radius: 32px 0 0 32px;
-	width: 830px;
+	/* width: 830px; */
 	height: 100%;
 	object-fit: cover;
 	object-position: center;

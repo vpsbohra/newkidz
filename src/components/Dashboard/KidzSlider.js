@@ -9,22 +9,6 @@ import axios from 'axios';
 import Previous_ButtonImg from '../../images/Previous_Button.png';
 import Play_ButtonImg from '../../images/play_btn.png';
 
-function triggerButtonClick() {
-  var buttons1 = document.getElementsByClassName('next_btn_sr');
-  var buttons2 = document.getElementsByClassName('previous_btn_sr');
-  if (buttons1.length > 0 || buttons2.length > 0 ) {
-    buttons1[0].click();
-    buttons2[0].click();
-  }
-}
- function resuneStory(){
-  setTimeout(function(){
-    console.log('testnew');
-    // alert('testlast oage');
-    triggerButtonClick();
-  },2000);
- }
-
 
 
 const truncateText = (text, maxLength) => {
@@ -222,7 +206,7 @@ const KidzSlider = () => {
                       <span className='story-personagers'>{story.personnages}</span>
                       <Link style={{ textDecoration: 'none' }} to={`/openbook`}
                       >
-                        <button className='story-play-button' onClick={resuneStory()}>
+                        <button className='story-play-button' >
                           Resume Story
                         </button>
                       </Link>
