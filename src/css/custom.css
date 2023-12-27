@@ -10439,3 +10439,10 @@ input:checked~.checkmark {
 	letter-spacing: 0em;
 	text-align: left;
 }
+.no-chat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 330px;
+    overflow: hidden;
+}
