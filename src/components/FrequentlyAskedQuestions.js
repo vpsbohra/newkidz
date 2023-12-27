@@ -15,10 +15,10 @@ export default function FrequentlyAskedQuestions() {
             <div className="container">
                 <div className="row FrequentlyAsked_row">
                 <div className="FrequentlyAsked_imgsec">
-                   <img src={img1} className='frequentlyAskedimg frequentlyAsked_img1' alt="group-1" />
-                   <img src={img2} className='frequentlyAskedimg frequentlyAsked_img2' alt="group-2" />
-                   <img src={img3} className='frequentlyAskedimg frequentlyAsked_img3' alt="group-3" />
-                   <img src={img4} className='frequentlyAskedimg frequentlyAsked_img4' alt="group-4" />
+                   <img loading="lazy" loading="lazy" src={img1} className='frequentlyAskedimg frequentlyAsked_img1' alt="group-1" />
+                   <img loading="lazy" loading="lazy" src={img2} className='frequentlyAskedimg frequentlyAsked_img2' alt="group-2" />
+                   <img loading="lazy" loading="lazy" src={img3} className='frequentlyAskedimg frequentlyAsked_img3' alt="group-3" />
+                   <img loading="lazy" loading="lazy" src={img4} className='frequentlyAskedimg frequentlyAsked_img4' alt="group-4" />
             </div>
                 <div className="FrequentlyAsked_content">
                     <h2>Frequently Asked Questions</h2>

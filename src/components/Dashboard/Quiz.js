@@ -124,7 +124,7 @@ const handleCloseSharePopup = () => {
                 correctAnswer === option &&
                 currentSelectedAnswer === correctAnswer ? (
                 <div className="point-earned-popup">
-                  <img src={Star} alt="Star Icon" />
+                  <img loading="lazy" loading="lazy" src={Star} alt="Star Icon" />
                   <span>+1 POINT EARNED! </span>
                 </div>
               ) : (
@@ -168,7 +168,7 @@ const handleCloseSharePopup = () => {
 
 
               {/* <button className='close-button Share_btn_sr' onClick={handleShare}>
-                <Link className="nav-link">Share<img src={Share} /> </Link>
+                <Link className="nav-link">Share<img loading="lazy" loading="lazy" src={Share} /> </Link>
               </button>
               {showSharePopup && (
                 <SharePopup onClose={handleCloseSharePopup} />

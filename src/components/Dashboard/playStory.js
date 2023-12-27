@@ -104,7 +104,7 @@ export default function PlayStory() {
                   <div className='Story_Day_outer'>
                     <div className='Story_Day_outer_left'>
                       {selectedStory !== null && (
-                        <img src={selectedStory.cover_image} alt='Story' />
+                        <img loading="lazy" loading="lazy" src={selectedStory.cover_image} alt='Story' />
                       )}
                     </div>
                     <div className='Story_Day_outer_right'>
@@ -126,7 +126,7 @@ export default function PlayStory() {
                       </Link>
                     </div>
                     <button className='Previous_Button' onClick={closeModal}>
-                      <img src={Previous_ButtonImg} alt="protected" />
+                      <img loading="lazy" loading="lazy" src={Previous_ButtonImg} alt="protected" />
                     </button>
                   </div>
                 </div>

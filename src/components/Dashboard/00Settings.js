@@ -235,7 +235,7 @@ const handleUpdate = async (field) => {
   
     {isPasswordUpdate && (
             <div className="password-update">
-           <button className='closed_popup_password' onClick={() => setIsPasswordUpdate(false)}><img src={close_iconImage} alt="protected" /></button>
+           <button className='closed_popup_password' onClick={() => setIsPasswordUpdate(false)}><img loading="lazy" loading="lazy" src={close_iconImage} alt="protected" /></button>
            <h2>Reset Password</h2>
            <div className="form-group">
                 <label>Current Password</label>
@@ -281,7 +281,7 @@ const handleUpdate = async (field) => {
             <div className="profile_details">
             {profileImage && (
               <div className="profile_image">
-                <img src={profileImage} alt="Profile" />
+                <img loading="lazy" loading="lazy" src={profileImage} alt="Profile" />
               </div>
             )}
              <div className='profile_details_right'>
@@ -524,7 +524,7 @@ const handleUpdate = async (field) => {
               {childd ?(
               <></>
               ):(
-                <button className='add_profile_Sr' onClick={ShowChildProfile}><img src={CirclePlu01Img} alt="protected" /> Add child profile</button>
+                <button className='add_profile_Sr' onClick={ShowChildProfile}><img loading="lazy" loading="lazy" src={CirclePlu01Img} alt="protected" /> Add child profile</button>
 
               )}
 

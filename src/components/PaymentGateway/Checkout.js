@@ -232,7 +232,7 @@ const Checkout = () => {
          <div className="form-check paypal_payment">
         <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
         <label className="form-check-label" htmlFor="flexRadioDefault1">
-          <img src={PayPalLogoImg} alt="protected" />
+          <img loading="lazy" loading="lazy" src={PayPalLogoImg} alt="protected" />
         </label>
       </div>
       <div className="form-check Credit_Card">
@@ -245,7 +245,7 @@ const Checkout = () => {
               checked='checked'
             />
       <label className="form-check-label" htmlFor="flexRadioDefault2">Credit Card</label>
-      <img src={Paymnet_typeImg} alt="protected" />
+      <img loading="lazy" loading="lazy" src={Paymnet_typeImg} alt="protected" />
     </div>
 
       <div className="payment-inputs">

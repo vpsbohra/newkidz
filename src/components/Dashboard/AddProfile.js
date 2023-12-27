@@ -139,13 +139,13 @@ export default function DashboardAddprofile() {
                 </div>
               ))}
               <div className={`col-md-4 profilAddNew `} onClick={() => isMember(true)} >
-                <span className='profile_type_letter'><img src={Plus} /></span> <p style={{
+                <span className='profile_type_letter'><img loading="lazy" loading="lazy" src={Plus} /></span> <p style={{
                   color: '#F28A35',
                 }}>Add New</p>
               </div>
               {member && (
                 <div className="password-update">
-                  <button className='closed_popup_password' onClick={close}><img src={close_iconImage} alt="protected" /></button>
+                  <button className='closed_popup_password' onClick={close}><img loading="lazy" loading="lazy" src={close_iconImage} alt="protected" /></button>
                   <div className="add-member">
                     {addMemberSuccess ? (
                       <div className="success">

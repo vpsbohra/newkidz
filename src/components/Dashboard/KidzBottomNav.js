@@ -134,7 +134,7 @@ class KidzBottomNav extends React.Component {
           <Slider {...settings}>
             {imageDataArray.map((image, index) => (
               <div className='btmNav_mainsr' key={index}>
-                <img
+                <img loading="lazy" loading="lazy"
                   src={image}
                   onClick={() => this.openModal(image, slideNames[index])} // Pass the name here
                   alt={` ${index + 1}`}
@@ -151,7 +151,7 @@ class KidzBottomNav extends React.Component {
           <div className='kidz_profile_popupsr_inner'>
             <div className='kidz_profile_popupsr_content'>
               {this.state.selectedImage && (
-                <img
+                <img loading="lazy" loading="lazy"
                   src={this.state.selectedImage}
                   alt='Selected Image'
                   className='modal-image'
@@ -159,7 +159,7 @@ class KidzBottomNav extends React.Component {
               )}
               <h3>{this.state.selectedName}</h3>
             </div>
-            <button onClick={this.closeModal}><img src={close} alt="protected" /></button>
+            <button onClick={this.closeModal}><img loading="lazy" loading="lazy" src={close} alt="protected" /></button>
           </div>
         </Modal>
       </>

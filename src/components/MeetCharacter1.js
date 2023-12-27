@@ -7,7 +7,7 @@ export default function MeetCharacter1() {
         <section className="section-meet-character1">
                 <div className="meet-inner">
                     <h2>Meet our characters</h2>
-                    <img src={Character1} alt="meet-character-1" />
+                    <img loading="lazy" loading="lazy" src={Character1} alt="meet-character-1" />
                 </div>
         </section>
     )

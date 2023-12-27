@@ -13,12 +13,12 @@ export default function GetToKnow() {
                         <button className='content_btn' type='button'>Let Me Get Started</button>
                     </div>
                     <div className="right-section col-6">
-                        <img src={Image1} alt="Description of the" />    
+                        <img loading="lazy" loading="lazy" src={Image1} alt="Description of the" />    
                     </div>
                 </div>
                 <div className="row section_one_rowtwo">
                     <div className="left-section col-6">
-                        <img src={Image2} alt="Description of the" />    
+                        <img loading="lazy" loading="lazy" src={Image2} alt="Description of the" />    
                     </div>
                     <div className="right-section col-6">
                         <h1>Connecting Parents and Kids</h1>

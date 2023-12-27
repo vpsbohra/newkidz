@@ -82,14 +82,14 @@ const handleCloseSharePopup = () => {
       <div className='chosen-story-section'>
       <div class="head-main-cstm">
      <div class="head-cstm-left">
-        <Link className="nav-link top_navbtnsr" to="/Kids-view"><img src={ParentalSwitch} alt='' /></Link>
-        <Link className="nav-link top_navbtnsr top_navbtnsr_right" to="/Kids-view"><img src={Replay} alt='' /></Link>
+        <Link className="nav-link top_navbtnsr" to="/Kids-view"><img loading="lazy" loading="lazy" src={ParentalSwitch} alt='' /></Link>
+        <Link className="nav-link top_navbtnsr top_navbtnsr_right" to="/Kids-view"><img loading="lazy" loading="lazy" src={Replay} alt='' /></Link>
         {/* <button className='close-button Share_btn_sr' onClick={handleShare}>
-                <Link className="nav-link"><img src={Sharebtn} /> </Link>
+                <Link className="nav-link"><img loading="lazy" loading="lazy" src={Sharebtn} /> </Link>
               </button> */}
               </div>
               <div class="head-price-cstm">
-    <img src={Coins}/><span>150</span>
+    <img loading="lazy" loading="lazy" src={Coins}/><span>150</span>
 </div>
 </div>
 

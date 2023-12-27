@@ -8,8 +8,8 @@ const Quiz = () => {
   return (
     <>
      <div className='chosen-story-section'>
-    <Link className="nav-link top_navbtnsr" to="/Kids-view"  ><img src={ParentalSwitch} alt=''/></Link>
-    <Link className="nav-link top_navbtnsr top_navbtnsr_right" to="/Kids-view"  ><img src={Replay} alt=''/></Link>
+    <Link className="nav-link top_navbtnsr" to="/Kids-view"  ><img loading="lazy" loading="lazy" src={ParentalSwitch} alt=''/></Link>
+    <Link className="nav-link top_navbtnsr top_navbtnsr_right" to="/Kids-view"  ><img loading="lazy" loading="lazy" src={Replay} alt=''/></Link>
       <div className='feedback-container-story' >
         <h2>Lorem ipsum dolor sit amet consectetur amet amet nunc lorem aliquam eu potenti risus?</h2>
         <p>You can check one or multiple answers</p>

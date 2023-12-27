@@ -98,11 +98,11 @@ export default function Selected_character() {
                 <KidsNav />
                 <div className="main-content selected_character_sr">
                     <div className="selected_character_sr-inr">
-                        <Link to='/allcharacters' className="allcharacter_link"><img src={Back} /><h3>Back</h3></Link>
+                        <Link to='/allcharacters' className="allcharacter_link"><img loading="lazy" loading="lazy" src={Back} /><h3>Back</h3></Link>
                     </div>
                     <div className="selected_character_sr_content">
                         <div className="selected_character_left">
-                            <img src={imagetoken} />
+                            <img loading="lazy" loading="lazy" src={imagetoken} />
                         </div>
                         <div className="selected_character_right selected_character_right_cstm">
                             <div>
@@ -113,7 +113,7 @@ export default function Selected_character() {
                                 <Slider {...settings}>
                                     {sliderImages.map((image, index) => (
                                         <div key={index} className='slide_mainsr' onClick={() => openModal(index)}>
-                                            <img src={image} />
+                                            <img loading="lazy" loading="lazy" src={image} />
                                         </div>
                                     ))}
                                 </Slider>
@@ -130,7 +130,7 @@ export default function Selected_character() {
   <path d="M20.1074 22.3803C21.1535 23.4805 22.8039 21.769 21.7579 20.6444L17.6433 16.3168L21.7579 11.9892C22.8039 10.8889 21.1767 9.15301 20.1074 10.2777L15.9928 14.6053L11.8782 10.2777C10.8321 9.15301 9.18163 10.8889 10.251 11.9892C11.6225 13.4317 12.9708 14.8742 14.3655 16.3168L10.251 20.6444C9.18163 21.7446 10.8321 23.4805 11.8782 22.3803L15.9928 18.0527L20.1074 22.3803Z" fill="white"/>
 </svg>
                             </span>
-                            <img src={sliderImages[selectedImageIndex]} alt="" />
+                            <img loading="lazy" loading="lazy" src={sliderImages[selectedImageIndex]} alt="" />
                         </div>
                     </div>
                 )}

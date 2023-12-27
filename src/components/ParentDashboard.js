@@ -175,7 +175,7 @@ const ParentDashboard = () => {
         <div className="container-fluid display-table">
           <div className="row display-table-row">
           <button id='bttna' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigations" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"><img className='menu_toggle_open' src={Menu_toggleImage} alt="Profile" onClick={activeClosebutton} /> <img className='menu_toggle_closed' src={Menu_toggleclosedImage} alt="Profile" onClick={activeOpenbutton} /></span>
+              <span className="navbar-toggler-icon"><img loading="lazy" loading="lazy" className='menu_toggle_open' src={Menu_toggleImage} alt="Profile" onClick={activeClosebutton} /> <img loading="lazy" loading="lazy" className='menu_toggle_closed' src={Menu_toggleclosedImage} alt="Profile" onClick={activeOpenbutton} /></span>
             </button>
             <nav id="navigation" className="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -183,7 +183,7 @@ const ParentDashboard = () => {
                 <div className="logo">
                   <Link>
                     <div className="profile_image">
-                      <img src={`https://mykidz.online/profile_images/${user.profile_image}`} alt="Profile" />
+                      <img loading="lazy" loading="lazy" src={`https://mykidz.online/profile_images/${user.profile_image}`} alt="Profile" />
                     </div>
                   </Link>
                   <p>Welcome {renderElement()}</p>
@@ -197,8 +197,8 @@ const ParentDashboard = () => {
                      
 <Dropdown show={isDropdownOpen} onToggle={handleToggle}>
                         <Dropdown.Toggle variant="light" id="my-kids-dropdown">
-                          <img className='Left_img_clr' src={Mykids_clrImage} alt="protected" />
-                          <img className='Left_img_active' src={MykidsImage} alt="protected" />
+                          <img loading="lazy" loading="lazy" className='Left_img_clr' src={Mykids_clrImage} alt="protected" />
+                          <img loading="lazy" loading="lazy" className='Left_img_active' src={MykidsImage} alt="protected" />
                           My Kids
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -232,7 +232,7 @@ const ParentDashboard = () => {
                       }}
                     >
                       <Link href="#">
-                        <span className="hidden-xs hidden-sm"><img className='Left_img_clr' src={BillingImage} alt="protected" /><img className='Left_img_active' src={Billing_whtImage} alt="protected" /> Billings and Subscriptions</span>
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" loading="lazy" className='Left_img_clr' src={BillingImage} alt="protected" /><img loading="lazy" loading="lazy" className='Left_img_active' src={Billing_whtImage} alt="protected" /> Billings and Subscriptions</span>
                       </Link>
                     </li>
 
@@ -243,7 +243,7 @@ const ParentDashboard = () => {
                       }}
                     >
                       <Link href="#">
-                        <span className="hidden-xs hidden-sm"><img className='Left_img_clr' src={SettingsImage} alt="protected" /><img className='Left_img_active' src={Settings_whtImage} alt="protected" /> Settings</span>
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" loading="lazy" className='Left_img_clr' src={SettingsImage} alt="protected" /><img loading="lazy" loading="lazy" className='Left_img_active' src={Settings_whtImage} alt="protected" /> Settings</span>
                       </Link>
                     </li>
                     <li
@@ -253,7 +253,7 @@ const ParentDashboard = () => {
                       }}
                     >
                       <Link href="#">
-                        <span className="hidden-xs hidden-sm"><img className='Left_img_clr' src={SuggestImage} alt="protected" /><img className='Left_img_active' src={Suggest_whtImage} alt="protected" /> Suggest Features</span>
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" loading="lazy" className='Left_img_clr' src={SuggestImage} alt="protected" /><img loading="lazy" loading="lazy" className='Left_img_active' src={Suggest_whtImage} alt="protected" /> Suggest Features</span>
                       </Link>
                     </li>
                     <li
@@ -262,12 +262,12 @@ const ParentDashboard = () => {
                       handleClose();}}
                     >
                       <Link href="#">
-                        <span className="hidden-xs hidden-sm"><img className='Left_img_clr' src={SupportImage} alt="protected" /><img className='Left_img_active' src={Support_whtImage} alt="protected" /> Support</span>
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" loading="lazy" className='Left_img_clr' src={SupportImage} alt="protected" /><img loading="lazy" loading="lazy" className='Left_img_active' src={Support_whtImage} alt="protected" /> Support</span>
                       </Link>
                     </li>
                     <li className='nav-item'>
                       <Link href="#">
-                        <span onClick={logoutUser} className="hidden-xs hidden-sm"><img src={LogoutImage} alt="protected" /> Logout</span>
+                        <span onClick={logoutUser} className="hidden-xs hidden-sm"><img loading="lazy" loading="lazy" src={LogoutImage} alt="protected" /> Logout</span>
                       </Link>
                     </li>
                   </ul>
