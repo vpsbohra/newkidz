@@ -162,8 +162,8 @@ export default function Register() {
                                 <GoogleOAuthProvider clientId="211892139032-031hag3n8u2u3m1s39nhpjjrauakc32k.apps.googleusercontent.com">
                                 <GoogleAuthSignup onError={handleError}/>
                                 </GoogleOAuthProvider>
-                        <button type="button" className="login-with-facebook-btn" ><img loading="lazy" loading="lazy" src={FBImage} alt="meet-character-1" /> Sign up with Facebook</button>
-                        <button type="button" className="login-with-apple-btn" ><img loading="lazy" loading="lazy" src={AppleImage} alt="meet-character-1" /> Sign up with Apple</button>
+                        <button type="button" className="login-with-facebook-btn" ><img loading="lazy" src={FBImage} alt="meet-character-1" /> Sign up with Facebook</button>
+                        <button type="button" className="login-with-apple-btn" ><img loading="lazy" src={AppleImage} alt="meet-character-1" /> Sign up with Apple</button>
                     </div>  
                     <div className="form-group mt-3 or_text">
                         <span>OR</span>

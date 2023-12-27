@@ -19,7 +19,7 @@ export default function Faq() {
       <div className="main-container about_page">
 
         <div className="about_page_header">
-          <img loading="lazy" loading="lazy" src={About_headerImg} />
+          <img loading="lazy" src={About_headerImg} />
         </div>
 
         <div className="container">
@@ -31,7 +31,7 @@ export default function Faq() {
             <div className='about_page_content'>
               <div className='about_content_item'>
                 <div className='about_content_item_img about_content_item_img_orange'>
-                  {/* <img loading="lazy" loading="lazy" src={education_fun} /> */}
+                  {/* <img loading="lazy" src={education_fun} /> */}
                   <h3>Education and Fun</h3>
                 </div>
                 <p>KidzConnect isn't just an app; it's an interactive educational tool designed to provide a positive alternative to conventional screen usage. We offer a platform where your child can read or listen to educational stories, answer questions (including yours), and engage in various activities that impart crucial life lessons.</p>
@@ -39,7 +39,7 @@ export default function Faq() {
 
               <div className='about_content_item'>
                 <div className='about_content_item_img about_item_imgRight'>
-                  {/* <img loading="lazy" loading="lazy" src={strengthening_bonds} /> */}
+                  {/* <img loading="lazy" src={strengthening_bonds} /> */}
                   <h3>Strengthening Family Bonds</h3>
                 </div>
                 <p>KidzConnect goes beyond learning; it fosters real-world 'Parent-Child' communication. The conversations that begin on the screen continue around the dinner table or during car rides, turning ordinary moments into meaningful dialogues. As a parent, you'll have the joy of discovering different aspects of your child's personality and creativity.</p>
@@ -47,7 +47,7 @@ export default function Faq() {
 
               <div className='about_content_item'>
                 <div className='about_content_item_img about_content_item_img_green'>
-                  {/* <img loading="lazy" loading="lazy" src={future_vision} /> */}
+                  {/* <img loading="lazy" src={future_vision} /> */}
                   <h3>Our Vision of the Future</h3>
                 </div>
                 <p>Yet, what truly sets KidzConnect apart is its ability to capture and preserve these precious exchanges through voice recordings. We believe these compilations of voices will become as treasured as family photo albums, capturing not just images but also the voices, laughter, discoveries, and thoughts of your children.</p>

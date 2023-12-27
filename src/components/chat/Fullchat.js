@@ -502,9 +502,9 @@ const tileClassName = ({ date, view }) => {
 
           <div className="audio-player" id="audio">
             <div className="audio-player_inner">
-              <img loading="lazy" loading="lazy" src={TenBack}/>
+              <img loading="lazy" src={TenBack}/>
               <div className="play-pause-btn" onClick={() => togglePlayPause("audio")}></div>
-              <img loading="lazy" loading="lazy" src={TenForward}/>
+              <img loading="lazy" src={TenForward}/>
             </div>
             <div className="progress-bar">
               <input type="range" min="0" max="100" value="0" step="1" onChange={() => seekTo("audio")} />
@@ -558,7 +558,7 @@ const tileClassName = ({ date, view }) => {
               </span>
             </>
           )} */}
-          {/* {hidden && (<span className="hide_more profile_type_letter" onClick={handleHideClick}><img loading="lazy" loading="lazy" src={Chat_hide} /></span>
+          {/* {hidden && (<span className="hide_more profile_type_letter" onClick={handleHideClick}><img loading="lazy" src={Chat_hide} /></span>
           )} */}
         </span>
         {hide === "false" ? <></> : <></>}
@@ -570,7 +570,7 @@ const tileClassName = ({ date, view }) => {
             )}`}
             target="_blank"
           >
-            <img loading="lazy" loading="lazy" src={Facebook} alt="Facebook" />
+            <img loading="lazy" src={Facebook} alt="Facebook" />
             <span>Facebook</span>
           </a>
           <a
@@ -578,11 +578,11 @@ const tileClassName = ({ date, view }) => {
             href="https://web.whatsapp.com/send?text= Please Visit https://link.kidzconnect.xxxxx"
             target="_blank"
           >
-            <img loading="lazy" loading="lazy" src={Whatsapp} />
+            <img loading="lazy" src={Whatsapp} />
             <span>Whatsapp</span>
           </a>
           <div className="social_icons_item">
-            <img loading="lazy" loading="lazy"
+            <img loading="lazy"
               src={Copy}
               alt="Copy Small"
               onClick={handleCopyClick}

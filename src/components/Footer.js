@@ -14,11 +14,11 @@ export default function Footer() {
         
                 <ul className="social_icon_sr list-unstyled mb-0">
                 <li>
-                <Link to="/" className="text-dark"><img loading="lazy" loading="lazy" src={SocialIconinsta} alt="SocialIconinsta" /></Link>
+                <Link to="/" className="text-dark"><img loading="lazy" src={SocialIconinsta} alt="SocialIconinsta" /></Link>
                    
                 </li>
                 <li>
-                <Link to="/" className="text-dark"><img loading="lazy" loading="lazy" src={SocialIconfb} alt="SocialIconfb" /></Link>
+                <Link to="/" className="text-dark"><img loading="lazy" src={SocialIconfb} alt="SocialIconfb" /></Link>
                 </li>
                 </ul>
             </div>

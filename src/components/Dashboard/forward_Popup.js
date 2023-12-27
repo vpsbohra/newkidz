@@ -23,19 +23,19 @@ const ForwardPopup = ({ onClose }) => {
     <>
       <div className="forward_popup">
         <div className="close-button" onClick={onClose}>
-          <img loading="lazy" loading="lazy" src={close_iconImage} alt="Close" /> {/* Close button */}
+          <img loading="lazy" src={close_iconImage} alt="Close" /> {/* Close button */}
         </div>
         <div className="forward_popup_inner">
                     <h3>Forward to Auntie (+32 477 337717)</h3>
                     <div className='social_icons'>
                         <a className='social_icons_item' href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`} target="_blank">
-            <img loading="lazy" loading="lazy" src={Facebook} alt="Facebook" />
+            <img loading="lazy" src={Facebook} alt="Facebook" />
             <span>Facebook</span>
           </a>
-                        <a className='social_icons_item' href="https://web.whatsapp.com/send?text= Please Visit https://link.kidzconnect.xxxxx"  target="_blank"><img loading="lazy" loading="lazy" src={Whatsapp} />
+                        <a className='social_icons_item' href="https://web.whatsapp.com/send?text= Please Visit https://link.kidzconnect.xxxxx"  target="_blank"><img loading="lazy" src={Whatsapp} />
                           <span>Whatsapp</span></a>
                         <div className='social_icons_item'>
-                        <img loading="lazy" loading="lazy" src={Copy} alt="Copy Small" onClick={handleCopyClick} style={{ cursor: 'pointer' }} />
+                        <img loading="lazy" src={Copy} alt="Copy Small" onClick={handleCopyClick} style={{ cursor: 'pointer' }} />
                         <span onClick={handleCopyClick} style={{cursor: 'pointer'}}>{isCopied ? 'Link Copied!' : 'Copy Link'}</span>
                          
                         </div>
@@ -48,7 +48,7 @@ const ForwardPopup = ({ onClose }) => {
                             readOnly
                         />
                       <div className='copylink_right'>
-                        <img loading="lazy" loading="lazy" src={Copy_small} alt="Copy Small" onClick={handleCopyClick} style={{ cursor: 'pointer' }} />
+                        <img loading="lazy" src={Copy_small} alt="Copy Small" onClick={handleCopyClick} style={{ cursor: 'pointer' }} />
                         <p onClick={handleCopyClick} style={{ cursor: 'pointer' }}>{isCopied ? 'Link Copied!' : 'Copy Link'}</p>
                       </div>
                     </div>

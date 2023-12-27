@@ -9,7 +9,7 @@ export default function MeetCharacter1() {
                 <div className="row">
                     <div className="left col-6"><MySlider /></div>
                     <div className="right col-6"> 
-                    <img loading="lazy" loading="lazy" src={TestimonialImage} alt="testiimonial-right" />
+                    <img loading="lazy" src={TestimonialImage} alt="testiimonial-right" />
                     </div>
                 </div>
             </div>

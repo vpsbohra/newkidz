@@ -27,25 +27,25 @@ const DoneWithBook = () => {
     
 
       <div className='chosen-story-section'>
-      <Link className="nav-link top_navbtnsr" to="/Kids-view"  ><img loading="lazy" loading="lazy" src={ParentalSwitch} alt=''/></Link>
+      <Link className="nav-link top_navbtnsr" to="/Kids-view"  ><img loading="lazy" src={ParentalSwitch} alt=''/></Link>
 
         <div className='main-container-story' >
         {showPopup && (
         <div className='popup'>
           <div className='popup-content'>
-          <img loading="lazy" loading="lazy" src={Star_Icon} />
+          <img loading="lazy" src={Star_Icon} />
             <h3>Congratulations!</h3>
             <p>You Completed This Story</p>
             <button className='close-button'>
-            <Link className="nav-link" to="/gettingstartedquiz"  > Let’s Start the Quiz Fun! <img loading="lazy" loading="lazy" src={quize_fun_arrow} /></Link>
+            <Link className="nav-link" to="/gettingstartedquiz"  > Let’s Start the Quiz Fun! <img loading="lazy" src={quize_fun_arrow} /></Link>
             </button>
           </div>
         </div>
       )}
           <div className='story-display-section_new'>
-            <img loading="lazy" loading="lazy" src={BookCover} alt=''/>
+            <img loading="lazy" src={BookCover} alt=''/>
           </div>
-          <Link className="nav-link next_previous_btnbook" to="/openbook"  ><img loading="lazy" loading="lazy" src={Next_Button_leftbookImg} alt="protected" /></Link>
+          <Link className="nav-link next_previous_btnbook" to="/openbook"  ><img loading="lazy" src={Next_Button_leftbookImg} alt="protected" /></Link>
         </div>
         
       </div>

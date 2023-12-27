@@ -21,28 +21,28 @@ export default function PlayFulSection() {
         <div className="container">
             <div className="row grid-section_itemrow grid-section_itemrow_oneSR">
                 <div className="left-section col-6">
-                    <img loading="lazy" loading="lazy" src={promote_img} alt="Promote the development" /> 
-                    <h2><img loading="lazy" loading="lazy" src={promote_eff} alt="Promote the development" /> Promote and expand the development of your child’s linguistic and cognitive skills.</h2>
+                    <img loading="lazy" src={promote_img} alt="Promote the development" /> 
+                    <h2><img loading="lazy" src={promote_eff} alt="Promote the development" /> Promote and expand the development of your child’s linguistic and cognitive skills.</h2>
                 </div>
                 <div className="right-section col-6">
-                    <img loading="lazy" loading="lazy" className='promote-main_img' src={Playful1} alt="Description of the" />    
+                    <img loading="lazy" className='promote-main_img' src={Playful1} alt="Description of the" />    
                 </div>
             </div>
             <div className="row grid-section_itemrow grid-section_itemrow_two">
                 <div className="left-section col-6">
-                    <img loading="lazy" loading="lazy" className='promote-main_img' src={Playful2} alt="Description of the" />    
+                    <img loading="lazy" className='promote-main_img' src={Playful2} alt="Description of the" />    
                 </div>
                 <div className="right-section col-6">
-                    <h2><img loading="lazy" loading="lazy" src={promote_eff2} alt="Promote the development" /> Stimulate imagination and creativity through interactive stories and activities with our adorable characters.</h2>
+                    <h2><img loading="lazy" src={promote_eff2} alt="Promote the development" /> Stimulate imagination and creativity through interactive stories and activities with our adorable characters.</h2>
                 </div>
             </div>
             <div className="row grid-section_itemrow">
                 <div className="left-section col-6">
-                    <h2><img loading="lazy" loading="lazy" src={promote_eff3} alt="Promote the development" /> Nurture curiosity and critical thinking with self-directed learning, exploring essential real-life scenarios.
+                    <h2><img loading="lazy" src={promote_eff3} alt="Promote the development" /> Nurture curiosity and critical thinking with self-directed learning, exploring essential real-life scenarios.
 </h2>
                 </div>
                 <div className="right-section col-6">
-                    <img loading="lazy" loading="lazy" className='promote-main_img' src={Playful3} alt="Description of the" />
+                    <img loading="lazy" className='promote-main_img' src={Playful3} alt="Description of the" />
                 </div>
             </div>
         </div>

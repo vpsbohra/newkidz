@@ -237,9 +237,9 @@ const Chat = ({ dataId, userId }) => {
                               {message.audio_path ? (
                                <div className='audio_message'>
                                <div className='audio_message_inner'>
-                                 <button className='no-background'><img loading="lazy" loading="lazy" src={play}/></button>
+                                 <button className='no-background'><img loading="lazy" src={play}/></button>
                                  <div className='remaining_audio'>
-                                 <span className='ongoing_contr'><img loading="lazy" loading="lazy" src={ongoing}/></span>
+                                 <span className='ongoing_contr'><img loading="lazy" src={ongoing}/></span>
                                  <span className='audio_line_sr'></span>
                                  </div>
                                </div>
@@ -317,9 +317,9 @@ const Chat = ({ dataId, userId }) => {
                                     {message.audio_path ? (
                                       <div className='audio_message'>
                                         <div className='audio_message_inner'>
-                                          <button className='no-background'><img loading="lazy" loading="lazy" src={play}/></button>
+                                          <button className='no-background'><img loading="lazy" src={play}/></button>
                                           <div className='remaining_audio'>
-                                          <span className='ongoing_contr'><img loading="lazy" loading="lazy" src={ongoing}/></span>
+                                          <span className='ongoing_contr'><img loading="lazy" src={ongoing}/></span>
                                           <span className='audio_line_sr'></span>
                                           </div>
                                         </div>
@@ -361,19 +361,19 @@ const Chat = ({ dataId, userId }) => {
           />
           <div className="chat_form_input_btncnrl">
             <div className="chat_form_input_btncnrlLeft">
-              <Link className="confirm" to="#"><img loading="lazy" loading="lazy" src={PaperClipImage} alt="protected" /></Link>
-              <Link className="confirm" to="#"><img loading="lazy" loading="lazy" src={EmojiImage} alt="protected" /></Link>
+              <Link className="confirm" to="#"><img loading="lazy" src={PaperClipImage} alt="protected" /></Link>
+              <Link className="confirm" to="#"><img loading="lazy" src={EmojiImage} alt="protected" /></Link>
             </div>
             <div className="chat_form_input_btncnrlRight">
             <button onClick={(recordedAudio !== null || message !== '') ? submit : null}>
-                <img loading="lazy" loading="lazy" src={sendImage} alt="protected" />
+                <img loading="lazy" src={sendImage} alt="protected" />
               </button>
               <button onClick={startRecording}>
-                <img loading="lazy" loading="lazy" src={SendAudioImage} alt="protected" />
+                <img loading="lazy" src={SendAudioImage} alt="protected" />
               </button>
               {recorder && (
                 <>
-                  <img loading="lazy" loading="lazy" src={WaveSendAudioImage} alt="protected" />
+                  <img loading="lazy" src={WaveSendAudioImage} alt="protected" />
                   <button className='stop_reco_btn' onClick={stopRecording}> Stop</button>
                 </>
 
