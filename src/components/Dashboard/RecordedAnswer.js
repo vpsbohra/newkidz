@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RecordRTC from 'recordrtc';
 import ParentalSwitch from '../../images/Home.png';
 import Record from '../../images/Record button.png';
@@ -12,6 +12,7 @@ import SharePopup from './share_popup';
 import Share from '../../images/Share 3.png';
 import Sharebtn from '../../images/Share.png';
 const RecordedAnswer = () => {
+  const navigate= useNavigate()
   const { token } = AuthUser();
   const { http } = AuthUser();
   const setChildID = sessionStorage.getItem('setChildID');
@@ -20,7 +21,7 @@ const RecordedAnswer = () => {
 
   const [questions, setQuestions] = useState([]);
 
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(localStorage.getItem('question'));
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState('');
   const [elapsedTime, setElapsedTime] = useState(0);
   const [recorder, setRecorder] = useState(null);
   const [show, setShow] = useState(true);
@@ -29,7 +30,7 @@ const RecordedAnswer = () => {
   const [currentaudio, setAudio] = useState();
   const [showReplayButton, setShowReplayButton] = useState(false);
   const [showSharePopup, setShowSharePopup] = useState(false);
-const [ currentQuestion,setCurrentQuestion]=useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const addBodyClass = () => {
     document.body.classList.add('popup_active');
   };
@@ -83,10 +84,13 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
       };
     }
   }, [currentaudio, currentQuestionIndex]);
-  
+
   const fetchData = async () => {
     const x = localStorage.getItem('question');
-    setCurrentQuestionIndex(x);
+    if (x) {
+
+      setCurrentQuestionIndex(x);
+    }
     try {
       const response = await axios.get('https://mykidz.online/api/stories', {
         headers: {
@@ -94,29 +98,29 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
         },
       });
 
-      
-  
+
+
       const x = sessionStorage.getItem('sid');
       const y = sessionStorage.getItem('childStory');
-      console.log("Y",y);
-      console.log("X",x);
-      const storyId =y;
-      console.log("Response data",response.data);
+      console.log("Y", y);
+      console.log("X", x);
+      const storyId = y;
+      console.log("Response data", response.data);
       const selectedStory = response.data.find(story => story.id === parseInt(storyId, 10));
 
-      console.log("Storyid",storyId);
+      console.log("Storyid", storyId);
       console.log("Data", selectedStory);
-  
+
       if (selectedStory) {
         const mcqData = selectedStory.story_mcq;
         const questionArray = mcqData.split('-');
         setQuestions(questionArray);
-  console.log("KJHSDKJFHKSLJDHFKJLSHDSKJF",currentQuestionIndex);
+        console.log("KJHSDKJFHKSLJDHFKJLSHDSKJF", currentQuestionIndex);
         const audioData = selectedStory.question_audio.split(',');
         const audioUrl = audioData[currentQuestionIndex].trim();
         setAudio(audioUrl);
-        console.log("AUDIO",audioUrl);
-  
+        console.log("AUDIO", audioUrl);
+
         // Set other states or perform additional logic as needed
       }
     } catch (error) {
@@ -186,10 +190,13 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
   // };
   useEffect(() => {
     const x = localStorage.getItem('question');
-    setCurrentQuestion(x);
+    if (x) {
+
+      setCurrentQuestion(x);
+    }
     fetchData();
   }, [token, currentQuestionIndex]);
-  
+
 
   const startRecording = async () => {
     setShow(null);
@@ -240,7 +247,7 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
           spouse,
           base64Audio,
           question_voice_answer: questions[currentQuestionIndex],
-          total_second:elapsedTime,
+          total_second: elapsedTime,
         })
           .then((data) => {
             console.log('si message sent:', data.message);
@@ -269,43 +276,43 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
   const handleNextQuestion = () => {
     // var audiodata = "https://mykidz.online/stories/audio/Story_1-1.wav,https://mykidz.online/stories/audio/Story_1-2.wav,https://mykidz.online/stories/audio/Story_1-3.wav,https://mykidz.online/stories/audio/Story_1-4.wav,https://mykidz.online/stories/audio/Story_1-5.wav"
     // var audioArray = audiodata.split(',');
-console.log("CurrentQuestionIndex",currentQuestionIndex);
-console.log("Total Questions",questions.length-1);
-const x = localStorage.getItem('question');
-setCurrentQuestionIndex(x);
-if (currentQuestion < questions.length - 1) {
-  localStorage.setItem("question",parseInt(currentQuestion,10)+ 1);
-  setCurrentQuestionIndex(localStorage.getItem('question'));
-  update();
-  const audiodata = data?.question_audio?.split(',') || [];
-  console.log("AUDIO DATA", audiodata);
-  const audioUrl = audiodata[currentQuestionIndex + 1]?.trim();
-  setAudio(audioUrl);
-  setRecordedAudio(null);
-  setRecorder(null);
-  setSendAudio(null);
-  setShow(true);
-  // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-  console.log(audioUrl);
-  console.log("currentQuestionIndex", currentQuestionIndex);
-} else {
-  localStorage.setItem('question',0);
+    console.log("CurrentQuestionIndex", currentQuestionIndex);
+    console.log("Total Questions", questions.length - 1);
+    const x = localStorage.getItem('question');
+    setCurrentQuestionIndex(x);
+    if (currentQuestion < questions.length - 1) {
+      localStorage.setItem("question", parseInt(currentQuestion, 10) + 1);
+      setCurrentQuestionIndex(localStorage.getItem('question'));
+      update();
+      const audiodata = data?.question_audio?.split(',') || [];
+      console.log("AUDIO DATA", audiodata);
+      const audioUrl = audiodata[currentQuestionIndex + 1]?.trim();
+      setAudio(audioUrl);
+      setRecordedAudio(null);
+      setRecorder(null);
+      setSendAudio(null);
+      setShow(true);
+      // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      console.log(audioUrl);
+      console.log("currentQuestionIndex", currentQuestionIndex);
+    } else {
+
+      localStorage.setItem('question', 0);
       update();
       // Redirect to "/all-activity" when the last question is answered
-      setTimeout(() => {
-        window.location.href = "/all-activity";
-
-
-      }, 2000);
+      // setTimeout(() => {
+navigate('/TransitionScreen')
+      // }, 2000);
     }
+
   };
-const [question,setQuestion]=useState(0);
+  const [question, setQuestion] = useState(0);
   const [data, setData] = useState();
-  
+
 
   useEffect(() => {
     // start();
-//  fetchData();
+    //  fetchData();
     let timer;
 
     if (recorder) {
@@ -438,7 +445,6 @@ const [question,setQuestion]=useState(0);
     const seconds = Math.floor(audio.currentTime % 60);
     const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     currentTimeDisplay.textContent = formattedTime;
-
     const totalMinutes = Math.floor(audio.duration / 60);
     const totalSeconds = Math.floor(audio.duration % 60);
     const formattedTotalTime = `${totalMinutes}:${totalSeconds < 10 ? '0' : ''}${totalSeconds}`;
@@ -448,7 +454,7 @@ const [question,setQuestion]=useState(0);
   const update = () => {
     const a = sessionStorage.getItem('setChildID');
     const b = sessionStorage.getItem('childId');
-    const chid = a?a:b;
+    const chid = a ? a : b;
     const headers = {
       "Content-type": "application/json",
       "Authorization": `Bearer ${token}`
@@ -487,7 +493,11 @@ const [question,setQuestion]=useState(0);
         )}
         <div className='all_activity_sr_inner'>
           <div className='feedback-container-story'>
+
+
+
             <h2>{questions[currentQuestion]}</h2>
+
             <p>Press play and record your response</p>
             <div className='record-section'>
               <div className="chat_form_input_btncnrlRight">

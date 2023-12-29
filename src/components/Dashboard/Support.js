@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ContactForm from '../ContactForm';
 import search_keywordIMG from '../../images/search_keyword.png';
-import circle_chevIMG from '../../images/circle_chev_down.png';
+import circle_chevIMG from '../../images/Circle_Chev_Down.png';
 import circle_chev_BACKIMG from '../../images/Circle_Chev_Down_clrr.png';
 import mailcheck from '../../images/Mail_Check.png';
 import { Modal} from 'react-bootstrap';

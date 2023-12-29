@@ -122,7 +122,15 @@
     .kids_view_mainSlider .slider_mainsr .slick-list .slick-track .slick-slide.slick-current .slide_mainsr .slide_mainsr_img .slide_mainsr_img_inn img {
         height: 196px;
     }
-    
+    .modal-content.start_printing_popup .print_btn_strPrint {
+        position: absolute;
+        right: 0;
+        display: table;
+        width: 285px;
+        top: -85px;
+        left: 0;
+        margin: 0 auto;
+    }
     
     } 
     
@@ -324,6 +332,9 @@
     min-height: 45px;
 }
 
+.start_printing.kidz_allcharacters_Sr .kidz_profile_popupsr_inner .kidz_profile_popupsr_content {
+	height: 310px;
+}
 
     }
 
@@ -648,6 +659,10 @@
     .react-calendar__viewContainer .react-calendar__month-view__weekdays .react-calendar__month-view__weekdays__weekday {
         font-size: 16px;
     }
+    .Main_Gaming_Sec.KidzOnGoingStory .gaming-section.games_item .games_section .games_section_item {
+        width: 100%;
+    }
+    
     }   
     
     @media screen and (max-width: 576px) {
@@ -748,6 +763,14 @@
         bottom: 2%;
         max-width: 130px;
         display: none;
+    }
+    .start_printing.kidz_allcharacters_Sr .kidz_profile_popupsr_inner .kidz_profile_popupsr_content {
+        height: 250px;
+    }
+    .print_btn_strPrint button {
+        max-width: 215px;
+        padding: 16px 0;
+        margin: 0 auto;
     }
 }
 
@@ -850,6 +873,9 @@
         font-size: 18px;
         line-height: 26px;
     }
+    .start_printing.kidz_allcharacters_Sr .kidz_profile_popupsr_inner .kidz_profile_popupsr_content {
+        height: 220px;
+    }
 }
 
 @media screen and (max-width: 430px) {
@@ -858,5 +884,7 @@
 .chosen-story-section .main-container-story .story-display-section_new {width: 100%;padding-top: 20px;}
 .chosen-story-section .main-container-story .popup .popup-content .close-button a img {max-width: 30px;}
 .top_currently_notification .notification-buttons .notification-decline, .top_currently_notification .notification-buttons .notification-accept {min-width: 120px;max-width: 120px;}
-
+.start_printing.kidz_allcharacters_Sr .kidz_profile_popupsr_inner .kidz_profile_popupsr_content {
+	height: 190px;
+}
 } 

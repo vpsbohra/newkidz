@@ -20,8 +20,33 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Previous_ButtonImg from '../../images/Previous_Button.png';
+import stany_1 from "../../images/Character/stany(1).png";
+import stany_2 from "../../images/Character/stany(2).png";
+import stany_3 from "../../images/Character/stany(3).png";
+import stefy_1 from "../../images/Character/stefy(1).png";
+import stefy_2 from "../../images/Character/stefy(2).png";
+import stefy_3 from "../../images/Character/stefy(3).png";
+import stefy_4 from "../../images/Character/stefy(4).png";
+import stefy_5 from "../../images/Character/stefy(5).png";
+import stefy_6 from "../../images/Character/stefy(6).png";
+const characterImages = [
+  stany_1, stany_2, stany_3, stefy_1, stefy_2, stefy_3, stefy_4, stefy_5, stefy_6
+];
+const shuffleArray = (array) => {
+  const shuffledArray = array.slice();
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};  
+const getRandomImages = (array, count) => {
+  const shuffledArray = shuffleArray(array);
+  return shuffledArray.slice(0, count);
+};
 
 export default function KidzDashboard() {
+  const [randomCharacterImages, setRandomCharacterImages] = useState([]);
   const StoryId = String(sessionStorage.getItem('childStory'));
   const ChildId = String(sessionStorage.getItem('childId'));
   const [userid, setuserid] = useState('');
@@ -56,6 +81,10 @@ export default function KidzDashboard() {
 
   // Manage the fetched data here
   const [fdata, setFdata] = useState([]);
+  
+  useEffect(() => {
+    setRandomCharacterImages(getRandomImages(characterImages, 4));
+  }, []);
 
   useEffect(() => {
     const userInformation = sessionStorage.getItem('user');
@@ -286,7 +315,7 @@ export default function KidzDashboard() {
 
   return (
     <>
-      <div className="kidzdashboard">
+      <div className="kidzdashboard kidzdashboardmain">
         <div className="container-fluidss display-tabless">
           <KidsNav />
           <div className="main-content kidzdashboard_mainsr">
@@ -302,15 +331,18 @@ export default function KidzDashboard() {
           <div className="main-content">
 
             {/* <KidzOnGoingStory /> */}
-            <div className="Main_Gaming_Sec">
+            <div className="Main_Gaming_Sec KidzOnGoingStory"> 
               <div className="gaming-section games_item">
                 <div className='games_section'>
-                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
+                {randomCharacterImages.map((image, index) => (
+                    <div className='games_section_item' key={index}>
+                      <img loading="lazy" height={150} width={150} className='game_img' src={image} />
+                    </div>
+                  ))}
                 </div>
-                <button className='all_games'><span className='all_games_span'>BROWSE ALL GAMES </span></button>
+                <Link to='/start_printing' className='start_printing_btn'> 
+                <button className='all_games'><span className='all_games_span'>START PRINTING</span></button>
+                </Link>
               </div>
 
               <div className="gaming-section colouring_item">
