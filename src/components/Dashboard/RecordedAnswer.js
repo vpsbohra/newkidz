@@ -21,7 +21,7 @@ const RecordedAnswer = () => {
 
   const [questions, setQuestions] = useState([]);
 
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState('');
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState('0');
   const [elapsedTime, setElapsedTime] = useState(0);
   const [recorder, setRecorder] = useState(null);
   const [show, setShow] = useState(true);

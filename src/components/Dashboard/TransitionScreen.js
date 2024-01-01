@@ -35,8 +35,11 @@ const TransitionScreen = () => {
   const [isPlaying, setIsPlaying] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState('');
   const [questions, setQuestions] = useState([]);
+  const randomQuestions = ["Your child has responded! Listen to their question and send them your response here!", "Your child has a question for you, listen to it and give them your full attention!"];
+  const randomQuestionIndex = Math.floor(Math.random() * randomQuestions.length);
+  const randomQuestion = randomQuestions[randomQuestionIndex];
 
-
+console.log("randomQuestion",randomQuestion);
   useEffect(() => {
     // start();
     //  fetchData();
@@ -92,6 +95,52 @@ const TransitionScreen = () => {
   };
 
 
+
+
+  const sendRandomQuestion = () => {
+
+    setElapsedTime(0);
+    const username = user.name.split(' ')[0];
+    const senderId = setChildID;
+    const receiverId = user.id;
+    const spouse = user.spouse;
+
+    if (recordedAudio) {
+      const audioFile = new File([recordedAudio], 'audio.wav', { type: 'audio/wav' });
+      const reader = new FileReader();
+
+      reader.readAsDataURL(audioFile);
+      reader.onloadend = function () {
+        const base64Audio = reader.result.split(',')[1];
+        const formData = new FormData();
+        formData.append('audio', base64Audio);
+        formData.append('question', questions[currentQuestionIndex]);
+
+
+        http.post('https://mykidz.online/api/audio-messages-question', {
+          username,
+          senderId,
+          receiverId,
+          spouse,
+          base64Audio,
+          question_voice_answer: randomQuestion,
+          total_second: elapsedTime,
+        })
+          .then((data) => {
+            console.log('si message sent:', data.message);
+            console.log('Audio message data:', data.data);
+          })
+          .catch((error) => {
+            console.error('Error sending audio message:', error);
+          });
+
+        setRecordedAudio(null);
+        setRecorder(null);
+        setSendAudio(base64Audio);
+        sendAudioMessage();
+      };
+    }
+  };
   const sendAudioMessage = () => {
 
     setElapsedTime(0);
@@ -244,9 +293,10 @@ const TransitionScreen = () => {
                                                     <button className='stop_reco_btn no-background' onClick={startRecording}>
                                                         <img loading="lazy" src={WaveSendAudioImage1} alt="protected" />
                                                     </button>
-                                                    <button className='sendAudio_btn no-background' onClick={sendAudioMessage}>
-                                                        Send Response
-                                                    </button>
+                                                    <button className='sendAudio_btn no-background' onClick={() => { sendRandomQuestion();}}>
+    Send Response
+</button>
+
                                                 </div>
                                             </>
                                         )}

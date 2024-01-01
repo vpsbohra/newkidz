@@ -3,12 +3,21 @@ import kid1 from '../../images/kid1.png';
 import brother from '../../images/brother.png';
 import Vector from '../../images/Vector (2).png';
 import ParentalSwitch from '../../images/Home.png';
-import BookCover from '../../images/BookCover.png';
-import BookCoverImg from '../../images/bookcover01.png';
+import AuthUser from '../AuthUser';
 import { Link, useNavigate, Routes, Route } from 'react-router-dom';
 
 
+
+
 const ChosenStory = () => {
+  const navigate = useNavigate();
+  const { http } = AuthUser();
+  const [username, setUsername] = useState('');
+  const { user, token } = AuthUser();
+  const [userdetail, setUserdetail] = useState({});
+  const userInfo = sessionStorage.getItem('user');
+  const userInfoDetail = JSON.parse(userInfo);
+  const spouse = userInfoDetail.spouse;
   const [storiesImage, setStoriesImage] = useState('');
   const [storiesTitle, setStoriesTitle] = useState('');
   const image = sessionStorage.getItem("selectedStory");
@@ -18,6 +27,48 @@ const ChosenStory = () => {
     setStoriesImage(img.cover_image);
     setStoriesTitle(img.title)
   }, [img.cover_image]);
+
+
+  const fetchUserDetail = () => {
+    setUserdetail(user);
+    setUsername(user.name.split(' ')[0]);
+  };
+
+
+  useEffect(() => {
+    fetchUserDetail();
+    
+  }, []);
+  const sendNotification =()=>{
+    const childId = sessionStorage.getItem('childId');
+    const senderId = childId;
+    const receiverId = userdetail.id;
+    const question_voice_answer = "Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives.";
+    http
+          .post('https://mykidz.online/api/first-notification', { username, senderId, receiverId, spouse , question_voice_answer})
+          .then((data) => {
+console.log(data);
+navigate('/openbook');
+})
+.catch((error) => {
+  console.error('Error sending audio message:', error);
+  })
+}
+const sendNotification1 =()=>{
+  const childId = sessionStorage.getItem('childId');
+  const senderId = childId;
+  const receiverId = userdetail.id;
+  const question_voice_answer = "Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives.";
+  http
+        .post('https://mykidz.online/api/first-notification', { username, senderId, receiverId, spouse, question_voice_answer })
+        .then((data) => {
+console.log(data);
+navigate('/code');
+})
+.catch((error) => {
+console.error('Error sending audio message:', error);
+})
+}
 
   return (  
     <>
@@ -36,7 +87,7 @@ const ChosenStory = () => {
 
         <div className='reading-mode'>
             <div className='myself-section reading_btnsr'>
-            <Link className="nav-link" to="/openbook"  >
+            <Link className="nav-link"  onClick={sendNotification}  >
                 <img loading="lazy" src={kid1} />
                 <p>READ BY MYSELF</p>
                 <svg width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +97,7 @@ const ChosenStory = () => {
                 </Link>
             </div>
             <div className='to-me-section reading_btnsr'>
-            <Link className="nav-link" to="/code"  >
+            <Link className="nav-link" onClick={sendNotification1}  >
                 <img loading="lazy" src={brother} />
                 <p>READ IT TO ME</p>
                 <svg width="39" height="34" viewBox="0 0 39 34" fill="none" xmlns="http://www.w3.org/2000/svg">
