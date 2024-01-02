@@ -21,7 +21,7 @@ const RecordedAnswer = () => {
 
   const [questions, setQuestions] = useState([]);
 
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState('0');
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [recorder, setRecorder] = useState(null);
   const [show, setShow] = useState(true);
@@ -60,20 +60,20 @@ const RecordedAnswer = () => {
     audio.addEventListener('ended', handleAudioEnded);
 
   };
-  // useEffect(() => {
-  //   // Play audio only once when the page loads
-  //   let audio = new Audio(currentaudio);
-  //   audio.play();
+  useEffect(() => {
+    // Play audio only once when the page loads
+    let audio = new Audio(currentaudio);
+    audio.play();
 
-  //   // Add event listener to handle audio ended
-  //   audio.addEventListener('ended', handleAudioEnded);
+    // Add event listener to handle audio ended
+    audio.addEventListener('ended', handleAudioEnded);
 
-  //   // Clean up the audio element and remove event listener when the component unmounts
-  //   return () => {
-  //     audio.removeEventListener('ended', handleAudioEnded);
-  //     audio = null;
-  //   };
-  // }, [currentaudio]);
+    // Clean up the audio element and remove event listener when the component unmounts
+    return () => {
+      audio.removeEventListener('ended', handleAudioEnded);
+      audio = null;
+    };
+  }, [currentaudio]);
   useEffect(() => {
     if (currentQuestionIndex === localStorage.getItem('question')) {
       let audio = new Audio(currentaudio);
