@@ -72,7 +72,6 @@ const Chat = ({ dataId, userId }) => {
   const [loader, setLoader] = useState(true);
   const [reaction, setReaction] = useState();
   const [stop, setStop] = useState(null);
-  
   const getToKnowpara = "Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives.";
   const hasRespondedpara = "Your child has responded! Listen to their question and send them your response here!";
 
@@ -286,6 +285,7 @@ const Chat = ({ dataId, userId }) => {
     setUsername(user.name.split(' ')[0]);
   };
   const [url, setUrl] = useState('');
+  const [n, setN] = useState(null);
   const submit = async () => {
     console.log('attached_file_type:', fileMessage)
     const senderId = userdetail.id;
@@ -309,6 +309,7 @@ const Chat = ({ dataId, userId }) => {
       },
     })
       .then(async (response) => {
+
         setFname(null);
         setMessage('');
         setFileMessage('');
@@ -317,6 +318,41 @@ const Chat = ({ dataId, userId }) => {
         setRmessage(false);
         setRdiv('');
         console.log('Message saved:', response.data);
+        if (rdiv == "Please send your family or loved ones a question about today’s topic!") {
+          const formData2 = new FormData();
+          formData2.append('username', username);
+          formData2.append('senderId', receiverId);
+          formData2.append('receiverId', senderId);
+          formData2.append('spouse', spouse);
+          formData2.append('total_second', 0);
+          formData2.append('attached_file', selectedImage);
+          formData2.append('attached_file_type', fileMessage);
+          formData2.append('total_second', 0);
+          formData2.append('reply_question', '');
+          formData2.append('question_voice_answer', 'Thank you for sharing your thoughts!');
+          http.post('/messages', formData2, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+            .then(async (response) => {
+              setFname(null);
+              setMessage('');
+              setFileMessage('');
+              setSelectedImage(null);
+              setSelectedFile(null);
+              setRmessage(false);
+              setRdiv('');
+              console.log('Message saved:', response.data);
+              await fetchMessages();
+              setSelectedImage(null);
+              setFileMessage('');
+              setSelectedFile(null);
+            })
+            .catch((error) => {
+              console.error('Error saving message:', error);
+            });
+        }
         await fetchMessages();
         setSelectedImage(null);
         setFileMessage('');
@@ -325,32 +361,7 @@ const Chat = ({ dataId, userId }) => {
       .catch((error) => {
         console.error('Error saving message:', error);
       });
-    if (rdiv == 'Please send your family or loved ones a question about today’s topic!') {
-      formData.append('question_voice_answer', 'Thank you for sharing your thoughts!');
-      formData.append('question_voice_answer', 'Thank you for sharing your thoughts!');
-      http.post('/messages', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-        .then(async (response) => {
-          setFname(null);
-          setMessage('');
-          setFileMessage('');
-          setSelectedImage(null);
-          setSelectedFile(null);
-          setRmessage(false);
-          setRdiv('');
-          console.log('Message saved:', response.data);
-          await fetchMessages();
-          setSelectedImage(null);
-          setFileMessage('');
-          setSelectedFile(null);
-        })
-        .catch((error) => {
-          console.error('Error saving message:', error);
-        });
-    }
+   
 
   };
   function formatTime(dateTimeString) {
@@ -398,6 +409,8 @@ const Chat = ({ dataId, userId }) => {
     setRecorder(null);
 
     setElapsedTime(0);
+    setRmessage(false);
+          setRdiv('');
 
     const senderId = userdetail.id;
     const receiverId = dataId;
@@ -631,9 +644,7 @@ const Chat = ({ dataId, userId }) => {
   function reply(question) {
     setRdiv(question);
     setRmessage(true);
-    if (rdiv == 'Please send your family or loved ones a question about today’s topic!') {
 
-    }
   }
 
 
@@ -748,7 +759,7 @@ const Chat = ({ dataId, userId }) => {
                                                   </div>
                                                 </div>
                                                 <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                                  <source src={`data:audio/wav;base64,${message.voice_answer}`} />
+                                                  <source src={`data:audio/wav;base64,${message.audio_path}`} />
                                                 </audio>
                                               </div>
                                             </div>
@@ -797,19 +808,19 @@ const Chat = ({ dataId, userId }) => {
                                                     </div>
                                                     <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
 
-                                                      <audio controls>
-                                                        {message.question_voice_answer === hasRespondedpara ? (
-                                                          <source src={hasResponded} type="audio/wav" />
-                                                        ) : message.question_voice_answer === getToKnowpara ? (
-                                                          <source src={getToKnow} type="audio/wav" />
-                                                        ) : (
-                                                          <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                                        )}
+<audio controls>
+  {message.question_voice_answer === hasRespondedpara ? (
+    <source src={hasResponded} type="audio/wav" />
+  ) : message.question_voice_answer === getToKnowpara ? (
+    <source src={getToKnow} type="audio/wav" />
+  ) : (
+    <source src={`data:audio/wav;base64,${message.audio_path}`} />
+  )}
 
-                                                      </audio>
+</audio>
 
 
-                                                    </audio>
+</audio>
                                                   </div>
                                                 </div>
                                               </>
@@ -901,7 +912,10 @@ const Chat = ({ dataId, userId }) => {
                                 <div className={`chat-audio-main col-10 mb-1 small user_message_sr ${message.senderId == userId ? 'sent-by-user-message' : ''}`}>
                                   {message.message ? (
                                     <>
-                                      {message.reply_question ? (<><p>{message.reply_question}</p>
+                                    
+                                      {message.reply_question ? (<>
+                                      <div className='reply_question_fullchat'>
+                                        <p className='reply_question'>{message.reply_question}</p>
                                         <div className="audio-player" id="audio" >
                                           <div className="play-pause-btn"></div>
                                           <div className="progress-bar">
@@ -914,8 +928,10 @@ const Chat = ({ dataId, userId }) => {
                                             <source src={`data:audio/wav;base64,${message.audio_path}`} />
                                           </audio>
                                         </div>
-                                        <p>{message.message}</p>
-                                      </>) : (<>{message.message}</>)}
+                                        </div>
+                                        <p  className='reply_response_text reply_textp'>{message.message}</p>
+                                      </>) : (<><p className='simple_chat_text reply_textp'>{message.message}</p></>)}
+                                      
                                     </>
                                   ) : (
                                     <>
@@ -970,7 +986,9 @@ const Chat = ({ dataId, userId }) => {
                                       )}
                                       {message.audio_path ? (
                                         <div class="chat-audio">
-                                          {message.reply_question && (<><p>{message.reply_question}</p>
+                                          {message.reply_question && (<>
+                                          <div className='reply_question_fullchat chat-audioreply'>
+                                          <p className='reply_question'>{message.reply_question}</p>
                                             <div className="audio-player" id={`audio${index}`}>
                                               <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
                                               <div className="progress-bar">
@@ -982,6 +1000,7 @@ const Chat = ({ dataId, userId }) => {
                                               <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
                                                 <source src={`data:audio/wav;base64,${message.audio_path}`} />
                                               </audio>
+                                            </div>
                                             </div>
                                           </>)}
                                           <div className="audio-player" id={`audio${index}`}>
@@ -1027,7 +1046,12 @@ const Chat = ({ dataId, userId }) => {
             </div>
           </div>
         </div>
-        <div className='reply_message_container'>
+       
+        <div className="chat_form_input_outer_new ">
+
+          <div className="chat_form_input">
+
+          <div className='reply_message_container'>
           {rmessage && (<> <div className='chat_form_input reply_message' >
             <div class="chat-audio">
               <p>{rdiv} </p>
@@ -1046,9 +1070,7 @@ const Chat = ({ dataId, userId }) => {
             </div>
           </div></>)}
         </div>
-        <div className="chat_form_input_outer_new ">
 
-          <div className="chat_form_input">
             <input
               className="form-control"
               placeholder={fname ? `Attached file : ${fname}` : "Write a message"}

@@ -30,29 +30,66 @@ const Start_Printing = () => {
 
     };
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // const handlePrint = () => {
+    //     const iframe = document.createElement('iframe');
+    //     iframe.style.display = 'none';
+    //     iframe.onload = () => {
+    //       iframe.contentDocument.write(`
+    //         <html>
+    //           <head>
+    //             <title>Print</title>
+    //           </head>
+    //           <body>
+    //             <img src="${selectedImage}" alt="Print" style="max-width: 100%; height: auto;">
+    //           </body>
+    //         </html>
+    //       `);
+    //       const printImage = iframe.contentDocument.querySelector('img');
+    //       printImage.onload = () => {
+    //         iframe.contentWindow.print();
+    //         document.body.removeChild(iframe);
+    //       };
+    //     };
+    //     document.body.appendChild(iframe);
+    //   };
     const handlePrint = () => {
         const iframe = document.createElement('iframe');
         iframe.style.display = 'none';
+    
         iframe.onload = () => {
-          iframe.contentDocument.write(`
-            <html>
-              <head>
-                <title>Print</title>
-              </head>
-              <body>
-                <img src="${selectedImage}" alt="Print" style="max-width: 100%; height: auto;">
-              </body>
-            </html>
-          `);
-          const printImage = iframe.contentDocument.querySelector('img');
-          printImage.onload = () => {
-            iframe.contentWindow.print();
-            document.body.removeChild(iframe);
-          };
+            iframe.contentDocument.write(`
+                <html>
+                    <head>
+                        <title>Print</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                padding: 0;
+                            }
+                            img {
+                                max-width: 100%;
+                                height: 100vh; /* Set the height to fill the viewport */
+                                object-fit: contain; /* Maintain aspect ratio while filling the viewport */
+                                page-break-before: always; /* Ensure each image is on a new page */
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <img src="${selectedImage}" alt="Print">
+                    </body>
+                </html>
+            `);
+    
+            const printImage = iframe.contentDocument.querySelector('img');
+            printImage.onload = () => {
+                iframe.contentWindow.print();
+                document.body.removeChild(iframe);
+            };
         };
+    
         document.body.appendChild(iframe);
-      };
-      
+    };
+    
       
 
     return (

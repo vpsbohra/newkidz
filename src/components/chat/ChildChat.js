@@ -645,14 +645,14 @@ const ChildChat = () => {
                               className={`list-group-item user_list_sr list-group-item-action py-3 lh-tight ${message.senderId == childId ? 'sent-by-user' : ''
                                 }`}
                             >
-                              <div className="user_list_groupsr">
-                                <div className={`chat-audio-main col-10 mb-1 small user_message_sr ${message.senderId == childId ? 'sent-by-user-message' : ''
+                              <div className="user_list_groupsr childAudiosMain">
+                                <div className={`chat-audio-main col-10 mb-1 small user_message_sr childAudios ${message.senderId == childId ? 'sent-by-user-message' : ''
                                   }`}>
                                   {message.message ? (
                                     <p>{message.message}</p>
                                   ) : (
-                                    <div class="chat-audio">
-                                      <p>{message.question_voice_answer}</p>
+                                    <div class="chat-audio child_msgAudio">
+                                      <p className='childMSgQusP'>{message.question_voice_answer}</p>
                                       <div className="audio-player" id={`audio${index}`}>
                                         <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
                                         <div className="progress-bar">
@@ -693,10 +693,11 @@ const ChildChat = () => {
                                   <div className="d-flex w-100 align-items-center justify-content-between user_name_label">
                                     <strong className="mb-1">{spouse.charAt(0)}</strong>
                                   </div>
-                                  <div className={`right-side-user col-10 mb-1 small user_message_sr ${message.senderId == childId ? 'sent-by-user-message' : ''
+                                  <div className={`right-side-user col-10 mb-1 small user_message_sr message_reply_childsec  ${message.senderId == childId ? 'sent-by-user-message' : ''
                                     }`}>
                                     {message.message ? (<>
                                       {message.reply_question ? (<>
+                                      <div className='reply_response_child'>
                                         <p>{message.reply_question}</p>
                                         <div className="audio-player" id="audio" >
                                           <div className="play-pause-btn"></div>
@@ -710,6 +711,7 @@ const ChildChat = () => {
                                             <source src={`data:audio/wav;base64,${message.audio_path}`} />
                                           </audio>
                                         </div>
+                                        </div>
                                         {message.audio_path ?(<><div className="audio-player" id="audio" >
                                           <div className="play-pause-btn"></div>
                                           <div className="progress-bar">
@@ -721,12 +723,13 @@ const ChildChat = () => {
                                           <audio className='audio' preload controls style={{ display: 'none' }}>
                                             <source src={`data:audio/wav;base64,${message.audio_path}`} />
                                           </audio>
-                                        </div></>):(<><p>{message.message}</p></>)}
+                                        </div></>):(<><p className='reply_response_text reply_textp'>{message.message}</p></>)}
                                         
-                                      </>) : (<>{message.message}</>)}
+                                      </>) : (<><p className='simple_chat_text reply_textp'>{message.message}</p></>)}
                                     </>
                                     ) : (<>
-                                      <p>{message.reply_question} hello </p>
+                                     <div className='reply_audio_childchAT'>
+                                      <p>{message.reply_question} </p>
                                       <div className="audio-player" id="audio" >
                                         <div className="play-pause-btn"></div>
                                         <div className="progress-bar">
@@ -739,6 +742,8 @@ const ChildChat = () => {
                                           <source src={`data:audio/wav;base64,${message.audio_path}`} />
                                         </audio>
                                       </div>
+                                      </div>
+
                                       <div class="chat-audio">
                                         <div className="audio-player" id={`audio${index}`}>
                                           <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
@@ -757,7 +762,7 @@ const ChildChat = () => {
                                     )}
                                   </div>
                                 </div>
-                                <div className="user_time_sr">
+                                <div className="user_time_sr userTime_child">
                                   <label>{spouse}</label><span>{formatTime(message.created_at)}</span>
                                 </div>
                               </div>
