@@ -15,6 +15,7 @@ import Vector from '../../images/money.png';
 import Record from '../../images/Record button.png';
 import WaveSendAudioImage from '../../images/Ongoing Recording.png';
 import WaveSendAudioImage1 from '../../images/Paused Recording.png';
+import hasResponded from '../Audio/hasResponded.wav';
 
 
 const TransitionScreen = () => {
@@ -98,12 +99,7 @@ console.log("randomQuestion",randomQuestion);
 
 
   const sendRandomQuestion = () => {
-
-    setElapsedTime(0);
-    const username = user.name.split(' ')[0];
-    const senderId = setChildID;
-    const receiverId = user.id;
-    const spouse = user.spouse;
+  
 
     if (recordedAudio) {
       const audioFile = new File([recordedAudio], 'audio.wav', { type: 'audio/wav' });
@@ -111,20 +107,27 @@ console.log("randomQuestion",randomQuestion);
 
       reader.readAsDataURL(audioFile);
       reader.onloadend = function () {
-        const base64Audio = reader.result.split(',')[1];
-        const formData = new FormData();
-        formData.append('audio', base64Audio);
-        formData.append('question', questions[currentQuestionIndex]);
+        
+        const audioFile = new File(randomQuestionIndex === 0 ? [hasResponded] : [], 'audio.wav', { type: 'audio/wav' });
 
-
+        const reader = new FileReader();
+        reader.readAsDataURL(audioFile);
+        reader.onloadend = function () {
+          const base64Audio = reader.result.split(',')[1];
+        setElapsedTime(0);
+        const username = user.name.split(' ')[0];
+        const senderId = setChildID;
+        const receiverId = user.id;
+        const spouse = user.spouse;
+        const question_voice = base64Audio;
         http.post('https://mykidz.online/api/audio-messages-question', {
           username,
           senderId,
           receiverId,
           spouse,
-          base64Audio,
           question_voice_answer: randomQuestion,
           total_second: elapsedTime,
+          question_voice:question_voice,
         })
           .then((data) => {
             console.log('si message sent:', data.message);
@@ -140,6 +143,7 @@ console.log("randomQuestion",randomQuestion);
         sendAudioMessage();
       };
     }
+  }
   };
   const sendAudioMessage = () => {
 

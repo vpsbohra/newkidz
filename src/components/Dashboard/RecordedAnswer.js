@@ -532,6 +532,9 @@ navigate('/TransitionScreen')
                 {sendAudio && (
                   <>
                     <div className='RecordedAnswer_recorder'>
+                      <div className='RecordedAnswer_recorder_points'>
+                        <span>+30 POINTS EARNED!</span>
+                      </div>
                       <div className="audio-player" id="audio">
                         <div className="play-pause-btn" onClick={() => togglePlayPause()}></div>
                         <div className="progress-bar">
@@ -547,10 +550,11 @@ navigate('/TransitionScreen')
                       <button className='stop_reco_btn no-background' onClick={startRecording}>
                         <img loading="lazy" src={Record} alt="protected" />
                       </button>
-                      <button className='next_question sendAudio_btn no-background' onClick={handleNextQuestion}>
-                        Next
-                      </button>
+                     
                     </div>
+                    <button className='next_question sendAudio_btn nextQPostion no-background' onClick={handleNextQuestion}>
+                      Next Question
+                      </button>
                   </>
                 )}
               </div>

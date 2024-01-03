@@ -163,7 +163,7 @@ const handleCloseSharePopup = () => {
                 className="next-button check-answer"
                 onClick={handleNextQuestion}
               >
-                Next
+                Next Question
               </button>
 
 

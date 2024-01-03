@@ -65,7 +65,7 @@ const ContactForm = ({ setShowModal}) => {
           <label className="form-label" htmlFor="message">
             Your Message
           </label>
-          <textarea className="form-control" placeholder="Write here..." id="message" required />
+          <textarea className="form-control" placeholder="How can we help you?" id="message" required />
         </div>
         <button className="btn btn-danger" type="submit">
           {formStatus}

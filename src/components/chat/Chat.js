@@ -31,12 +31,14 @@ import Surprised from '../../images/surprisedr.png';
 import bell from '../../images/Bell.png';
 import getToKnow from '../Audio/getToKnow.wav';
 import hasResponded from '../Audio/hasResponded.wav';
-
+import paper_clip from '../../images/paper_clip.png';
+import emotes from '../../images/Frame.png';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
 
 const Chat = ({ dataId, userId }) => {
-  const [recorder1, setRecorder1] = useState(null);
+  const [recorder1, setRecorder1] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const { http } = AuthUser();
@@ -80,6 +82,7 @@ const Chat = ({ dataId, userId }) => {
     setStop(false);
   };
   const delRecording = () => {
+    setRecorder1(false);
     setRecorder(null);
     setElapsedTime(0);
   };
@@ -287,6 +290,7 @@ const Chat = ({ dataId, userId }) => {
   const [url, setUrl] = useState('');
   const [n, setN] = useState(null);
   const submit = async () => {
+    setRecorder1(false);
     console.log('attached_file_type:', fileMessage)
     const senderId = userdetail.id;
     const receiverId = dataId;
@@ -361,7 +365,7 @@ const Chat = ({ dataId, userId }) => {
       .catch((error) => {
         console.error('Error saving message:', error);
       });
-   
+
 
   };
   function formatTime(dateTimeString) {
@@ -407,10 +411,10 @@ const Chat = ({ dataId, userId }) => {
 
   const sendAudioMessage = () => {
     setRecorder(null);
-
+    setRecorder1(false);
     setElapsedTime(0);
     setRmessage(false);
-          setRdiv('');
+    setRdiv('');
 
     const senderId = userdetail.id;
     const receiverId = dataId;
@@ -808,19 +812,19 @@ const Chat = ({ dataId, userId }) => {
                                                     </div>
                                                     <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
 
-<audio controls>
-  {message.question_voice_answer === hasRespondedpara ? (
-    <source src={hasResponded} type="audio/wav" />
-  ) : message.question_voice_answer === getToKnowpara ? (
-    <source src={getToKnow} type="audio/wav" />
-  ) : (
-    <source src={`data:audio/wav;base64,${message.audio_path}`} />
-  )}
+                                                    <audio controls>
+                                                        {message.question_voice_answer === hasRespondedpara ? (
+                                                         <source src={`data:audio/wav;base64,${message.question_voice}`} />
+                                                        ) : message.question_voice_answer === getToKnowpara ? (
+                                                          <source src={`data:audio/wav;base64,${message.question_voice}`} />
+                                                        ) : (
+                                                          <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                                        )}
 
-</audio>
+                                                      </audio>
 
 
-</audio>
+                                                    </audio>
                                                   </div>
                                                 </div>
                                               </>
@@ -912,26 +916,26 @@ const Chat = ({ dataId, userId }) => {
                                 <div className={`chat-audio-main col-10 mb-1 small user_message_sr ${message.senderId == userId ? 'sent-by-user-message' : ''}`}>
                                   {message.message ? (
                                     <>
-                                    
+
                                       {message.reply_question ? (<>
-                                      <div className='reply_question_fullchat'>
-                                        <p className='reply_question'>{message.reply_question}</p>
-                                        <div className="audio-player" id="audio" >
-                                          <div className="play-pause-btn"></div>
-                                          <div className="progress-bar">
-                                            <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                            <div className="time-display2">
-                                              <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                                        <div className='reply_question_fullchat'>
+                                          <p className='reply_question'>{message.reply_question}</p>
+                                          <div className="audio-player" id="audio" >
+                                            <div className="play-pause-btn"></div>
+                                            <div className="progress-bar">
+                                              <input type="range" min="0" max="100" value={progressRange} step="1" />
+                                              <div className="time-display2">
+                                                <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                                              </div>
                                             </div>
+                                            <audio className='audio' preload controls style={{ display: 'none' }}>
+                                              <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                            </audio>
                                           </div>
-                                          <audio className='audio' preload controls style={{ display: 'none' }}>
-                                            <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                          </audio>
                                         </div>
-                                        </div>
-                                        <p  className='reply_response_text reply_textp'>{message.message}</p>
+                                        <p className='reply_response_text reply_textp'>{message.message}</p>
                                       </>) : (<><p className='simple_chat_text reply_textp'>{message.message}</p></>)}
-                                      
+
                                     </>
                                   ) : (
                                     <>
@@ -987,20 +991,20 @@ const Chat = ({ dataId, userId }) => {
                                       {message.audio_path ? (
                                         <div class="chat-audio">
                                           {message.reply_question && (<>
-                                          <div className='reply_question_fullchat chat-audioreply'>
-                                          <p className='reply_question'>{message.reply_question}</p>
-                                            <div className="audio-player" id={`audio${index}`}>
-                                              <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                              <div className="progress-bar">
-                                                <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                                <div className="time-display4">
-                                                  <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                                            <div className='reply_question_fullchat chat-audioreply'>
+                                              <p className='reply_question'>{message.reply_question}</p>
+                                              <div className="audio-player" id={`audio${index}`}>
+                                                <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
+                                                <div className="progress-bar">
+                                                  <input type="range" min="0" max="100" value={progressRange} step="1" />
+                                                  <div className="time-display4">
+                                                    <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                                                  </div>
                                                 </div>
+                                                <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
+                                                  <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                                </audio>
                                               </div>
-                                              <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                                <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                              </audio>
-                                            </div>
                                             </div>
                                           </>)}
                                           <div className="audio-player" id={`audio${index}`}>
@@ -1046,30 +1050,30 @@ const Chat = ({ dataId, userId }) => {
             </div>
           </div>
         </div>
-       
+
         <div className="chat_form_input_outer_new ">
 
           <div className="chat_form_input">
 
-          <div className='reply_message_container'>
-          {rmessage && (<> <div className='chat_form_input reply_message' >
-            <div class="chat-audio">
-              <p>{rdiv} </p>
-              <div className="audio-player" id="audio" >
-                <div className="play-pause-btn"></div>
-                <div className="progress-bar">
-                  <input type="range" min="0" max="100" value={progressRange} step="1" />
-                  <div className="time-display2">
-                    <span className="current-time">0:00</span>  <span className="total-time"> </span>
+            <div className='reply_message_container'>
+              {rmessage && (<> <div className='chat_form_input reply_message' >
+                <div class="chat-audio">
+                  <p>{rdiv} </p>
+                  <div className="audio-player" id="audio" >
+                    <div className="play-pause-btn"></div>
+                    <div className="progress-bar">
+                      <input type="range" min="0" max="100" value={progressRange} step="1" />
+                      <div className="time-display2">
+                        <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                      </div>
+                    </div>
+                    <audio className='audio' preload controls style={{ display: 'none' }}>
+                      <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                    </audio>
                   </div>
                 </div>
-                <audio className='audio' preload controls style={{ display: 'none' }}>
-                  <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                </audio>
-              </div>
+              </div></>)}
             </div>
-          </div></>)}
-        </div>
 
             <input
               className="form-control"
@@ -1084,13 +1088,14 @@ const Chat = ({ dataId, userId }) => {
             <div className="chat_form_input_btncnrl">
               <div className="chat_form_input_btncnrlLeft" >
                 <div style={{ position: 'relative' }}>
-                  <button className="confirm">
-                    <img src={PaperClipImage} alt="protected" />
+                  <button className="confirm" disabled={recorder ? true : false} >
+                    <img src={recorder ? paper_clip : PaperClipImage} alt="protected" />
                   </button>
                   <input
                     className='file_choise_profile'
-                    type="file"
+                    type={recorder ? '' : "file"}
                     onChange={handleFileChange}
+                    onClick={() => setRecorder1(true)}
                     style={{
                       position: 'absolute',
                       top: 0,
@@ -1104,11 +1109,13 @@ const Chat = ({ dataId, userId }) => {
                 </div>
                 <div><img
                   className="emoji-icon"
-                  src={EmojiImage}
-                  onClick={() => setShowPicker(val => !val)} />
+                  src={recorder ? emotes : EmojiImage}
+                  onClick={recorder ? undefined : () => { setShowPicker(val => !val); setRecorder1(true) }}
+                />
                   {showPicker && <Picker
                     pickerStyle={{ width: '100%' }}
-                    onEmojiClick={onEmojiClick} />}
+                    onEmojiClick={onEmojiClick}
+                  />}
                 </div>
               </div>
               <div className="chat_form_input_btncnrlRight chat_form_input_btncnrlRight-parrent">

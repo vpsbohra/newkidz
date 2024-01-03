@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js';
 import AuthUser from '../AuthUser';
@@ -15,6 +14,8 @@ import WaveSendAudioImage1 from '../../images/Paused Recording.png';
 import Record from '../../images/Record button.png';
 import { useRef } from 'react';
 import axios from 'axios';
+import Load from '../../images/index.gif';
+
 const ChildChat = () => {
   const { http, setToken } = AuthUser();
   const { user, token } = AuthUser();
@@ -264,9 +265,13 @@ const ChildChat = () => {
       console.error('Error updating messages:', error);
     }
   };
+  const [load,setLoad]=useState(false);
   const fetchAllMessages = async () => {
     try {
       const response = await http.get('https://mykidz.online/api/all-messages');
+      if(response){
+        setLoad(false);
+      }
       const allMessagesFromApi = response.data;
       const filteredMessages = allMessagesFromApi.filter(message => message.receiverId === childId);
       console.log('Filtered messages:', filteredMessages);
@@ -397,6 +402,7 @@ const ChildChat = () => {
 
 
   const handleMemberClick = (spouse) => {
+    setLoad(true);
     setActiveMember(spouse);
     setSpouses(spouse);
     handleUpdateMessages(spouse);
@@ -637,7 +643,8 @@ const ChildChat = () => {
                       />
                     </div>
                     <div className="list-group user_list_sr_outer list-group-flush border-bottom scrollarea">
-                      {messages.map((message, index) => (
+                      {load ?(<><div className='no-chat'>    <img src={Load} alt="Loading..." /></div></>):(<>
+                      {messages.length == 0 ?(<><div className='no-chat'> <p> No chats </p></div></>):(<>{messages.map((message, index) => (
                         <>
                           {message.senderId == childId ? (
                             <div
@@ -770,7 +777,9 @@ const ChildChat = () => {
 
                           )}
                         </>
-                      ))}
+                      ))}</>)}</>)}
+                      
+                      
                     </div>
                   </div>
                 </div>
