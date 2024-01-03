@@ -34,8 +34,7 @@ import hasResponded from '../Audio/hasResponded.wav';
 import paper_clip from '../../images/paper_clip.png';
 import emotes from '../../images/Frame.png';
 import { faL } from '@fortawesome/free-solid-svg-icons';
-
-
+import AudioPlayer from './AudioPlayer';
 
 const Chat = ({ dataId, userId }) => {
   const [recorder1, setRecorder1] = useState(false);
@@ -753,20 +752,7 @@ const Chat = ({ dataId, userId }) => {
                                           {message.story_reaction !== null ? (
                                             <></>
                                           ) : (
-                                            <div class="chat-audio">
-                                              <div className="audio-player" id={`audio${index}`}>
-                                                <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                                <div className="progress-bar">
-                                                  <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                                  <div className="time-display2">
-                                                    <span className="current-time">0:00</span>  <span className="total-time"> </span>
-                                                  </div>
-                                                </div>
-                                                <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                                  <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                                </audio>
-                                              </div>
-                                            </div>
+                                            <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                           )}
                                           {message.story_reaction !== null ? (
                                             <></>
@@ -812,19 +798,19 @@ const Chat = ({ dataId, userId }) => {
                                                     </div>
                                                     <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
 
-                                                    <audio controls>
-                                                        {message.question_voice_answer === hasRespondedpara ? (
-                                                         <source src={`data:audio/wav;base64,${message.question_voice}`} />
-                                                        ) : message.question_voice_answer === getToKnowpara ? (
-                                                          <source src={`data:audio/wav;base64,${message.question_voice}`} />
-                                                        ) : (
-                                                          <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                                        )}
+                                                        <audio controls>
+                                                          {message.question_voice_answer === hasRespondedpara ? (
+                                                            <source src={hasResponded} type="audio/wav" />
+                                                          ) : message.question_voice_answer === getToKnowpara ? (
+                                                            <source src={getToKnow} type="audio/wav" />
+                                                          ) : (
+                                                            <source src={`data:audio/wav;base64,${message.voice_answer}`} />
+                                                          )}
+
+                                                        </audio>
+
 
                                                       </audio>
-
-
-                                                    </audio>
                                                   </div>
                                                 </div>
                                               </>

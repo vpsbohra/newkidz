@@ -9888,6 +9888,9 @@ input:checked~.checkmark {
 	height: 32px;
 	z-index: 9999;
 }
+.chat_form_input_btncnrlRight .RecordedAnswer_recorder #audio .play-pause-btn.play::before {
+	background-image: url('../images/pause_btn.png');
+}
 
 .chat_form_input_btncnrlRight .RecordedAnswer_recorder #audio .progress-bar input {
 	width: 100%;
