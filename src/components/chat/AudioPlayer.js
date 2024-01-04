@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 const AudioPlayer = ({ index, message, togglePlayPause }) => {
- const thankyou = '/Thankyou.wav';
- const thankyou_text = 'Thank you for sharing your thoughts!'
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedTime = `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return formattedTime;
+  };
   const getToKnowpara = "Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives.";
   const hasRespondedpara = "Your child has responded! Listen to their question and send them your response here!";
   const getToKnow = '/getToKnow.wav';
@@ -32,7 +37,7 @@ const AudioPlayer = ({ index, message, togglePlayPause }) => {
       <div className="progress-bar">
         <input type="range" min="0" max="100" value={progressRange} step="1" readOnly />
         <div className="time-display2">
-          <span className="current-time">0:00</span> <span className="total-time"> </span>
+          <span className="current-time">0:00 / {formatTime(message.total_second)}</span> <span className="total-time"> </span>
         </div>
       </div>
       <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
@@ -40,8 +45,6 @@ const AudioPlayer = ({ index, message, togglePlayPause }) => {
           <source src={hasResponded} type="audio/wav" />
         ) : message.question_voice_answer === getToKnowpara ? (
           <source src={getToKnow} type="audio/wav" />
-        ) : message.question_voice_answer === thankyou_text ? (
-          <source src={thankyou} type="audio/wav" />
         ) : (
           <source src={`data:audio/wav;base64,${message.voice_answer?message.voice_answer:message.audio_path}`} />
         )}
