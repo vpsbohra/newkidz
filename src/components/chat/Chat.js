@@ -507,6 +507,7 @@ const Chat = ({ dataId, userId }) => {
     const audioPlayer = document.getElementById(playerId);
     const audio = audioPlayer.querySelector('audio');
     const player = document.getElementById(playerId);
+    const addclass = audioPlayer.querySelector('.play-pause-btn');
     audio.addEventListener('timeupdate', () => {
       // const percent = (audio.currentTime / audio.duration) * 100;
       // setProgressRange(percent);
@@ -522,9 +523,13 @@ const Chat = ({ dataId, userId }) => {
     if (audio.paused) {
       audio.play();
       setActiveAudioPlayer(playerId);
+      addclass.classList.remove('pause');
+	    addclass.classList.add('play');
     } else {
       audio.pause();
       setActiveAudioPlayer(null);
+      addclass.classList.remove('play');
+	    addclass.classList.add('pause');
     }
   };
   const updatePlayPauseButton = (playerId) => {
