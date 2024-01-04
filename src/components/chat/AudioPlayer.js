@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 const AudioPlayer = ({ index, message, togglePlayPause }) => {
+ const thankyou = '/Thankyou.wav';
+ const thankyou_text = 'Thank you for sharing your thoughts!'
   const getToKnowpara = "Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives.";
   const hasRespondedpara = "Your child has responded! Listen to their question and send them your response here!";
   const getToKnow = '/getToKnow.wav';
@@ -38,6 +40,8 @@ const AudioPlayer = ({ index, message, togglePlayPause }) => {
           <source src={hasResponded} type="audio/wav" />
         ) : message.question_voice_answer === getToKnowpara ? (
           <source src={getToKnow} type="audio/wav" />
+        ) : message.question_voice_answer === thankyou_text ? (
+          <source src={thankyou} type="audio/wav" />
         ) : (
           <source src={`data:audio/wav;base64,${message.voice_answer?message.voice_answer:message.audio_path}`} />
         )}

@@ -80,7 +80,6 @@ const Chat = ({ dataId, userId }) => {
   const [stop, setStop] = useState(null);
   const getToKnowpara = "Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives.";
   const hasRespondedpara = "Your child has responded! Listen to their question and send them your response here!";
-
   const resumeRecording = () => {
     setI(prevI => !prevI);
     setStop(false);
