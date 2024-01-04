@@ -716,7 +716,7 @@ const Chat = ({ dataId, userId }) => {
 
                             </>) : (<></>)}
                             {message.message ? (
-                              <></>
+                              <><p className='simpleMsgFullchat'>{message.message}</p></>
                             ) : (
                               <>
                                 {message.audio_path ? (

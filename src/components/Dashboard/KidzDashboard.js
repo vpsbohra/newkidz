@@ -1,9 +1,10 @@
 //rendering mathced stories but showing for every child
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , } from 'react';
 import KidsNav from '../../navbar/kidzNav';
 import KidzBottomNav from './KidzBottomNav';
 import Modal from 'react-modal';
+
 
 import axios from 'axios';
 import AuthUser from '../AuthUser';
@@ -15,7 +16,7 @@ import Story1 from '../../images/Story/stories_kids01.png';
 import Story2 from '../../images/Story/stories_kids02.png';
 import Story3 from '../../images/Story/stories_kids03.png';
 import ChildChat from '../chat/ChildChat';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -46,6 +47,7 @@ const getRandomImages = (array, count) => {
 };
 
 export default function KidzDashboard() {
+  const navigate = useNavigate();
   const [randomCharacterImages, setRandomCharacterImages] = useState([]);
   const StoryId = String(sessionStorage.getItem('childStory'));
   const ChildId = String(sessionStorage.getItem('childId'));
@@ -272,10 +274,10 @@ export default function KidzDashboard() {
 
 
 
-  const openModal = (story) => {
-    setIsModalOpen(true);
-    setSelectedStory(story);
-  };
+  // const openModal = (story) => {
+  //   setIsModalOpen(true);
+  //   setSelectedStory(story);
+  // };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -310,6 +312,17 @@ export default function KidzDashboard() {
     }
   }
 
+
+  const openModal = (story) => {
+    setIsModalOpen(true);
+    setSelectedStory(story);
+    
+    // Store selectedStory in session storage
+    sessionStorage.setItem('selectedStory', JSON.stringify(story));
+  
+    // Navigate to /playStory
+    navigate(`/playStory`);
+  };
 
   console.log("matchingStories", matchingStories);
 

@@ -43,11 +43,11 @@ const ChildChat = () => {
   const [totalUnreadMessages, setTotalUnreadMessages] = useState({});
   const chatSectionRightRef = useRef(null);
   const [childProfiles, setChildProfiles] = useState([]);
-  const firstnotification ="Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives."
-  const lastnotification ="Your child has a question for you, listen to it and give them your full attention!"
+  const firstnotification = "Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives."
+  const lastnotification = "Your child has a question for you, listen to it and give them your full attention!"
 
-  console.log("firstnotification",firstnotification);
-  console.log("firstnotification",firstnotification);
+  console.log("firstnotification", firstnotification);
+  console.log("firstnotification", firstnotification);
 
   const fetchTotalUnreadMessages = () => {
     const totalCounts = {};
@@ -265,11 +265,11 @@ const ChildChat = () => {
       console.error('Error updating messages:', error);
     }
   };
-  const [load,setLoad]=useState(false);
+  const [load, setLoad] = useState(false);
   const fetchAllMessages = async () => {
     try {
       const response = await http.get('https://mykidz.online/api/all-messages');
-      if(response){
+      if (response) {
         setLoad(false);
       }
       const allMessagesFromApi = response.data;
@@ -291,7 +291,7 @@ const ChildChat = () => {
       const messagesFromApi = response.data;
       console.log('messagesFromApi', messagesFromApi);
       const filteredMessages = messagesFromApi.filter(
-        message => message.story_reaction === null && message.question_voice_answer !== firstnotification && message.question_voice_answer !==lastnotification
+        message => message.story_reaction === null && message.question_voice_answer !== firstnotification && message.question_voice_answer !== lastnotification
       );
 
       setMessages(filteredMessages);
@@ -643,115 +643,25 @@ const ChildChat = () => {
                       />
                     </div>
                     <div className="list-group user_list_sr_outer list-group-flush border-bottom scrollarea">
-                      {load ?(<><div className='no-chat'>    <img src={Load} alt="Loading..." /></div></>):(<>
-                      {messages.length == 0 ?(<><div className='no-chat'> <p> No chats </p></div></>):(<>{messages.map((message, index) => (
-                        <>
-                          {message.senderId == childId ? (
-                            <div
-                              key={index}
-                              className={`list-group-item user_list_sr list-group-item-action py-3 lh-tight ${message.senderId == childId ? 'sent-by-user' : ''
-                                }`}
-                            >
-                              <div className="user_list_groupsr childAudiosMain">
-                                <div className={`chat-audio-main col-10 mb-1 small user_message_sr childAudios ${message.senderId == childId ? 'sent-by-user-message' : ''
-                                  }`}>
-                                  {message.message ? (
-                                    <p>{message.message}</p>
-                                  ) : (
-                                    <div class="chat-audio child_msgAudio">
-                                      <p className='childMSgQusP'>{message.question_voice_answer}</p>
-                                      <div className="audio-player" id={`audio${index}`}>
-                                        <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                        <div className="progress-bar">
-
-
-                                          <input type="range" min="0" max="100" value="0" step="1" onChange={() => seekTo(`audio${index}`)} />
-
-
-
-                                          <div className="time-display">
-                                            <span className="current-time">0:00</span> / <span className="total-time">0:00</span>
-                                          </div>
-                                        </div>
-                                        <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                          <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                        </audio>
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-                                <div className="d-flex w-100 align-items-center justify-content-between user_name_label">
-                                  <strong className="mb-1">{firstChar}</strong>
-                                </div>
-                              </div>
-                              <div className="user_time_sr">
-                                <label>{activeChildName[0]}</label> <span>{formatTime(message.created_at)}</span>
-                              </div>
-                            </div>
-                          ) : (
-                            <>
+                      {load ? (<><div className='no-chat'>    <img src={Load} alt="Loading..." /></div></>) : (<>
+                        {messages.length == 0 ? (<><div className='no-chat'> <p> No chats </p></div></>) : (<>{messages.map((message, index) => (
+                          <>
+                            {message.senderId == childId ? (
                               <div
                                 key={index}
                                 className={`list-group-item user_list_sr list-group-item-action py-3 lh-tight ${message.senderId == childId ? 'sent-by-user' : ''
                                   }`}
                               >
-
-                                <div className="user_list_groupsr">
-                                  <div className="d-flex w-100 align-items-center justify-content-between user_name_label">
-                                    <strong className="mb-1">{spouse.charAt(0)}</strong>
-                                  </div>
-                                  <div className={`right-side-user col-10 mb-1 small user_message_sr message_reply_childsec  ${message.senderId == childId ? 'sent-by-user-message' : ''
+                                <div className="user_list_groupsr childAudiosMain">
+                                  <div className={`chat-audio-main col-10 mb-1 small user_message_sr childAudios ${message.senderId == childId ? 'sent-by-user-message' : ''
                                     }`}>
-                                    {message.message ? (<>
-                                      {message.reply_question ? (<>
-                                      <div className='reply_response_child'>
-                                        <p>{message.reply_question}</p>
-                                        <div className="audio-player" id="audio" >
-                                          <div className="play-pause-btn"></div>
-                                          <div className="progress-bar">
-                                            <input type="range" min="0" max="100" step="1" />
-                                            <div className="time-display2">
-                                              <span className="current-time">0:00</span>  <span className="total-time"> </span>
-                                            </div>
-                                          </div>
-                                          <audio className='audio' preload controls style={{ display: 'none' }}>
-                                            <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                          </audio>
-                                        </div>
-                                        </div>
-                                        {message.audio_path ?(<><div className="audio-player" id="audio" >
-                                          <div className="play-pause-btn"></div>
-                                          <div className="progress-bar">
-                                            <input type="range" min="0" max="100" step="1" />
-                                            <div className="time-display2">
-                                              <span className="current-time">0:00</span>  <span className="total-time"> </span>
-                                            </div>
-                                          </div>
-                                          <audio className='audio' preload controls style={{ display: 'none' }}>
-                                            <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                          </audio>
-                                        </div></>):(<><p className='reply_response_text reply_textp'>{message.message}</p></>)}
-                                        
-                                      </>) : (<><p className='simple_chat_text reply_textp'>{message.message}</p></>)}
-                                    </>
-                                    ) : (<>
-                                     <div className='reply_audio_childchAT'>
-                                      <p>{message.reply_question} </p>
-                                      <div className="audio-player" id="audio" >
-                                        <div className="play-pause-btn"></div>
-                                        <div className="progress-bar">
-                                          <input type="range" min="0" max="100" step="1" />
-                                          <div className="time-display2">
-                                            <span className="current-time">0:00</span>  <span className="total-time"> </span>
-                                          </div>
-                                        </div>
-                                        <audio className='audio' preload controls style={{ display: 'none' }}>
-                                          <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                        </audio>
-                                      </div>
-                                      </div>
-
-                                      <div class="chat-audio">
+                                    {message.message ? (
+                                      <>
+                                        <p className='child_msg_only_responcppp'>{message.message}</p>
+                                      </>
+                                    ) : (
+                                      <div class="chat-audio child_msgAudio child_msg_only_responc">
+                                        {message.question_voice_answer ? (<> <p className='childMSgQusP'>{message.question_voice_answer}</p>
                                         <div className="audio-player" id={`audio${index}`}>
                                           <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
                                           <div className="progress-bar">
@@ -763,23 +673,144 @@ const ChildChat = () => {
                                           <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
                                             <source src={`data:audio/wav;base64,${message.audio_path}`} />
                                           </audio>
-                                        </div>
+                                        </div></>):(<><div className="audio-player" id="audio" >
+                                              <div className="play-pause-btn"></div>
+                                              <div className="progress-bar">
+                                                <input type="range" min="0" max="100" step="1" />
+                                                <div className="time-display2">
+                                                  <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                                                </div>
+                                              </div>
+                                              <audio className='audio' preload controls style={{ display: 'none' }}>
+                                                <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                              </audio>
+                                            </div></>)}
+                                       
                                       </div>
-                                      </>
                                     )}
                                   </div>
+                                  <div className="d-flex w-100 align-items-center justify-content-between user_name_label">
+                                    <strong className="mb-1">{firstChar}</strong>
+                                  </div>
                                 </div>
-                                <div className="user_time_sr userTime_child">
-                                  <label>{spouse}</label><span>{formatTime(message.created_at)}</span>
+                                <div className="user_time_sr">
+                                  <label>{activeChildName[0]}</label> <span>{formatTime(message.created_at)}</span>
                                 </div>
                               </div>
-                            </>
+                            ) : (
+                              <>
+                                <div
+                                  key={index}
+                                  className={`list-group-item user_list_sr list-group-item-action py-3 lh-tight ${message.senderId == childId ? 'sent-by-user' : ''
+                                    }`}
+                                >
 
-                          )}
-                        </>
-                      ))}</>)}</>)}
-                      
-                      
+                                  <div className="user_list_groupsr">
+                                    <div className="d-flex w-100 align-items-center justify-content-between user_name_label">
+                                      <strong className="mb-1">{spouse.charAt(0)}</strong>
+                                    </div>
+                                    <div className={`right-side-user col-10 mb-1 small user_message_sr message_reply_childsec  ${message.senderId == childId ? 'sent-by-user-message' : ''
+                                      }`}>
+                                      {message.message ? (<>
+                                        {message.reply_question ? (<>
+                                          <div className='reply_response_child'>
+                                            <p>{message.reply_question}</p>
+                                            <div className="audio-player" id="audio" >
+                                              <div className="play-pause-btn"></div>
+                                              <div className="progress-bar">
+                                                <input type="range" min="0" max="100" step="1" />
+                                                <div className="time-display2">
+                                                  <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                                                </div>
+                                              </div>
+                                              <audio className='audio' preload controls style={{ display: 'none' }}>
+                                                <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                              </audio>
+                                            </div>
+                                          </div>
+                                          {message.audio_path ? (<><div className="audio-player" id="audio" >
+                                            <div className="play-pause-btn"></div>
+                                            <div className="progress-bar">
+                                              <input type="range" min="0" max="100" step="1" />
+                                              <div className="time-display2">
+                                                <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                                              </div>
+                                            </div>
+                                            <audio className='audio' preload controls style={{ display: 'none' }}>
+                                              <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                            </audio>
+                                          </div></>) : (<><p className='reply_response_text reply_textp'>{message.message}</p></>)}
+
+                                        </>) : (<><p className='simple_chat_text reply_textp'>{message.message}</p></>)}
+                                      </>
+                                      ) : (<>
+                                          {message.audio_path && message.reply_question && (<>
+                                        <div className='reply_audio_childchAT'>
+                                          <p>{message.reply_question}</p>
+                                            <div className="audio-player" id="audio" >
+                                              <div className="play-pause-btn"></div>
+                                              <div className="progress-bar">
+                                                <input type="range" min="0" max="100" step="1" />
+                                                <div className="time-display2">
+                                                  <span className="current-time">0:00</span>  <span className="total-time"> </span>
+                                                </div>
+                                              </div>
+                                              <audio className='audio' preload controls style={{ display: 'none' }}>
+                                                <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                              </audio>
+                                            </div>
+                                        </div>
+                                        <div class="chat-audio">
+                                              <div className="audio-player" id={`audio${index}`}>
+                                                <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
+                                                <div className="progress-bar">
+                                                  <input type="range" min="0" max="100" value="0" step="1" onChange={() => seekTo(`audio${index}`)} />
+                                                  <div className="time-display">
+                                                    <span className="current-time">0:00</span> / <span className="total-time">0:00</span>
+                                                  </div>
+                                                </div>
+                                                <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
+                                                  <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                                </audio>
+                                              </div>
+                                            </div>
+                                            </>) 
+                                            }
+                                            {(message.audio_path && message.reply_question == null ) &&(<>
+
+                                              <div class="chat-audio">
+                                              <div className="audio-player" id={`audio${index}`}>
+                                                <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
+                                                <div className="progress-bar">
+                                                  <input type="range" min="0" max="100" value="0" step="1" onChange={() => seekTo(`audio${index}`)} />
+                                                  <div className="time-display">
+                                                    <span className="current-time">0:00</span> / <span className="total-time">0:00</span>
+                                                  </div>
+                                                </div>
+                                                <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
+                                                  <source src={`data:audio/wav;base64,${message.audio_path}`} />
+                                                </audio>
+                                              </div>
+                                            </div>
+
+                                             </>)}
+
+
+                                      </>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <div className="user_time_sr userTime_child">
+                                    <label>{spouse}</label><span>{formatTime(message.created_at)}</span>
+                                  </div>
+                                </div>
+                              </>
+
+                            )}
+                          </>
+                        ))}</>)}</>)}
+
+
                     </div>
                   </div>
                 </div>
