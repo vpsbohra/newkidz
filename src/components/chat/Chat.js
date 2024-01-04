@@ -432,8 +432,8 @@ const Chat = ({ dataId, userId }) => {
         formData.append('audio', base64Audio);
         http
           .post('https://mykidz.online/api/audio-messages', { username, senderId, message, receiverId, spouse, base64Audio, total_second: elapsedTime ? elapsedTime : 0, reply_question: rdiv })
-          .then((data) => {
-            // fetchMessages();
+          .then( async (data) => {
+           await fetchMessages();
             console.log('si message sent:', data.message);
             console.log('Audio message data:', data.data);
           })
