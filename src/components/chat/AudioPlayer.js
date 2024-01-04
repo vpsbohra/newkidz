@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 const AudioPlayer = ({ index, message, togglePlayPause }) => {
+  const getToKnowpara = "Get to know your child:Explore your child's responses to gain deeper insights into their thoughts and perspectives.";
+  const hasRespondedpara = "Your child has responded! Listen to their question and send them your response here!";
+  const getToKnow = '/getToKnow.wav';
+  const hasResponded = '/hasResponded.wav';
   const [isPlaying, setIsPlaying] = useState(false);
   const [progressRange, setProgressRange] = useState(0);
 
@@ -21,19 +25,23 @@ const AudioPlayer = ({ index, message, togglePlayPause }) => {
   }, [index]);
 
   return (
-    <div className="chat-audio">
-      <div className="audio-player" id={`audio${index}`}>
-        <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-        <div className="progress-bar">
-          <input type="range" min="0" max="100" value={progressRange} step="1" readOnly />
-          <div className="time-display2">
-            <span className="current-time">0:00</span> <span className="total-time"> </span>
-          </div>
+    <div className="audio-player" id={`audio${index}`}>
+      <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
+      <div className="progress-bar">
+        <input type="range" min="0" max="100" value={progressRange} step="1" readOnly />
+        <div className="time-display2">
+          <span className="current-time">0:00</span> <span className="total-time"> </span>
         </div>
-        <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-          <source src={`data:audio/wav;base64,${message.voice_answer}`} />
-        </audio>
       </div>
+      <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
+        {message.question_voice_answer === hasRespondedpara ? (
+          <source src={hasResponded} type="audio/wav" />
+        ) : message.question_voice_answer === getToKnowpara ? (
+          <source src={getToKnow} type="audio/wav" />
+        ) : (
+          <source src={`data:audio/wav;base64,${message.voice_answer?message.voice_answer:message.audio_path}`} />
+        )}
+      </audio>
     </div>
   );
 };

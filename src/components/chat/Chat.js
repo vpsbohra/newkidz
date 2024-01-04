@@ -36,7 +36,12 @@ import emotes from '../../images/Frame.png';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import AudioPlayer from './AudioPlayer';
 
+
+
 const Chat = ({ dataId, userId }) => {
+  // const [recorder1, setRecorder1] = useState(false);
+  const getToKnow = '/getToKnow.wav'
+  const hasResponded = '/hasResponded.wav'
   const [recorder1, setRecorder1] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -289,7 +294,7 @@ const Chat = ({ dataId, userId }) => {
   const [url, setUrl] = useState('');
   const [n, setN] = useState(null);
   const submit = async () => {
-    setRecorder1(false);
+        setRecorder1(false);
     console.log('attached_file_type:', fileMessage)
     const senderId = userdetail.id;
     const receiverId = dataId;
@@ -409,8 +414,9 @@ const Chat = ({ dataId, userId }) => {
   };
 
   const sendAudioMessage = () => {
+     setRecorder1(false);
     setRecorder(null);
-    setRecorder1(false);
+
     setElapsedTime(0);
     setRmessage(false);
     setRdiv('');
@@ -428,6 +434,7 @@ const Chat = ({ dataId, userId }) => {
         http
           .post('https://mykidz.online/api/audio-messages', { username, senderId, message, receiverId, spouse, base64Audio, total_second: elapsedTime ? elapsedTime : 0, reply_question: rdiv })
           .then((data) => {
+            // fetchMessages();
             console.log('si message sent:', data.message);
             console.log('Audio message data:', data.data);
           })
@@ -437,7 +444,7 @@ const Chat = ({ dataId, userId }) => {
 
         setRecordedAudio(null);
         setRecorder(null);
-        fetchMessages(dataId);
+        // fetchMessages(dataId);
       };
     }
   };
@@ -500,36 +507,26 @@ const Chat = ({ dataId, userId }) => {
   const togglePlayPause = (playerId) => {
     const audioPlayer = document.getElementById(playerId);
     const audio = audioPlayer.querySelector('audio');
-    const addclass = audioPlayer.querySelector('.play-pause-btn');
-    // alert(audio.duration);
-    // Pause the active audio player if it's different from the clicked player
+    const player = document.getElementById(playerId);
+    audio.addEventListener('timeupdate', () => {
+      // const percent = (audio.currentTime / audio.duration) * 100;
+      // setProgressRange(percent);
+      updateCurrentTime(player, audio);
+    });
+    // updateCurrentTime(player, audio);
+
     if (activeAudioPlayer && activeAudioPlayer !== playerId) {
       const activeAudio = document.getElementById(activeAudioPlayer).querySelector('audio');
       activeAudio.pause();
     }
 
-    if (audio.paused && T) {
+    if (audio.paused) {
       audio.play();
-      addclass.classList.remove('pause');
-      addclass.classList.add('play');
       setActiveAudioPlayer(playerId);
     } else {
-      setT(false);
-      addclass.classList.remove('play');
-      addclass.classList.add('pause');
       audio.pause();
       setActiveAudioPlayer(null);
     }
-
-    setIsPlaying((prevIsPlaying) => ({ ...prevIsPlaying, [playerId]: !audio.paused }));
-
-    // Update progress range based on audio timeupdate
-    audio.addEventListener('timeupdate', () => {
-      const percent = (audio.currentTime / audio.duration) * 100;
-      setProgressRange(percent);
-    });
-
-    updatePlayPauseButton(playerId);
   };
   const updatePlayPauseButton = (playerId) => {
     const playPauseBtn = document.getElementById(playerId).querySelector('.play-pause-btn');
@@ -721,18 +718,7 @@ const Chat = ({ dataId, userId }) => {
                               <>
                                 {message.audio_path ? (
                                   <div class="chat-audio">
-                                    <div className="audio-player" id={`audio${index}`}>
-                                      <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                      <div className="progress-bar">
-                                        <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                        <div className="time-display1">
-                                          <span className="current-time">0:00</span>  <span className="total-time"></span>
-                                        </div>
-                                      </div>
-                                      <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                        <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                      </audio>
-                                    </div>
+                                    <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                     {/*  */}
                                   </div>
                                 ) : (
@@ -752,7 +738,9 @@ const Chat = ({ dataId, userId }) => {
                                           {message.story_reaction !== null ? (
                                             <></>
                                           ) : (
-                                            <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
+                                            <div className="chat-audio">
+                                              <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
+                                            </div>
                                           )}
                                           {message.story_reaction !== null ? (
                                             <></>
@@ -768,18 +756,7 @@ const Chat = ({ dataId, userId }) => {
                                             {message.question_voice_answer === "Please send your family or loved ones a question about today’s topic!" ? (<>
                                               <div class="chat-audio ">
                                                 <p>{message.question_voice_answer}</p>
-                                                <div className="audio-player" id={`audio${index}`}>
-                                                  <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                                  <div className="progress-bar">
-                                                    <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                                    <div className="time-display2">
-                                                      <span className="current-time">0:00</span>  <span className="total-time"> </span>
-                                                    </div>
-                                                  </div>
-                                                  <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                                    <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                                  </audio>
-                                                </div>
+                                                <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                               </div>
                                               <div className='reply_chat_btn'>
                                                 <button className='reply_btn' onClick={() => reply(message.question_voice_answer)}>REPLY</button>
@@ -788,30 +765,7 @@ const Chat = ({ dataId, userId }) => {
                                               <>
                                                 <div class="chat-audio notification-active-cnt">
                                                   <p>{message.question_voice_answer} </p>
-                                                  <div className="audio-player" id={`audio${index}`}>
-                                                    <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                                    <div className="progress-bar">
-                                                      <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                                      <div className="time-display2">
-                                                        <span className="current-time">0:00</span>  <span className="total-time"> </span>
-                                                      </div>
-                                                    </div>
-                                                    <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-
-                                                        <audio controls>
-                                                          {message.question_voice_answer === hasRespondedpara ? (
-                                                            <source src={hasResponded} type="audio/wav" />
-                                                          ) : message.question_voice_answer === getToKnowpara ? (
-                                                            <source src={getToKnow} type="audio/wav" />
-                                                          ) : (
-                                                            <source src={`data:audio/wav;base64,${message.voice_answer}`} />
-                                                          )}
-
-                                                        </audio>
-
-
-                                                      </audio>
-                                                  </div>
+                                                  <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                                 </div>
                                               </>
                                             )}
@@ -865,18 +819,7 @@ const Chat = ({ dataId, userId }) => {
                                   <>
                                     {message.audio_path ? (
                                       <div class="chat-audio">
-                                        <div className="audio-player" id={`audio${index}`}>
-                                          <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                          <div className="progress-bar">
-                                            <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                            <div className="time-display3">
-                                              <span className="current-time">0:00</span>  <span className="total-time"></span>
-                                            </div>
-                                          </div>
-                                          <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                            <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                          </audio>
-                                        </div>
+                                        <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                       </div>
                                     ) : (
                                       <audio controls>
@@ -979,32 +922,10 @@ const Chat = ({ dataId, userId }) => {
                                           {message.reply_question && (<>
                                             <div className='reply_question_fullchat chat-audioreply'>
                                               <p className='reply_question'>{message.reply_question}</p>
-                                              <div className="audio-player" id={`audio${index}`}>
-                                                <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                                <div className="progress-bar">
-                                                  <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                                  <div className="time-display4">
-                                                    <span className="current-time">0:00</span>  <span className="total-time"> </span>
-                                                  </div>
-                                                </div>
-                                                <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                                  <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                                </audio>
-                                              </div>
+                                              <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                             </div>
                                           </>)}
-                                          <div className="audio-player" id={`audio${index}`}>
-                                            <div className="play-pause-btn" onClick={() => togglePlayPause(`audio${index}`)}></div>
-                                            <div className="progress-bar">
-                                              <input type="range" min="0" max="100" value={progressRange} step="1" />
-                                              <div className="time-display4">
-                                                <span className="current-time">0:00</span>  <span className="total-time"> </span>
-                                              </div>
-                                            </div>
-                                            <audio className={`audio${index}`} preload controls style={{ display: 'none' }}>
-                                              <source src={`data:audio/wav;base64,${message.audio_path}`} />
-                                            </audio>
-                                          </div>
+                                          <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                         </div>
                                       ) : (
                                         <>
@@ -1096,12 +1017,10 @@ const Chat = ({ dataId, userId }) => {
                 <div><img
                   className="emoji-icon"
                   src={recorder ? emotes : EmojiImage}
-                  onClick={recorder ? undefined : () => { setShowPicker(val => !val); setRecorder1(true) }}
-                />
+                  onClick={recorder ? undefined : () => { setShowPicker(val => !val); setRecorder1(true) }} />
                   {showPicker && <Picker
                     pickerStyle={{ width: '100%' }}
-                    onEmojiClick={onEmojiClick}
-                  />}
+                    onEmojiClick={onEmojiClick} />}
                 </div>
               </div>
               <div className="chat_form_input_btncnrlRight chat_form_input_btncnrlRight-parrent">
