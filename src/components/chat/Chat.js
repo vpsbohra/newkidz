@@ -274,32 +274,32 @@ const Chat = ({ dataId, userId }) => {
   }, [spouse]);
   const [thankyouNotification ,setThankyouNotification] = useState(0);
 
-  const fetchThankyouNotification = async () => {
-    const senderId = userInfoDetail.id;
-    const receiverId = dataId;
-    const storydetails = JSON.parse(sessionStorage.getItem('childStorydata'));
-    const storyId = storydetails.id;
-    try {
-      const response = await http.post(
-        'https://mykidz.online/api/thankyou-notification',
-        { sender_id: senderId, reciever_id: receiverId, story_id: storyId },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-        const thankyouResponse = response.data;
-        // localStorage.setItem("ThankyouResponse",thankyouResponse.notification)
-        const x = thankyouResponse.notification;
-        setThankyouNotification(x);
-        console.log('thankyouNotification',thankyouNotification)
-        console.log("thankyouResponse",thankyouResponse.notification);
+  // const fetchThankyouNotification = async () => {
+  //   const senderId = userInfoDetail.id;
+  //   const receiverId = dataId;
+  //   const storydetails = JSON.parse(sessionStorage.getItem('childStorydata'));
+  //   const storyId = storydetails.id;
+  //   try {
+  //     const response = await http.post(
+  //       'https://mykidz.online/api/thankyou-notification',
+  //       { sender_id: senderId, reciever_id: receiverId, story_id: storyId },
+  //       {
+  //         headers: {
+  //           'Content-Type': 'multipart/form-data',
+  //         },
+  //       }
+  //     );
+  //       const thankyouResponse = response.data;
+  //       // localStorage.setItem("ThankyouResponse",thankyouResponse.notification)
+  //       const x = thankyouResponse.notification;
+  //       setThankyouNotification(x);
+  //       console.log('thankyouNotification',thankyouNotification)
+  //       console.log("thankyouResponse",thankyouResponse.notification);
 
-    } catch (error) {
-      console.error('Error saving message:', error);
-    }
-  }
+  //   } catch (error) {
+  //     console.error('Error saving message:', error);
+  //   }
+  // }
 
   const storydetails = JSON.parse(localStorage.getItem('storiesLocal'));
   const storyId =  storydetails.id?storydetails.id:'';
@@ -352,8 +352,68 @@ const Chat = ({ dataId, userId }) => {
   };
 
   const submit = async () => {
-    fetchThankyouNotification();
-    setRecorder1(false);
+    const senderId1 = userInfoDetail.id;
+    const receiverId1 = dataId;
+    const storydetails1 = JSON.parse(sessionStorage.getItem('childStorydata'));
+    const storyId1 = storydetails1.id;
+    try {
+      const response = await http.post(
+        'https://mykidz.online/api/thankyou-notification',
+        { sender_id: senderId1, reciever_id: receiverId1, story_id: storyId1 },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+        const thankyouResponse = response.data.notification;
+        if(thankyouResponse === 1){
+          setRecorder1(false);
+    console.log('attached_file_type:', fileMessage)
+    const senderId = userdetail.id;
+    const receiverId = dataId;
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('message', message);
+    formData.append('senderId', senderId);
+    formData.append('receiverId', receiverId);
+    formData.append('spouse', spouse);
+    formData.append('attached_file', selectedImage);
+    formData.append('attached_file_type', fileMessage);
+    formData.append('total_second', 0);
+    formData.append('reply_question', rdiv);
+
+
+
+    http.post('/messages', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then(async (response) => {
+
+        setFname(null);
+        setMessage('');
+        setFileMessage('');
+        setSelectedImage(null);
+        setSelectedFile(null);
+        setRmessage(false);
+        setRdiv('');
+        await fetchMessages();
+        setSelectedImage(null);
+        setFileMessage('');
+        setSelectedFile(null);
+      })
+      .catch((error) => {
+        console.error('Error saving message:', error);
+      });
+
+
+
+
+
+        }else{
+          setRecorder1(false);
     console.log('attached_file_type:', fileMessage)
     const senderId = userdetail.id;
     const receiverId = dataId;
@@ -429,8 +489,11 @@ const Chat = ({ dataId, userId }) => {
       .catch((error) => {
         console.error('Error saving message:', error);
       });
+        }
 
-
+    } catch (error) {
+      console.error('Error saving message:', error);
+    }
   };
   function formatTime(dateTimeString) {
     const options = {
