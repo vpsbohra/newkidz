@@ -89,9 +89,9 @@ const Chat = ({ dataId, userId }) => {
     setRecorder(null);
     setElapsedTime(0);
   };
-  useEffect(() => {
-    fetchThankyouNotification();
-  }, []);
+  // useEffect(() => {
+  //   fetchThankyouNotification();
+  // }, []);
 
   useEffect(() => {
     // start();
@@ -272,6 +272,8 @@ const Chat = ({ dataId, userId }) => {
       chatSectionRightRef.current.scrollTop = chatSectionRightRef.current.scrollHeight;
     }
   }, [spouse]);
+  const [thankyouNotification ,setThankyouNotification] = useState(0);
+
   const fetchThankyouNotification = async () => {
     const senderId = userInfoDetail.id;
     const receiverId = dataId;
@@ -288,7 +290,10 @@ const Chat = ({ dataId, userId }) => {
         }
       );
         const thankyouResponse = response.data;
-        localStorage.setItem("ThankyouResponse",thankyouResponse.notification)
+        // localStorage.setItem("ThankyouResponse",thankyouResponse.notification)
+        const x = thankyouResponse.notification;
+        setThankyouNotification(x);
+        console.log('thankyouNotification',thankyouNotification)
         console.log("thankyouResponse",thankyouResponse.notification);
 
     } catch (error) {
@@ -380,7 +385,7 @@ const Chat = ({ dataId, userId }) => {
         setRmessage(false);
         setRdiv('');
         console.log('Message saved:', response.data);
-        if (rdiv == "Please send your family or loved ones a question about today’s topic!" && localStorage.getItem('ThankyouResponse') !== '1') {
+        if (rdiv == "Please send your family or loved ones a question about today’s topic!" && thankyouNotification !== 1) {
           saveThankyouNotification();
           const formData2 = new FormData();
           formData2.append('username', username);
