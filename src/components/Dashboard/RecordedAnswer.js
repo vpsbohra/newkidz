@@ -90,7 +90,7 @@ const RecordedAnswer = () => {
       };
     }
   }, [currentaudio, currentQuestionIndex]);
-
+const [story_id,setStory_id]=useState();
   const fetchData = async () => {
     const x = localStorage.getItem('question');
     if (x) {
@@ -115,6 +115,7 @@ const RecordedAnswer = () => {
       const selectedStory = response.data.find(story => story.id === parseInt(storyId, 10));
 
       console.log("Storyid", storyId);
+      setStory_id(storyId);
       console.log("Data", selectedStory);
 
       if (selectedStory) {
@@ -194,6 +195,7 @@ const RecordedAnswer = () => {
           base64Audio,
           question_voice_answer: questions[currentQuestionIndex],
           total_second: elapsedTime,
+          story_id:story_id,
         })
           .then((data) => {
             console.log('si message sent:', data.message);

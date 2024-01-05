@@ -309,12 +309,10 @@ const Chat = ({ dataId, userId }) => {
   const saveThankyouNotification = async () => {
     const senderId = userdetail.id;
     const receiverId = dataId;
-    const storydetails = JSON.parse(sessionStorage.getItem('childStorydata'));
-    const storyId = storydetails.id;
     try {
       const response = await http.post(
         'https://mykidz.online/api/save-thankyou-notification',
-        { sender_id: senderId, reciever_id: receiverId, story_id: storyId },
+        { sender_id: senderId, reciever_id: receiverId, story_id: STORYId },
         {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -328,7 +326,7 @@ const Chat = ({ dataId, userId }) => {
     }
   };
 
-
+const [STORYId,setStory_id]=useState();
   const fetchMessages = async () => {
     try {
       const response = await http.get(`/messages/${userId}/${dataId}/${spouse}`);
@@ -340,7 +338,7 @@ const Chat = ({ dataId, userId }) => {
       const messagesFromApi = response.data;
       console.log("messages", response.data);
       setMessages(messagesFromApi);
-
+      
       console.log(messagesFromApi);
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -354,12 +352,10 @@ const Chat = ({ dataId, userId }) => {
   const submit = async () => {
     const senderId1 = userInfoDetail.id;
     const receiverId1 = dataId;
-    const storydetails1 = JSON.parse(sessionStorage.getItem('childStorydata'));
-    const storyId1 = storydetails1.id;
     try {
       const response = await http.post(
         'https://mykidz.online/api/thankyou-notification',
-        { sender_id: senderId1, reciever_id: receiverId1, story_id: storyId1 },
+        { sender_id: senderId1, reciever_id: receiverId1, story_id: STORYId },
         {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -413,6 +409,8 @@ const Chat = ({ dataId, userId }) => {
 
 
         }else{
+          saveThankyouNotification();
+
           setRecorder1(false);
     console.log('attached_file_type:', fileMessage)
     const senderId = userdetail.id;
@@ -445,8 +443,7 @@ const Chat = ({ dataId, userId }) => {
         setRmessage(false);
         setRdiv('');
         console.log('Message saved:', response.data);
-        if (rdiv == "Please send your family or loved ones a question about today’s topic!" && thankyouNotification !== 1) {
-          saveThankyouNotification();
+        if (  thankyouNotification !== 1) {
           const formData2 = new FormData();
           formData2.append('username', username);
           formData2.append('senderId', receiverId);
@@ -769,9 +766,10 @@ const Chat = ({ dataId, userId }) => {
   const [rmessage, setRmessage] = useState(false);
   const [rdiv, setRdiv] = useState('');
 
-  function reply(question) {
+  function reply(question,storyID) {
     setRdiv(question);
     setRmessage(true);
+    setStory_id(storyID);
 
   }
 
@@ -866,7 +864,7 @@ const Chat = ({ dataId, userId }) => {
                                           {message.story_reaction !== null ? (
                                             <></>
                                           ) : (
-                                            <div className="chat-audio">
+                                            <div className="chat-audio" id={message.story_id}>
                                               <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                             </div>
                                           )}
@@ -875,14 +873,14 @@ const Chat = ({ dataId, userId }) => {
                                           ) : (
                                             <>
                                               <div className='reply_chat_btn'>
-                                                <button className='reply_btn' onClick={() => reply(message.question_voice_answer)}>REPLY</button>
+                                                <button className='reply_btn' onClick={() => reply(message.question_voice_answer, message.story_id)}>REPLY</button>
                                               </div>
                                             </>
                                           )}
                                         </>) : (
                                           <>
                                             {message.question_voice_answer === "Please send your family or loved ones a question about today’s topic!" ? (<>
-                                              <div class="chat-audio ">
+                                              <div class="chat-audio " id={message.story_id}>
                                                 <p>{message.question_voice_answer}</p>
                                                 <AudioPlayer index={index} message={message} togglePlayPause={togglePlayPause} />
                                               </div>
