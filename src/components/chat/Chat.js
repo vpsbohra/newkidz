@@ -89,6 +89,9 @@ const Chat = ({ dataId, userId }) => {
     setRecorder(null);
     setElapsedTime(0);
   };
+  useEffect(() => {
+    fetchThankyouNotification();
+  }, []);
 
   useEffect(() => {
     // start();
@@ -269,6 +272,58 @@ const Chat = ({ dataId, userId }) => {
       chatSectionRightRef.current.scrollTop = chatSectionRightRef.current.scrollHeight;
     }
   }, [spouse]);
+  const fetchThankyouNotification = async () => {
+    const senderId = userInfoDetail.id;
+    const receiverId = dataId;
+    const storydetails = JSON.parse(sessionStorage.getItem('childStorydata'));
+    const storyId = storydetails.id;
+    try {
+      const response = await http.post(
+        'https://mykidz.online/api/thankyou-notification',
+        { sender_id: senderId, reciever_id: receiverId, story_id: storyId },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+        const thankyouResponse = response.data;
+        localStorage.setItem("ThankyouResponse",thankyouResponse.notification)
+        console.log("thankyouResponse",thankyouResponse.notification);
+
+    } catch (error) {
+      console.error('Error saving message:', error);
+    }
+  }
+
+  const storydetails = JSON.parse(localStorage.getItem('storiesLocal'));
+  const storyId =  storydetails.id?storydetails.id:'';
+  useEffect(()=>{
+    localStorage.setItem("ThankyouResponse",'null')
+  },[storyId])
+  const saveThankyouNotification = async () => {
+    const senderId = userdetail.id;
+    const receiverId = dataId;
+    const storydetails = JSON.parse(sessionStorage.getItem('childStorydata'));
+    const storyId = storydetails.id;
+    try {
+      const response = await http.post(
+        'https://mykidz.online/api/save-thankyou-notification',
+        { sender_id: senderId, reciever_id: receiverId, story_id: storyId },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+
+    } catch (error) {
+      console.error('Error saving message:', error);
+    }
+  };
+
+
   const fetchMessages = async () => {
     try {
       const response = await http.get(`/messages/${userId}/${dataId}/${spouse}`);
@@ -290,10 +345,10 @@ const Chat = ({ dataId, userId }) => {
     setUserdetail(user);
     setUsername(user.name.split(' ')[0]);
   };
-  const [url, setUrl] = useState('');
-  const [n, setN] = useState(null);
+
   const submit = async () => {
-        setRecorder1(false);
+    fetchThankyouNotification();
+    setRecorder1(false);
     console.log('attached_file_type:', fileMessage)
     const senderId = userdetail.id;
     const receiverId = dataId;
@@ -325,7 +380,8 @@ const Chat = ({ dataId, userId }) => {
         setRmessage(false);
         setRdiv('');
         console.log('Message saved:', response.data);
-        if (rdiv == "Please send your family or loved ones a question about today’s topic!") {
+        if (rdiv == "Please send your family or loved ones a question about today’s topic!" && localStorage.getItem('ThankyouResponse') !== '1') {
+          saveThankyouNotification();
           const formData2 = new FormData();
           formData2.append('username', username);
           formData2.append('senderId', receiverId);
