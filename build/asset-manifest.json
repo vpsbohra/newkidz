@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.61062ceb.css",
-    "main.js": "/static/js/main.1813b8f6.js",
+    "main.css": "/static/css/main.f07098ee.css",
+    "main.js": "/static/js/main.7fb747f3.js",
     "static/js/787.42a359b6.chunk.js": "/static/js/787.42a359b6.chunk.js",
     "static/media/getToKnow.wav": "/static/media/getToKnow.9fe298b2a1ec867f7d22.wav",
     "static/media/stefy(3).png": "/static/media/stefy(3).3cddb097783d700b1912.png",
@@ -108,6 +108,7 @@
     "static/media/contact_banner.png": "/static/media/contact_banner.fbac9a587f4d1c6142db.png",
     "static/media/KIDZCONNECT-1.png": "/static/media/KIDZCONNECT-1.e1445759910f3711e47e.png",
     "static/media/Testimonial-BG.png": "/static/media/Testimonial-BG.7e6aae69bc5528747275.png",
+    "static/media/bow_bow.png": "/static/media/bow_bow.4ef0549082a4f0c42ff5.png",
     "static/media/Happyr.png": "/static/media/Happyr.c5a551a46280590b10d0.png",
     "static/media/Excitedr.png": "/static/media/Excitedr.54187af62a7ca90d53d2.png",
     "static/media/Coming_Soon.png": "/static/media/Coming_Soon.b44eeef5db765e6212f1.png",
@@ -123,12 +124,12 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.61062ceb.css.map": "/static/css/main.61062ceb.css.map",
-    "main.1813b8f6.js.map": "/static/js/main.1813b8f6.js.map",
+    "main.f07098ee.css.map": "/static/css/main.f07098ee.css.map",
+    "main.7fb747f3.js.map": "/static/js/main.7fb747f3.js.map",
     "787.42a359b6.chunk.js.map": "/static/js/787.42a359b6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.61062ceb.css",
-    "static/js/main.1813b8f6.js"
+    "static/css/main.f07098ee.css",
+    "static/js/main.7fb747f3.js"
   ]
 }

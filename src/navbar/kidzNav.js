@@ -8,13 +8,19 @@ import ActivitiesIcon from '../images/Activities01.png';
 import HomeIcon from '../images/Home01.png';
 import MoneyBagImage from '../images/money-bag.png';
 import protectImg1 from '../images/036-protect.png';
-import ChildChat from '../components/chat/ChildChat';
+import setting from '../images/setting.png';
+import brush from '../images/brush.png';
+import KidzDashboard from '../components/Dashboard/KidzDashboard';
 import axios from 'axios';
+import bowbow from "../images/bow_bow.png";
+import close from '../images/Close.png';
+
+
 function KidsNav() {
 
   const { token } = AuthUser();
 
-  const [rem, setRem] = useState(5-localStorage.getItem('question') == 5? 0 :5-localStorage.getItem('question'));
+  const [rem, setRem] = useState(5 - localStorage.getItem('question') == 5 ? 0 : 5 - localStorage.getItem('question'));
   const [questions, setQuestions] = useState([]);
   const { http, setToken } = AuthUser();
 
@@ -28,8 +34,11 @@ function KidsNav() {
   const [userId, setUserId] = useState('');
   const childId = sessionStorage.getItem('childId');
 
+  const [themesVisible, setThemesVisible] = useState(false);
 
   const [childProfiles, setChildProfiles] = useState([]);
+  const [changeTheme, setChangeTheme] = useState(false);
+
 
   useEffect(() => {
     fetchQuestions();
@@ -58,22 +67,22 @@ function KidsNav() {
         });
         localStorage.setItem("stories", JSON.stringify(response.data));
 
-  
+
         const storyId = sessionStorage.getItem('childStory');
         const selectedStory = response.data.find(story => story.id === parseInt(storyId, 10));
         console.log("Story data", selectedStory);
-  
+
         if (selectedStory) {
           const mcqData = selectedStory.story_mcq;
           const questionArray = mcqData.split('-');
           setQuestions(questionArray);
-  
+
         }
       } catch (error) {
         console.error('Error fetching questions:', error);
       }
     }
-    
+
   };
 
 
@@ -100,26 +109,26 @@ function KidsNav() {
   };
   const fetchAllMessages = async () => {
     const allmessages = JSON.parse(localStorage.getItem('allmessages'));
-    if(!allmessages){
+    if (!allmessages) {
       try {
         const response = await http.get('https://mykidz.online/api/all-messages');
         const allMessagesFromApi = response.data;
-  
+
         const filteredMessages = allMessagesFromApi.filter(message => message.receiverId === childId);
-  
+
         console.log('Filtered messages:', filteredMessages);
         setAllMessages(filteredMessages);
       } catch (error) {
         console.error('Error fetching messages:', error);
       }
     }
-    else{
+    else {
       const filteredMessages = allmessages.filter(message => message.receiverId === childId);
-  
+
       console.log('Filtered messages:', filteredMessages);
       setAllMessages(filteredMessages);
     }
-    
+
   };
   useEffect(() => {
     fetchTotalUnreadMessages();
@@ -177,11 +186,14 @@ function KidsNav() {
     setShowPopup(false);
     setIsParentalSwitchActive(false);
   };
-  const handleParentalSwitch = () => {
-    setShowPopup(true);
-    setErrorMessage('');
-    setIsParentalSwitchActive(true);
-  };
+  // const handleParentalSwitch = () => {
+  //   // setShowPopup(true);
+  //   // setErrorMessage('');
+  //   // setIsParentalSwitchActive(true);
+  //   navigate('/who-are-you');
+  //   console.log('hello')
+
+  // };
 
   const handleMessages = () => {
     navigate('/kids-messages');
@@ -247,63 +259,79 @@ function KidsNav() {
   const cname = sessionStorage.getItem('setChildName')
   const fetchChildData = async () => {
     const childdata = JSON.parse(localStorage.getItem('childdata'));
-if(childdata){
-  const a = sessionStorage.getItem('setChildID');
-  const b = sessionStorage.getItem('childId');
-  const cid = a ? a : b;
-  // console.log("session child id", cid);
-  const child = childdata.find((n) => n.id === parseInt(cid));
-  if (child) {
-    // console.log('test123' + child.current_question);
-    // localStorage.setItem("question", child.current_question);
-    // const a = localStorage.getItem("question");
-    // const b = questions.length > 0 ? questions.length : 5;
-    // const y = b - a;
-    // setRem(y);
-    // console.log("Attempted question", a);
-    // console.log("Total question", b);
-    // console.log("REMAINING QUESTIONS", y);
-  }
-} else {
-  try {
-    const response = await axios.get(`https://mykidz.online/api/child-profiles?user_id=${user.id}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
+    if (childdata) {
+      const a = sessionStorage.getItem('setChildID');
+      const b = sessionStorage.getItem('childId');
+      const cid = a ? a : b;
+      // console.log("session child id", cid);
+      const child = childdata.find((n) => n.id === parseInt(cid));
+      if (child) {
+        // console.log('test123' + child.current_question);
+        // localStorage.setItem("question", child.current_question);
+        // const a = localStorage.getItem("question");
+        // const b = questions.length > 0 ? questions.length : 5;
+        // const y = b - a;
+        // setRem(y);
+        // console.log("Attempted question", a);
+        // console.log("Total question", b);
+        // console.log("REMAINING QUESTIONS", y);
       }
-    });
-    localStorage.setItem('childdata',JSON.stringify(response.data))
+    } else {
+      try {
+        const response = await axios.get(`https://mykidz.online/api/child-profiles?user_id=${user.id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        localStorage.setItem('childdata', JSON.stringify(response.data))
 
-    const abc = response.data;
-    const a = sessionStorage.getItem('setChildID');
-    const b = sessionStorage.getItem('childId');
-    const cid = a ? a : b;
-    // console.log("session child id", cid);
-    const child = abc.find((n) => n.id === parseInt(cid));
-    if (child) {
-      // console.log('test123' + child.current_question);
-      localStorage.setItem("question", child.current_question);
-      const a = localStorage.getItem("question");
-      const b = questions.length > 0 ? questions.length : 5;
-      const y = b - a;
-      setRem(y);
-      // console.log("Attempted question", a);
-      // console.log("Total question", b);
-      // console.log("REMAINING QUESTIONS", y);
+        const abc = response.data;
+        const a = sessionStorage.getItem('setChildID');
+        const b = sessionStorage.getItem('childId');
+        const cid = a ? a : b;
+        // console.log("session child id", cid);
+        const child = abc.find((n) => n.id === parseInt(cid));
+        if (child) {
+          // console.log('test123' + child.current_question);
+          localStorage.setItem("question", child.current_question);
+          const a = localStorage.getItem("question");
+          const b = questions.length > 0 ? questions.length : 5;
+          const y = b - a;
+          setRem(y);
+          // console.log("Attempted question", a);
+          // console.log("Total question", b);
+          // console.log("REMAINING QUESTIONS", y);
+        }
+      } catch (error) {
+        console.error('Error fetching child data:', error);
+      }
     }
-  } catch (error) {
-    console.error('Error fetching child data:', error);
-  }
-}
-    
+
   };
-
-
   const [toggle, setToggle] = useState(false);
   const handleLogout = () => {
     // Clear session storage and navigate to the logout page
     sessionStorage.clear();
     navigate('/');
   };
+
+  const handleHover = () => {
+    console.log('handle');
+    setChangeTheme(true);
+  };
+  const handleHoverOut = () => {
+    console.log('handle out');
+    setChangeTheme(false);
+  };
+  const selectTheme = () => {
+
+    setThemesVisible(true);
+    console.log('session ')
+  }
+  const handleClose = () => {
+
+    setThemesVisible(false);
+  }
   return (
     <>
       <div className="kidsname">
@@ -323,7 +351,9 @@ if(childdata){
                 <Link className="nav-link" to="/Kids-messages" onClick={handleMessages} ><img loading="lazy" src={MessagesIcon} alt='' />{num > 0 ? (<span> {num} </span>) : (<></>)}</Link>
               </li>
               {toggle ? (<li className="nav-item active">
-                <Link className="nav-link" id="parental_switch" onClick={handleParentalSwitch}><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
+                <Link className="nav-link" id="parental_switch" to="/who-are-you">
+                  <img loading="lazy" src={ParentalSwitch} alt='' />
+                </Link>
               </li>) : (<>
                 <Link className="nav-link" onClick={handleLogout} ><svg width="76" height="76" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.6413 2.45605H5.55794C3.70211 2.45605 2.19336 3.9648 2.19336 5.82064C2.19336 6.11105 2.43419 6.35189 2.72461 6.35189C3.01503 6.35189 3.25586 6.11105 3.25586 5.82064C3.25586 4.55272 4.29003 3.51855 5.55794 3.51855H12.6413C13.9092 3.51855 14.9434 4.55272 14.9434 5.82064V12.904C14.9434 14.1719 13.9092 15.2061 12.6413 15.2061H5.55794C4.29003 15.2061 3.25586 14.1719 3.25586 12.904C3.25586 12.6136 3.01503 12.3727 2.72461 12.3727C2.43419 12.3727 2.19336 12.6136 2.19336 12.904C2.19336 14.7598 3.70211 16.2686 5.55794 16.2686H12.6413C14.4971 16.2686 16.0059 14.7598 16.0059 12.904V5.82064C16.0059 3.9648 14.4971 2.45605 12.6413 2.45605Z" fill="#00897B" />
@@ -337,27 +367,39 @@ if(childdata){
             <a className="nav-link points" disabled>
               <img loading="lazy" src={MoneyBagImage} alt="protected" /> 107 Points
             </a>
-            <a className="nav-link toggle-profile" disabled>
-              {cname}
-            </a>
+
+            <div className='theme_change_cnt' onMouseOut={handleHoverOut} onMouseOver={handleHover}>
+              <a className="nav-link toggle-profile"   >
+                <img src={setting} alt='setting icon' />{cname}
+              </a>
+              {/* {changeTheme && ( */}
+              <div className='theme_change' onClick={selectTheme}><img src={brush} alt='brush' /><p>Change theme color</p></div>
+          
+            </div>
           </div>
         </nav>
       </div>
-      {showPopup && (
-        <div className="code-popup">
-          {/* <h1>Welcome, {renderElement()}</h1> */}
-          <img loading="lazy" src={protectImg1} alt="protected" />
-          <p>Enter a 4-digit code to access the parental dashboard</p>
-          <form onSubmit={handleSubmit}>
-            <input type="password" maxLength={4} className="form-control" placeholder="Enter Code" value={code} onChange={handleCodeEntry} />
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <div className='btn_control_codePopup'>
-              <button type="button" onClick={() => handleCancel()}>Cancel</button>
-              <button type="submit" className="continue-code">ENTER</button>
-            </div>
-          </form>
+
+     {themesVisible &&  
+      <div className='select_theme_cnt'>
+        <div className='bow_bow'>
+
+          <img src={bowbow} alt="boobo" />
+          <p className='boobo_text'>Choose a color buddy!</p>
         </div>
-      )}
+
+        <button className='close_btn_theme' onClick={handleClose}><img src={close} alt='close' /></button>
+        <div className='choose_themes'>
+          <div className='color_darkblue themes_btn'></div>
+          <div className='color_blue themes_btn'></div>
+          <div className='color_orange themes_btn'></div>
+          <div className='color_green themes_btn'></div>
+          <div className='color_pink themes_btn'></div>
+          <div className='color_purple themes_btn'></div>
+        </div>
+
+      </div>
+}
     </>
   );
 }

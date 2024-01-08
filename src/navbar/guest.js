@@ -18,6 +18,9 @@ import { Navigate } from 'react-router-dom';
 import TC from '../components/T&C';
 import Privacy_policy from '../components/Privacy_policy';
 
+import ForgetPassword from '../components/ForgetPassword';
+import ResetPassword from '../components/ResetPassword';
+
 // import KidsStory from '../components/Dashboard/KidzStory';
 // import KidzOnGoingStory from '../components/Dashboard/KidzOnGoingStory';
 
@@ -67,7 +70,8 @@ function Guest() {
                     <Route path="*" element={<Navigate to="/login" />} />
                     <Route path="/T&C" element={<TC />} />
                     <Route path="/Privacy_policy" element={<Privacy_policy />} />
-
+                    <Route path="/ForgetPassword" element={<ForgetPassword />} />
+                    <Route path="/ResetPassword" element={<ResetPassword />} />
 
 
                 </Routes>

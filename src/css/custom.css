@@ -1108,6 +1108,298 @@ html {
 	right: auto;
 }
 
+.forget_pas_sr {
+	height: 100%;
+	min-height: 100vh;
+	position: relative;
+}
+.forget_pas_sr:before {
+	content: '';
+	background-image: url('../images/ForgetPassword_right.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 0px;
+	width: 162px;
+	height: 500px;
+	right: 0;
+	left: auto;
+}
+.forget_pas_sr::after {
+	content: '';
+	background-image: url('../images/ForgetPassword_left.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: auto;
+	width: 256px;
+	height: 300px;
+	left: 0;
+	right: auto;
+	bottom: 0;
+}
+
+
+.forget_pas_sr .outer_forget_main_cnt {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+	justify-content: center;
+}
+.forget_pas_sr .outer_forget_main_cnt .forget_main_cnt .forget_input_cnt h3 {
+	font-family: Plus Jakarta Sans;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #344054;
+	margin-bottom: 20px;
+}
+.forget_pas_sr .forget_input_cnt .form-control {
+	border: 1px solid #E5E5E5;
+	box-shadow: 0px 1px 2px 0px #1018280D;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #667085;
+	padding: 14px 14px;
+	border-radius: 16px;
+	background: #fff;
+}
+.forget_pas_sr .forget_input_cnt .send_restLink {
+	margin: 0;
+	width: 100%;
+	background: #F28A35;
+	border: 1px solid #F28A35;
+	border-radius: 22px;
+	padding: 10px 18px 10px 18px;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: center;
+	margin-top: 24px !important;
+}
+.forget_pas_sr .forget_input_cnt .send_restLink:hover {
+	background: #1a60b1;
+	border-color: #1a60b1;
+}
+.forget_pas_sr .forget_input_cnt .text-danger {
+	display: block;
+	color: red !important;
+	margin-top: 7px;
+	font-size: 14px;
+}
+.forget_pas_sr .forget_pass_link {
+	width: 100%;
+	margin-top: 24px;
+}
+.forget_pas_sr .forget_pass_link a {
+	font-family: Inter;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: 0em;
+	color: #737373;
+	text-align: center;
+	width: 100%;
+	display: block;
+	margin-bottom: 16px;
+	cursor: pointer;
+}
+.forget_pas_sr .forget_pass_link a:hover {
+	color: #f28a35;
+}
+.forget_pas_sr .forget_main_cnt .forget_pass_sign_up {
+	background: #8A6CB1;
+	box-shadow: 0px 2px 4px -2px #6B4C93;
+	box-shadow: 0px 4px 8px -2px #D7D9FF;
+	border: none;
+	width: 100%;
+	border-radius: 22px;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	padding: 12px 10px;
+	text-transform: uppercase;
+	margin: 0 auto !important;
+	max-width: 264px;
+	display: table;
+}
+.forget_pas_sr .forget_main_cnt .forget_pass_sign_up:hover {
+	background: #1a60b1;
+}
+.forget_pas_sr .outer_forget_main_cnt .forget_email_main_cnt {
+	text-align: center;
+	width: 100%;
+}
+.forget_pas_sr .outer_forget_main_cnt .forget_email_main_cnt h3 {
+	font-family: Plus Jakarta Sans;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 38px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #F28A35;
+	margin: 24px 0;
+}
+.forget_pas_sr .outer_forget_main_cnt .forget_email_main_cnt .email_para_div {
+	width: 100%;
+}
+.forget_pas_sr .outer_forget_main_cnt .forget_email_main_cnt .email_para_div p {
+	width: 100%;
+	font-family: Plus Jakarta Sans;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #344054;
+	margin: 8px 0;
+	letter-spacing: -0.1px;
+}
+.forget_pas_sr .outer_forget_main_cnt .forget_email_main_cnt .email_para_div button {
+	margin: 0 !important;
+	width: 100%;
+	background: #F28A35;
+	border: 1px solid #F28A35;
+	border-radius: 22px;
+	padding: 10px 18px 10px 18px;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: center;
+	margin-top: 16px !important;
+}
+.forget_pas_sr .outer_forget_main_cnt .forget_email_main_cnt .email_para_div button:hover {
+	background: #1a60b1;
+	border-color: #1a60b1;
+}
+.forget_pas_sr .outer_forget_main_cnt .forget_email_main_cnt .login_sr_cnt img {
+	margin: 0 auto;
+	width: auto;
+}
+
+
+
+.reset_pass {
+	height: 100%;
+	min-height: 100vh;
+	position: relative;
+}
+.reset_pass:before {
+	content: '';
+	background-image: url('../images/ResetPassword_right.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: auto;
+	width: 414px;
+	height: 124px;
+	right: 0;
+	left: auto;
+	bottom: 0;
+}
+.reset_pass::after {
+	content: '';
+	background-image: url('../images/ResetPassword_left.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 0;
+	width: 306px;
+	height: 230px;
+	left: 0;
+	right: auto;
+	bottom: auto;
+}
+.reset_pass_main {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+	justify-content: center;
+}
+.reset_pass_main .login_sr_cnt {
+	width: 100%;
+}
+.reset_pass_main .reset_pass_inputs .reset_pass_inputs_item {
+	width: 100%;
+	margin-bottom: 20px;
+}
+.reset_pass_main .login_sr_cnt h1.text-center.mb-3 {
+	color: #0A5CBC;
+}
+.reset_pass_main .login_sr_cnt .reset_pass_inputs {
+	width: 100%;
+	margin-bottom: 4px;
+}
+.reset_pass_main .reset_pass_inputs .reset_pass_inputs_item {
+	width: 100%;
+}
+.reset_pass_main .reset_pass_inputs .reset_pass_inputs_item label {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #344054;
+	margin-bottom: 6px;
+	width: 100%;
+}
+.reset_pass_main .reset_pass_inputs .reset_pass_inputs_item input.form-control {
+	border: 1px solid #E5E5E5;
+	box-shadow: 0px 1px 2px 0px #1018280D;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #667085;
+	padding: 14px 14px;
+	border-radius: 16px;
+	background: #fff;
+	width: 100%;
+}
+.reset_pass_main .login_sr_cnt .reset_pass_login.btn.btn-primary {
+	margin: 0;
+	margin-top: 0px;
+	width: 100%;
+	background: #0A5CBC;
+	border: 1px solid #0A5CBC;
+	border-radius: 22px;
+	padding: 10px 18px 10px 18px;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: center;
+	margin-top: 24px !important;
+}
+.reset_pass_main .login_sr_cnt .reset_pass_login.btn.btn-primary:hover {
+	background: #F28A35;
+	border: 1px solid #F28A35;
+}
+.reset_pass_main .login_sr_cnt .text-danger {
+	display: block;
+	color: red !important;
+	margin-top: 7px;
+	font-size: 14px;
+}
 
 /* Sign Up Page Css here */
 
@@ -2120,6 +2412,34 @@ input:checked+.slider:before {
 	align-items: center;
 }
 
+.theme_change_cnt {
+	position: relative;
+}
+.theme_change {
+	opacity: 0;
+	visibility: hidden;
+	display: none !important;
+}
+.theme_change_cnt:hover .theme_change {
+	opacity: 1;
+	visibility: inherit;
+	display: flex !important;
+}
+.navbar .right-icons .theme_change_cnt .theme_change {
+	background: #FFAA19;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 14px 20px;
+	border: 3px solid #FBFAED;
+	border-radius: 16px;
+	position: absolute;
+	top: 100%;
+	width: 100%;
+	min-width: 245px;
+	cursor: pointer;
+}
+
 .navbar .right-icons .nav-link.toggle-profile {
 	background: linear-gradient(0deg, #F7C35F, #F7C35F), linear-gradient(0deg, #FBFAED, #FBFAED);
 	border: 3px solid #FBFAED;
@@ -2136,7 +2456,32 @@ input:checked+.slider:before {
 	border-radius: 32px;
 	position: relative;
 }
-
+.navbar .right-icons .theme_change_cnt .nav-link.toggle-profile {
+	padding: 8px 16px;
+	cursor: pointer;
+}
+.navbar .right-icons .theme_change_cnt .nav-link.toggle-profile img {
+	margin-right: 12px;
+}
+.navbar .right-icons .theme_change_cnt .theme_change {
+	background: #FFAA19;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 20px;
+	border: 3px solid #FBFAED;
+	border-radius: 16px;
+}
+.navbar .right-icons .theme_change_cnt .theme_change p {
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #FBFAED;
+	margin: 0;
+}
 .navbar .right-icons .nav-link.points::after {
 	content: '';
 	position: absolute;
@@ -3691,6 +4036,27 @@ extended-family .manage_member_sr button:hover {
 	min-width: 170px;
 	display: block;
 	text-align: center;
+}
+.billing-content .payment-method .payment-methods .deletepaymentbtn {
+	color: #E9425C;
+	border-color: #E9425C;
+}
+.billing-content .payment-method .payment-methods .deletepaymentbtn:hover {
+	color: #fff;
+	background-color: #E9425C;
+}
+.billing-content .payment-method .add_payment_method button {
+	border: none;
+	color: #6DC1B4;
+	padding: 10px 18px 10px 2px;
+	border-radius: 8px;
+	text-decoration: none;
+	min-width: 170px;
+	display: flex;
+	text-align: center;
+	background: transparent;
+	align-items: center;
+	gap: 10px;
 }
 
 .payment-method .payment-methods button:hover {
@@ -11115,4 +11481,165 @@ input[type="range"]::-webkit-slider-thumb {
 
 .right_sidebar_parent .user_list_sr .user_list_groupsr .small.user_message_sr .simpleMsgFullchat {
 	margin-bottom: 0;
+}
+
+
+.Delete_payment_method {
+	position: fixed;
+	background: #FFFFFF;
+	padding: 32px 40px 32px 40px;
+	width: 100%;
+	max-width: 730px;
+	border: 1px solid #fff;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	top: 15%;
+	z-index: 99;
+	border-radius: 16px;
+	color: #fff;
+	box-shadow: #cccccc69 0 0px 12px;
+}
+.Delete_payment_method .delete-popup-container .Delete_payment_methodcontent {
+	color: #000;
+}
+.Delete_payment_methodcontent h1 {
+	font-family: Plus Jakarta Sans;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 25px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #26A69A;
+	margin-bottom: 24px;
+}
+.Delete_payment_methodcontent span {
+	font-family: Plus Jakarta Sans;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+	margin-bottom: 16px;
+	display: table;
+	width: 100%;
+}
+.Delete_payment_methodcontent h3 {
+	font-family: Plus Jakarta Sans;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+	margin-bottom: 32px;
+}
+.Delete_payment_method_buttons {
+	display: flex;
+	justify-content: center;
+	gap: 25px;
+}
+.Delete_payment_method_buttons button {
+	background: #fff;
+	border: 1px solid #6DC1B4;
+	width: 100%;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	padding: 12px 10px;
+	color: #6DC1B4;
+	text-decoration: none;
+}
+.Delete_payment_method_buttons button.Delete_payYes {
+	background: #C72841;
+	color: #fff;
+	border-color: #C72841;
+}
+
+
+
+.select_theme_cnt {
+	background: linear-gradient(0deg, #FBDBC0, #FBDBC0), linear-gradient(0deg, #FFFFFF, #FFFFFF);
+	border: 12px solid #FFFFFF;
+	box-shadow: 0px 1px 2px 0px #1018280F;
+	box-shadow: 0px -1px 3px 0px #1F98A71A;
+	border-radius: 60px 60px 0px 0px;
+	padding: 20px 50px;
+	max-width: 1200px;
+	margin: 0 auto;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 99;
+}
+.select_theme_cnt .close_btn_theme {
+	position: absolute;
+	right: 40px;
+	top: 22px;
+	background: transparent;
+	border: none;
+}
+.select_theme_cnt .close_btn_theme img {
+	max-width: 34px;
+}
+.select_theme_cnt .bow_bow {
+	position: relative;
+}
+.select_theme_cnt .bow_bow .boobo_text {
+	background-image: url('../images/Union_themeClr.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	max-width: 249px;
+	padding: 15px 30px;
+	font-family: Plus Jakarta Sans;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #525252;
+	position: absolute;
+	top: 0;
+	left: 115px;
+}
+.select_theme_cnt .choose_themes {
+	width: 100%;
+	padding: 10px 0;
+	margin-top: 10px;
+	display: flex;
+	gap: 24px;
+	justify-content: center;
+}
+.select_theme_cnt .choose_themes .themes_btn {
+	width: 72px;
+	height: 72px;
+	background: #0C4486;
+	border-radius: 100px;
+	border: 3.5px solid #FFFFFF;
+	cursor: pointer;
+}
+.select_theme_cnt .choose_themes .color_darkblue {
+	background: #0C4486;
+}
+.select_theme_cnt .choose_themes .color_blue {
+	background: #1A60B1;
+}
+.select_theme_cnt .choose_themes .color_orange {
+	background: #FFAA19;
+}
+
+.select_theme_cnt .choose_themes .color_green {
+	background: #81C784;
+}
+.select_theme_cnt .choose_themes .color_pink {
+	background: #F9AFD5;
+}
+.select_theme_cnt .choose_themes .color_purple {
+	background: #8A6CB1;
 }
