@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RecordRTC from 'recordrtc';
 import ParentalSwitch from '../../images/Home.png';
 import Record from '../../images/Record button.png';
@@ -12,6 +12,7 @@ import SharePopup from './share_popup';
 import Share from '../../images/Share 3.png';
 import Sharebtn from '../../images/Share.png';
 const RecordedAnswer = () => {
+  const navigate = useNavigate()
   const { token } = AuthUser();
   const { http } = AuthUser();
   const setChildID = sessionStorage.getItem('setChildID');
@@ -20,7 +21,7 @@ const RecordedAnswer = () => {
 
   const [questions, setQuestions] = useState([]);
 
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(localStorage.getItem('question'));
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [recorder, setRecorder] = useState(null);
   const [show, setShow] = useState(true);
@@ -29,7 +30,13 @@ const RecordedAnswer = () => {
   const [currentaudio, setAudio] = useState();
   const [showReplayButton, setShowReplayButton] = useState(false);
   const [showSharePopup, setShowSharePopup] = useState(false);
-const [ currentQuestion,setCurrentQuestion]=useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [activeAudioPlayer, setActiveAudioPlayer] = useState(null);
+  const [T, setT] = useState(true);
+  const [progressRange, setProgressRange] = useState(0);
+
+
+
   const addBodyClass = () => {
     document.body.classList.add('popup_active');
   };
@@ -59,20 +66,20 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
     audio.addEventListener('ended', handleAudioEnded);
 
   };
-  // useEffect(() => {
-  //   // Play audio only once when the page loads
-  //   let audio = new Audio(currentaudio);
-  //   audio.play();
+  useEffect(() => {
+    // Play audio only once when the page loads
+    let audio = new Audio(currentaudio);
+    audio.play();
 
-  //   // Add event listener to handle audio ended
-  //   audio.addEventListener('ended', handleAudioEnded);
+    // Add event listener to handle audio ended
+    audio.addEventListener('ended', handleAudioEnded);
 
-  //   // Clean up the audio element and remove event listener when the component unmounts
-  //   return () => {
-  //     audio.removeEventListener('ended', handleAudioEnded);
-  //     audio = null;
-  //   };
-  // }, [currentaudio]);
+    // Clean up the audio element and remove event listener when the component unmounts
+    return () => {
+      audio.removeEventListener('ended', handleAudioEnded);
+      audio = null;
+    };
+  }, [currentaudio]);
   useEffect(() => {
     if (currentQuestionIndex === localStorage.getItem('question')) {
       let audio = new Audio(currentaudio);
@@ -83,10 +90,13 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
       };
     }
   }, [currentaudio, currentQuestionIndex]);
-  
+const [story_id,setStory_id]=useState();
   const fetchData = async () => {
     const x = localStorage.getItem('question');
-    setCurrentQuestionIndex(x);
+    if (x) {
+
+      setCurrentQuestionIndex(x);
+    }
     try {
       const response = await axios.get('https://mykidz.online/api/stories', {
         headers: {
@@ -94,102 +104,46 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
         },
       });
 
-      
-  
+
+
       const x = sessionStorage.getItem('sid');
       const y = sessionStorage.getItem('childStory');
-      console.log("Y",y);
-      console.log("X",x);
-      const storyId =y;
-      console.log("Response data",response.data);
+      console.log("Y", y);
+      console.log("X", x);
+      const storyId = y;
+      console.log("Response data", response.data);
       const selectedStory = response.data.find(story => story.id === parseInt(storyId, 10));
 
-      console.log("Storyid",storyId);
+      console.log("Storyid", storyId);
+      setStory_id(storyId);
       console.log("Data", selectedStory);
-  
+
       if (selectedStory) {
         const mcqData = selectedStory.story_mcq;
         const questionArray = mcqData.split('-');
         setQuestions(questionArray);
-  console.log("KJHSDKJFHKSLJDHFKJLSHDSKJF",currentQuestionIndex);
+        console.log("KJHSDKJFHKSLJDHFKJLSHDSKJF", currentQuestionIndex);
         const audioData = selectedStory.question_audio.split(',');
         const audioUrl = audioData[currentQuestionIndex].trim();
         setAudio(audioUrl);
-        console.log("AUDIO",audioUrl);
-  
+        console.log("AUDIO", audioUrl);
+
         // Set other states or perform additional logic as needed
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-  // const fetchQuestions = async () => {
-  //   try {
-  //     const response = await axios.get('https://mykidz.online/api/stories', {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
 
-  //     const x = sessionStorage.getItem('sid');
-  //     const y = sessionStorage.getItem('childStory');
-  //     const storyId = x?x:y;
-  //     const selectedStory = response.data.find(story => story.id === storyId);
-  //     console.log("question data", selectedStory);
-
-  //     if (selectedStory) {
-  //       const mcqData = selectedStory.story_mcq;
-  //       const questionArray = mcqData.split('-');
-  //       setQuestions(questionArray);
-
-  //       const audioData = selectedStory.question_audio.split(',');
-  //       const audioUrl = audioData[currentQuestionIndex].trim();
-  //       setAudio(audioUrl);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching questions:', error);
-  //   }
-  // };
-
-  // const fetchStories = async () => {
-  //   const x = localStorage.getItem('question');
-  //   setQuestion(x);
-  //   try {
-  //     const response = await axios.get('https://mykidz.online/api/stories', {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     const storyId = sessionStorage.getItem('childStory');
-  //     console.log(storyId);
-  //     setData(response.data.find(story => story.id === parseInt(storyId, 10)));
-  //     console.log("Story data", data);
-  //     const audiodata = data.question_audio.split(',');
-  //     const audioUrl = audiodata[question].trim();
-  //     // Assuming setQuestions and questions are properly defined
-  //     data.forEach((item, index) => {
-  //       if (item.id == storyId) {
-  //         const MCQ = item.story_mcq;
-  //         console.log(MCQ);
-  //         const arry = [];
-  //         var answ = MCQ.split('-');
-  //         arry.push(answ);
-  //         // Assuming setQuestions is a state-setting function
-  //         setQuestions(answ);
-  //         console.log('Questions', questions);
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.error('Error fetching stories:', error);
-  //   }
-  // };
   useEffect(() => {
     const x = localStorage.getItem('question');
-    setCurrentQuestion(x);
+    if (x) {
+
+      setCurrentQuestion(x);
+    }
     fetchData();
   }, [token, currentQuestionIndex]);
-  
+
 
   const startRecording = async () => {
     setShow(null);
@@ -240,7 +194,8 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
           spouse,
           base64Audio,
           question_voice_answer: questions[currentQuestionIndex],
-          total_second:elapsedTime,
+          total_second: elapsedTime,
+          story_id:story_id,
         })
           .then((data) => {
             console.log('si message sent:', data.message);
@@ -269,43 +224,43 @@ const [ currentQuestion,setCurrentQuestion]=useState(0);
   const handleNextQuestion = () => {
     // var audiodata = "https://mykidz.online/stories/audio/Story_1-1.wav,https://mykidz.online/stories/audio/Story_1-2.wav,https://mykidz.online/stories/audio/Story_1-3.wav,https://mykidz.online/stories/audio/Story_1-4.wav,https://mykidz.online/stories/audio/Story_1-5.wav"
     // var audioArray = audiodata.split(',');
-console.log("CurrentQuestionIndex",currentQuestionIndex);
-console.log("Total Questions",questions.length-1);
-const x = localStorage.getItem('question');
-setCurrentQuestionIndex(x);
-if (currentQuestion < questions.length - 1) {
-  localStorage.setItem("question",parseInt(currentQuestion,10)+ 1);
-  setCurrentQuestionIndex(localStorage.getItem('question'));
-  update();
-  const audiodata = data?.question_audio?.split(',') || [];
-  console.log("AUDIO DATA", audiodata);
-  const audioUrl = audiodata[currentQuestionIndex + 1]?.trim();
-  setAudio(audioUrl);
-  setRecordedAudio(null);
-  setRecorder(null);
-  setSendAudio(null);
-  setShow(true);
-  // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-  console.log(audioUrl);
-  console.log("currentQuestionIndex", currentQuestionIndex);
-} else {
-  localStorage.setItem('question',0);
+    console.log("CurrentQuestionIndex", currentQuestionIndex);
+    console.log("Total Questions", questions.length - 1);
+    const x = localStorage.getItem('question');
+    setCurrentQuestionIndex(x);
+    if (currentQuestion < questions.length - 1) {
+      localStorage.setItem("question", parseInt(currentQuestion, 10) + 1);
+      setCurrentQuestionIndex(localStorage.getItem('question'));
+      update();
+      const audiodata = data?.question_audio?.split(',') || [];
+      console.log("AUDIO DATA", audiodata);
+      const audioUrl = audiodata[currentQuestionIndex + 1]?.trim();
+      setAudio(audioUrl);
+      setRecordedAudio(null);
+      setRecorder(null);
+      setSendAudio(null);
+      setShow(true);
+      // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      console.log(audioUrl);
+      console.log("currentQuestionIndex", currentQuestionIndex);
+    } else {
+
+      localStorage.setItem('question', 0);
       update();
       // Redirect to "/all-activity" when the last question is answered
-      setTimeout(() => {
-        window.location.href = "/all-activity";
-
-
-      }, 2000);
+      // setTimeout(() => {
+      navigate('/TransitionScreen')
+      // }, 2000);
     }
+
   };
-const [question,setQuestion]=useState(0);
+  const [question, setQuestion] = useState(0);
   const [data, setData] = useState();
-  
+
 
   useEffect(() => {
     // start();
-//  fetchData();
+    //  fetchData();
     let timer;
 
     if (recorder) {
@@ -321,6 +276,24 @@ const [question,setQuestion]=useState(0);
 
   // *****************************Audio Player*************************************
   const [isPlaying, setIsPlaying] = useState({});
+  const updateCurrentTime = (player, audio) => {
+    const currentTimeDisplay = player.querySelector('.current-time');
+    const totalTimeDisplay = player.querySelector('.total-time');
+    const formatTime = (time) => {
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60);
+      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
+    const formattedCurrentTime = formatTime(audio.currentTime);
+    currentTimeDisplay.textContent = formattedCurrentTime;
+    if (isFinite(audio.duration)) {
+      const formattedTotalTime = ` / ${formatTime(audio.duration)}`;
+      totalTimeDisplay.textContent = formattedTotalTime;
+      if (audio.currentTime === audio.duration) {
+        setT(true);
+      }
+    }
+  };
 
   useEffect(() => {
     const audioPlayers = document.querySelectorAll('.audio-player');
@@ -330,42 +303,40 @@ const [question,setQuestion]=useState(0);
       setIsPlaying((prevIsPlaying) => ({ ...prevIsPlaying, [player.id]: false }));
       updateCurrentTime(player, audio);
     }
-  }, [isPlaying]);
+  }, []);
 
   const togglePlayPause = (playerId) => {
     const audioPlayer = document.getElementById(playerId);
     const audio = audioPlayer.querySelector('audio');
     const addclass = audioPlayer.querySelector('.play-pause-btn');
-
-    // Use audio.paused to check if audio is currently playing
-    if (audio.paused) {
+  
+    if (activeAudioPlayer && activeAudioPlayer !== playerId) {
+      const activeAudio = document.getElementById(activeAudioPlayer).querySelector('audio');
+      activeAudio.pause();
+    }
+  
+    if (audio.paused ) {
       audio.play();
       addclass.classList.remove('pause');
       addclass.classList.add('play');
-
+      setActiveAudioPlayer(playerId);
     } else {
+      setT(false);
       addclass.classList.remove('play');
       addclass.classList.add('pause');
       audio.pause();
+      setActiveAudioPlayer(null);
+
     }
-
-    // Update isPlaying based on the current state of the audio
+    audio.addEventListener('timeupdate', () => {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      console.log(percent);
+      setProgressRange(percent);
+    });
+  
     setIsPlaying((prevIsPlaying) => ({ ...prevIsPlaying, [playerId]: !audio.paused }));
-    updatePlayPauseButton(playerId);
   };
-  const updatePlayPauseButton = (playerId) => {
-    const playPauseBtn = document.getElementById(playerId).querySelector('.play-pause-btn');
-    // playPauseBtn.innerHTML = isPlaying[playerId] ? '&#9616;&#9616;' : '&#9654;';
-  };
-
-  const updateBackgroundColor = (playerId) => {
-    const player = document.getElementById(playerId);
-    const audio = player.querySelector('audio');
-    const progressRange = player.querySelector('input[type="range"]');
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progressRange.style.backgroundColor = `linear-gradient(to right, #ff0000 ${percent}%, #ccc ${percent}%)`;
-    updateCurrentTime(player, audio);
-  };
+  
 
   const resetBackgroundColor = (playerId) => {
     const player = document.getElementById(playerId);
@@ -400,55 +371,29 @@ const [question,setQuestion]=useState(0);
         const audio = player.querySelector('audio');
         const progressRange = player.querySelector('input[type="range"]');
         const playerId = player.id;
-
         audio.removeEventListener('timeupdate', () => updateProgressBar(playerId));
         audio.removeEventListener('ended', () => resetBackgroundColor(playerId));
-        progressRange.removeEventListener('input', () => seekTo(playerId));
+        // progressRange.removeEventListener('input', () => seekTo(playerId));
       }
     };
 
   }, []);
 
-
-
   const updateProgressBar = (playerId) => {
-    const player = document.getElementById(playerId);
-    const audio = player.querySelector('audio');
-    const progressRange = player.querySelector('input[type="range"]');
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progressRange.value = percent;
-    updateCurrentTime(player, audio);
+      const player = document.getElementById(playerId);
+      const audio = player.querySelector('audio');
+      const progressRange = player.querySelector('input[type="range"]');
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressRange.value = percent;
+      console.log(percent);
+      updateCurrentTime(player, audio);
   };
 
-  const seekTo = (playerId) => {
-    console.log("seek");
-    const player = document.getElementById(playerId);
-    const audio = player.querySelector('audio');
-    const progressRange = player.querySelector('input[type="range"]');
-    const seekTime = (progressRange.value / 100) * audio.duration;
-    audio.currentTime = seekTime;
-    updateCurrentTime(player, audio);
-  };
-
-  const updateCurrentTime = (player, audio) => {
-    const currentTimeDisplay = player.querySelector('.current-time');
-    const totalTimeDisplay = player.querySelector('.total-time');
-
-    const minutes = Math.floor(audio.currentTime / 60);
-    const seconds = Math.floor(audio.currentTime % 60);
-    const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    currentTimeDisplay.textContent = formattedTime;
-
-    const totalMinutes = Math.floor(audio.duration / 60);
-    const totalSeconds = Math.floor(audio.duration % 60);
-    const formattedTotalTime = `${totalMinutes}:${totalSeconds < 10 ? '0' : ''}${totalSeconds}`;
-    totalTimeDisplay.textContent = formattedTotalTime;
-  };
 
   const update = () => {
     const a = sessionStorage.getItem('setChildID');
     const b = sessionStorage.getItem('childId');
-    const chid = a?a:b;
+    const chid = a ? a : b;
     const headers = {
       "Content-type": "application/json",
       "Authorization": `Bearer ${token}`
@@ -487,7 +432,11 @@ const [question,setQuestion]=useState(0);
         )}
         <div className='all_activity_sr_inner'>
           <div className='feedback-container-story'>
+
+
+
             <h2>{questions[currentQuestion]}</h2>
+
             <p>Press play and record your response</p>
             <div className='record-section'>
               <div className="chat_form_input_btncnrlRight">
@@ -522,15 +471,15 @@ const [question,setQuestion]=useState(0);
                 {sendAudio && (
                   <>
                     <div className='RecordedAnswer_recorder'>
-                      <div className="audio-player" id="audio">
-                        <div className="play-pause-btn" onClick={() => togglePlayPause()}></div>
+                      <div className="audio-player" id={`audio`}>
+                        <div className="play-pause-btn" onClick={() => togglePlayPause(`audio`)}></div>
                         <div className="progress-bar">
-                          <input type="range" min="0" max="100" value="0" step="1" onChange={() => seekTo()} />
-                          <div className="time-display">
-                            <span className="current-time">0:00</span> / <span className="total-time">0:00</span>
+                          <input type="range" min="0" max="100" value={progressRange} step="1" />
+                          <div className="time-display1">
+                            <span className="current-time">0:00</span>  <span className="total-time"></span>
                           </div>
                         </div>
-                        <audio className="audio" preload controls style={{ display: 'none' }}>
+                        <audio className={`audio`} preload controls style={{ display: sendAudio ? 'none' : 'block' }}>
                           <source src={`data:audio/wav;base64,${sendAudio}`} />
                         </audio>
                       </div>

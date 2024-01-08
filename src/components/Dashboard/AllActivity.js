@@ -97,10 +97,11 @@ const[totalscore,setTotalscore]=useState();
             <div className='popup'>
               <div className='popup-content'>
                 <img loading="lazy" src={Star_Icon} />
+                <span className='all_activity_points'>+151 POINTS EARNED</span>
                 <h3>Woohoo!</h3>
                 <p>You’ve Successfully Completed All Activities</p>
                 <button className='close-button'>
-                  <Link className="nav-link" to=""><img loading="lazy" src={Vector} /> {s} POINTS EARNED</Link>
+                  <Link className="nav-link" to=""><img loading="lazy" src={Vector} /> 151 POINTS EARNED</Link>
                 </button>
               </div> 
             </div>

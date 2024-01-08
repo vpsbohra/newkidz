@@ -1,9 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.595b38cf.css",
-    "main.js": "/static/js/main.7e245516.js",
+    "main.css": "/static/css/main.61062ceb.css",
+    "main.js": "/static/js/main.1813b8f6.js",
     "static/js/787.42a359b6.chunk.js": "/static/js/787.42a359b6.chunk.js",
+    "static/media/getToKnow.wav": "/static/media/getToKnow.9fe298b2a1ec867f7d22.wav",
     "static/media/stefy(3).png": "/static/media/stefy(3).3cddb097783d700b1912.png",
+    "static/media/hasResponded.wav": "/static/media/hasResponded.6fbdbcd70b2a6bb7a2b0.wav",
     "static/media/Booboof.png": "/static/media/Booboof.6afbef236e00d72539a5.png",
     "static/media/Dadf.png": "/static/media/Dadf.1974a2e6a2a48bf55802.png",
     "static/media/Stefyf.png": "/static/media/Stefyf.6023d4cb1b675c7134d6.png",
@@ -47,6 +49,7 @@
     "static/media/Image.png": "/static/media/Image.b6d5d991019908225762.png",
     "static/media/playful_kids_02.png": "/static/media/playful_kids_02.d697599fb5b0ea6e7e05.png",
     "static/media/playful_kids_03.png": "/static/media/playful_kids_03.bf9c0a318bc24f96156e.png",
+    "static/media/filoo.png": "/static/media/filoo.62ebf1c95c6ae8805bc2.png",
     "static/media/Giovannif.png": "/static/media/Giovannif.1829f700299b69c0b3c9.png",
     "static/media/Stanylg.png": "/static/media/Stanylg.f443eee6ee0d8927284d.png",
     "static/media/Sherif.png": "/static/media/Sherif.8e1136902711ee68832c.png",
@@ -63,7 +66,9 @@
     "static/media/stories_kids01.png": "/static/media/stories_kids01.c4a1e66d9f986044073f.png",
     "static/media/stories_kids02.png": "/static/media/stories_kids02.8c31e9b8b062f325fa7c.png",
     "static/media/Balam.png": "/static/media/Balam.62e0a6ae8d99d4002b08.png",
+    "static/media/stany cheering.png": "/static/media/stany cheering.dfc9d345900a664485e9.png",
     "static/media/Isaac.png": "/static/media/Isaac.551c9893383153c944d2.png",
+    "static/media/ZeeZombie.png": "/static/media/ZeeZombie.2899744c497d9879cf74.png",
     "static/media/Gregory.png": "/static/media/Gregory.92770f4d1a678532bf8f.png",
     "static/media/Character4.png": "/static/media/Character4.96c16b01c1070ed49372.png",
     "static/media/Character1.png": "/static/media/Character1.d78b786bcf25499f9836.png",
@@ -103,7 +108,12 @@
     "static/media/contact_banner.png": "/static/media/contact_banner.fbac9a587f4d1c6142db.png",
     "static/media/KIDZCONNECT-1.png": "/static/media/KIDZCONNECT-1.e1445759910f3711e47e.png",
     "static/media/Testimonial-BG.png": "/static/media/Testimonial-BG.7e6aae69bc5528747275.png",
+    "static/media/Happyr.png": "/static/media/Happyr.c5a551a46280590b10d0.png",
+    "static/media/Excitedr.png": "/static/media/Excitedr.54187af62a7ca90d53d2.png",
     "static/media/Coming_Soon.png": "/static/media/Coming_Soon.b44eeef5db765e6212f1.png",
+    "static/media/sadr.png": "/static/media/sadr.a28c80ad19624f417097.png",
+    "static/media/surprisedr.png": "/static/media/surprisedr.c1f015f4903548e80481.png",
+    "static/media/Angryr.png": "/static/media/Angryr.404a74292501028f7589.png",
     "static/media/Paused Recording.png": "/static/media/Paused Recording.5633ec49f7ea15436a98.png",
     "static/media/Daisy_img.png": "/static/media/Daisy_img.9b17a07228f8ee3ede43.png",
     "static/media/about_header_img01.png": "/static/media/about_header_img01.743f8aa747cca45ed274.png",
@@ -113,12 +123,12 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.595b38cf.css.map": "/static/css/main.595b38cf.css.map",
-    "main.7e245516.js.map": "/static/js/main.7e245516.js.map",
+    "main.61062ceb.css.map": "/static/css/main.61062ceb.css.map",
+    "main.1813b8f6.js.map": "/static/js/main.1813b8f6.js.map",
     "787.42a359b6.chunk.js.map": "/static/js/787.42a359b6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.595b38cf.css",
-    "static/js/main.7e245516.js"
+    "static/css/main.61062ceb.css",
+    "static/js/main.1813b8f6.js"
   ]
 }
