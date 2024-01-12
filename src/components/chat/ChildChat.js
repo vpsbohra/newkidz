@@ -51,6 +51,14 @@ const ChildChat = () => {
   console.log("firstnotification", firstnotification);
   console.log("firstnotification", firstnotification);
 
+
+
+  useEffect(()=>{
+    const theme = sessionStorage.getItem("theme");
+    document.body.classList.add(theme);
+    },[sessionStorage.getItem("theme")])
+
+
   const fetchTotalUnreadMessages = () => {
     const totalCounts = {};
 
@@ -632,10 +640,10 @@ const ChildChat = () => {
                   </>
 
                 ) : (
-                  <>
+                  <p className='member_loading'>
                     Members are loading.....
 
-                  </>
+                  </p>
                 )
                 }
 

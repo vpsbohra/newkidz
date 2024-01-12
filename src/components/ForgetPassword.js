@@ -17,7 +17,7 @@ const ForgetPassword = () => {
         const randomIndex = Math.floor(Math.random() * characters.length);
         randomString += characters.charAt(randomIndex);
     }
-    console.log(randomString);
+   
     const sendEmail = (formData) => {
         const emailAddress = [email];
 
@@ -36,7 +36,6 @@ const ForgetPassword = () => {
                 )
                 .then(
                     (result) => {
-                        console.log('Email sent:', result.text);
                         setLinkSent(true);
                     },
                     (error) => {
@@ -48,14 +47,14 @@ const ForgetPassword = () => {
     const sendLink = () => {
         http.post('/forgot-password', { email: email, token: randomString }).then((res) => {
             if (res) {
-                const link = `http://localhost:3000/ResetPassword?email=${email}&token=${randomString}`;
+                const origin= window.location.origin;
+                const link = `${origin}/ResetPassword?email=${email}&token=${randomString}`;
                 const formData = {
                     message: `Here link for password reset for your KidzConnect Account ${link}`,
                 };
                 sendEmail(formData);
             }
         }).catch((error) => {
-            console.log(error);
             setError('Please enter correct email only')
         });
         

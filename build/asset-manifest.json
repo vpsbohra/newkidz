@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f07098ee.css",
-    "main.js": "/static/js/main.7fb747f3.js",
+    "main.css": "/static/css/main.b11b4101.css",
+    "main.js": "/static/js/main.652addac.js",
     "static/js/787.42a359b6.chunk.js": "/static/js/787.42a359b6.chunk.js",
     "static/media/getToKnow.wav": "/static/media/getToKnow.9fe298b2a1ec867f7d22.wav",
     "static/media/stefy(3).png": "/static/media/stefy(3).3cddb097783d700b1912.png",
@@ -34,6 +34,11 @@
     "static/media/Thomasf.png": "/static/media/Thomasf.bc20fd3b5b127d03f801.png",
     "static/media/stany(2).png": "/static/media/stany(2).54d2c970d3491598bb01.png",
     "static/media/Momf.png": "/static/media/Momf.1de57a5a175e83913776.png",
+    "static/media/Big.jpg": "/static/media/Big.bf4021ce9a2f56a47e3c.jpg",
+    "static/media/Medium.jpg": "/static/media/Medium.11167943f0bf428b728d.jpg",
+    "static/media/Normal.jpg": "/static/media/Normal.b82c465b7766f6d3eeeb.jpg",
+    "static/media/Larger.jpg": "/static/media/Larger.42548a33d51cc09f7ced.jpg",
+    "static/media/Jumbo.jpg": "/static/media/Jumbo.924ccda322fe9db19989.jpg",
     "static/media/stany(4).png": "/static/media/stany(4).954472f9bac8cb6d1530.png",
     "static/media/bookcover01.png": "/static/media/bookcover01.d975aaf6825ed736d206.png",
     "static/media/Simonf.png": "/static/media/Simonf.cbbab41ea5071f7d7892.png",
@@ -76,8 +81,14 @@
     "static/media/Bradford.png": "/static/media/Bradford.4e3f95c170b2857146b3.png",
     "static/media/Stock.png": "/static/media/Stock.b2537cfa77ae9302e7e0.png",
     "static/media/Stock2.png": "/static/media/Stock2.c78a1bff26888baa9586.png",
+    "static/media/greenTheme_Characters.png": "/static/media/greenTheme_Characters.938622b1d268f918bec8.png",
     "static/media/Rodrigo.png": "/static/media/Rodrigo.a4ad509e2d032bf47986.png",
+    "static/media/DarkBlue_Characters.png": "/static/media/DarkBlue_Characters.bc0b6becd3914399c714.png",
+    "static/media/purpleTheme_Characters.png": "/static/media/purpleTheme_Characters.5e1c1a71c34938454435.png",
+    "static/media/blueTheme_Characters.png": "/static/media/blueTheme_Characters.29d802dc66aa922679cd.png",
     "static/media/Filoo.png": "/static/media/Filoo.29d2d69569f5fb2a380b.png",
+    "static/media/orangeTheme_Characters.png": "/static/media/orangeTheme_Characters.308f05f3f3dfd02804f1.png",
+    "static/media/pinkTheme_Characters.png": "/static/media/pinkTheme_Characters.82d91fe24f864ea6365f.png",
     "static/media/Characters.png": "/static/media/Characters.d379e89f7123776a5980.png",
     "static/media/Thomas.png": "/static/media/Thomas.4a83b63e222a8adff38e.png",
     "static/media/Phil.png": "/static/media/Phil.1ddf8e13b34a3d78ad06.png",
@@ -124,12 +135,12 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.f07098ee.css.map": "/static/css/main.f07098ee.css.map",
-    "main.7fb747f3.js.map": "/static/js/main.7fb747f3.js.map",
+    "main.b11b4101.css.map": "/static/css/main.b11b4101.css.map",
+    "main.652addac.js.map": "/static/js/main.652addac.js.map",
     "787.42a359b6.chunk.js.map": "/static/js/787.42a359b6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f07098ee.css",
-    "static/js/main.7fb747f3.js"
+    "static/css/main.b11b4101.css",
+    "static/js/main.652addac.js"
   ]
 }

@@ -10,8 +10,16 @@ import axios from 'axios';
 import AuthUser from '../AuthUser';
 import KidzSlider from './KidzSlider';
 import Brother from '../../images/Story/brother.png';
+import Brother_white from '../../images/Story/brother_white.png';
+import purpleTheme_brother from '../../images/Story/purpleTheme_brother.png';
 import Gaming1 from '../../images/Games/Games.png';
 import Gaming2 from '../../images/Character/Characters.png';
+import DarkBlueGaming from '../../images/Character/DarkBlue_Characters.png';
+import blueThemeGaming from '../../images/Character/blueTheme_Characters.png';
+import orangeThemeGaming from '../../images/Character/orangeTheme_Characters.png';
+import greenThemeGaming from '../../images/Character/greenTheme_Characters.png';
+import pinkThemeGaming from '../../images/Character/pinkTheme_Characters.png';
+import purpleThemeGaming from '../../images/Character/purpleTheme_Characters.png';
 import Story1 from '../../images/Story/stories_kids01.png';
 import Story2 from '../../images/Story/stories_kids02.png';
 import Story3 from '../../images/Story/stories_kids03.png';
@@ -360,7 +368,14 @@ export default function KidzDashboard() {
 
               <div className="gaming-section colouring_item">
                 <Link to="/allcharacters">
-                  <img loading="lazy" src={Gaming2} />
+                  <img className='whiteGaming' loading="lazy" src={Gaming2} />
+                  <img className='DarkBlueGaming whiteGaming' loading="lazy" src={DarkBlueGaming} />
+                  <img className='blueThemeGaming whiteGaming' loading="lazy" src={blueThemeGaming} />
+                  <img className='orangeThemeGaming whiteGaming' loading="lazy" src={orangeThemeGaming} />
+                  <img className='greenThemeGaming whiteGaming' loading="lazy" src={greenThemeGaming} />
+                  <img className='pinkThemeGaming whiteGaming' loading="lazy" src={pinkThemeGaming} />
+                  <img className='purpleThemeGaming whiteGaming' loading="lazy" src={purpleThemeGaming} />
+                 
                   {/* <h3 className='colouring_ttl'>Characters</h3> */}
                 </Link>
               </div>
@@ -373,7 +388,10 @@ export default function KidzDashboard() {
           <div className='gaming-section_outer'>
             <div className="main-content">
               <div className='gaming-section_title'>
-                <img loading="lazy" src={Brother} /><span>STORIES READ</span>
+                <img className='brown_IMG' loading="lazy" src={Brother} />
+                <img className='brownWhite_IMG brown_IMG' loading="lazy" src={Brother_white} />
+                <img className='purpleTheme_brother brown_IMG' loading="lazy" src={purpleTheme_brother} />
+                <span>STORIES READ</span>
               </div>
               <div className='slider_mainsr kids_stories_slider'>
                 <Slider {...settings}>

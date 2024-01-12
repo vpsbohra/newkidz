@@ -1,5 +1,5 @@
 // src/Quiz.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Star from '../../images/Star Icon.png';
 import SharePopup from './share_popup';
@@ -8,6 +8,7 @@ import Share from '../../images/Share 3.png';
 import sun_effect_IMG from '../../images/sun_effect.png';
 import stairs_IMG from '../../images/013-stairs01.png';
 import park_IMG from '../../images/001-park.png';
+import cross from '../../images/cross.png';
 
 function Quiz({
   selectedAnswer,
@@ -22,7 +23,10 @@ function Quiz({
   const [point, setPoint] = useState(0);
   const [showSharePopup, setShowSharePopup] = useState(false);
 
-
+  useEffect(() => {
+    const theme = sessionStorage.getItem("theme");
+    document.body.classList.add(theme);
+  }, [sessionStorage.getItem("theme")])
 
   // Define the questions array directly within the component
   const questions = [
@@ -38,10 +42,10 @@ function Quiz({
     setShowSharePopup(true);
     addBodyClass();
   }
-  
-const handleCloseSharePopup = () => {
-    
-  setShowSharePopup(false); 
+
+  const handleCloseSharePopup = () => {
+
+    setShowSharePopup(false);
     removeBodyClass();
   };
 
@@ -60,7 +64,7 @@ const handleCloseSharePopup = () => {
   const addBodyClass = () => {
     document.body.classList.add('popup_active');
   };
-  
+
   const removeBodyClass = () => {
     document.body.classList.remove('popup_active');
   };
@@ -93,12 +97,12 @@ const handleCloseSharePopup = () => {
       <div className="option-main-section">
         <h2 className="question">{question}</h2>
         <p>{description}</p>
-        <ol className="options">
+        <ul className="options">
           {options.map((option, index) => (
             <div
               className={`${showCorrectAnswer && correctAnswer === option
-                  ? "correct_item_sr"
-                  : ""
+                ? "correct_item_sr"
+                : ""
                 }${showCorrectAnswer &&
                   correctAnswer !== option &&
                   currentSelectedAnswer === option
@@ -117,9 +121,18 @@ const handleCloseSharePopup = () => {
                   }`}
                 onClick={() => handleOptionSelect(option)}
               >
-                <span className="option">{Alph[index]}</span>
+                <span className="option">
+                  {showCorrectAnswer && correctAnswer !== option && currentSelectedAnswer === option ? (
+                    <img src={cross} alt="Incorrect" />
+                  ) : (
+                    Alph[index]
+                  )}
+                </span>
                 <p className="option-text">{option}</p>
               </li>
+
+
+
               {showCorrectAnswer &&
                 correctAnswer === option &&
                 currentSelectedAnswer === correctAnswer ? (
@@ -132,7 +145,7 @@ const handleCloseSharePopup = () => {
               )}
             </div>
           ))}
-        </ol>
+        </ul>
         {!showCorrectAnswer ? (
           <>
             {button ? (

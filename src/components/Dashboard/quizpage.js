@@ -7,9 +7,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import Star from '../../images/Star Icon.png';
 
 import ParentalSwitch from '../../images/Home.png';
+import DarkBlue_Home from '../../images/DarkBlue_Home.png';
+import blueTheme_Home from '../../images/blueTheme_Home.png';
+import orangeTheme_Home from '../../images/orangeTheme_Home.png';
+import pinkTheme_Home from '../../images/pinkTheme_Home.png';
+import purpleTheme_Home from '../../images/purpleTheme_Home.png';
+
 import Replay from '../../images/Replay Audio.png';
 import Sharebtn from '../../images/Share.png';
-import Coins from '../../images/Coins.png';
+// import Coins from '../../images/Coins.png';
+import MoneyBagImage from '../../images/money-bag.png';
 
 import SharePopup from './share_popup';
 
@@ -82,15 +89,25 @@ const handleCloseSharePopup = () => {
       <div className='chosen-story-section'>
       <div class="head-main-cstm">
      <div class="head-cstm-left">
-        <Link className="nav-link top_navbtnsr" to="/Kids-view"><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
+        <Link className="nav-link top_navbtnsr" to="/Kids-view">
+        <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
+          <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />
+          <img className="blueTheme_HomeIn defaultHome" loading="lazy" src={blueTheme_Home} alt='' />
+
+          <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
+          <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
+          <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
+
+          </Link>
         <Link className="nav-link top_navbtnsr top_navbtnsr_right" to="/Kids-view"><img loading="lazy" src={Replay} alt='' /></Link>
         {/* <button className='close-button Share_btn_sr' onClick={handleShare}>
                 <Link className="nav-link"><img loading="lazy" src={Sharebtn} /> </Link>
               </button> */}
               </div>
               <div class="head-price-cstm">
-    <img loading="lazy" src={Coins}/><span>150</span>
-</div>
+                {/* <img loading="lazy" src={Coins}/> */}
+                <img loading="lazy" src={MoneyBagImage} alt="protected" /><span>150</span>
+              </div>
 </div>
 
               {showSharePopup && (

@@ -5,7 +5,22 @@ import AuthUser from '../components/AuthUser';
 import ParentalSwitch from '../images/Parental_Switch01.png';
 import MessagesIcon from '../images/Messages(1).png';
 import ActivitiesIcon from '../images/Activities01.png';
+import DarkBlue_Activities from '../images/DarkBlue_Activities.png';
+import blueTheme_Activities from '../images/blueTheme_Activities.png';
+
+import orangeTheme_Activities from '../images/orangeTheme_Activities.png';
+import pinkTheme_Activities from '../images/pinkTheme_Activities.png';
+import purpleTheme_Activities from '../images/purpleTheme_Activities.png';
+
+import orangeTheme_Home from '../images/orangeTheme_Home.png';
+import opinkTheme_Home from '../images/pinkTheme_Home.png';
+import purpleTheme_Home from '../images/purpleTheme_Home.png';
+
 import HomeIcon from '../images/Home01.png';
+import DarkBlue_Home from '../images/DarkBlue_Home.png';
+import blueTheme_Home from '../images/blueTheme_Home.png';
+
+
 import MoneyBagImage from '../images/money-bag.png';
 import protectImg1 from '../images/036-protect.png';
 import setting from '../images/setting.png';
@@ -14,6 +29,8 @@ import KidzDashboard from '../components/Dashboard/KidzDashboard';
 import axios from 'axios';
 import bowbow from "../images/bow_bow.png";
 import close from '../images/Close.png';
+
+
 
 
 function KidsNav() {
@@ -38,9 +55,91 @@ function KidsNav() {
 
   const [childProfiles, setChildProfiles] = useState([]);
   const [changeTheme, setChangeTheme] = useState(false);
+  const [addClass, setAddClass] = useState('');
+
+
 
 
   useEffect(() => {
+    const userInformation = sessionStorage.getItem('user');
+
+    const user = JSON.parse(userInformation);
+    const { id } = user;
+
+
+    const theme = sessionStorage.getItem("theme");
+    if (theme) {
+      document.body.classList.add(theme);
+      setAddClass(theme)
+    }
+    else {
+
+      http.get(`/child-profiles?user_id=${id}`).then((res) => {
+        setChildProfiles(res.data);
+        console.log("res.data", res.data)
+        const response = res.data;
+        localStorage.setItem("childProfilesLocal", JSON.stringify(res.data));
+        console.log("else condition");
+        const activeChildId = sessionStorage.getItem("childId");
+        console.log("activeChildId", activeChildId)
+        console.log("cholddd", childProfiles);
+        console.log("cholddd2", response);
+        const activeChild = response.find((child) => child.id == activeChildId);
+        console.log("activeChild", activeChild)
+        if (activeChild) {
+          const themeFromDatbase = activeChild.theme_selected;
+          setAddClass(themeFromDatbase);
+          document.body.className = "";
+          console.log("themeFromDatbase", themeFromDatbase);
+          document.body.classList.add(themeFromDatbase);
+          sessionStorage.setItem("theme", themeFromDatbase);
+        }
+      });
+    }
+
+    }, [childId, userId]);
+    const handleColorClick = async (color) => {
+      try {
+        setAddClass(color);
+        document.body.className = "";
+        sessionStorage.setItem("theme",color);
+        document.body.classList.add(color);
+        await http.patch(`/update-child-account-theme/${childId}`, {
+          theme_selected: color,
+        });
+      } catch (error) {
+        console.error('Error updating child account theme:', error);
+      }
+    };
+
+
+  console.log("adddddddd", addClass);
+
+  const handleDefualt = () => {
+    document.body.className = "";
+    sessionStorage.removeItem("theme");
+    setAddClass('')
+    try {
+      setAddClass(null);
+      document.body.className = "";
+
+
+      http.patch(`/update-child-account-theme/${childId}`, {
+        theme_selected: null,
+      });
+    } catch (error) {
+      console.error('Error updating child account theme:', error);
+    }
+  };
+
+
+
+
+
+  console.log("childProfiles", childProfiles);
+
+  useEffect(() => {
+
     fetchQuestions();
     fetchChildData();
   }, []);
@@ -244,10 +343,12 @@ function KidsNav() {
         localStorage.setItem('childdata', JSON.stringify(childdata));
       }
       setChildProfiles(childdata);
+      console.log("childdata", childdata);
     } catch (error) {
       console.error('Error fetching child detail:', error);
     }
   };
+
 
   useEffect(() => {
     if (childProfiles.length === 0) {
@@ -332,6 +433,19 @@ function KidsNav() {
 
     setThemesVisible(false);
   }
+
+  const handleParentalSwitch = () => {
+    document.body.className = '';
+    console.log('remove')
+    navigate('/who-are-you');
+  }
+
+
+
+
+
+
+
   return (
     <>
       <div className="kidsname">
@@ -342,16 +456,34 @@ function KidsNav() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/Kids-view" onClick={handleHome}><img loading="lazy" src={HomeIcon} alt='' /></Link>
+                <Link className="nav-link" to="/Kids-view" onClick={handleHome}>
+                  <img className='white_Home' loading="lazy" src={HomeIcon} alt='' />
+                  <img className='DarkBlue_Home white_Home' loading="lazy" src={DarkBlue_Home} alt='' />
+                  <img className='blueTheme_Home white_Home' loading="lazy" src={blueTheme_Home} alt='' />
+
+                  <img className='orangeTheme_Home white_Home' loading="lazy" src={orangeTheme_Home} alt='' />
+                  <img className='pinkTheme_Home white_Home' loading="lazy" src={opinkTheme_Home} alt='' />
+                  <img className='purpleTheme_Home white_Home' loading="lazy" src={purpleTheme_Home} alt='' />
+
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={rem < 1 ? "" : "/RecordedAnswer"}><img loading="lazy" src={ActivitiesIcon} alt='' /><span>{rem < 5 ? rem : 0}</span></Link>
+                <Link className="nav-link" to={rem < 1 ? "" : "/RecordedAnswer"}>
+                  <img className='white_Activities' loading="lazy" src={ActivitiesIcon} alt='' />
+                  <img className='DarkBlue_Activities white_Activities' loading="lazy" src={DarkBlue_Activities} alt='' />
+                  <img className='blueTheme_Activities white_Activities' loading="lazy" src={blueTheme_Activities} alt='' />
+
+                  <img className='orangeTheme_Activities white_Activities' loading="lazy" src={orangeTheme_Activities} alt='' />
+                  <img className='pinkTheme_Activities white_Activities' loading="lazy" src={pinkTheme_Activities} alt='' />
+                  <img className='purpleTheme_Activities white_Activities' loading="lazy" src={purpleTheme_Activities} alt='' />
+
+                  <span>{rem < 5 ? rem : 0}</span></Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/Kids-messages" onClick={handleMessages} ><img loading="lazy" src={MessagesIcon} alt='' />{num > 0 ? (<span> {num} </span>) : (<></>)}</Link>
               </li>
               {toggle ? (<li className="nav-item active">
-                <Link className="nav-link" id="parental_switch" to="/who-are-you">
+                <Link className="nav-link" id="parental_switch" to="/who-are-you" onClick={handleParentalSwitch}>
                   <img loading="lazy" src={ParentalSwitch} alt='' />
                 </Link>
               </li>) : (<>
@@ -374,32 +506,38 @@ function KidsNav() {
               </a>
               {/* {changeTheme && ( */}
               <div className='theme_change' onClick={selectTheme}><img src={brush} alt='brush' /><p>Change theme color</p></div>
-          
+
             </div>
           </div>
         </nav>
       </div>
 
-     {themesVisible &&  
-      <div className='select_theme_cnt'>
-        <div className='bow_bow'>
+      {themesVisible &&
+        <div className='select_theme_cnt'>
+          <div className='bow_bow' >
 
-          <img src={bowbow} alt="boobo" />
-          <p className='boobo_text'>Choose a color buddy!</p>
+            <img src={bowbow} alt="boobo" onClick={handleDefualt}/>
+            {sessionStorage.getItem("theme") ? (
+              <p className='boobo_text' onClick={handleDefualt}>Click on me to go back to how it was!</p>
+            ) : (
+              <p className='boobo_text' onClick={handleDefualt}>Choose a color buddy!</p>
+            )}
+          </div>
+
+          <button className='close_btn_theme' onClick={handleClose}><img src={close} alt='close' /></button>
+          <div className='choose_themes'>
+            <div className={`color_darkblue themes_btn ${addClass === 'darkblueTheme' ? 'active' : ''}`} onClick={() => handleColorClick('darkblueTheme')}></div>
+
+            <div className={`color_blue themes_btn ${addClass === 'blueTheme' ? 'active' : ''}`} onClick={() => handleColorClick('blueTheme')}></div>
+            <div className={`color_orange themes_btn ${addClass === 'orangeTheme' ? 'active' : ''}`} onClick={() => handleColorClick('orangeTheme')}></div>
+            <div className={`color_green themes_btn ${addClass === 'greenTheme' ? 'active' : ''}`} onClick={() => handleColorClick('greenTheme')}></div>
+            <div className={`color_pink themes_btn ${addClass === 'pinkTheme' ? 'active' : ''}`} onClick={() => handleColorClick('pinkTheme')}></div>
+            <div className={`color_purple themes_btn ${addClass === 'purpleTheme' ? 'active' : ''}`} onClick={() => handleColorClick('purpleTheme')}></div>
+          </div>
+
+
         </div>
-
-        <button className='close_btn_theme' onClick={handleClose}><img src={close} alt='close' /></button>
-        <div className='choose_themes'>
-          <div className='color_darkblue themes_btn'></div>
-          <div className='color_blue themes_btn'></div>
-          <div className='color_orange themes_btn'></div>
-          <div className='color_green themes_btn'></div>
-          <div className='color_pink themes_btn'></div>
-          <div className='color_purple themes_btn'></div>
-        </div>
-
-      </div>
-}
+      }
     </>
   );
 }

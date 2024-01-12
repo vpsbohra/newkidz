@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import RecordRTC from 'recordrtc';
 import ParentalSwitch from '../../images/Home.png';
+import DarkBlue_Home from '../../images/DarkBlue_Home.png';
+import blueTheme_Home from '../../images/blueTheme_Home.png';
+import orangeTheme_Home from '../../images/orangeTheme_Home.png';
+import pinkTheme_Home from '../../images/pinkTheme_Home.png';
+import purpleTheme_Home from '../../images/purpleTheme_Home.png';
+
 import Record from '../../images/Record button.png';
 import WaveSendAudioImage from '../../images/Ongoing Recording.png';
 import WaveSendAudioImage1 from '../../images/Paused Recording.png';
@@ -49,6 +55,10 @@ const RecordedAnswer = () => {
     addBodyClass();
   }
 
+  useEffect(()=>{
+    const theme = sessionStorage.getItem("theme");
+    document.body.classList.add(theme);
+    },[sessionStorage.getItem("theme")])
   const handleCloseSharePopup = () => {
 
     setShowSharePopup(false);
@@ -416,7 +426,14 @@ const [story_id,setStory_id]=useState();
     <>
       <div className='chosen-story-section all_activity_sr'>
 
-        <Link className="nav-link top_navbtnsr" to="/Kids-view"><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
+        <Link className="nav-link top_navbtnsr" to="/Kids-view">
+        <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
+          <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />
+          <img className="blueTheme_HomeIn defaultHome" loading="lazy" src={blueTheme_Home} alt='' />
+          <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
+          <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
+          <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
+          </Link>
         {showReplayButton && (
           <button className='replay_btn no-background' onClick={handleReplay}>
             <img loading="lazy" src={Replay} />

@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ParentalSwitch from '../../images/Home.png';
+import DarkBlue_Home from '../../images/DarkBlue_Home.png';
+import blueTheme_Home from '../../images/blueTheme_Home.png';
+import orangeTheme_Home from '../../images/orangeTheme_Home.png';
+import pinkTheme_Home from '../../images/pinkTheme_Home.png';
+import purpleTheme_Home from '../../images/purpleTheme_Home.png';
 import KidzBottomNav from './KidzBottomNav';
 import axios from 'axios';
 import AuthUser from '../AuthUser';
@@ -31,6 +36,14 @@ const OpenStory = () => {
   const [page, setPage] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+
+  useEffect(()=>{
+    const theme = sessionStorage.getItem("theme");
+    document.body.classList.add(theme);
+    },[sessionStorage.getItem("theme")])
+
+    
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -312,7 +325,15 @@ if(readedstory){
   };
   return (
     <div className='chosen-story-section openbook_page_kidz'>
-      <Link className="nav-link" onClick={update}><img loading="lazy"  src={ParentalSwitch} alt='' /></Link>
+      <Link className="nav-link" onClick={update}>
+          <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
+          <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />
+          <img className="blueTheme_HomeIn defaultHome" loading="lazy" src={blueTheme_Home} alt='' />
+          <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
+          <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
+          <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
+
+        </Link>
       <div className="top-nav">
         <KidzBottomNav />
       </div>
