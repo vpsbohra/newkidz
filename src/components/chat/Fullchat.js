@@ -22,15 +22,33 @@ import Chat_hide from "../../images/chat-hide-icon.png";
 
 import TenBack from '../../images/TenBack.png';
 import TenForward from '../../images/Tenforward.png';
+import getToKnow from '../Audio/getToKnow.wav';
+
 
 
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Chat from "./Chat";
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import CurrentlyReading from "../Dashboard/CurrentlyReading";
-const Fullchat = ({ selectedDate, dataId }) => {
-  const [elapsedTime, setElapsedTime] = useState(0);
 
+import { useStopwatch } from 'react-timer-hook';
+const Fullchat = ({ selectedDate, dataId }) => {
+  const {
+    totalSeconds ,
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    reset,
+
+  } = useStopwatch({ autoStart: false });
+  
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [question,setQuestion]=useState('');
+  const [totalseconds,settotalseconds]=useState(0);
   const [members, setMembers] = useState([]);
   const [Audio, setAudio] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -59,14 +77,23 @@ const Fullchat = ({ selectedDate, dataId }) => {
   const [day, setDay] = useState();
   const [highlightDay, setHighlightDay] = useState([]);
   const [childName, setChildName] = useState([]);
-  const [isRunning, setIsRunning] = useState(false);
+  const [isrunning, setIsRunning] = useState(false);
   const [elapsedTime2, setElapsedTime2] = useState(0);
 const [parent,setParent]=useState('');
+const [c,setC]=useState('sliding-text');
+useEffect(() => {
+  const totalSecondsElapsed = (minutes * 60) + seconds;
+
+  if (totalSecondsElapsed >= totalseconds) {
+    pause();
+  }
+}, [minutes, seconds, totalseconds, pause]);
+
   useEffect(() => {
     let interval;
     if(elapsedTime == elapsedTime2){
       setElapsedTime2(elapsedTime);
-    }else{if (isRunning) {
+    }else{if (isrunning) {
       interval = setInterval(() => {
         setElapsedTime2((prevTime) => prevTime + 1);
       }, 1000);
@@ -74,7 +101,7 @@ const [parent,setParent]=useState('');
     
 
     return () => clearInterval(interval);
-  }, [isRunning]);
+  }, [isrunning]);
 
   const handleStartStop = () => {
     setIsRunning((prevIsRunning) => !prevIsRunning);
@@ -129,9 +156,10 @@ const [parent,setParent]=useState('');
   }, [sessionStorage.getItem('DATE')]);
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
-    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
+  
   const [taudio,setTaudio]=useState(false);
   const handleDateChange = (date) => {
    
@@ -194,16 +222,22 @@ const [parent,setParent]=useState('');
     const day = dateObject.getDate();
     return day;
   };
-  const [question,setQuestion]=useState('');
-  const [totalSeconds,setTotalseconds]=useState(0);
+
   const playAudio = (audioSrc, isAutoplay, question,sum) => {
-    setTotalseconds(sum);
+    setC('');
+    settotalseconds(sum);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const audioElement = document.getElementById('src');
        setQuestion(question);
+    setC('sliding-text');
+
         if (audioElement) {
-          audioElement.src = `data:audio/wav;base64,${audioSrc}`;
+          if(audioSrc == 'L3N0YXRpYy9tZWRpYS9nZXRUb0tub3cuOWZlMjk4YjJhMWVjODY3ZjdkMjIud2F2'){
+          audioElement.src = getToKnow;
+          } else{
+            audioElement.src = `data:audio/wav;base64,${audioSrc}`;
+          }
           audioElement.type = 'audio/wav';
           audioElement.controls = true;
           audioElement.onended = () => {
@@ -226,6 +260,7 @@ const fetchAudio = async () => {
       const response = await http.get(`/messages-audio/${userId1}/${dataId1}/${spouse}`);
       
       const audioFromApi = response.data;
+      console.log("AUDIO",audioFromApi)
       
       const selectedDay = new Date(d);
       var dataaudio = [];
@@ -257,6 +292,17 @@ const fetchAudio = async () => {
 
             console.log("!1", dataaudio);
           }
+          else if (
+            item.question_voice !== null &&
+            itemDate.getDate() === selectedDay.getDate() &&
+            itemDate.getMonth() === selectedDay.getMonth() &&
+            itemDate.getFullYear() === selectedDay.getFullYear()
+          ) {
+            dataaudio.push(item.question_voice);
+            question.push(item.question_voice_answer);
+            seconds.push(item.total_second);
+            console.log("!2", dataaudio);
+          }
         });
       } else {
         const itemDate = new Date(audioFromApi.created_at);
@@ -269,8 +315,6 @@ const fetchAudio = async () => {
           dataaudio.push(audioFromApi.audio_path);
           question.push(audioFromApi.question_voice_answer);
           seconds.push(audioFromApi.total_second);
-
-
         } else if (
           audioFromApi.voice_answer !== null &&
           itemDate.getDate() === selectedDay.getDate() &&
@@ -280,8 +324,16 @@ const fetchAudio = async () => {
           dataaudio.push(audioFromApi.voice_answer);
           question.push(audioFromApi.question_voice_answer);
           seconds.push(audioFromApi.total_second);
-
-
+        }
+        else if (
+          audioFromApi.question_voice !== null &&
+          itemDate.getDate() === selectedDay.getDate() &&
+          itemDate.getMonth() === selectedDay.getMonth() &&
+          itemDate.getFullYear() === selectedDay.getFullYear()
+        ) {
+          dataaudio.push(audioFromApi.question_voice);
+          question.push(audioFromApi.question_voice_answer);
+          seconds.push(audioFromApi.total_second);
         }
       }
       setLength(seconds.length);
@@ -444,9 +496,9 @@ const fetchAudio = async () => {
     const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     // currentTimeDisplay.textContent = formattedTime;
     const totalMinutes = Math.floor(audio.duration / 60);
-    const totalSeconds = Math.floor(audio.duration % 60);
-    if (isFinite(totalSeconds)) {
-    const formattedTotalTime = `/ ${totalMinutes}:${totalSeconds < 10 ? '0' : ''}${totalSeconds}`;
+    const totalseconds = Math.floor(audio.duration % 60);
+    if (isFinite(totalseconds)) {
+    const formattedTotalTime = `/ ${totalMinutes}:${totalseconds < 10 ? '0' : ''}${totalseconds}`;
       // totalTimeDisplay.textContent = formattedTotalTime;
     }
   };
@@ -494,31 +546,43 @@ const tileClassName = ({ date, view }) => {
   return (
     <>
      <div className="fullconver_chat">
-        {taudio ? (<><div className="audio_fullcon audio_fullcon-cstm">
-          {question?(<>
-          <marquee>{question}</marquee>
-          </>):(<>Daisy's Response</>)}
-		            
-
+        {taudio ? (<>
+        <div className="audio_fullcon audio_fullcon-cstm">
+          <div className="sliding-text-container">
+            <p className={c}>
+          {question?(<>{question}
+          </>):(<>{spouse}'s Response</>)}
+           </p>
+          </div>
           <div className="audio-player" id="audio">
             <div className="audio-player_inner">
               <img loading="lazy" src={TenBack}/>
-              <div className="play-pause-btn" onClick={() => togglePlayPause("audio")}></div>
+              <div className="play-pause-btn" onClick={() => { togglePlayPause("audio"); isRunning ? pause() : start(); }}></div>
+
               <img loading="lazy" src={TenForward}/>
             </div>
             <div className="progress-bar">
-              <input type="range" min="0" max="100" value="0" step="1" onChange={() => seekTo("audio")} />
-              <div className="time-display">
-                <span>{formatTime(elapsedTime2)}</span> / <span >{formatTime(totalSeconds)}</span>
-              </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={totalseconds ? (elapsedTime / totalseconds) * 100 : 0}
+              step="1"
+              onChange={(e) => seekTo(e.target.value)}
+            />
+             <div className="time-display">
+  <span>{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds} / {formatTime(totalseconds)}</span>
+</div>
             </div>
-            <audio className="audio" id="src" src='' controls style={{ display: 'none' }} />
+           
+         <audio className="audio" id="src" src='' controls style={{ display: 'none' }}  /> 
+           {/* <audio className="audio" controls style={{ display: 'none' }}>
+            <source id="src" src='' />
+           </audio> */}
+
           </div>
         </div></>) : (<>No Recordings for this day</>)}
         <span className={`profile_type_letters_outer ${hide ? "" : "space"}`}>
-
-
-
         {taudio ? (
           <>
             <OverlayTrigger
@@ -541,25 +605,12 @@ const tileClassName = ({ date, view }) => {
                 <span>
                   {typeof childName === 'string' && childName.length > 0 ? childName.charAt(0) : ""}
                 </span>
-
               </span>
             </OverlayTrigger>
           </>
         ):(
           <></>
         )}
-
-          {/* {remainingMembersCount > 0 && hide && (
-            <>
-              <span className="hide_more profile_type_letter"
-                onClick={handleShowAllMembersClick}
-              >
-                {`+ ${remainingMembersCount}`}
-              </span>
-            </>
-          )} */}
-          {/* {hidden && (<span className="hide_more profile_type_letter" onClick={handleHideClick}><img loading="lazy" src={Chat_hide} /></span>
-          )} */}
         </span>
         {hide === "false" ? <></> : <></>}
         <div className="social_icons">

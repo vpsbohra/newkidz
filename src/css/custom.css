@@ -11692,6 +11692,7 @@ input[type="range"]::-webkit-slider-thumb {
 	width: 100%;
 	display: flex;
 	gap: 40px;
+	padding: 0 50px;
 }
 .select_size_mainInner .left_content {
 	width: 70%;
@@ -11805,3 +11806,25 @@ input[type="range"]::-webkit-slider-thumb {
 	max-width: 275px;
 }
 .select_size_mainInner .right_content .select_size_bottomBTn {display: none;}
+
+
+.select_size_main {
+	background: #FEFEFE;
+	width: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 20px 20px;
+	border-radius: 22px;
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 0;
+	right: 0;
+	z-index: 999;
+}
+.select_size_main .close_btn_size {
+	position: absolute;
+	right: 61px;
+	top: 16px;
+	cursor: pointer;
+}

@@ -291,6 +291,13 @@
     .kidzdashboard .kidsname button.navbar-toggler .navbar-toggler-icon {
         filter: invert(100%);
     }
+    .select_size_main {
+        top: 5vh;
+        transform: inherit;
+
+        height: 90vh;
+        overflow: auto;
+    }
 
 
     
@@ -468,7 +475,16 @@
 .select_theme_cnt {
 	padding: 20px 20px;
 }
-
+.select_size_main .select_size_mainInner {
+	padding: 0 0;
+    padding-top: 20px;
+}
+.select_size_main .close_btn_size {
+	position: absolute;
+	right: 20px;
+	top: 15px;
+	cursor: pointer;
+}
 }
     
     
@@ -739,7 +755,8 @@
     .start_printing.kidz_allcharacters_Sr .kidz_profile_popupsr_inner .kidz_profile_popupsr_content {height: 220px;}
     .Main_Gaming_Sec.KidzOnGoingStory .gaming-section img.game_img {height: 220px;}
 
-
+    .select_size_main .close_btn_size {max-width: 30px;}
+    
 }
 
 @media screen and (max-width: 430px) {

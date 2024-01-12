@@ -16,6 +16,7 @@ import Jumbo from "../../images/Sizes/Jumbo.jpg";
 import Larger from "../../images/Sizes/Larger.jpg";
 import Medium from "../../images/Sizes/Medium.jpg";
 import Normal from "../../images/Sizes/Normal.jpg";
+import close from "../../images/Close.png";
 
 
 const Start_Printing = () => {
@@ -28,10 +29,14 @@ const Start_Printing = () => {
 
     const [selectedImage, setSelectedImage] = useState(null);
 
-
+    const [ w , setW]=useState(3);
+    const [ h , setH]=useState(3);
+    const [ s , setS]=useState(9);
     console.log("selectedSize", selectedSize)
-    const handleSizeSelect = (size) => {
-
+    const handleSizeSelect = (size,w,h,s) => {
+       setW(w);
+       setH(h);
+       setS(s);
         setSelectedSize(size);
     }
     const openModal = (image) => {
@@ -50,14 +55,139 @@ const Start_Printing = () => {
         setStart(true);
     };
 
+    const handleClose =()=>{
 
+        setStart(false);
+        setIsModalOpen(false);
+    }
+
+    const handlePrintMain = () => {
+        if(selectedSize === 'Normal'){
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                const image = new Image();
+                image.src = selectedImage;
+                image.onload = () => {
+                    iframe.contentDocument.write(`
+                        <html>
+                            <head>
+                                <title>Print</title>
+                                <style>
+                                    body {
+                                        margin: 0;
+                                        padding: 0;
+                                    }
+                                    img {
+                                        max-width: 100%;
+                                        height: 100vh; /* Set the height to fill the viewport */
+                                        object-fit: contain; /* Maintain aspect ratio while filling the viewport */
+                                        page-break-before: always; /* Ensure each image is on a new page */
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <img src="${selectedImage}" alt="Print">
+                            </body>
+                        </html>
+                    `);
+            
+                    const printImage = iframe.contentDocument.querySelector('img');
+                    printImage.onload = () => {
+                        iframe.contentWindow.print();
+                        document.body.removeChild(iframe);
+                    };
+                };
+            
+                document.body.appendChild(iframe);
+        }
+        else{
+           
+           
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+        
+            const image = new Image();
+            image.src = selectedImage;
+        
+            image.onload = () => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+        
+                const pageWidth = image.width; // A4 width in pixels
+                const pageHeight = image.height; // A4 height in pixels
+        
+                canvas.width = pageWidth;
+                canvas.height = pageHeight;
+        
+                context.drawImage(image, 0, 0, image.width, image.height);
+        
+                // Calculate quadrant dimensions
+                const quadrantWidth = image.width / w;
+                const quadrantHeight = image.height / h;
+        
+                // Print each quadrant on a separate page
+                for (let i = 0; i < s; i++) {
+                    const x = (i % w) * quadrantWidth;
+                    const y = Math.floor(i / w) * quadrantHeight;
+        
+                    const imageData = context.getImageData(x, y, quadrantWidth, quadrantHeight);
+        
+                    iframe.contentDocument.write(`
+                        <html>
+                            <head>
+                                <title>Print</title>
+                                <style>
+                                    body {
+                                        margin: 0;
+                                        padding: 0;
+                                    }
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: contain;
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div style="page-break-before: always;">
+                                    <img src="data:image/png;base64,${encodeBase64(imageData)}" alt="Print">
+                                </div>
+                            </body>
+                        </html>
+                    `);
+                }
+        
+                const printImage = iframe.contentDocument.querySelector('img');
+                if (printImage) {
+                    printImage.onload = () => {
+                        iframe.contentWindow.print();
+                        document.body.removeChild(iframe);
+                    };
+                }
+            };
+        
+            document.body.appendChild(iframe);
+        }
+
+       
+    };
+    
+    const encodeBase64 = (imageData) => {
+        const canvas = document.createElement('canvas');
+        canvas.width = imageData.width;
+        canvas.height = imageData.height;
+        const context = canvas.getContext('2d');
+        context.putImageData(imageData, 0, 0);
+        return canvas.toDataURL('image/png').split(',')[1];
+    };
+    
 
     return (
         <>
-            <div className="kidzdashboard">
+            <div className={`kidzdashboard ${start ? 'active_popup':""}`} >
                 <div className="container-fluids display-table">
                     <KidsNav />
-                    {!start && (
+                   
                         <div className="main-content">
                             <div className="page_ttls">
                                 <div className='kidz_allcharacters_Sr start_printing'>
@@ -71,27 +201,30 @@ const Start_Printing = () => {
                                 </div>
                             </div>
                         </div>
-                    )}
+                   
 
                     {start && (
                         <div className="select_size_main">
+                             <img className="close_btn_size" src={close} alt="close" onClick={handleClose} />
                             <div className="main-content">
+                               
                                 <div className="select_size_mainInner">
                                     <div className="left_content">
                                         <img src={selectedSize === "Big" ? Big : selectedSize === "Jumbo" ? Jumbo : selectedSize === "Larger" ? Larger : selectedSize === "Medium" ? Medium : Normal} alt="room_image" />
                                     </div>
                                     <div className="right_content">
-                                        <button className="start_printingBtn"><span>START PRINTING</span></button>
+                                        <button className="start_printingBtn" onClick={handlePrintMain}><span>START PRINTING</span></button>
 
                                         <p>Choose the perfect size for your illustration!</p>
                                         <div className="select_size_bottomBTn">
-                                            <div className="bottom_content">
-                                            <button className={`normal${selectedSize == "Normal" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Normal") }}><span>NORMAL</span></button>
-                                            <button className={`medium${selectedSize == "Medium" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Medium") }}><span>MEDIUM</span></button>
-                                            <button className={`big${selectedSize == "Big" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Big") }}><span>BIG</span></button>
-                                            <button className={`larger${selectedSize == "Larger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Larger") }}><span>LARGER</span></button>
-                                            <button className={`jumbo${selectedSize == "Jumbo" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Jumbo") }}><span>JUMBO</span></button>
-                                            </div>
+                                        <div className="bottom_content">
+                                        <button className={`normal${selectedSize == "Normal" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Normal") }}><span>NORMAL</span></button>
+                                        <button className={`medium${selectedSize == "Medium" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Medium",2,2,4) }}><span>MEDIUM</span></button>
+                                        <button className={`big${selectedSize == "Big" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Big",3,3,9) }}><span>BIG</span></button>
+                                        <button className={`bigger${selectedSize == "Bigger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Bigger",5,4,20) }}><span>BIGGER</span></button>
+                                        <button className={`larger${selectedSize == "Larger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Larger",6,6,36)}}><span>LARGER</span></button>
+                                        <button className={`jumbo${selectedSize == "Jumbo" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Jumbo",8,6,48 )}}><span>JUMBO</span></button>
+                                    </div>
                                         </div>
                                         <img src={selectedImage} alt="Your_character_image" />
                                     </div>
@@ -100,16 +233,17 @@ const Start_Printing = () => {
 
                                     <div className="bottom_content">
                                         <button className={`normal${selectedSize == "Normal" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Normal") }}><span>NORMAL</span></button>
-                                        <button className={`medium${selectedSize == "Medium" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Medium") }}><span>MEDIUM</span></button>
-                                        <button className={`big${selectedSize == "Big" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Big") }}><span>BIG</span></button>
-                                        <button className={`larger${selectedSize == "Larger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Larger") }}><span>LARGER</span></button>
-                                        <button className={`jumbo${selectedSize == "Jumbo" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Jumbo") }}><span>JUMBO</span></button>
+                                        <button className={`medium${selectedSize == "Medium" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Medium",2,2,4) }}><span>MEDIUM</span></button>
+                                        <button className={`big${selectedSize == "Big" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Big",3,3,9) }}><span>BIG</span></button>
+                                        <button className={`bigger${selectedSize == "Bigger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Bigger",5,4,20) }}><span>BIGGER</span></button>
+                                        <button className={`larger${selectedSize == "Larger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Larger",6,6,36)}}><span>LARGER</span></button>
+                                        <button className={`jumbo${selectedSize == "Jumbo" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Jumbo",8,6,48 )}}><span>JUMBO</span></button>
                                     </div>
-                                </div>
+                                </div> 
                                 
                             </div>
                         </div>
-                    )}
+                    )}                                      
 
                 </div>
             </div>
