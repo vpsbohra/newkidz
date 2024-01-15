@@ -210,11 +210,10 @@ const Start_Printing = () => {
                                
                                 <div className="select_size_mainInner">
                                     <div className="left_content">
-                                        <img src={selectedSize === "Big" ? Big : selectedSize === "Jumbo" ? Jumbo : selectedSize === "Larger" ? Larger : selectedSize === "Medium" ? Medium : Normal} alt="room_image" />
+                                        <img src={selectedSize === "Big" ? Big :selectedSize === "Bigger" ? Big : selectedSize === "Jumbo" ? Jumbo : selectedSize === "Larger" ? Larger : selectedSize === "Medium" ? Medium : Normal} alt="room_image" />
                                     </div>
                                     <div className="right_content">
                                         <button className="start_printingBtn" onClick={handlePrintMain}><span>START PRINTING</span></button>
-
                                         <p>Choose the perfect size for your illustration!</p>
                                         <div className="select_size_bottomBTn">
                                         <div className="bottom_content">

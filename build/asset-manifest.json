@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f3e7fdde.css",
-    "main.js": "/static/js/main.277f02bb.js",
+    "main.css": "/static/css/main.ff546b39.css",
+    "main.js": "/static/js/main.c75f7a3b.js",
     "static/js/787.42a359b6.chunk.js": "/static/js/787.42a359b6.chunk.js",
     "static/media/getToKnow.wav": "/static/media/getToKnow.9fe298b2a1ec867f7d22.wav",
     "static/media/stefy(3).png": "/static/media/stefy(3).3cddb097783d700b1912.png",
@@ -42,7 +42,6 @@
     "static/media/stany(4).png": "/static/media/stany(4).954472f9bac8cb6d1530.png",
     "static/media/bookcover01.png": "/static/media/bookcover01.d975aaf6825ed736d206.png",
     "static/media/Simonf.png": "/static/media/Simonf.cbbab41ea5071f7d7892.png",
-    "static/media/Waveform001.gif": "/static/media/Waveform001.1e4c44fdb319aa04435b.gif",
     "static/media/MrsDavidf.png": "/static/media/MrsDavidf.1c91da7724a788f2094f.png",
     "static/media/Testimonial_img01.png": "/static/media/Testimonial_img01.063367a0088c354ecbc9.png",
     "static/media/Meet-Our-Characters-Section.png": "/static/media/Meet-Our-Characters-Section.2be8ad415f6db42900cc.png",
@@ -135,12 +134,12 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.f3e7fdde.css.map": "/static/css/main.f3e7fdde.css.map",
-    "main.277f02bb.js.map": "/static/js/main.277f02bb.js.map",
+    "main.ff546b39.css.map": "/static/css/main.ff546b39.css.map",
+    "main.c75f7a3b.js.map": "/static/js/main.c75f7a3b.js.map",
     "787.42a359b6.chunk.js.map": "/static/js/787.42a359b6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f3e7fdde.css",
-    "static/js/main.277f02bb.js"
+    "static/css/main.ff546b39.css",
+    "static/js/main.c75f7a3b.js"
   ]
 }

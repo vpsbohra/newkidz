@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
-import Modal from 'react-modal';
 import { Link, Routes, Route, useNavigate } from 'react-router-dom';  // Import useNavigate directly
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import AuthUser from '../AuthUser';
 import axios from 'axios';
-import Previous_ButtonImg from '../../images/Previous_Button.png';
-import Play_ButtonImg from '../../images/play_btn.png';
-
-
-
 const truncateText = (text, maxLength) => {
   const words = text.split(' ');
   if (words.length <= maxLength) {
@@ -94,16 +88,9 @@ const KidzSlider = () => {
   const openModal = (story) => {
     setIsModalOpen(true);
     setSelectedStory(story);
-    
-    // Store selectedStory in session storage
     sessionStorage.setItem('selectedStory', JSON.stringify(story));
-  
-    // Navigate to /playStory
     navigate(`/playStory`);
   };
-  
-  
-
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -115,7 +102,6 @@ const KidzSlider = () => {
     sessionStorage.setItem('childStory', index);
     sessionStorage.setItem('childStoryText', data1);
     sessionStorage.setItem('childStorydata', data);
-    // useNavigate('/chosenstory');
   };
 
   const handleHover = (index) => {
@@ -151,10 +137,8 @@ const KidzSlider = () => {
       const x = sessionStorage.getItem('setChildID');
       const y = sessionStorage.getItem('childId');
       const cid =  y;
-      // console.log("session child id", cid);
       const child = childdata.find((n) => n.id === parseInt(cid, 10));
       if (child) {
-        // console.log('test123' + child.currenty_reading );
         setCurrentyReading(child.currenty_reading);
         sessionStorage.setItem("sid", child.currenty_reading);
       }
@@ -179,15 +163,12 @@ const KidzSlider = () => {
           setCurrentyReading(child.currenty_reading);
           sessionStorage.setItem("sid", child.currenty_reading);
         }
-  
         console.log("Children123", response.data);
       } catch (error) {
         console.error('Error fetching child data:', error);
       }
     }
   };
-
-
   return (
     <div className='slider_mainsr'>
       {currntlyreading ? (

@@ -177,7 +177,6 @@ if(stories){
     console.error('Error fetching stories:', error);
   }
 }
-   
   };
   const paragraphsPerPage = 1;
   const totalPages = Math.ceil(stories[0]?.description?.split('*').length / paragraphsPerPage);

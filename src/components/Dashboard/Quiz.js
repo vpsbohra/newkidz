@@ -1,4 +1,3 @@
-// src/Quiz.js
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Star from '../../images/Star Icon.png';
@@ -25,18 +24,26 @@ function Quiz({
 
   useEffect(() => {
     const theme = sessionStorage.getItem("theme");
+
     document.body.classList.add(theme);
   }, [sessionStorage.getItem("theme")])
+  const [question,setQuestion]=useState('');
+  const [description,setDescription]=useState('');
+  const [correctAnswer,setCorrectAnswer]=useState('');
+  const [options,setOptions]=useState([]);
 
-  // Define the questions array directly within the component
-  const questions = [
-    {
-      question: "And what would you have done in Stany's place?",
-      description: "When you're sick or not feeling well:",
-      options: ["You talk easily to your parents because your health is no laughing matter.", "You keep everything to yourself. It's not other people's business.", " You only talk about it to avoid going to school."],
-      correctAnswer: "You talk easily to your parents because your health is no laughing matter.",
-    },
-  ];
+  useEffect(()=>{
+    const StoryData = JSON.parse(sessionStorage.getItem("selectedStory"));
+    console.log("STORY DATA",StoryData);
+    const questions = JSON.parse(StoryData.story_mcq_questions);
+    setQuestion(questions.question);
+    setDescription(questions.description);
+    setCorrectAnswer(questions.correctAnswer);
+    setOptions(questions.options);
+ 
+  },[])
+
+
 
   const handleShare = () => {
     setShowSharePopup(true);
@@ -80,17 +87,14 @@ function Quiz({
   };
 
   const handleNextQuestion = () => {
-    // setShowPointEarnedPopup(false); // Close the popup
     onNext(); // Proceed to the next question
     localStorage.setItem("score", point + 1);
-
   };
 
   const [button, setButton] = useState(false);
   const Alph = ["A", "B", "C"];
 
   // Destructure values from the questions array
-  const { question, description, options, correctAnswer } = questions[0];
 
   return (
     <div className="feedback-container-story feedback-container-story-cstm">

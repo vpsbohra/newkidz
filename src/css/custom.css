@@ -11828,3 +11828,17 @@ input[type="range"]::-webkit-slider-thumb {
 	top: 16px;
 	cursor: pointer;
 }
+.sliding-text-container {
+	overflow: hidden;
+  }
+  .sliding-text {
+	animation: slideFromLeft 1s ease;
+  }
+  @keyframes slideFromLeft {
+	from {
+	  transform: translateX(100%);
+	}
+	to {
+	  transform: translateX(0);
+	}
+  }

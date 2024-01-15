@@ -1,36 +1,16 @@
 import React, { useEffect, useState,useRef } from "react";
-import Pusher from "pusher-js";
 import AuthUser from "../AuthUser";
-import sendImage from "../../images/sendVector.png";
-import { Link, Navigate } from "react-router-dom";
-import PaperClipImage from "../../images/paper-clip.png";
-import EmojiImage from "../../images/Emoji_icon.png";
-import SendAudioImage from "../../images/Send-audio-message.png";
-import WaveSendAudioImage from "../../images/Waveform001.gif";
-import { useParams } from "react-router-dom";
-import RecordRTC from "recordrtc";
 import Calendar from "react-calendar";
-import ChatPopup from "./ChatPopup";
 import { useNavigate } from "react-router-dom";
-import ForwardPopup from "../Dashboard/forward_Popup";
 import Facebook from "../../images/Facebook_Icon.png";
 import Whatsapp from "../../images/whatsapp_Icon.png";
 import Copy from "../../images/Copy_Link.png";
 import axios from "axios";
-import Copy_small from "../../images/Copy.png";
-import Chat_hide from "../../images/chat-hide-icon.png";
-
 import TenBack from '../../images/TenBack.png';
 import TenForward from '../../images/Tenforward.png';
 import getToKnow from '../Audio/getToKnow.wav';
-
-
-
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import Chat from "./Chat";
-import { Scrollbars } from 'react-custom-scrollbars-2';
-import CurrentlyReading from "../Dashboard/CurrentlyReading";
-
+import Load from '../../images/index.gif';
 import { useStopwatch } from 'react-timer-hook';
 const Fullchat = ({ selectedDate, dataId }) => {
   const {
@@ -81,6 +61,8 @@ const Fullchat = ({ selectedDate, dataId }) => {
   const [elapsedTime2, setElapsedTime2] = useState(0);
 const [parent,setParent]=useState('');
 const [c,setC]=useState('sliding-text');
+const [loader, setLoader] = useState(true);
+
 useEffect(() => {
   const totalSecondsElapsed = (minutes * 60) + seconds;
 
@@ -235,17 +217,17 @@ useEffect(() => {
         if (audioElement) {
           if(audioSrc == 'L3N0YXRpYy9tZWRpYS9nZXRUb0tub3cuOWZlMjk4YjJhMWVjODY3ZjdkMjIud2F2'){
           audioElement.src = getToKnow;
-          } else{
+          } else {
             audioElement.src = `data:audio/wav;base64,${audioSrc}`;
           }
           audioElement.type = 'audio/wav';
           audioElement.controls = true;
           audioElement.onended = () => {
-            audioElement.onended = null; // Remove the previous 'onended' event handler
-            resolve(); // Resolve the promise when audio ends
+            audioElement.onended = null;
+            resolve();
           };
           if (isAutoplay) {
-            audioElement.play(); // Start playing the audio only if isAutoplay is true
+            audioElement.play();
           }
         } else {
           reject('Audio element not found');
@@ -346,6 +328,7 @@ const fetchAudio = async () => {
       if (dataaudio.length > 0) {
         sessionStorage.setItem("TOGGLE",false);
         setTaudio(true);
+        setLoader(false);
       } else {
         sessionStorage.setItem("TOGGLE",true);
 
@@ -546,8 +529,8 @@ const tileClassName = ({ date, view }) => {
   return (
     <>
      <div className="fullconver_chat">
-        {taudio ? (<>
-        <div className="audio_fullcon audio_fullcon-cstm">
+      {loader ?(<><div className='no-chat'>    <img src={Load} alt="Loading..." /></div></>):(<>{taudio ? (<>
+        <div className="audio_fullcon audio_fullcon-cstm"> 
           <div className="sliding-text-container">
             <p className={c}>
           {question?(<>{question}
@@ -581,7 +564,8 @@ const tileClassName = ({ date, view }) => {
            </audio> */}
 
           </div>
-        </div></>) : (<>No Recordings for this day</>)}
+        </div></>) : (<>No Recordings for this day</>)}</>)}
+        
         <span className={`profile_type_letters_outer ${hide ? "" : "space"}`}>
         {taudio ? (
           <>

@@ -15,9 +15,6 @@ import { Link, useNavigate, Routes, Route } from 'react-router-dom';
 import getToKnow from '../Audio/getToKnow.wav';
 import hasResponded from '../Audio/hasResponded.wav';
 
-
-
-
 const ChosenStory = () => {
   const navigate = useNavigate();
   const { http } = AuthUser();

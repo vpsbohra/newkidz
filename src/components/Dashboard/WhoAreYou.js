@@ -10,6 +10,8 @@ import ReactivePopup from './ReactivePopup';
 import axios from 'axios';
 import AuthUser from '../../components/AuthUser';
 import protectImg1 from '../../images/036-protect.png';
+import Load from '../../images/index.gif';
+
 export default function Dashboard() {
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState(null);
@@ -30,6 +32,8 @@ export default function Dashboard() {
     const [code, setCode] = useState('');
     const navigate = useNavigate();
     const [userdetail, setUserdetail] = useState('');
+    const [loader, setLoader] = useState(true);
+
     useEffect(() => {
         const storedUser = sessionStorage.getItem('user');
         const user = JSON.parse(storedUser);
@@ -59,10 +63,12 @@ export default function Dashboard() {
 
 
     const fetchMembers = async () => {
+        fetchUserDetail();
         try {
             const response = await axios.get(`https://mykidz.online/api/members/${userId}`);
             const membersData = response.data;
             setMembers(membersData);
+           
         } catch (error) {
             console.error('Error fetching members:', error);
         }
@@ -95,6 +101,9 @@ export default function Dashboard() {
         setUserId(user.id);
         http.get(`/child-profiles?user_id=${userId}`).then((res) => {
             setChildProfiles(res.data);
+            if(childProfiles && members){
+                setLoader(false);
+            }
 
         });
     };
@@ -189,7 +198,6 @@ export default function Dashboard() {
     useEffect(() => {
 
         fetchMembers();
-        fetchUserDetail();
 
         console.log("userdetail", userdetail);
 
@@ -208,7 +216,7 @@ export default function Dashboard() {
                                 <span className='profile_type_letter'>{username ? username.charAt(0) : ''}</span> {username}
                             </Link>
                         </div>
-                        {members.map((member) => (
+                   {loader ?(<><div className='no-chat'>    <img src={Load} alt="Loading..." /></div></>):(<>    {members.map((member) => (
                             <div key={member.id} className={`item-who-are-you profile_type_two col-md-4 ${selectedItem === 'user' ? 'selected' : ''}`} onClick={() => { handleClick(member.first_name ? member.first_name.split(" ")[0] : ''); setOWNer() }}>
                                 <Link onClick={handleParentalSwitch} name="user">
                                     <span className='profile_type_letter'>{member.first_name ? member.first_name.charAt(0) : ''}</span> {member.first_name}
@@ -226,42 +234,12 @@ export default function Dashboard() {
                                         >
                                             <span className='profile_type_letter'>{childProfile.child_name ? childProfile.child_name.charAt(0) : ''}
                                             </span>
-
-
                                             {childProfile.child_name}
                                         </Link>
                                     </div>
-                                ))}
-
+                                ))}</>)}
+                    
                     </div>
-
-                    {/* <div className="who-are-you-kids">
-                        {childProfiles.length > 0 ? (
-                            <div className='row'>
-                                {childProfiles.map((childProfile) => (
-                                    <div className='item-who-are-you profile_type_two col-md-4 '>
-                                        <Link className='col'
-                                            key={childProfile.id}
-                                            userId={user.id}
-                                            childId={childId}
-                                            to={`/Kids-view`}
-                                            onClick={() => handleChildClick(childProfile.id, childProfile.child_name)}
-                                        >
-                                            <span className='profile_type_letter'>{childProfile.child_name ? childProfile.child_name.charAt(0) : ''}
-                                            </span>
-
-
-                                            {childProfile.child_name}
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <p>No child profiles found.</p>
-                        )}
-                    </div> */}
-
-
                 </div>
                 {showPopupReactive && <ReactivePopup handleClose={handleClosePopup} />}
 
