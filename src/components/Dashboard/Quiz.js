@@ -27,21 +27,23 @@ function Quiz({
 
     document.body.classList.add(theme);
   }, [sessionStorage.getItem("theme")])
-  const [question,setQuestion]=useState('');
-  const [description,setDescription]=useState('');
-  const [correctAnswer,setCorrectAnswer]=useState('');
-  const [options,setOptions]=useState([]);
+  const [question, setQuestion] = useState('');
+  const [description, setDescription] = useState('');
+  const [correctAnswer, setCorrectAnswer] = useState('');
+  const [options, setOptions] = useState([]);
 
-  useEffect(()=>{
-    const StoryData = JSON.parse(sessionStorage.getItem("selectedStory"));
-    console.log("STORY DATA",StoryData);
+  useEffect(() => {
+    const x = JSON.parse(sessionStorage.getItem("selectedStory"));
+    const y = JSON.parse(sessionStorage.getItem("childStorydata"));
+    const StoryData = x ? x : y;
+    console.log("STORY DATA", StoryData);
     const questions = JSON.parse(StoryData.story_mcq_questions);
     setQuestion(questions.question);
     setDescription(questions.description);
     setCorrectAnswer(questions.correctAnswer);
     setOptions(questions.options);
- 
-  },[])
+
+  }, [])
 
 
 
