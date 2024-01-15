@@ -34,8 +34,8 @@ function Quiz({
 
   useEffect(() => {
     const x = JSON.parse(sessionStorage.getItem("selectedStory"));
-    const y = JSON.parse(sessionStorage.getItem("childStorydata"));
-    const StoryData = x ? x : y;
+    const y = sessionStorage.getItem("childStorydata") ? sessionStorage.getItem("childStorydata"):'';
+    const StoryData = x ? x : JSON.parse(y);
     console.log("STORY DATA", StoryData);
     const questions = JSON.parse(StoryData.story_mcq_questions);
     setQuestion(questions.question);
