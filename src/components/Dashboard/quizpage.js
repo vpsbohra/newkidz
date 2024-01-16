@@ -239,16 +239,7 @@ function App1() {
       <div className='chosen-story-section'>
         <div class="head-main-cstm">
           <div class="head-cstm-left">
-            <Link className="nav-link top_navbtnsr" to="/Kids-view">
-              <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
-              <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />
-              <img className="blueTheme_HomeIn defaultHome" loading="lazy" src={blueTheme_Home} alt='' />
-
-              <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
-              <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
-              <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
-
-            </Link>
+          
             {showReplayButton && (
               <button className='replay_btn no-background' onClick={handleReplay}>
                 <img loading="lazy" src={Replay} />
