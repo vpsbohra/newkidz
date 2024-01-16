@@ -247,7 +247,6 @@ function App1() {
               <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
               <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
               <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
-
             </Link>
             {showReplayButton && (
               <button className='replay_btn no-background' onClick={handleReplay}>
