@@ -135,8 +135,6 @@ function App1() {
     document.body.classList.remove('popup_active');
   };
 
-
-
   const onSubmit = (isCorrect) => {
     if (isCorrect) {
       setScore(score + 1);
@@ -145,7 +143,6 @@ function App1() {
     setShowCorrectAnswer(true);
 
   };
-
   const handleSubmit = () => {
     if (currentSelectedAnswer === correctAnswer) {
       setIsCorrect(true);
@@ -155,9 +152,6 @@ function App1() {
     }
     onSubmit(currentSelectedAnswer === correctAnswer);
   };
-
-
-
   const onNext = () => {
     // setShowPopup(false);
     // setShowCorrectAnswer(false);
@@ -176,17 +170,9 @@ function App1() {
     onNext(); // Proceed to the next question
     localStorage.setItem("score", point + 1);
   };
-
   const [button, setButton] = useState(false);
   const Alph = ["A", "B", "C"];
-
   // Destructure values from the questions array
-
-
-
-
-
-
 
   const fetchData = async () => {
     console.log('helllo')
@@ -228,6 +214,8 @@ function App1() {
     audio.addEventListener('ended', handleAudioEnded);
 
   };
+
+
   useEffect(() => {
     // Play audio only once when the page loads
     let audio = new Audio(currentaudio);
@@ -242,15 +230,10 @@ function App1() {
       audio = null;
     };
   }, [currentaudio]);
-  useEffect(() => {
 
-    let audio = new Audio(currentaudio);
-    audio.play();
-    audio.addEventListener('ended', handleAudioEnded);
-    return () => {
-      audio.removeEventListener('ended', handleAudioEnded);
-    };
-  }, [currentaudio]);
+
+ 
+  
   return (
     <>
       <div className='chosen-story-section'>
