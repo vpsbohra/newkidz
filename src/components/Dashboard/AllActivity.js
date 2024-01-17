@@ -88,7 +88,7 @@ const[totalscore,setTotalscore]=useState();
  
   return (
     <>
-      <div className='chosen-story-section all_activity_sr'>
+      <div className='chosen-story-section all_activity_sr nav_top_nav'>
         <div className='all_activity_sr_inner'>
           <div className='all_activity_navSR'>
             <div className='left_activity_btns' >
@@ -103,7 +103,7 @@ const[totalscore,setTotalscore]=useState();
             </div>
             <div className='right_activity_btns' >
               <a class="nav-link toggle-profile" href=""> <span><img loading="lazy" src={Vector} /></span>3,500</a>
-              <span><img loading="lazy" src={sun_effect_IMG} alt='' /></span>
+              {/* <span><img loading="lazy" src={sun_effect_IMG} alt='' /></span> */}
             </div>
           </div>
           <div className='feedback-container-story' >

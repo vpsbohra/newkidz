@@ -38,7 +38,7 @@ const DoneWithBook = () => {
     <>
     
 
-      <div className='chosen-story-section'>
+      <div className='chosen-story-section donewithbook'>
       <Link className="nav-link top_navbtnsr" to="/Kids-view">
       <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
           <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />

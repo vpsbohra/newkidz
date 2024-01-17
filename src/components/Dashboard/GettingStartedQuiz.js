@@ -60,7 +60,7 @@ const GettingStartedQuiz = (dataId) => {
 
   return (
     <>
-      <div className='chosen-story-section'>
+      <div className='chosen-story-section nav_top_nav'>
         <Link className="nav-link" to="/Kids-view">
         <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
           <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />

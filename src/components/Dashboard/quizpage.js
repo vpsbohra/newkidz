@@ -82,27 +82,27 @@ function App1() {
 
     const x = sessionStorage.getItem("selectedStory");
     const y = sessionStorage.getItem("childStorydata") || '';
-    
-   
-      
-      StoryData = x ? JSON.parse(x) : JSON.parse(y);
-      console.log("above",StoryData.story_mcq_questions);
-  
+
+
+
+    StoryData = x ? JSON.parse(x) : JSON.parse(y);
+    console.log("above", StoryData.story_mcq_questions);
+
     console.log("STORY DATA", StoryData);
     try {
       const questions = JSON.parse(StoryData.story_mcq_questions);
-    console.log("questions.question",questions.question);
-     
+      console.log("questions.question", questions.question);
+
       setQuestion(questions.question);
       setDescription(questions.description);
       setCorrectAnswer(questions.correctAnswer);
       setOptions(questions.options);
-  
+
     } catch (error) {
       console.error('Error parsing JSON:', error);
     }
-    
-   
+
+
   }, [])
   const handleShare = () => {
     setShowSharePopup(true);
@@ -170,10 +170,10 @@ function App1() {
     onNext(); // Proceed to the next question
     localStorage.setItem("score", point + 1);
   };
+
   const [button, setButton] = useState(false);
   const Alph = ["A", "B", "C"];
   // Destructure values from the questions array
-
   const fetchData = async () => {
     console.log('helllo')
     try {
@@ -200,8 +200,6 @@ function App1() {
       console.error('Error fetching data:', error);
     }
   };
-
-
   const handleAudioEnded = () => {
     // Show the replay button when the audio ends
     setShowReplayButton(true);
@@ -214,26 +212,46 @@ function App1() {
     audio.addEventListener('ended', handleAudioEnded);
 
   };
-
-
   useEffect(() => {
-    // Play audio only once when the page loads
-    let audio = new Audio(currentaudio);
-    audio.play();
+    if (currentaudio) {
+      let audio = new Audio(currentaudio);
+      audio.play();
+      audio.addEventListener('ended', handleAudioEnded);
 
-    // Add event listener to handle audio ended
-    audio.addEventListener('ended', handleAudioEnded);
-
-    // Clean up the audio element and remove event listener when the component unmounts
-    return () => {
-      audio.removeEventListener('ended', handleAudioEnded);
-      audio = null;
-    };
+      return () => {
+        // Cleanup function to stop the audio when the component unmounts
+        audio.pause();
+        audio.removeEventListener('ended', handleAudioEnded);
+      };
+    }
   }, [currentaudio]);
 
 
- 
+
+
+  useEffect(() => {
+    const popup = document.querySelector('.point-earned-popup span');
   
+    if (popup) {
+      // Add animation class when component mounts
+      popup.classList.add('animate-popup');
+  
+      // Cleanup function to remove the animation class after animation ends
+      const animationEndHandler = () => {
+        popup.classList.remove('animate-popup');
+      };
+  
+      popup.addEventListener('animationend', animationEndHandler);
+  
+      // Cleanup on unmount
+      return () => {
+        popup.removeEventListener('animationend', animationEndHandler);
+      };
+    }
+  }, [showCorrectAnswer]);
+  
+
+
   return (
     <>
       <div className='chosen-story-section'>
@@ -247,6 +265,7 @@ function App1() {
               <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
               <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
               <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
+
             </Link>
             {showReplayButton && (
               <button className='replay_btn no-background' onClick={handleReplay}>
@@ -254,8 +273,8 @@ function App1() {
               </button>
             )}
             <button className='close-button Share_btn_sr' onClick={handleShare}>
-                <Link className="nav-link"><img loading="lazy" src={Sharebtn} /> </Link>
-              </button>
+              <Link className="nav-link"><img loading="lazy" src={Sharebtn} /> </Link>
+            </button>
           </div>
           <div class="head-price-cstm">
             {/* <img loading="lazy" src={Coins}/> */}
@@ -303,9 +322,6 @@ function App1() {
                     </span>
                     <p className="option-text">{option}</p>
                   </li>
-
-
-
                   {showCorrectAnswer &&
                     correctAnswer === option &&
                     currentSelectedAnswer === correctAnswer ? (
@@ -382,5 +398,4 @@ function App1() {
     </>
   );
 }
-
 export default App1;

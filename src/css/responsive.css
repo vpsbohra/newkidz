@@ -285,22 +285,14 @@
     .online-story-container {display: grid;align-items: center;gap: 32px;}
     .online-story-container .story-image-section {width: 100%;}
     .online-story-container .story-content-section {width: 100%;}
-    .kidzdashboard .kidsname button.navbar-toggler {
-        border-color: #fff;
-    }
-    .kidzdashboard .kidsname button.navbar-toggler .navbar-toggler-icon {
-        filter: invert(100%);
-    }
-    .select_size_main {
-        top: 5vh;
-        transform: inherit;
+    .kidzdashboard .kidsname button.navbar-toggler {border-color: #fff;}
+    .kidzdashboard .kidsname button.navbar-toggler .navbar-toggler-icon {filter: invert(100%);}
+    .select_size_main {top: 5vh;transform: inherit;height: 90vh;overflow: auto;}
+    .all_activity_sr.nav_top_nav .all_activity_sr_inner::before {top: 0;right: -20px;width: 67px;height: 68px;}
 
-        height: 90vh;
-        overflow: auto;
-    }
+    .head-cstm-left .close-button.Share_btn_sr {margin-left: 12px;}
+    .head-cstm-left .replay_btn.no-background {margin-left: 12px;}
 
-
-    
     }
 
     
@@ -368,7 +360,7 @@
     .chosen-story-section .main-container-story .popup .popup-content h3 {font-size: 22px;line-height: 26px;}
     .chosen-story-section .main-container-story .popup .popup-content p {font-size: 18px;line-height: 26px;}
     .chosen-story-section .main-container-story .popup {left: 25%;}
-    .chosen-story-section .nav-link img {max-width: 50px;}  
+    .chosen-story-section .nav-link img, .chosen-story-section .head-cstm-left .replay_btn.no-background img {max-width: 50px;}  
     .emoji-section {gap: 30px;}
 
     .profile_details_right form .remove_image, .profile_details_right form .update_image {min-width: 202px;padding: 10px 0;}
@@ -379,15 +371,8 @@
 
     .option-main-section .options > div .option-section.option {max-width: 100%;margin: 30px auto;}
     .option-main-section .options > div {padding: 0 0;}
-    .feedback-container-story .correct_item_sr .point-earned-popup img {
-        right: -10px;
-        top: -25px;
-        max-width: 80px;
-    }
-    .option-main-section .option-section.selected {
-        background: #6b4c93;
-        padding-right: 55px;
-    }
+    .feedback-container-story .correct_item_sr .point-earned-popup img {right: -10px;top: -25px;max-width: 80px;}
+    .option-main-section .option-section.selected {background: #6b4c93;padding-right: 55px;}
     .feedback-container-story .correct_item_sr .point-earned-popup span {right: 0;top: -30px;font-size: 14px;}
     .header_inner .container {padding-left: 5px;padding-right: 5px;}
     .section-meet-character2 .left.col-6 {padding-left: 0;position: relative;padding-top: 10px;padding-bottom: 30px;}
@@ -461,30 +446,17 @@
     .online-story-container .story-content-section .story-play-button {margin: 0 auto;}
     .Main_Gaming_Sec .gaming-section.games_item .games_section {display: grid;gap: 32px;margin-bottom: 20px;grid-template-columns: repeat(2, 1fr);}
     .Main_Gaming_Sec.KidzOnGoingStory .gaming-section.games_item .games_section .games_section_item {width: 100%;}
-.head-main-cstm .head-price-cstm {width: 150px;margin-right: 50px;}
-.feedback-container-story.feedback-container-story-cstm .option-main-section::before {width: 57px;height: 58px;}
-.nav-link.top_navbtnsr.top_navbtnsr_right {margin-left: 5px;}
-.head-main-cstm .head-price-cstm::after {width: 55px;height: 55px;left: -11px;}
-.select_theme_cnt .choose_themes {
-	gap: 14px;
-}
-.select_theme_cnt .choose_themes .themes_btn {
-	width: 62px;
-	height: 62px;
-}
-.select_theme_cnt {
-	padding: 20px 20px;
-}
-.select_size_main .select_size_mainInner {
-	padding: 0 0;
-    padding-top: 20px;
-}
-.select_size_main .close_btn_size {
-	position: absolute;
-	right: 20px;
-	top: 15px;
-	cursor: pointer;
-}
+    .head-main-cstm .head-price-cstm {width: 150px;margin-right: 50px;}
+    .feedback-container-story.feedback-container-story-cstm .option-main-section::before {width: 57px;height: 58px;}
+    .nav-link.top_navbtnsr.top_navbtnsr_right {margin-left: 5px;}
+    .head-main-cstm .head-price-cstm::after {width: 55px;height: 55px;left: -11px;}
+    .select_theme_cnt .choose_themes {gap: 14px;}
+    .select_theme_cnt .choose_themes .themes_btn {width: 62px;height: 62px;}
+    .select_theme_cnt {padding: 20px 20px;}
+    .select_size_main .select_size_mainInner {padding: 0 0;padding-top: 20px;}
+    .select_size_main .close_btn_size {position: absolute;right: 20px;top: 15px;cursor: pointer;}
+    .all_activity_sr_inner .popup .popup-content span.all_activity_points {right: 0;top: 10px;left: 0;margin: 0 auto;text-align: center;}
+
 }
     
     
@@ -668,13 +640,8 @@
     .start_printing.kidz_allcharacters_Sr .kidz_profile_popupsr_inner .kidz_profile_popupsr_content {height: 250px;}
     .print_btn_strPrint button {max-width: 215px;padding: 16px 0;margin: 0 auto;}
     .Main_Gaming_Sec.KidzOnGoingStory .gaming-section img.game_img {height: 260px;}
-    .select_theme_cnt .choose_themes .themes_btn {
-        width: 52px;
-        height: 52px;
-    }
-    .select_theme_cnt .choose_themes {
-        gap: 8px;
-    }
+    .select_theme_cnt .choose_themes .themes_btn {width: 52px;height: 52px;}
+    .select_theme_cnt .choose_themes {gap: 8px;}
 }
 
 
@@ -767,11 +734,11 @@
     .top_currently_notification .notification-buttons .notification-decline, .top_currently_notification .notification-buttons .notification-accept {min-width: 120px;max-width: 120px;}
     .start_printing.kidz_allcharacters_Sr .kidz_profile_popupsr_inner .kidz_profile_popupsr_content {height: 190px;}
     .Main_Gaming_Sec.KidzOnGoingStory .gaming-section img.game_img {height: 200px;}
-    .select_theme_cnt .choose_themes .themes_btn {
-        width: 42px;
-        height: 42px;
-    }
-    .select_theme_cnt .choose_themes .themes_btn.themes_btn.active {
-        border: 7.5px solid #FFFFFF;
-    }
+    .select_theme_cnt .choose_themes .themes_btn {width: 42px;height: 42px;}
+    .select_theme_cnt .choose_themes .themes_btn.themes_btn.active {border: 7.5px solid #FFFFFF;}
+    .chosen-story-section.all_activity_sr .feedback-container-story .close-button.Share_btn_sr {min-width: 318px;max-width: 318px;}
+    .head-cstm-left .close-button.Share_btn_sr {margin-left: 3px;}
+    .head-cstm-left .replay_btn.no-background {margin-left: 3px;}
+    .chosen-story-section .nav-link img, .chosen-story-section .head-cstm-left .replay_btn.no-background img {max-width: 40px;}
+
 } 

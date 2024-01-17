@@ -347,7 +347,7 @@ const TransitionScreen = () => {
 
   return (
     <>
-      <div className='chosen-story-section all_activity_sr'>
+      <div className='chosen-story-section all_activity_sr TransitionScreen'>
         <div className='all_activity_navSR'>
           <div className='left_activity_btns' >
             <Link className="nav-link" to="/Kids-view">
