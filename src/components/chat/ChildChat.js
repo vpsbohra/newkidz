@@ -16,6 +16,7 @@ import { useRef } from 'react';
 import axios from 'axios';
 import Load from '../../images/index.gif';
 import ChildAudioPlayer from './ChildAudioPlayer';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 const ChildChat = () => {
   const { http, setToken } = AuthUser();
@@ -660,6 +661,7 @@ const ChildChat = () => {
                         onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
+                    <Scrollbars style={{ height: 330 }}>
                     <div className="list-group user_list_sr_outer list-group-flush border-bottom scrollarea">
                       {load ? (<><div className='no-chat'>    <img src={Load} alt="Loading..." /></div></>) : (<>
                         {messages.length == 0 ? (<><div className='no-chat'> <p> No chats </p></div></>) : (<>{messages.map((message, index) => (
@@ -789,6 +791,8 @@ const ChildChat = () => {
 
 
                     </div>
+
+                    </Scrollbars>
                   </div>
                 </div>
 

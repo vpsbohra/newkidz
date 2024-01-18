@@ -3061,6 +3061,17 @@ input:checked+.slider:before {
 	border-radius: 10px;
 	scrollbar-width: thin; */
 }
+/* .chat_section_sr.childchatsection_sr .childchatsection_inner_sr .chat_section_sr_right {
+	width: 100%;
+	float: right;
+	max-width: 100%;
+	margin-bottom: 20px;
+	 min-height: 350px;
+	height: 350px;
+	overflow: auto;
+	border-radius: 10px;
+	scrollbar-width: thin; 
+} */
 
 
 .chat_section_sr_right::-webkit-scrollbar {
@@ -11775,13 +11786,19 @@ height: 32px !important;
 .child_chat_messages_dashboard > div > div:nth-last-child(1) {
 width: 8px !important;
 }
-.chat_section_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) {
+.right_sidebar_parent .chat_section_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) {
 width: 8px !important;
 }
-.chat_section_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) > div {
+.right_sidebar_parent .chat_section_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) > div {
 height: 32px !important;
 }
-
+.chat_section_sr.childchatsection_sr .childchatsection_inner_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) {
+	width: 10px !important;
+}
+.chat_section_sr.childchatsection_sr .childchatsection_inner_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) > div {
+	height: 32px !important;
+	background: #fff !important;
+}
 
 .TransitionScreen .all_activity_navSR {
 max-width: 1200px;
