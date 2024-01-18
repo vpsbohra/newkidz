@@ -103,14 +103,33 @@ export default function KidzDashboard() {
 
 
   useEffect(() => {
-    const Allcharacters = JSON.parse(localStorage.getItem("All_Characters"));
-    setCharacterImages(Allcharacters);
+   
+      fetchAllcharacters();
+    
     const userInformation = sessionStorage.getItem('user');
     const user = JSON.parse(userInformation);
     const { id } = user;
     setuserid(String(id));
   }, []);
-
+  const fetchAllcharacters = async () => {
+    const allCharacters = JSON.parse(localStorage.getItem("All_Characters"));
+    if(allCharacters){
+      setCharacterImages(allCharacters);
+    } else{
+     try {
+         const response = await axios.get('https://mykidz.online/api/get-all-characters', {
+           headers: {
+             Authorization: `Bearer ${token}`,
+           },
+         });
+         setCharacterImages(response.data);
+         localStorage.setItem("All_Characters",JSON.stringify(response.data));
+       } catch (error) {
+         console.error('Error fetching data:', error);
+       }
+    }
+     
+   };
   const responsiveSettings = {
     breakpoint: 767, // For mobile devices
     settings: {
