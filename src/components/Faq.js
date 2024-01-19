@@ -14,7 +14,7 @@ const Answers = [
 	},
 	{
 		question: "Is the KidzConnect environment safe and secure for children",
-		answer: "We understand how as a parent you’d have concerns about your children’s safety online. At KidzConnect, we prioritize the safety and security of children using our platform. We have implemented robust parental control solutions to create a secure environment where you will have complete control over your children's interactions and activity, ensuring their online safety.",
+		answer: "We understand how as a parent you’d have concerns about your children’s safety online. At KidzConnect, we prioritize the safety and security of children using our platform. We have implemented robust parental control solutions to create a secure environment where you will have complete control over your children's conversations and activity, ensuring their online safety.",
 	},
 	{
 		question: "How old do you have to be to use KidzConnect",
@@ -121,8 +121,8 @@ const Answers = [
 
 
 	{
-		question: "How can I share my child's interaction with other family members",
-		answer: "You can share your child's interactions and achievements with other family members by using our built-in sharing features, such as sharing on social media or sending links. You may also directly involve your other family members by adding them onto your subscription plan therefore giving them access to your child’s answers, interactions and fostering those greater bonds.",
+		question: "How can I share my child's conversation with other family members",
+		answer: "You can share your child's conversations and achievements with other family members by using our built-in sharing features, such as sharing on social media or sending links. You may also directly involve your other family members by adding them onto your subscription plan therefore giving them access to your child’s answers, conversations and fostering those greater bonds.",
 
 
 	},
@@ -247,7 +247,7 @@ export default function Faq() {
 											<p onClick={() => handleQuestionClick(16)}>Does my child have the ability to ask questions to their parents</p>
 											<p onClick={() => handleQuestionClick(17)}>How can I interact with my child's answers to questions</p>
 											<p onClick={() => handleQuestionClick(18)}>Can my child repeat a theme more than once</p>
-											<p onClick={() => handleQuestionClick(19)}>How can I share my child's interaction with other family members</p>
+											<p onClick={() => handleQuestionClick(19)}>How can I share my child's conversation with other family members</p>
 											<p onClick={() => handleQuestionClick(20)}>How can I track my child's progress in the application</p>
 										</div>
 									</div>

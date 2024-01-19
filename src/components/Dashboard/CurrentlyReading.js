@@ -675,7 +675,7 @@ console.log("Number(userId)",Number(userId))} else {
         <div className='top_interactions_parent'>
           <div className='top_interactions_parent_inner'>
             <div className='main_heading'>
-              <h3>Interactions</h3>
+              <h3>Conversations</h3>
               {toggle ? (
                 <>
                   <nav class="nav">

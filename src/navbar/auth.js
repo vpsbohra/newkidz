@@ -35,6 +35,8 @@ import About from '../components/about';
 import ContactUs from '../components/ContactUs';
 import Faq from '../components/Faq';
 import PlayStory from '../components/Dashboard/playStory';
+import Start_Printing from '../components/Dashboard/Start_Printing.js';
+import TransitionScreen from '../components/Dashboard/TransitionScreen.js';
 
 function Auth() {
 
@@ -77,6 +79,8 @@ function Auth() {
                     <Route path="/allcharacters" element={<All_characters />} />
                     <Route path="/selectedcharacter" element={<Selected_character />} />
                     <Route path="/PlayStory" element={<PlayStory />} />
+                    <Route path="/start_printing" element={<Start_Printing />} />
+                    <Route path="/TransitionScreen" element={<TransitionScreen />} />
                 </Routes>
             </div>
         </>

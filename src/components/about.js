@@ -55,7 +55,7 @@ export default function Faq() {
               </div>
 
               <div className='about_content_item'>     
-                <p>We firmly believe that KidzConnect has the potential to become your family's cherished sound album, preserving the voices and stories that define your family. Join us in this exciting and innovative journey of learning, communication, and memory preservation. Together, let's transform every interaction into a precious memory for the entire family.</p>
+                <p>We firmly believe that KidzConnect has the potential to become your family's cherished sound album, preserving the voices and stories that define your family. Join us in this exciting and innovative journey of learning, communication, and memory preservation. Together, let's transform every conversation into a precious memory for the entire family.</p>
                 <p>Welcome to the KidzConnect universe!</p>
               </div>
 

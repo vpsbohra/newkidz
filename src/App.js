@@ -4,6 +4,7 @@ import AuthUser from './components/AuthUser';
 import Guest from './navbar/guest';
 import Auth from './navbar/auth';
 import "./css/custom.css";
+import "./css/custom_theme.css";
 import "./css/responsive.css";
 import PasswordPage from './components/PasswordPage';
 import Coming_soon from './components/Coming_soon';

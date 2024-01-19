@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ParentalSwitch from '../../images/Home.png';
+import DarkBlue_Home from '../../images/DarkBlue_Home.png';
+import blueTheme_Home from '../../images/blueTheme_Home.png';
+import orangeTheme_Home from '../../images/orangeTheme_Home.png';
+import pinkTheme_Home from '../../images/pinkTheme_Home.png';
+import purpleTheme_Home from '../../images/purpleTheme_Home.png';
+
 import BookCover from '../../images/Story/Page_covers.png';
 import Previous_ButtonImg from '../../images/Previous_Button.png';
 import Next_Button_leftbookImg from '../../images/Next_Button_leftbook.png';
@@ -22,12 +28,26 @@ const DoneWithBook = () => {
     };
   }, []);
 
+
+  useEffect(()=>{
+    const theme = sessionStorage.getItem("theme");
+    document.body.classList.add(theme);
+    },[sessionStorage.getItem("theme")])
+
   return (
     <>
     
 
-      <div className='chosen-story-section'>
-      <Link className="nav-link top_navbtnsr" to="/Kids-view"  ><img loading="lazy" src={ParentalSwitch} alt=''/></Link>
+      <div className='chosen-story-section donewithbook'>
+      <Link className="nav-link top_navbtnsr" to="/Kids-view">
+      <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
+          <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />
+          <img className="blueTheme_HomeIn defaultHome" loading="lazy" src={blueTheme_Home} alt='' />
+          <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
+          <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
+          <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
+
+        </Link>
 
         <div className='main-container-story' >
         {showPopup && (

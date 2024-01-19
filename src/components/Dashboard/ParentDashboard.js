@@ -64,7 +64,7 @@ const ParentDashboard = () => {
     
     fetchUserDetail();
     fetchProfileImage();
-  }, []);
+  }, [localStorage.getItem("childProfilesLocal")]);
 
   useEffect(() => {
     if (childProfiles.length > 0) {

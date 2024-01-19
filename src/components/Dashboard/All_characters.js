@@ -58,6 +58,132 @@ import stefy_3 from "../../images/Character/stefy(3).png";
 import stefy_4 from "../../images/Character/stefy(4).png";
 import stefy_5 from "../../images/Character/stefy(5).png";
 import stefy_6 from "../../images/Character/stefy(6).png";
+import balum1 from "../../images/characters/BalumBalum/1.webp";
+import balum2 from "../../images/characters/BalumBalum/2.webp";
+import balum3 from "../../images/characters/BalumBalum/3.webp";
+import balum4 from "../../images/characters/BalumBalum/4.webp";
+import balum5 from "../../images/characters/BalumBalum/5.webp";
+import balum6 from "../../images/characters/BalumBalum/6.webp";
+import balum7 from "../../images/characters/BalumBalum/7.webp";
+import balum8 from "../../images/characters/BalumBalum/8.webp";
+import balum9 from "../../images/characters/BalumBalum/9.webp";
+import balum10 from "../../images/characters/BalumBalum/10.webp";
+import booboo1 from "../../images/characters/Booboo/1.webp";
+import booboo2 from "../../images/characters/Booboo/2.webp";
+import booboo3 from "../../images/characters/Booboo/3.webp";
+import booboo4 from "../../images/characters/Booboo/4.webp";
+import booboo5 from "../../images/characters/Booboo/5.webp";
+import booboo6 from "../../images/characters/Booboo/6.webp";
+import booboo7 from "../../images/characters/Booboo/7.webp";
+import bradford1 from "../../images/characters/Bradford/1.webp";
+import bradford2 from "../../images/characters/Bradford/2.webp";
+import bradford3 from "../../images/characters/Bradford/3.webp";
+import bradford4 from "../../images/characters/Bradford/4.webp";
+import cindy1 from "../../images/characters/Cindy/1.webp";
+import cindy2 from "../../images/characters/Cindy/2.webp";
+import cindy3 from "../../images/characters/Cindy/3.webp";
+import cindy4 from "../../images/characters/Cindy/4.webp";
+import cindy5 from "../../images/characters/Cindy/5.webp";
+import cindy6 from "../../images/characters/Cindy/6.webp";
+import cindy7 from "../../images/characters/Cindy/7.webp";
+import cindy8 from "../../images/characters/Cindy/8.webp";
+import cindy9 from "../../images/characters/Cindy/9.webp";
+import cindy10 from "../../images/characters/Cindy/10.webp";
+import cindy11 from "../../images/characters/Cindy/11.webp";
+import cindy12 from "../../images/characters/Cindy/12.webp";
+import dad1 from "../../images/characters/Dad/1.webp";
+import dad2 from "../../images/characters/Dad/2.webp";
+import dad3 from "../../images/characters/Dad/3.webp";
+import dad4 from "../../images/characters/Dad/4.webp";
+import dad5 from "../../images/characters/Dad/5.webp";
+import dad6 from "../../images/characters/Dad/6.webp";
+import filoo1 from "../../images/characters/Filoo/1.webp";
+import filoo2 from "../../images/characters/Filoo/2.webp";
+import filoo3 from "../../images/characters/Filoo/3.webp";
+import filoo4 from "../../images/characters/Filoo/4.webp";
+import filoo5 from "../../images/characters/Filoo/5.webp";
+import filoo6 from "../../images/characters/Filoo/6.webp";
+import filoo7 from "../../images/characters/Filoo/7.webp";
+import filoo8 from "../../images/characters/Filoo/8.webp";
+import giovanni1 from "../../images/characters/Giovanni/1.webp";
+import giovanni2 from "../../images/characters/Giovanni/2.webp";
+import giovanni3 from "../../images/characters/Giovanni/3.webp";
+import giovanni4 from "../../images/characters/Giovanni/4.webp";
+import giovanni5 from "../../images/characters/Giovanni/5.webp";
+import giovanni6 from "../../images/characters/Giovanni/6.webp";
+import giovanni7 from "../../images/characters/Giovanni/7.webp";
+import giovanni8 from "../../images/characters/Giovanni/8.webp";
+import giovanni9 from "../../images/characters/Giovanni/9.webp";
+import giovanni10 from "../../images/characters/Giovanni/10.webp";
+import giovanni11 from "../../images/characters/Giovanni/11.webp";
+import gregory1 from "../../images/characters/Gregory/1.webp";
+import gregory2 from "../../images/characters/Gregory/2.webp";
+import gregory3 from "../../images/characters/Gregory/3.webp";
+import gregory4 from "../../images/characters/Gregory/4.webp";
+import gregory5 from "../../images/characters/Gregory/5.webp";
+import gregory6 from "../../images/characters/Gregory/6.webp";
+import gregory7 from "../../images/characters/Gregory/7.webp";
+import kapinga1 from "../../images/characters/Kapinga/1.webp";
+import kapinga2 from "../../images/characters/Kapinga/2.webp";
+import kapinga3 from "../../images/characters/Kapinga/3.webp";
+import kapinga4 from "../../images/characters/Kapinga/4.webp";
+import kapinga5 from "../../images/characters/Kapinga/5.webp";
+import kapinga6 from "../../images/characters/Kapinga/6.webp";
+import kapinga7 from "../../images/characters/Kapinga/7.webp";
+import kapinga8 from "../../images/characters/Kapinga/8.webp";
+import kapinga9 from "../../images/characters/Kapinga/9.webp";
+import karima1 from "../../images/characters/Karima/1.webp";
+import karima2 from "../../images/characters/Karima/2.webp";
+import karima3 from "../../images/characters/Karima/3.webp";
+import karima4 from "../../images/characters/Karima/4.webp";
+import karima5 from "../../images/characters/Karima/5.webp";
+import karima6 from "../../images/characters/Karima/6.webp";
+import martin1 from "../../images/characters/Martin/1.webp";
+import martin2 from "../../images/characters/Martin/2.webp";
+import martin3 from "../../images/characters/Martin/3.webp";
+import martin4 from "../../images/characters/Martin/4.webp";
+import martin5 from "../../images/characters/Martin/5.webp";
+import mom1 from "../../images/characters/Mom/1.webp";
+import mom2 from "../../images/characters/Mom/2.webp";
+import mom3 from "../../images/characters/Mom/3.webp";
+import mom4 from "../../images/characters/Mom/4.webp";
+import mom5 from "../../images/characters/Mom/5.webp";
+import mom6 from "../../images/characters/Mom/6.webp";
+import mom7 from "../../images/characters/Mom/7.webp";
+import mom8 from "../../images/characters/Mom/8.webp";
+import mom9 from "../../images/characters/Mom/9.webp";
+import rodrigo1 from "../../images/characters/Rodrigo/1.webp";
+import rodrigo2 from "../../images/characters/Rodrigo/2.webp";
+import rodrigo3 from "../../images/characters/Rodrigo/3.webp";
+import rodrigo4 from "../../images/characters/Rodrigo/4.webp";
+import rodrigo5 from "../../images/characters/Rodrigo/5.webp";
+import rodrigo6 from "../../images/characters/Rodrigo/6.webp";
+import rodrigo7 from "../../images/characters/Rodrigo/7.webp";
+import rodrigo8 from "../../images/characters/Rodrigo/8.webp";
+import rodrigo9 from "../../images/characters/Rodrigo/9.webp";
+import rodrigo10 from "../../images/characters/Rodrigo/10.webp";
+import sheriff1 from "../../images/characters/Sheriff/1.webp";
+import sheriff2 from "../../images/characters/Sheriff/2.webp";
+import sheriff3 from "../../images/characters/Sheriff/3.webp";
+import sheriff4 from "../../images/characters/Sheriff/4.webp";
+import sheriff5 from "../../images/characters/Sheriff/5.webp";
+import songa1 from "../../images/characters/Songa/1.webp";
+import songa2 from "../../images/characters/Songa/2.webp";
+import songa3 from "../../images/characters/Songa/3.webp";
+import songa4 from "../../images/characters/Songa/4.webp";
+import songa5 from "../../images/characters/Songa/5.webp";
+import stock1 from "../../images/characters/Stock/1.webp";
+import stock2 from "../../images/characters/Stock/2.webp";
+import stock3 from "../../images/characters/Stock/3.webp";
+import stock4 from "../../images/characters/Stock/4.webp";
+import stock5 from "../../images/characters/Stock/5.webp";
+import stock6 from "../../images/characters/Stock/6.webp";
+import stock7 from "../../images/characters/Stock/7.webp";
+import stock8 from "../../images/characters/Stock/8.webp";
+import stock9 from "../../images/characters/Stock/9.webp";
+import stock10 from "../../images/characters/Stock/10.webp";
+import stock11 from "../../images/characters/Stock/11.webp";
+import stock12 from "../../images/characters/Stock/12.webp";
 import Rectangle_82 from "../../images/Character/Rectangle_82.png";
 import { Link } from "react-router-dom";
 import Selected_character from "./Selected_character";
@@ -88,7 +214,7 @@ export default function All_characters() {
             imagetoken: Booboo2,
 
             description: "Stany and Stephy's dog, a very friendly golden retriever, playful and greedy. He loves playing ball and cuddling his owners. When he sleeps, he always has one eye open. He is not very big but has a lot of energy.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [booboo1, booboo2, booboo3, booboo4, booboo5, booboo6, booboo7], 
         },
         {
             name: "Balum Balum",
@@ -96,7 +222,7 @@ export default function All_characters() {
             imagetoken: Balam2,
 
             description: "A boisterous, proud child who likes to annoy others and does not always behave well. KidzConnect kids learn from his mistakes how not to behave. However, he has a good heart and can be very kind when he wants to be. He has black hair and is very tall for his 13 years. He likes to walk around with a wooden truncheon. He has bad breath and a loud voice.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [balum1, balum2, balum3, balum4, balum5, balum6, balum7, balum8, balum9, balum10],
         },
         {
             name: "Giovanni",
@@ -104,7 +230,7 @@ export default function All_characters() {
             imagetoken: Giovanni2,
 
             description: "A schoolmate of Stephy and Stany: he is Italian and never stops eating. He always has pizza with him, in his schoolbag or even in his pockets sometimes. And chocolates too... He is really overweight. His main fault is gluttony; he does not want to make the effort to eat less and lose weight. He loves to roll around Connectville on his rollerblades; he just goes for it, goes for it and goes for it. He is 13 years old.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [giovanni1, giovanni2, giovanni3, giovanni4, giovanni5, giovanni6, giovanni7, giovanni8, giovanni9, giovanni10, giovanni11],
         },
         {
             name: "Kapinga",
@@ -112,7 +238,7 @@ export default function All_characters() {
             imagetoken: Kaplnga2,
 
             description: "A new student in Stephy's class from a foreign country. She's very shy and has trouble fitting in at first, but with the help of Stany and Stephy, she eventually finds her place in the school. She always has tips and solutions for every situation. She is 13 years old, of normal height, and of African descent.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [kapinga1, kapinga2, kapinga3, kapinga4, kapinga5, kapinga6, kapinga7, kapinga8, kapinga9],
         },
         {
             name: "Cindy",
@@ -120,7 +246,7 @@ export default function All_characters() {
             imagetoken: Cindy2,
 
             description: "A friend of Stephy's who loves fashion and art. She's always on the lookout for the latest trends and knows how to create unique and original looks. She is the only one who is always changing her style. She eats very little to stay very slim, because her dream is to be a professional model one day... She's 13 and has long, curly black hair. She's very pretty and dresses very elegantly, always wearing her favorite KDZCO brand. She also wears light make-up and small jewels. She always has her phone or tablet in hand. She sings very well but swims very badly",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [cindy1, cindy2, cindy3, cindy4, cindy5, cindy6, cindy7, cindy8, cindy9, cindy10], // Use the imported images for Cindy's sliders
         },
         {
             name: "Dr.Songa",
@@ -128,7 +254,7 @@ export default function All_characters() {
             imagetoken: Songa2,
 
             description: "Stany and Stephy's family doctor, a caring and competent man who has been looking after the family's health for many years. He is bald, with side-parted hair and a graying moustache. He is 60 years old and wears a white coat and a stethoscope. He is friendly and gentle with his patients.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [songa1, songa2, songa3, songa4, songa5],
         },
         {
             name: "Gregory",
@@ -136,7 +262,7 @@ export default function All_characters() {
             imagetoken: Gregory2,
 
             description: "A schoolmate of Stany and Stephy. He is a very funny and creative boy. He is always ready to help his friends and find original solutions to their problems. He is always running around and very fast. So, he is always out of breath. He is 11 years old and blond. He still wears overalls and glasses. He has a cheerful personality and a big smile.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [gregory1, gregory2, gregory3, gregory4, gregory5, gregory6, gregory7],
         },
         {
             name: "Filoo",
@@ -144,7 +270,8 @@ export default function All_characters() {
             imagetoken: Filoo2,
 
             description: "Madame Karima's cat, often seen basking in the sun and being pampered by local children. He is a bit lazy but very affectionate. He is very close to Booboo and likes to follow him around. As soon as he sees someone running, he has to follow him and stick close to him.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [filoo1, filoo2, filoo3, filoo4, filoo5, filoo6, filoo7, filoo8], // Use the imported images for Filoo's sliders
+
         },
         {
             name: "Karima",
@@ -152,7 +279,7 @@ export default function All_characters() {
             imagetoken: Karima2,
 
             description: "Stany and Stephy's neighbor, a caring woman always ready to help others. She is also known for her delicious recipes and her gift for sewing. She works as a volunteer at the local library. She is Moroccan and 50 years old.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [karima1, karima2, karima3, karima4, karima5, karima6],
         },
         {
             name: "Mr.Martin",
@@ -160,7 +287,7 @@ export default function All_characters() {
             imagetoken: Martin2,
 
             description: "The language teacher. He is very friendly with children and often plays with them. He is corpulent and walks very slowly. He always wears colorful Hawaiian shirts. He is 30 years old. He speaks several languages.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [martin1, martin2, martin3, martin4, martin5],
         },
         {
             name: "Mom",
@@ -168,7 +295,7 @@ export default function All_characters() {
             imagetoken: Mom2,
 
             description: "A journalist with Connectville International Television, she is blonde and particularly pretty, with a tan. She is 40 years old and has a busy schedule. She is close to her children but often has a lot of work to do. She tries to balance her career and family life.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [mom1, mom2, mom3, mom4, mom5, mom6, mom7, mom8, mom9],
         },
         {
             name: "Dad",
@@ -176,15 +303,14 @@ export default function All_characters() {
             imagetoken: Dad2,
 
             description: "An engineer in a construction company, he is 45 years old but looks young and very dynamic. He has brown hair and a warm smile. He is very close to his children and loves to spend time with them.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
-        },
+            sliderImages: [dad1, dad2, dad3, dad4, dad5, dad6],         },
         {
-            name: "Mr. Stock",
+            name: "Mr. Madame and Monsieur Stock",
             image: Stock,
             imagetoken: Stock21,
 
             description: "Stany and Stephy's 70-something neighbors. They're grumpy and always complaining about the noise and the children's activities. Children learn from their mistakes how not to behave with others. Mr. Stock often threatens youngsters and pets with his cane, encouraged by Mrs. Stock. Mr Stock still has his cane in hand. Their hair, beard and moustache are as white as snow. They're inseparable.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [stock1, stock2, stock3, stock4, stock5, stock6, stock7, stock8, stock9, stock10, stock11,stock12],
         },
         {
             name: "Rodrigo",
@@ -192,23 +318,16 @@ export default function All_characters() {
             imagetoken: Rodrigo2,
 
             description: "He is Stany and Stéfy's big brother. He has a great imagination but does not always obey his parents. He is tall and always has a catapult in his pocket. Whenever he is upset, his catapult comes in handy to exact his revenge.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [rodrigo1, rodrigo2, rodrigo3, rodrigo4, rodrigo5, rodrigo6, rodrigo7, rodrigo8, rodrigo9, rodrigo10],
         },
-        {
-            name: "Mrs. Stock",
-            image: Stock2,
-            imagetoken: Stock22,
-
-            description: "Stany and Stephy's 70-something neighbors. They're grumpy and always complaining about the noise and the children's activities. Children learn from their mistakes how not to behave with others. Mr. Stock often threatens youngsters and pets with his cane, encouraged by Mrs. Stock. Mr Stock still has his cane in hand. Their hair, beard and moustache are as white as snow. They're inseparable.",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
-        },
+      
         {
             name: "Mr.Bradford",
             image: Bradford,
             imagetoken: Bradford2,
 
             description: "description",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [bradford1, bradford2, bradford3, bradford4], 
         },
         {
             name: "Thomas",
@@ -240,7 +359,7 @@ export default function All_characters() {
             imagetoken: Sherif2,
 
             description: "description",
-            sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
+            sliderImages: [sheriff1, sheriff2, sheriff3, sheriff4, sheriff5],
         },
         {
             name: "Mr. Isaac",

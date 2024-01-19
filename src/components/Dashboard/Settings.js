@@ -267,6 +267,9 @@ const Settings = () => {
       const updatedChildProfiles = response.data;
       console.log(updatedChildProfiles);
       setChildProfiles(updatedChildProfiles);
+      localStorage.setItem("childProfilesLocal", JSON.stringify(updatedChildProfiles));
+
+
 
     } catch (error) {
       console.error('Error fetching child data:', error);

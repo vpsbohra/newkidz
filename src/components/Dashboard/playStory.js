@@ -21,6 +21,8 @@ const truncateText = (text, maxLength) => {
   return truncatedText + '...';
 };
 
+
+
 export default function PlayStory() {
   const [chid, setChid] = useState();
   const [stories, setStories] = useState([]);
@@ -85,6 +87,7 @@ export default function PlayStory() {
     }
     // sessionStorage.removeItem('selectedStory');
   }, []);
+
 
   return (
     <>

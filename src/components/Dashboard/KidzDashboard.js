@@ -1,27 +1,48 @@
 //rendering mathced stories but showing for every child
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 import KidsNav from '../../navbar/kidzNav';
 import KidzBottomNav from './KidzBottomNav';
 import Modal from 'react-modal';
+
 
 import axios from 'axios';
 import AuthUser from '../AuthUser';
 import KidzSlider from './KidzSlider';
 import Brother from '../../images/Story/brother.png';
+import Brother_white from '../../images/Story/brother_white.png';
+import purpleTheme_brother from '../../images/Story/purpleTheme_brother.png';
 import Gaming1 from '../../images/Games/Games.png';
 import Gaming2 from '../../images/Character/Characters.png';
+import DarkBlueGaming from '../../images/Character/DarkBlue_Characters.png';
+import blueThemeGaming from '../../images/Character/blueTheme_Characters.png';
+import orangeThemeGaming from '../../images/Character/orangeTheme_Characters.png';
+import greenThemeGaming from '../../images/Character/greenTheme_Characters.png';
+import pinkThemeGaming from '../../images/Character/pinkTheme_Characters.png';
+import purpleThemeGaming from '../../images/Character/purpleTheme_Characters.png';
 import Story1 from '../../images/Story/stories_kids01.png';
 import Story2 from '../../images/Story/stories_kids02.png';
 import Story3 from '../../images/Story/stories_kids03.png';
 import ChildChat from '../chat/ChildChat';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Previous_ButtonImg from '../../images/Previous_Button.png';
+import stany_1 from "../../images/Character/stany(1).png";
+import stany_2 from "../../images/Character/stany(2).png";
+import stany_3 from "../../images/Character/stany(3).png";
+import stefy_1 from "../../images/Character/stefy(1).png";
+import stefy_2 from "../../images/Character/stefy(2).png";
+import stefy_3 from "../../images/Character/stefy(3).png";
+import stefy_4 from "../../images/Character/stefy(4).png";
+import stefy_5 from "../../images/Character/stefy(5).png";
+import stefy_6 from "../../images/Character/stefy(6).png";
 
 export default function KidzDashboard() {
+  const navigate = useNavigate();
+  const [randomCharacterImages, setRandomCharacterImages] = useState([]);
+
   const StoryId = String(sessionStorage.getItem('childStory'));
   const ChildId = String(sessionStorage.getItem('childId'));
   const [userid, setuserid] = useState('');
@@ -36,6 +57,21 @@ export default function KidzDashboard() {
   const [selectedStory, setSelectedStory] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(-1);
   const [chid, setChid] = useState();
+  const [characterImages, setCharacterImages] = useState([]);
+
+  const shuffleArray = (array) => {
+    const shuffledArray = array.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
+  };
+  const getRandomImages = (array, count) => {
+    const shuffledArray = shuffleArray(array);
+    return shuffledArray.slice(0, count);
+  };
+
   const truncateText = (text, maxLength) => {
     const words = text.split(' ');
     if (words.length <= maxLength) {
@@ -56,15 +92,25 @@ export default function KidzDashboard() {
 
   // Manage the fetched data here
   const [fdata, setFdata] = useState([]);
+  const [img,setImg]=useState('');
 
   useEffect(() => {
+    if (characterImages && characterImages.length > 0) {
+      const randomImages = getRandomImages(characterImages, 4).map(image => image['slider-images'].split(','));
+      setRandomCharacterImages(randomImages);
+    }
+  }, [characterImages]);
+  
+
+
+  useEffect(() => {
+    const Allcharacters = JSON.parse(localStorage.getItem("All_Characters"));
+    setCharacterImages(Allcharacters);
     const userInformation = sessionStorage.getItem('user');
     const user = JSON.parse(userInformation);
     const { id } = user;
     setuserid(String(id));
-
-    fetchreadedstory();
-  }, [userid]); // Depend on userid
+  }, []);
 
   const responsiveSettings = {
     breakpoint: 767, // For mobile devices
@@ -243,10 +289,10 @@ export default function KidzDashboard() {
 
 
 
-  const openModal = (story) => {
-    setIsModalOpen(true);
-    setSelectedStory(story);
-  };
+  // const openModal = (story) => {
+  //   setIsModalOpen(true);
+  //   setSelectedStory(story);
+  // };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -282,11 +328,22 @@ export default function KidzDashboard() {
   }
 
 
+  const openModal = (story) => {
+    setIsModalOpen(true);
+    setSelectedStory(story);
+
+    // Store selectedStory in session storage
+    sessionStorage.setItem('selectedStory', JSON.stringify(story));
+
+    // Navigate to /playStory
+    navigate(`/playStory`);
+  };
+
   console.log("matchingStories", matchingStories);
 
   return (
     <>
-      <div className="kidzdashboard">
+      <div className="kidzdashboard kidzdashboardmain">
         <div className="container-fluidss display-tabless">
           <KidsNav />
           <div className="main-content kidzdashboard_mainsr">
@@ -302,20 +359,30 @@ export default function KidzDashboard() {
           <div className="main-content">
 
             {/* <KidzOnGoingStory /> */}
-            <div className="Main_Gaming_Sec">
+            <div className="Main_Gaming_Sec KidzOnGoingStory">
               <div className="gaming-section games_item">
                 <div className='games_section'>
-                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
-                  <div className='games_section_item'><img loading="lazy" height={150} width={150} className='game_img' src={Gaming1} /></div>
+                {randomCharacterImages.map((image, index) => (
+            <div key={index} className='games_section_item'>
+              <img loading="lazy" height={150} width={150} className='game_img' src={image[index]} alt={`Random Character ${index + 1}`} />
+            </div>
+          ))}
                 </div>
-                <button className='all_games'><span className='all_games_span'>BROWSE ALL GAMES </span></button>
+                <Link to='/start_printing' className='start_printing_btn'>
+                  <button className='all_games'><span className='all_games_span'>START PRINTING</span></button>
+                </Link>
               </div>
 
               <div className="gaming-section colouring_item">
                 <Link to="/allcharacters">
-                  <img loading="lazy" src={Gaming2} />
+                  <img className='whiteGaming' loading="lazy" src={Gaming2} />
+                  <img className='DarkBlueGaming whiteGaming' loading="lazy" src={DarkBlueGaming} />
+                  <img className='blueThemeGaming whiteGaming' loading="lazy" src={blueThemeGaming} />
+                  <img className='orangeThemeGaming whiteGaming' loading="lazy" src={orangeThemeGaming} />
+                  <img className='greenThemeGaming whiteGaming' loading="lazy" src={greenThemeGaming} />
+                  <img className='pinkThemeGaming whiteGaming' loading="lazy" src={pinkThemeGaming} />
+                  <img className='purpleThemeGaming whiteGaming' loading="lazy" src={purpleThemeGaming} />
+
                   {/* <h3 className='colouring_ttl'>Characters</h3> */}
                 </Link>
               </div>
@@ -328,7 +395,10 @@ export default function KidzDashboard() {
           <div className='gaming-section_outer'>
             <div className="main-content">
               <div className='gaming-section_title'>
-                <img loading="lazy" src={Brother} /><span>STORIES READ</span>
+                <img className='brown_IMG' loading="lazy" src={Brother} />
+                <img className='brownWhite_IMG brown_IMG' loading="lazy" src={Brother_white} />
+                <img className='purpleTheme_brother brown_IMG' loading="lazy" src={purpleTheme_brother} />
+                <span>STORIES READ</span>
               </div>
               <div className='slider_mainsr kids_stories_slider'>
                 <Slider {...settings}>

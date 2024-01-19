@@ -1,5 +1,4 @@
-// src/Quiz.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Star from '../../images/Star Icon.png';
 import SharePopup from './share_popup';
@@ -8,6 +7,7 @@ import Share from '../../images/Share 3.png';
 import sun_effect_IMG from '../../images/sun_effect.png';
 import stairs_IMG from '../../images/013-stairs01.png';
 import park_IMG from '../../images/001-park.png';
+import cross from '../../images/cross.png';
 
 function Quiz({
   selectedAnswer,
@@ -22,26 +22,39 @@ function Quiz({
   const [point, setPoint] = useState(0);
   const [showSharePopup, setShowSharePopup] = useState(false);
 
+  useEffect(() => {
+    const theme = sessionStorage.getItem("theme");
+
+    document.body.classList.add(theme);
+  }, [sessionStorage.getItem("theme")])
+  const [question, setQuestion] = useState('');
+  const [description, setDescription] = useState('');
+  const [correctAnswer, setCorrectAnswer] = useState('');
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    const x = JSON.parse(sessionStorage.getItem("selectedStory"));
+    const y = sessionStorage.getItem("childStorydata") ? sessionStorage.getItem("childStorydata"):'';
+    const StoryData = x ? x : JSON.parse(y);
+    console.log("STORY DATA", StoryData);
+    const questions = JSON.parse(StoryData.story_mcq_questions);
+    setQuestion(questions.question);
+    setDescription(questions.description);
+    setCorrectAnswer(questions.correctAnswer);
+    setOptions(questions.options);
+
+  }, [])
 
 
-  // Define the questions array directly within the component
-  const questions = [
-    {
-      question: "And what would you have done in Stany's place?",
-      description: "When you're sick or not feeling well:",
-      options: ["You talk easily to your parents because your health is no laughing matter.", "You keep everything to yourself. It's not other people's business.", " You only talk about it to avoid going to school."],
-      correctAnswer: "You talk easily to your parents because your health is no laughing matter.",
-    },
-  ];
 
   const handleShare = () => {
     setShowSharePopup(true);
     addBodyClass();
   }
-  
-const handleCloseSharePopup = () => {
-    
-  setShowSharePopup(false); 
+
+  const handleCloseSharePopup = () => {
+
+    setShowSharePopup(false);
     removeBodyClass();
   };
 
@@ -60,7 +73,7 @@ const handleCloseSharePopup = () => {
   const addBodyClass = () => {
     document.body.classList.add('popup_active');
   };
-  
+
   const removeBodyClass = () => {
     document.body.classList.remove('popup_active');
   };
@@ -76,29 +89,26 @@ const handleCloseSharePopup = () => {
   };
 
   const handleNextQuestion = () => {
-    // setShowPointEarnedPopup(false); // Close the popup
     onNext(); // Proceed to the next question
     localStorage.setItem("score", point + 1);
-
   };
 
   const [button, setButton] = useState(false);
   const Alph = ["A", "B", "C"];
 
   // Destructure values from the questions array
-  const { question, description, options, correctAnswer } = questions[0];
 
   return (
     <div className="feedback-container-story feedback-container-story-cstm">
       <div className="option-main-section">
         <h2 className="question">{question}</h2>
         <p>{description}</p>
-        <ol className="options">
+        <ul className="options">
           {options.map((option, index) => (
             <div
               className={`${showCorrectAnswer && correctAnswer === option
-                  ? "correct_item_sr"
-                  : ""
+                ? "correct_item_sr"
+                : ""
                 }${showCorrectAnswer &&
                   correctAnswer !== option &&
                   currentSelectedAnswer === option
@@ -117,9 +127,18 @@ const handleCloseSharePopup = () => {
                   }`}
                 onClick={() => handleOptionSelect(option)}
               >
-                <span className="option">{Alph[index]}</span>
+                <span className="option">
+                  {showCorrectAnswer && correctAnswer !== option && currentSelectedAnswer === option ? (
+                    <img src={cross} alt="Incorrect" />
+                  ) : (
+                    Alph[index]
+                  )}
+                </span>
                 <p className="option-text">{option}</p>
               </li>
+
+
+
               {showCorrectAnswer &&
                 correctAnswer === option &&
                 currentSelectedAnswer === correctAnswer ? (
@@ -132,7 +151,7 @@ const handleCloseSharePopup = () => {
               )}
             </div>
           ))}
-        </ol>
+        </ul>
         {!showCorrectAnswer ? (
           <>
             {button ? (
@@ -163,7 +182,7 @@ const handleCloseSharePopup = () => {
                 className="next-button check-answer"
                 onClick={handleNextQuestion}
               >
-                Next
+                Next Question
               </button>
 
 
