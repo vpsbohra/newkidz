@@ -11,7 +11,7 @@ import balum6 from "../../images/characters/BalumBalum/6.webp";
 import balum7 from "../../images/characters/BalumBalum/7.webp";
 import balum8 from "../../images/characters/BalumBalum/8.webp";
 import balum9 from "../../images/characters/BalumBalum/9.webp";
-
+//git check 
 import booboo1 from "../../images/characters/Booboo/1.webp";
 import booboo2 from "../../images/characters/Booboo/2.webp";
 import booboo3 from "../../images/characters/Booboo/3.webp";
@@ -176,11 +176,34 @@ import Medium from "../../images/Sizes/Medium.jpg";
 import Normal from "../../images/Sizes/Normal.jpg";
 import close from "../../images/Close.png";
 
+import colored_balum1 from "../../images/colored_images/balum1.webp";
+import colored_cindy1 from "../../images/colored_images/cindy1.webp";
+import colored_cindy2 from "../../images/colored_images/cindy2.webp";
+import colored_drawing_room1 from "../../images/colored_images/drawing_room1.webp";
+import colored_friends1 from "../../images/colored_images/friends1.webp";
+import colored_friends2 from "../../images/colored_images/friends2.webp";
+import colored_friends3 from "../../images/colored_images/friends3.webp";
+import colored_giovanni1 from "../../images/colored_images/giovanni1.webp";
+import colored_giovanni2 from "../../images/colored_images/giovanni2.webp";
+import colored_giovanni3 from "../../images/colored_images/giovanni3.webp";
+import colored_hospital1 from "../../images/colored_images/hospital1.webp";
+import colored_hospital2 from "../../images/colored_images/hospital2.webp";
+import colored_magicdoor1 from "../../images/colored_images/magicdoor1.webp";
+import colored_party1 from "../../images/colored_images/party1.webp";
+import colored_party2 from "../../images/colored_images/party2.webp";
+import colored_stanycar1 from "../../images/colored_images/stanycar1.webp";
+import colored_stefy1 from "../../images/colored_images/stefy1.webp";
+import colored_stefy2 from "../../images/colored_images/stefy2.webp";
+import colored_stefy3 from "../../images/colored_images/stefy3.webp";
+import colored_stefy4 from "../../images/colored_images/stefy4.webp";
+
+
+
 
 const Start_Printing = () => {
-    const navigate = useNavigate();
     const [selectedSize, setSelectedSize] = useState("Big");
     const [start, setStart] = useState(false);
+    const [printChartype,setPrintCharType]=useState(true);
     const characters = [
         balum1, balum2, balum3, balum4, balum5, balum6, balum7, balum8, balum9,
         booboo1, booboo2, booboo3, booboo4, booboo5, booboo6, booboo7,
@@ -201,6 +224,19 @@ const Start_Printing = () => {
         Stephy1, Stephy2, Stephy3, Stephy4, Stephy5, Stephy6,
         Stock1, Stock2, Stock3, Stock4, Stock5, Stock6, Stock7, Stock8, Stock9, Stock10, Stock11, Stock12,
     ];
+    const colored_characters = [
+        colored_balum1,
+        colored_cindy1, colored_cindy2,
+        colored_drawing_room1,
+        colored_friends1, colored_friends2, colored_friends3,
+        colored_giovanni1, colored_giovanni2, colored_giovanni3,
+        colored_hospital1, colored_hospital2,
+        colored_magicdoor1,
+        colored_party1, colored_party2,
+        colored_stanycar1,
+        colored_stefy1, colored_stefy2, colored_stefy3, colored_stefy4,
+    ];
+    
     
 
     const [selectedImage, setSelectedImage] = useState(null);
@@ -314,7 +350,7 @@ const Start_Printing = () => {
                                 <title>Print</title>
                                 <style>
                                     body {
-                                        margin: 0;
+                                        margin: 15px;
                                         padding: 0;
                                     }
                                     img {
@@ -363,22 +399,32 @@ const Start_Printing = () => {
             <div className={`kidzdashboard ${start ? 'active_popup':""}`} >
                 <div className="container-fluids display-table">
                     <KidsNav />
-                   
                         <div className="main-content">
                             <div className="page_ttls">
+                            <div className="toggle_characters">
+                                <span onClick={()=>{setPrintCharType(true)}} className={printChartype? 'active':''} >Illustrations</span>
+                                <span onClick={()=>{setPrintCharType(false)}} className={printChartype? '':'active'} >Coloring Pages</span>
+                            </div>
                                 <div className='kidz_allcharacters_Sr start_printing'>
                                     <div className='kidz_profile_popupsr_inner'>
-                                        {characters.map((character, index) => (
+                                        {printChartype ?(<>
+                                            {characters.map((character, index) => (
                                             <div className="kidz_profile_popupsr_content" onClick={() => openModal(character)}>
                                                 <img loading="lazy" src={character} alt={`Character ${index + 1}`} className="modal-image" />
                                             </div>
                                         ))}
+                                        </>):(<>
+                                        {colored_characters.map((character, index) => (
+                                            <div className="kidz_profile_popupsr_content" onClick={() => openModal(character)}>
+                                                <img loading="lazy" src={character} alt={`Character ${index + 1}`} className="modal-image" />
+                                            </div>
+                                        ))}
+                                        </>)}
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-                   
-
                     {start && (
                         <div className="select_size_main">
                              <img className="close_btn_size" src={close} alt="close" onClick={handleClose} />

@@ -55,11 +55,7 @@ const OpenStory = () => {
       const imageUrl = imageParts[currentPage].trim();
 
       setcurrentImage(imageUrl);
-
-      // Set up the audio element
       audio.current = new Audio(audioUrl);
-
-      // Add event listener for the 'onCanPlay' event
       audio.current.addEventListener('canplay', handleAudioLoad);
     }
   }, [currentPage, currentAudioIndex]);
@@ -220,7 +216,7 @@ const OpenStory = () => {
       const nextPage = parseInt(currentPage, 10) + 1;
       setAudio(audioArray[nextPage]);
       setcurrentImage(coverImgDataArray[nextPage]);
-      setCurrentAudioIndex(nextPage);
+      setCurrentAudioIndex(currentPage + 1);
       setCurrentPage(nextPage);
       localStorage.setItem('highlightStep', 0);
       localStorage.setItem("page", nextPage);
@@ -302,6 +298,9 @@ const OpenStory = () => {
 
   };
   const update = () => {
+    localStorage.setItem('highlightStep', 0);
+    pause();
+
     console.log("setChildID", setChildID);
     const headers = {
       "Content-type": "application/json",
@@ -370,7 +369,7 @@ const OpenStory = () => {
           {story.id == StoryId &&
             <div className='openbook_section_sr'>
               <div className='openbook_section_left'>
-                <img loading="lazy" src={currentImage} alt='' onClick={openModal} />
+                <img  src={currentImage} alt='' onClick={openModal} />
               </div>
               <div className='openbook_section_right'>
                 {wait && (<>
