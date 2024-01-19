@@ -339,7 +339,7 @@ const OpenStory = () => {
         console.log('test123' + child.currently_reading_page);
         localStorage.setItem("page", JSON.parse(child.currently_reading_page, 10));
 
-        const p = JSON.parse(localStorage.getItem("page"));
+        const p = JSON.parse(localStorage.getItem("page")) || 0;
         setAudio(audioArray[p]);
         setcurrentImage(coverImgDataArray[p]);
         setCurrentAudioIndex(p);
