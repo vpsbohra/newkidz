@@ -32,6 +32,18 @@ export default function DashboardAddprofile() {
     document.body.classList.remove('popup_active');
   };
 
+
+
+  const fetchMembers = async () => {
+    try {
+      const response = await axios.get(`https://mykidz.online/api/members/${userId}`);
+      const membersData = response.data;
+      console.log("respone",response.data);
+      setMembers(membersData);
+    } catch (error) {
+      console.error('Error fetching members:', error);
+    }
+  };
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user');
     console.log(storedUser);
@@ -89,6 +101,7 @@ export default function DashboardAddprofile() {
           console.error('Error adding member:', error);
         }
       });
+      fetchMembers();
   };
   useEffect(() => {
     const userInformation = sessionStorage.getItem('user');
@@ -105,19 +118,12 @@ export default function DashboardAddprofile() {
     isMember(false);
     setShowPopup(false);
     setShowMember(false);
+    
   }
   useEffect(() => {
     fetchMembers();
   }, [userId]);
-  const fetchMembers = async () => {
-    try {
-      const response = await axios.get(`https://mykidz.online/DK/AS/test/backend/public/api/members/${userId}`);
-      const membersData = response.data;
-      setMembers(membersData);
-    } catch (error) {
-      console.error('Error fetching members:', error);
-    }
-  };
+  
   return (
     <>
       <div class="account_created-dash add_profile_page">
