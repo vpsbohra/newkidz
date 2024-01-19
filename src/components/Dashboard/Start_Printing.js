@@ -11,7 +11,7 @@ import balum6 from "../../images/characters/BalumBalum/6.webp";
 import balum7 from "../../images/characters/BalumBalum/7.webp";
 import balum8 from "../../images/characters/BalumBalum/8.webp";
 import balum9 from "../../images/characters/BalumBalum/9.webp";
-
+//git check 
 import booboo1 from "../../images/characters/Booboo/1.webp";
 import booboo2 from "../../images/characters/Booboo/2.webp";
 import booboo3 from "../../images/characters/Booboo/3.webp";
