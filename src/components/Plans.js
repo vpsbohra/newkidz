@@ -24,8 +24,8 @@ export default function Plans() {
                                 <li><FontAwesomeIcon icon={faCheck} /> Everything from Free plan + </li>
                                 <li><FontAwesomeIcon icon={faCheck} /> Parent dashboard</li>
                                 <li><FontAwesomeIcon icon={faCheck} /> Unlimited children profiles</li>
-                                <li><FontAwesomeIcon icon={faCheck} /> Full access to sharing of interactions</li>
-                                <li><FontAwesomeIcon icon={faCheck} /> Recorded interactions (audios, child activities, etc) for 1 month</li>
+                                <li><FontAwesomeIcon icon={faCheck} /> Full access to sharing of conversations</li>
+                                <li><FontAwesomeIcon icon={faCheck} /> Recorded conversations (audios, child activities, etc) for 1 month</li>
 
                             </ul>
                             <button onClick={handleButtonClick} type="button">Get started</button>
@@ -35,8 +35,8 @@ export default function Plans() {
                             <p>$8/mo</p>
                             <ul>
                                 <li><FontAwesomeIcon icon={faCheck} /> Everything from Classic plan +</li>
-                                <li><FontAwesomeIcon icon={faCheck} /> Recorded interactions (audios, child activities, etc) for 24 months</li>
-                                <li><FontAwesomeIcon icon={faCheck} /> Interaction history for 24 months</li>
+                                <li><FontAwesomeIcon icon={faCheck} /> Recorded conversations (audios, child activities, etc) for 24 months</li>
+                                <li><FontAwesomeIcon icon={faCheck} /> conversation history for 24 months</li>
                             </ul>
                             <button onClick={handleButtonClick} type="button">Get started</button>
                         </div>

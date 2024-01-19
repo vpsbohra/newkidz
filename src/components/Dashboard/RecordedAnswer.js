@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import RecordRTC from 'recordrtc';
 import ParentalSwitch from '../../images/Home.png';
+import DarkBlue_Home from '../../images/DarkBlue_Home.png';
+import blueTheme_Home from '../../images/blueTheme_Home.png';
+import orangeTheme_Home from '../../images/orangeTheme_Home.png';
+import pinkTheme_Home from '../../images/pinkTheme_Home.png';
+import purpleTheme_Home from '../../images/purpleTheme_Home.png';
+
 import Record from '../../images/Record button.png';
 import WaveSendAudioImage from '../../images/Ongoing Recording.png';
 import WaveSendAudioImage1 from '../../images/Paused Recording.png';
@@ -11,6 +17,8 @@ import Replay from '../../images/Replay Audio.png'
 import SharePopup from './share_popup';
 import Share from '../../images/Share 3.png';
 import Sharebtn from '../../images/Share.png';
+import MoneyBagImage from '../../images/money-bag.png';
+
 const RecordedAnswer = () => {
   const navigate = useNavigate()
   const { token } = AuthUser();
@@ -49,6 +57,10 @@ const RecordedAnswer = () => {
     addBodyClass();
   }
 
+  useEffect(() => {
+    const theme = sessionStorage.getItem("theme");
+    document.body.classList.add(theme);
+  }, [sessionStorage.getItem("theme")])
   const handleCloseSharePopup = () => {
 
     setShowSharePopup(false);
@@ -66,31 +78,50 @@ const RecordedAnswer = () => {
     audio.addEventListener('ended', handleAudioEnded);
 
   };
-  useEffect(() => {
-    // Play audio only once when the page loads
-    let audio = new Audio(currentaudio);
-    audio.play();
+  // useEffect(() => {
+  //   // Play audio only once when the page loads
+  //   let audio = new Audio(currentaudio);
+  //   audio.play();
 
-    // Add event listener to handle audio ended
-    audio.addEventListener('ended', handleAudioEnded);
+  //   // Add event listener to handle audio ended
+  //   audio.addEventListener('ended', handleAudioEnded);
 
-    // Clean up the audio element and remove event listener when the component unmounts
-    return () => {
-      audio.removeEventListener('ended', handleAudioEnded);
-      audio = null;
-    };
-  }, [currentaudio]);
+  //   // Clean up the audio element and remove event listener when the component unmounts
+  //   return () => {
+  //     audio.removeEventListener('ended', handleAudioEnded);
+  //     audio = null;
+  //   };
+  // }, [currentaudio]);
+
+
+  useEffect(()=>{
+   const que = localStorage.getItem('question');
+if(que== null){
+    localStorage.setItem('question',0);
+}
+  },[]);
+
+
   useEffect(() => {
+    console.log("currentQuestionIndex",currentQuestionIndex);
+      console.log("localStorage.getItem('question')",localStorage.getItem('question'));
+
     if (currentQuestionIndex === localStorage.getItem('question')) {
+      
       let audio = new Audio(currentaudio);
       audio.play();
       audio.addEventListener('ended', handleAudioEnded);
       return () => {
-        audio.removeEventListener('ended', handleAudioEnded);
-      };
+      audio.removeEventListener('ended', handleAudioEnded);
+      audio.pause(); 
+      audio.currentTime = 0; 
+    };
     }
   }, [currentaudio, currentQuestionIndex]);
-const [story_id,setStory_id]=useState();
+
+
+
+  const [story_id, setStory_id] = useState();
   const fetchData = async () => {
     const x = localStorage.getItem('question');
     if (x) {
@@ -195,7 +226,7 @@ const [story_id,setStory_id]=useState();
           base64Audio,
           question_voice_answer: questions[currentQuestionIndex],
           total_second: elapsedTime,
-          story_id:story_id,
+          story_id: story_id,
         })
           .then((data) => {
             console.log('si message sent:', data.message);
@@ -222,6 +253,7 @@ const [story_id,setStory_id]=useState();
   };
 
   const handleNextQuestion = () => {
+ 
     // var audiodata = "https://mykidz.online/stories/audio/Story_1-1.wav,https://mykidz.online/stories/audio/Story_1-2.wav,https://mykidz.online/stories/audio/Story_1-3.wav,https://mykidz.online/stories/audio/Story_1-4.wav,https://mykidz.online/stories/audio/Story_1-5.wav"
     // var audioArray = audiodata.split(',');
     console.log("CurrentQuestionIndex", currentQuestionIndex);
@@ -309,13 +341,13 @@ const [story_id,setStory_id]=useState();
     const audioPlayer = document.getElementById(playerId);
     const audio = audioPlayer.querySelector('audio');
     const addclass = audioPlayer.querySelector('.play-pause-btn');
-  
+
     if (activeAudioPlayer && activeAudioPlayer !== playerId) {
       const activeAudio = document.getElementById(activeAudioPlayer).querySelector('audio');
       activeAudio.pause();
     }
-  
-    if (audio.paused ) {
+
+    if (audio.paused) {
       audio.play();
       addclass.classList.remove('pause');
       addclass.classList.add('play');
@@ -333,10 +365,10 @@ const [story_id,setStory_id]=useState();
       console.log(percent);
       setProgressRange(percent);
     });
-  
+
     setIsPlaying((prevIsPlaying) => ({ ...prevIsPlaying, [playerId]: !audio.paused }));
   };
-  
+
 
   const resetBackgroundColor = (playerId) => {
     const player = document.getElementById(playerId);
@@ -380,13 +412,13 @@ const [story_id,setStory_id]=useState();
   }, []);
 
   const updateProgressBar = (playerId) => {
-      const player = document.getElementById(playerId);
-      const audio = player.querySelector('audio');
-      const progressRange = player.querySelector('input[type="range"]');
-      const percent = (audio.currentTime / audio.duration) * 100;
-      progressRange.value = percent;
-      console.log(percent);
-      updateCurrentTime(player, audio);
+    const player = document.getElementById(playerId);
+    const audio = player.querySelector('audio');
+    const progressRange = player.querySelector('input[type="range"]');
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progressRange.value = percent;
+    console.log(percent);
+    updateCurrentTime(player, audio);
   };
 
 
@@ -412,21 +444,38 @@ const [story_id,setStory_id]=useState();
   }
 
 
+
   return (
     <>
       <div className='chosen-story-section all_activity_sr'>
 
-        <Link className="nav-link top_navbtnsr" to="/Kids-view"><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
-        {showReplayButton && (
-          <button className='replay_btn no-background' onClick={handleReplay}>
-            <img loading="lazy" src={Replay} />
-          </button>
-        )}
+      <div class="head-main-cstm">
+          <div class="head-cstm-left">
+            <Link className="nav-link top_navbtnsr" to="/Kids-view">
+              <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
+              <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />
+              <img className="blueTheme_HomeIn defaultHome" loading="lazy" src={blueTheme_Home} alt='' />
 
+              <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
+              <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
+              <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
 
-        <button className='close-button Share_btn_sr' onClick={handleShare}>
-          <Link className="nav-link"><img loading="lazy" src={Sharebtn} /> </Link>
-        </button>
+            </Link>
+            {showReplayButton && (
+              <button className='replay_btn no-background' onClick={handleReplay}>
+                <img loading="lazy" src={Replay} />
+              </button>
+            )}
+            <button className='close-button Share_btn_sr' onClick={handleShare}>
+              <Link className="nav-link"><img loading="lazy" src={Sharebtn} /> </Link>
+            </button>
+          </div>
+          <div class="head-price-cstm">
+            {/* <img loading="lazy" src={Coins}/> */}
+            <img loading="lazy" src={MoneyBagImage} alt="protected" /><span>150</span>
+          </div>
+        </div>
+
         {showSharePopup && (
           <SharePopup onClose={handleCloseSharePopup} />
         )}

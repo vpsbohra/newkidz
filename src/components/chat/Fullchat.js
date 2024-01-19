@@ -1,43 +1,32 @@
-import React, { useEffect, useState,useRef } from "react";
-import Pusher from "pusher-js";
+import React, { useEffect, useState, useRef } from "react";
 import AuthUser from "../AuthUser";
-import sendImage from "../../images/sendVector.png";
-import { Link, Navigate } from "react-router-dom";
-import PaperClipImage from "../../images/paper-clip.png";
-import EmojiImage from "../../images/Emoji_icon.png";
-import SendAudioImage from "../../images/Send-audio-message.png";
-import WaveSendAudioImage from "../../images/Waveform001.gif";
-import { useParams } from "react-router-dom";
-import RecordRTC from "recordrtc";
 import Calendar from "react-calendar";
-import ChatPopup from "./ChatPopup";
 import { useNavigate } from "react-router-dom";
-import ForwardPopup from "../Dashboard/forward_Popup";
 import Facebook from "../../images/Facebook_Icon.png";
 import Whatsapp from "../../images/whatsapp_Icon.png";
 import Copy from "../../images/Copy_Link.png";
 import axios from "axios";
-import Copy_small from "../../images/Copy.png";
-import Chat_hide from "../../images/chat-hide-icon.png";
-
 import TenBack from '../../images/TenBack.png';
 import TenForward from '../../images/Tenforward.png';
-
-
+import getToKnow from '../Audio/getToKnow.wav';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import Chat from "./Chat";
-import { Scrollbars } from 'react-custom-scrollbars-2';
-import CurrentlyReading from "../Dashboard/CurrentlyReading";
+import Load from '../../images/index.gif';
+import { useStopwatch } from 'react-timer-hook';
 const Fullchat = ({ selectedDate, dataId }) => {
+  const {
+    isRunning,
+    start,
+    pause,
+    reset,
+  } = useStopwatch({ autoStart: false });
+  const [progressRange, setProgressRange] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
-
+  const [question, setQuestion] = useState('');
+  const [totalseconds, settotalseconds] = useState(0);
   const [members, setMembers] = useState([]);
-  const [Audio, setAudio] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [username, setUsername] = useState(null);
-  const [isParentalSwitchActive, setIsParentalSwitchActive] = useState(false);
   const { http } = AuthUser();
-  const { user } = AuthUser();
   const [userId, setUserId] = useState("");
   const [link, setLink] = useState("https://link.kidzconnect.xxxxx");
   const [isCopied, setIsCopied] = useState(false);
@@ -53,39 +42,73 @@ const Fullchat = ({ selectedDate, dataId }) => {
   const userId1 = userInfoDetail.id;
   const dataId1 = sessionStorage.getItem('setChildID');
   const d = sessionStorage.getItem('DATE');
-  const [parsedSelectedDate,setParsedSelectedDate]= useState();
+  const [parsedSelectedDate, setParsedSelectedDate] = useState();
   const navigate = useNavigate();
   const [datetoggle, setDatetoggle] = useState(false);
   const [day, setDay] = useState();
   const [highlightDay, setHighlightDay] = useState([]);
   const [childName, setChildName] = useState([]);
-  const [isRunning, setIsRunning] = useState(false);
+  const [isrunning, setIsRunning] = useState(false);
   const [elapsedTime2, setElapsedTime2] = useState(0);
-const [parent,setParent]=useState('');
+  const [c, setC] = useState('sliding-text');
+  const [loader, setLoader] = useState(true);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [totalQuestions, setTotalquestioins] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+
+
+
+  useEffect(() => {
+    console.log("questionIndex", questionIndex);
+    console.log("totalQuestions", totalQuestions);
+    console.log("progressRange", progressRange);
+
+  }, [questionIndex])
+
+  useEffect(() => {
+
+    const audioPlayer = document.getElementById('src');
+    const updateProgress = () => {
+      const time = currentTime;
+      const percent = (time / totalseconds) * 100;
+      setProgressRange(percent);
+    };
+    if (audioPlayer) {
+      audioPlayer.addEventListener('timeupdate', updateProgress);
+      return () => {
+        audioPlayer.removeEventListener('timeupdate', updateProgress);
+      };
+    } else {
+      console.log("No audio player found");
+    }
+
+  }, [currentTime]);
+  useEffect(() => {
+    const totalSecondsElapsed = currentTime;
+    if (totalSecondsElapsed >= totalseconds) {
+      pause();
+    }
+  }, [currentTime]);
   useEffect(() => {
     let interval;
-    if(elapsedTime == elapsedTime2){
+    if (elapsedTime == elapsedTime2) {
       setElapsedTime2(elapsedTime);
-    }else{if (isRunning) {
-      interval = setInterval(() => {
-        setElapsedTime2((prevTime) => prevTime + 1);
-      }, 1000);
-    }}
-    
-
+    } else {
+      if (isrunning) {
+        interval = setInterval(() => {
+          setElapsedTime2((prevTime) => prevTime + 1);
+        }, 1000);
+      }
+    }
     return () => clearInterval(interval);
-  }, [isRunning]);
-
+  }, [isrunning]);
   const handleStartStop = () => {
     setIsRunning((prevIsRunning) => !prevIsRunning);
   };
-
   const handleReset = () => {
     setElapsedTime(0);
     setIsRunning(false);
   };
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -97,11 +120,8 @@ const [parent,setParent]=useState('');
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, [userId1, dataId1, spouse]);
-
-
   useEffect(() => {
     setChildName(sessionStorage.getItem('setChildName'));
     console.log("childName", childName);
@@ -113,29 +133,26 @@ const [parent,setParent]=useState('');
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ];
-  
     return Object.values(apiResponse).map(({ month, day }) => ({
       month: months[parseInt(month, 10) - 1], // Adjust month index
       day: parseInt(day, 10),
     }));
   };
-  
   const convertedData = convertApiResponse(apiResponse);
   const highlightedDates = convertedData;
   const [selectedDates, setSelectedDates] = useState([]);
   useEffect(() => {
-   fetchAudio();
-   
+    localStorage.setItem("duration",0);
+    fetchAudio();
   }, [sessionStorage.getItem('DATE')]);
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
-    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
-  const [taudio,setTaudio]=useState(false);
+  const [taudio, setTaudio] = useState(false);
   const handleDateChange = (date) => {
-   
-    sessionStorage.setItem('DATE',date);
+    sessionStorage.setItem('DATE', date);
     setDatetoggle(true);
     const monthNames = [
       'January', 'February', 'March', 'April', 'May', 'June',
@@ -159,9 +176,9 @@ const [parent,setParent]=useState('');
       }
     }
     const selected = `${selectedMonth} ${selectedDay},${selectedYear}`;
-    sessionStorage.setItem("selectedDate",JSON.stringify(selected));
-    console.log("selectedDate",selectedDate);
-    console.log("selectedDate",selectedDate);
+    sessionStorage.setItem("selectedDate", JSON.stringify(selected));
+    console.log("selectedDate", selectedDate);
+    console.log("selectedDate", selectedDate);
     navigate(`/parent-dashboard?datetoggle=${datetoggle}&selectedDate=${selectedDate}`);
     const chatsForSelectedDate = messages.filter((message) => {
       const messageDate = new Date(message.created_at).toDateString();
@@ -173,7 +190,7 @@ const [parent,setParent]=useState('');
     setDay(extractDay(date.toISOString()));
     setSelectedDate(selectedDate);
   };
- useEffect(() => {
+  useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
     const user = JSON.parse(storedUser);
     const { id } = user;
@@ -194,39 +211,77 @@ const [parent,setParent]=useState('');
     const day = dateObject.getDate();
     return day;
   };
-  const [question,setQuestion]=useState('');
-  const [totalSeconds,setTotalseconds]=useState(0);
-  const playAudio = (audioSrc, isAutoplay, question,sum) => {
-    setTotalseconds(sum);
+  const updateCurrentTime = (player, audio) => {
+    let time = JSON.parse(localStorage.getItem("duration"));
+    let newtime = audio.currentTime + time ;
+    setCurrentTime(newtime);
+  };
+  const playAudio = (audioSrc, isAutoplay, question, sum) => {
+    setC('');
+    settotalseconds(sum);
+    
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const audioElement = document.getElementById('src');
-       setQuestion(question);
+        setQuestion(question);
+        setC('sliding-text');
+
         if (audioElement) {
-          audioElement.src = `data:audio/wav;base64,${audioSrc}`;
+          
+    //  localStorage.setItem("duration",Math.floor(audioElement.duration));
+         
+          if (audioSrc == 'L3N0YXRpYy9tZWRpYS9nZXRUb0tub3cuOWZlMjk4YjJhMWVjODY3ZjdkMjIud2F2') {
+            audioElement.src = getToKnow;
+          } else {
+            audioElement.src = `data:audio/wav;base64,${audioSrc}`;
+          }
           audioElement.type = 'audio/wav';
           audioElement.controls = true;
           audioElement.onended = () => {
-            audioElement.onended = null; // Remove the previous 'onended' event handler
-            resolve(); // Resolve the promise when audio ends
+
+
+            console.log('tetetete' , audioElement.duration)
+            let storedDuration = localStorage.getItem("duration");
+            console.log('t111111111' , storedDuration);
+            let x = 0;
+
+        if (storedDuration) {
+            try {
+                x = JSON.parse(storedDuration);
+            } catch (error) {
+                console.error("Error parsing JSON from localStorage:", error);
+                // Handle the error as needed
+            }
+        }
+            let y = Math.floor(audioElement.duration);
+
+            let z = x+y;
+            localStorage.setItem("duration",z);
+         
+            audioElement.onended = null;
+            if (questionIndex === totalQuestions - 1) {
+              reset();
+              pause();
+              setProgressRange(0);
+              fetchAudio();
+            }
+            resolve();
           };
           if (isAutoplay) {
-            audioElement.play(); // Start playing the audio only if isAutoplay is true
+            audioElement.play();
           }
         } else {
           reject('Audio element not found');
         }
       }, 1000);
-      
     });
   };
-  const [ length,setLength]=useState(0);
-const fetchAudio = async () => {
+  const [length, setLength] = useState(0);
+  const fetchAudio = async () => {
     try {
       const response = await http.get(`/messages-audio/${userId1}/${dataId1}/${spouse}`);
-      
       const audioFromApi = response.data;
-      
+      console.log("AUDIO", audioFromApi)
       const selectedDay = new Date(d);
       var dataaudio = [];
       var question = [];
@@ -243,7 +298,6 @@ const fetchAudio = async () => {
             dataaudio.push(item.audio_path);
             question.push(item.question_voice_answer);
             seconds.push(item.total_second);
-
             console.log("!", dataaudio);
           } else if (
             item.voice_answer !== null &&
@@ -254,8 +308,18 @@ const fetchAudio = async () => {
             dataaudio.push(item.voice_answer);
             question.push(item.question_voice_answer);
             seconds.push(item.total_second);
-
             console.log("!1", dataaudio);
+          }
+          else if (
+            item.question_voice !== null &&
+            itemDate.getDate() === selectedDay.getDate() &&
+            itemDate.getMonth() === selectedDay.getMonth() &&
+            itemDate.getFullYear() === selectedDay.getFullYear()
+          ) {
+            dataaudio.push(item.question_voice);
+            question.push(item.question_voice_answer);
+            seconds.push(item.total_second);
+            console.log("!2", dataaudio);
           }
         });
       } else {
@@ -269,8 +333,6 @@ const fetchAudio = async () => {
           dataaudio.push(audioFromApi.audio_path);
           question.push(audioFromApi.question_voice_answer);
           seconds.push(audioFromApi.total_second);
-
-
         } else if (
           audioFromApi.voice_answer !== null &&
           itemDate.getDate() === selectedDay.getDate() &&
@@ -280,37 +342,43 @@ const fetchAudio = async () => {
           dataaudio.push(audioFromApi.voice_answer);
           question.push(audioFromApi.question_voice_answer);
           seconds.push(audioFromApi.total_second);
-
-
+        }
+        else if (
+          audioFromApi.question_voice !== null &&
+          itemDate.getDate() === selectedDay.getDate() &&
+          itemDate.getMonth() === selectedDay.getMonth() &&
+          itemDate.getFullYear() === selectedDay.getFullYear()
+        ) {
+          dataaudio.push(audioFromApi.question_voice);
+          question.push(audioFromApi.question_voice_answer);
+          seconds.push(audioFromApi.total_second);
         }
       }
       setLength(seconds.length);
-      let sum = length;
-      for (let i= 0; i<seconds.length;i++){
-
-        sum+=seconds[i];
+      setTotalquestioins(question.length);
+      let sum = length + question.length;
+      for (let i = 0; i < seconds.length; i++) {
+        sum += seconds[i];
       }
-
       if (dataaudio.length > 0) {
-        sessionStorage.setItem("TOGGLE",false);
+        sessionStorage.setItem("TOGGLE", false);
         setTaudio(true);
+        setLoader(false);
       } else {
-        sessionStorage.setItem("TOGGLE",true);
-
+        sessionStorage.setItem("TOGGLE", true);
         setTaudio(false);
       }
-  
       for (let i = 0; i < dataaudio.length; i++) {
         let audioFile = dataaudio[i];
+        setQuestionIndex(i);
         const isAutoplay = i > 0;
-        await playAudio(dataaudio[i], isAutoplay,question[i],sum);
+        await playAudio(dataaudio[i], isAutoplay, question[i], sum, questionIndex);
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
     } catch (error) {
       console.error('Error fetching audio:', error);
     }
   };
-  
   const handleCopyClick = () => {
     const linkInput = document.getElementById("link-input");
     linkInput.select();
@@ -361,205 +429,140 @@ const fetchAudio = async () => {
   const togglePlayPause = (playerId) => {
     const audioPlayer = document.getElementById(playerId);
     const audio = audioPlayer.querySelector('audio');
+    const player = document.getElementById(playerId);
     const addclass = audioPlayer.querySelector('.play-pause-btn');
+
+    audio.addEventListener('timeupdate', () => {
+      const T = JSON.parse(localStorage.getItem("Time"));
+      const percent = (audio.currentTime / totalseconds) * 100;
+      setProgressRange(percent);
+      updateCurrentTime(player, audio);
+    });
+
     if (audio.paused) {
       audio.play();
       addclass.classList.remove('pause');
       addclass.classList.add('play');
     } else {
+      audio.pause();
       addclass.classList.remove('play');
       addclass.classList.add('pause');
-      audio.pause();
     }
-    handleStartStop();
+  };
 
-    setIsPlaying((prevIsPlaying) => ({ ...prevIsPlaying, [playerId]: !audio.paused }));
-    updatePlayPauseButton(playerId);
-  };
-  const updatePlayPauseButton = (playerId) => {
-    const playPauseBtn = document.getElementById(playerId).querySelector('.play-pause-btn');
-  };
-  const updateBackgroundColor = (playerId) => {
-    const player = document.getElementById(playerId);
-    const audio = player.querySelector('audio');
-    const progressRange = player.querySelector('input[type="range"]');
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progressRange.style.backgroundColor = `linear-gradient(to right, #ff0000 ${percent}%, #ccc ${percent}%)`;
-    updateCurrentTime(player, audio);
-  };
-  const resetBackgroundColor = (playerId) => {
-    const player = document.getElementById(playerId);
-    const progressRange = player.querySelector('input[type="range"]');
-    progressRange.style.backgroundColor = '#ccc';
-  };
+ 
   useEffect(() => {
-    const audioPlayers = document.querySelectorAll('.audio-player');
-    for (const player of audioPlayers) {
-      const audio = player.querySelector('audio');
-      setIsPlaying((prevIsPlaying) => ({ ...prevIsPlaying, [player.id]: audio.paused }));
-      audio.addEventListener('loadedmetadata', () => {
-        updateCurrentTime(player, audio);
-      });
-      audio.addEventListener('play', () => {
-        setIsPlaying((prevIsPlaying) => ({ ...prevIsPlaying, [player.id]: true }));
-      });
-      audio.addEventListener('pause', () => {
-        setIsPlaying((prevIsPlaying) => ({ ...prevIsPlaying, [player.id]: false }));
-      });
+    const storedSelectedDate = sessionStorage.getItem('selectedDate');
+    setParsedSelectedDate(storedSelectedDate ? new Date(JSON.parse(storedSelectedDate)) : null);
+  }, [sessionStorage.getItem('selectedDate')])
+  const monthNameToNumber = {
+    'January': 1,
+    'February': 2,
+    'March': 3,
+    'April': 4,
+    'May': 5,
+    'June': 6,
+    'July': 7,
+    'August': 8,
+    'September': 9,
+    'October': 10,
+    'November': 11,
+    'December': 12,
+  };
+
+  const tileClassName = ({ date, view }) => {
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const monthNumber = monthNameToNumber[month];
+
+    // Check if the current date is in the highlightedDates array
+    if (highlightedDates.some((highlightedDate) => highlightedDate.day === day && monthNumber === monthNameToNumber[highlightedDate.month])) {
+      return 'highlightedDates';
     }
-    return () => {
-      for (const player of audioPlayers) {
-        const audio = player.querySelector('audio');
-        const progressRange = player.querySelector('input[type="range"]');
-        const playerId = player.id;
-        audio.removeEventListener('timeupdate', () => updateProgressBar(playerId));
-        audio.removeEventListener('ended', () => resetBackgroundColor(playerId));
-        progressRange.removeEventListener('input', () => seekTo(playerId));
-      }
-    };
-
-  }, []);
-  const updateProgressBar = (playerId) => {
-    const player = document.getElementById(playerId);
-    const audio = player.querySelector('audio');
-    const progressRange = player.querySelector('input[type="range"]');
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progressRange.value = percent;
-    updateCurrentTime(player, audio);
+    return null;
   };
-  const seekTo = (playerId) => {
-    console.log("seek");
-    const player = document.getElementById(playerId);
-    const audio = player.querySelector('audio');
-    const progressRange = player.querySelector('input[type="range"]');
-    const seekTime = (progressRange.value / 100) * audio.duration;
-    audio.currentTime = seekTime;
-    updateCurrentTime(player, audio);
+  const updateprogress = () => {
+    const time = currentTime;
+    const percent = (time / totalseconds) * 100;
+    setProgressRange(percent);
   };
-  const updateCurrentTime = (player, audio) => {
-    const currentTimeDisplay = player.querySelector('.current-time');
-    const totalTimeDisplay = player.querySelector('.total-time');
-    const minutes = Math.floor(audio.currentTime / 60);
-    const seconds = Math.floor(audio.currentTime % 60);
-    const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    // currentTimeDisplay.textContent = formattedTime;
-    const totalMinutes = Math.floor(audio.duration / 60);
-    const totalSeconds = Math.floor(audio.duration % 60);
-    if (isFinite(totalSeconds)) {
-    const formattedTotalTime = `/ ${totalMinutes}:${totalSeconds < 10 ? '0' : ''}${totalSeconds}`;
-      // totalTimeDisplay.textContent = formattedTotalTime;
-    }
+
+  const skipBackward = () => {
+    const audioElement = document.getElementById('src');
+    const newTime = currentTime - 10;
+    audioElement.currentTime = newTime;
+    setCurrentTime(newTime);
+    updateprogress();
   };
-useEffect(()=>{
-  const storedSelectedDate = sessionStorage.getItem('selectedDate');
- setParsedSelectedDate (storedSelectedDate ? new Date(JSON.parse(storedSelectedDate)) : null);
-},[sessionStorage.getItem('selectedDate')])
-
-const handleDateChange1 = (date) => {
-  // Your date change logic here
-  // For example, you can toggle the date in the selectedDates array
-  if (selectedDates.includes(date)) {
-    setSelectedDates(selectedDates.filter((d) => d !== date));
-  } else {
-    setSelectedDates([...selectedDates, date]);
-  }
-};
-const monthNameToNumber = {
-  'January': 1,
-  'February': 2,
-  'March': 3,
-  'April': 4,
-  'May': 5,
-  'June': 6,
-  'July': 7,
-  'August': 8,
-  'September': 9,
-  'October': 10,
-  'November': 11,
-  'December': 12,
-};
-
-const tileClassName = ({ date, view }) => {
-  const day = date.getDate();
-  const month = date.toLocaleString('default', { month: 'long' });
-  const monthNumber = monthNameToNumber[month];
-
-  // Check if the current date is in the highlightedDates array
-  if (highlightedDates.some((highlightedDate) => highlightedDate.day === day && monthNumber === monthNameToNumber[highlightedDate.month])) {
-    return 'highlightedDates';
-  }
-  return null;
-};
-
+  const skipForward = () => {
+    const audioElement = document.getElementById('src');
+    const newTime = currentTime + 10;
+    audioElement.currentTime = newTime;
+    setCurrentTime(newTime);
+    updateprogress();
+  };
   return (
     <>
-     <div className="fullconver_chat">
-        {taudio ? (<><div className="audio_fullcon audio_fullcon-cstm">
-          {question?(<>
-          <marquee>{question}</marquee>
-          </>):(<>Daisy's Response</>)}
-		            
+      <div className="fullconver_chat">
+        {loader ? (<><div className='no-chat'>    <img src={Load} alt="Loading..." /></div></>) : (<>{taudio ? (<>
+          <div className="audio_fullcon audio_fullcon-cstm">
+            <div className="sliding-text-container">
+              {c && (<><p className={c}>
+                {question ? (<>{question}
+                </>) : (<>{spouse}'s Response</>)}
+              </p></>)}
 
-          <div className="audio-player" id="audio">
-            <div className="audio-player_inner">
-              <img loading="lazy" src={TenBack}/>
-              <div className="play-pause-btn" onClick={() => togglePlayPause("audio")}></div>
-              <img loading="lazy" src={TenForward}/>
             </div>
-            <div className="progress-bar">
-              <input type="range" min="0" max="100" value="0" step="1" onChange={() => seekTo("audio")} />
-              <div className="time-display">
-                <span>{formatTime(elapsedTime2)}</span> / <span >{formatTime(totalSeconds)}</span>
+            <div className="audio-player" id="audio">
+              <div className="audio-player_inner">
+                <img loading="lazy" src={TenBack} onClick={() => skipBackward()} />
+                <div className="play-pause-btn" onClick={() => { togglePlayPause("audio"); isRunning ? pause() : start(); }}></div>
+
+                <img loading="lazy" src={TenForward} onClick={() => skipForward()} />
               </div>
+              <div className="progress-bar">
+                <input type="range" min="0" max="100" value={progressRange} step="1" readOnly />
+                <div className="time-display">
+                  <span>{formatTime(currentTime)}</span>
+                  <span>
+                    {/* {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds} */}
+                    / {formatTime(totalseconds)}</span>
+                </div>
+              </div>
+              <audio className="audio" id="src" src='' controls style={{ display: 'none' }} />
             </div>
-            <audio className="audio" id="src" src='' controls style={{ display: 'none' }} />
-          </div>
-        </div></>) : (<>No Recordings for this day</>)}
+
+          </div></>) : (<>No Recordings for this day</>)}</>)}
+
         <span className={`profile_type_letters_outer ${hide ? "" : "space"}`}>
-
-
-
-        {taudio ? (
-          <>
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip id="tooltip">{`${spouse} `}</Tooltip>}
-            >
-              <span className={`profile_type_letter ${colours[0]}`}>
-
-                <span>
-                  {spouse ? spouse.charAt(0) : ""}
-                </span>
-              </span>
-            </OverlayTrigger>
-
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip id="tooltip">{`${childName} `}</Tooltip>}
-            >
-              <span className={`profile_type_letter ${colours[1]}`}>
-                <span>
-                  {typeof childName === 'string' && childName.length > 0 ? childName.charAt(0) : ""}
-                </span>
-
-              </span>
-            </OverlayTrigger>
-          </>
-        ):(
-          <></>
-        )}
-
-          {/* {remainingMembersCount > 0 && hide && (
+          {taudio ? (
             <>
-              <span className="hide_more profile_type_letter"
-                onClick={handleShowAllMembersClick}
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip id="tooltip">{`${spouse} `}</Tooltip>}
               >
-                {`+ ${remainingMembersCount}`}
-              </span>
+                <span className={`profile_type_letter ${colours[0]}`}>
+
+                  <span>
+                    {spouse ? spouse.charAt(0) : ""}
+                  </span>
+                </span>
+              </OverlayTrigger>
+
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip id="tooltip">{`${childName} `}</Tooltip>}
+              >
+                <span className={`profile_type_letter ${colours[1]}`}>
+                  <span>
+                    {typeof childName === 'string' && childName.length > 0 ? childName.charAt(0) : ""}
+                  </span>
+                </span>
+              </OverlayTrigger>
             </>
-          )} */}
-          {/* {hidden && (<span className="hide_more profile_type_letter" onClick={handleHideClick}><img loading="lazy" src={Chat_hide} /></span>
-          )} */}
+          ) : (
+            <></>
+          )}
         </span>
         {hide === "false" ? <></> : <></>}
         <div className="social_icons">
@@ -602,7 +605,7 @@ const tileClassName = ({ date, view }) => {
             readOnly
           />
         </div>
-        <Calendar  onChange={handleDateChange} value={parsedSelectedDate} tileClassName={tileClassName} />
+        <Calendar onChange={handleDateChange} value={parsedSelectedDate} tileClassName={tileClassName} />
       </div>
     </>
   );

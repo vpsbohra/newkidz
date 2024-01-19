@@ -1,9 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthUser from '../AuthUser';
-
 import CirclePlu01Img from '../../images/Circle_Plus01.png';
 import PayPalLogoImg from '../../images/PayPal-Logo.png';
 import Paymnet_typeImg from '../../images/paymnet_type_Frame.png';
@@ -29,21 +27,23 @@ const BillingAndSubscription = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [owner, setOwner] = useState(false);
   const [spouse, setSpouse] = useState('');
-  const[text,setText]=useState(false);
-
+  const [text, setText] = useState(false);
+  const [name, setName] = useState();
+  const [country, setCountry] = useState();
+  const [city, setCity] = useState();
+  const [postal_code, setPostal_code] = useState();
+  const [paymentMethodId, setPaymentMethodId] = useState();
+  const [price, setPrice] = useState();
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
-
     const day = new Date(dateString).getDate();
     const daySuffix = getDaySuffix(day);
-
     return formattedDate.replace(/\d{1,2}/, `${day}${daySuffix}`);
   }
-
   function getDaySuffix(day) {
-    if (day >= 11 && day <= 13) {
-      return 'th';
+    if (day => 11 && day <= 13) {
+    return 'th';
     }
     const lastDigit = day % 10;
     switch (lastDigit) {
@@ -57,14 +57,15 @@ const BillingAndSubscription = () => {
         return 'th';
     }
   }
-
   function close() {
     setAddMemberSuccess(false);
     isMember(false);
     setShowPopup(false);
     setShowMember(false);
   }
-
+  useEffect(() => {
+    fetchPaymentHistory();
+  }, [userId]);
   useEffect(() => {
     const userInformation = sessionStorage.getItem('user');
     const user = JSON.parse(userInformation);
@@ -73,15 +74,36 @@ const BillingAndSubscription = () => {
     const { id } = user;
     const { spouse } = user;
     const { name } = user;
+    const { country } = user;
+    const { city } = user;
+    const { postal_code } = user;
+    const { paymentMethodId } = user;
+    const { price } = user;
     setCurrentPlan(plan);
     setCurrentBilling(billing);
     setUserId(id);
     setSpouse(spouse);
+    setName(name);
+    setCountry(country);
+    setCity(city);
+    setPostal_code(postal_code);
+    setPaymentMethodId(paymentMethodId);
+    setPrice(price);
     // console.log(spouse);
     // console.log(sessionStorage.getItem("owner"))
     setOwner(sessionStorage.getItem("owner"));
     // console.log(owner);
   }, []);
+  const fetchPaymentHistory = async () => {
+    try {
+      const response = await axios.get(`https://mykidz.online/api/payment-details/${userId}`);
+      const paymentsData = response.data;
+      console.log("paymentData", paymentsData);
+      setPayments(paymentsData);
+    } catch (error) {
+      console.error('Error fetching payment history:', error);
+    }
+  };
   const fetchMembers = async () => {
     try {
       const response = await axios.get(`https://mykidz.online/api/members/${userId}`);
@@ -92,7 +114,6 @@ const BillingAndSubscription = () => {
     }
   };
   useEffect(() => {
-
     fetchMembers();
   }, [userId]);
   useEffect(() => {
@@ -100,13 +121,11 @@ const BillingAndSubscription = () => {
       try {
         const response = await axios.get(`https://mykidz.online/api/payment-details/${userId}`);
         const paymentsData = response.data;
-        console.log("paymentData", paymentsData);
         setPayments(paymentsData);
       } catch (error) {
         console.error('Error fetching payment history:', error);
       }
     };
-
     fetchPaymentHistory();
   }, [userId]);
   const myComponentStyle = {
@@ -119,7 +138,6 @@ const BillingAndSubscription = () => {
     setSelectedMember(member);
     setShowMember(true);
   };
-
   const handleAddMember = () => {
     const headers = {
       "Content-type": "application/json",
@@ -137,7 +155,6 @@ const BillingAndSubscription = () => {
       phone: phone,
       user_id: userId,
     };
-
     axios.post('https://mykidz.online/api/add-member', memberData, { headers })
       .then(response => {
         console.log('Member added successfully:', response.data);
@@ -154,8 +171,7 @@ const BillingAndSubscription = () => {
         }
       });
   };
-
-  const handleCardUpdate = () => {
+  const handleAddCard = () => {
     const headers = {
       "Content-type": "application/json",
       "Authorization": `Bearer ${token}`
@@ -164,21 +180,24 @@ const BillingAndSubscription = () => {
     const card_cvc = document.getElementsByName('cvv')[0].value;
     const card_expire_date = document.getElementsByName('expiration')[0].value;
     const lastFourDigits = card_number.slice(-4);
-
     const cardData = {
+      paymentMethodId: paymentMethodId,
       card_number: card_number,
-      cvv: card_cvc,
+      card_cvc: card_cvc,
       expiration: card_expire_date,
       cardLast4: lastFourDigits,
       user_id: userId,
+      name: name,
+      billing: currenBilling,
+      user_type: 'kidzconnect',
     };
-
-    axios.post(`https://mykidz.online/api/update-card`, cardData, { headers })
+    axios.post(`https://mykidz.online/api/add-payment-details`, cardData, { headers })
       .then(response => {
         console.log('Card added successfully:', response.data);
         setErrors({});
         setShowPopup(false);
         setSelectedCard(cardData);
+        fetchPaymentHistory();
       })
       .catch(error => {
         if (error.response && error.response.data && error.response.data.errors) {
@@ -188,7 +207,6 @@ const BillingAndSubscription = () => {
         }
       });
   };
-
   const handleMemberUpdate = () => {
     const headers = {
       "Content-type": "application/json",
@@ -205,7 +223,6 @@ const BillingAndSubscription = () => {
       phone: phone,
       user_id: selectedMember.id,
     };
-
     axios.patch(`https://mykidz.online/api/update-member`, memberData, { headers })
       .then(response => {
         console.log('Member updated successfully:', response.data);
@@ -220,7 +237,27 @@ const BillingAndSubscription = () => {
           console.error('Error adding member:', error);
         }
       });
+  }
+  const [deletePopup, setDeletePopup] = useState(false);
+  const deletePaymentMethod = () => {
+    const headers = {
+      "Content-type": "application/json",
+      "Authorization": `Bearer ${token}`
+    };
+    axios.delete(`https://mykidz.online/api/payments/${userId}`, { headers })
+      .then(response => {
+        console.log('Payment Method deleted successfully:', response.data);
+        setDeletePopup(false);
+        fetchPaymentHistory()
 
+      })
+      .catch(error => {
+        if (error.response && error.response.data && error.response.data.errors) {
+          setErrors(error.response.data.errors);
+        } else {
+          console.error('Error Removing Payment Method:', error);
+        }
+      });
   }
   const removeMember = () => {
     const headers = {
@@ -240,16 +277,15 @@ const BillingAndSubscription = () => {
           console.error('Error adding member:', error);
         }
       });
-
   }
   return (
     <>
       {showPopup ? (
-        <div className="right_sidebar_parent">
+        <div className="right_sidebar_parent" >
           <div className="Update_Payment_parent">
             <div className="popup-container">
               <div className="popup-content">
-                <h1>Update Payment Method</h1>
+                <h1>Add Payment Method</h1>
                 <div className="form-check Credit_Card">
                   <input
                     className="form-check-input"
@@ -292,7 +328,7 @@ const BillingAndSubscription = () => {
                 </div>
                 <div className="card-footer">
                   <button className="submit-card cancel_card" onClick={close}>Cancel</button>
-                  <button className="submit-card" onClick={handleCardUpdate}>Confirm</button>
+                  <button className="submit-card" onClick={handleAddCard}>Confirm</button>
                 </div>
               </div>
             </div>
@@ -301,84 +337,79 @@ const BillingAndSubscription = () => {
       ) : (<div className="main-container" style={myComponentStyle}>
         {member && (
           <div class="billing-info-popup">
-          <div className="password-update">
-            <button className='closed_popup_password' onClick={close}><img loading="lazy" src={close_BTnImage} alt="protected" /></button>
-            <div className="add-member">
-              {addMemberSuccess ? (
-                <div className="success">
-                  {memberName} has been successfully added!
+            <div className="password-update">
+              <button className='closed_popup_password' onClick={close} ><img loading="lazy" src={close_BTnImage} alt="protected" /></button>
+              <div className="add-member">
+                {addMemberSuccess ? (
+                  <div className="success">
+                    {memberName} has been successfully added!
+                  </div>
+                ) : (
+                  <div className="add-member">
+                    <h2>Add a Member</h2>
+                    <div className="form-group">
+                      <label>First Name</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter Name"
+                        name="fname"
+                      />
+                      {errors && errors.first_name && (
+                        <p className="error-message">{errors.first_name}</p>
+                      )}
+                    </div>
+                    <div className="form-group">
+                      <label>Last Name</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter Name"
+                        name="lname"
+                      />
+                      {errors && errors.last_name && (
+                        <p className="error-message">{errors.last_name}</p>
+                      )}
+                    </div>
+                    <div className="form-group">
+                      <label>Email</label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        placeholder="Enter email address"
+                        name="email"
+                      />
+                      {errors && errors.email && (
+                        <p className="error-message">{errors.email}</p>
+                      )}
+                    </div>
+                    <div className="form-group">
+                      <label>Phone Number</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter phone number"
+                        name="phone"
+                      />
+                      {errors && errors.phone && (
+                        <p className="error-message">{errors.phone}</p>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div className="form-group payment_btn_lastoption">
+                  <button onClick={handleAddMember} className='add_paymentplan'>Add to Your Payment Plan</button>
+                  <button className='send_invitation'>Send an Invitation</button>
+                  <p>*The additional fee of $3.5/month will be covered by the member themselves</p>
                 </div>
-              ) : (
-                <div className="add-member">
-                  <h2>Add a Member</h2>
-                  <div className="form-group">
-                    <label>First Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter Name"
-                      name="fname"
-                    />
-                    {errors && errors.first_name && (
-                      <p className="error-message">{errors.first_name}</p>
-                    )}
-                  </div>
-
-                  <div className="form-group">
-                    <label>Last Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter Name"
-                      name="lname"
-                    />
-                    {errors && errors.last_name && (
-                      <p className="error-message">{errors.last_name}</p>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      placeholder="Enter email address"
-                      name="email"
-                    />
-                    {errors && errors.email && (
-                      <p className="error-message">{errors.email}</p>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <label>Phone Number</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter phone number"
-                      name="phone"
-                    />
-                    {errors && errors.phone && (
-                      <p className="error-message">{errors.phone}</p>
-                    )}
-                  </div>
-                </div>
-              )}
-              <div className="form-group payment_btn_lastoption">
-                <button onClick={handleAddMember} className='add_paymentplan'>Add to Your Payment Plan</button>
-                <button className='send_invitation'>Send an Invitation</button>
-                <p>*The additional fee of $3.5/month will be covered by the member themselves</p>
               </div>
             </div>
-
-          </div>
           </div>
         )}
-
-
-
         {showMember && selectedMember && (
           <div className="edit_member edit_member_srmain">
             <div className="edit_member_inner_SR">
-              <button className="close closed_popup_password" onClick={() => {setShowMember(false);setText(false)}} ><img loading="lazy" src={close_BTnImage} alt="protected" /></button>
+              <button className="close closed_popup_password" onClick={() => { setShowMember(false); setText(false) }} ><img loading="lazy" src={close_BTnImage} alt="protected" /></button>
               <h2>{selectedMember.first_name} {selectedMember.last_name}</h2>
               <div className="form-group">
                 <label>First Name*</label>
@@ -394,7 +425,6 @@ const BillingAndSubscription = () => {
                   <p className="error-message">{errors.first_name}</p>
                 )}
               </div>
-
               <div className="form-group">
                 <label>Last Name</label>
                 <input
@@ -409,7 +439,6 @@ const BillingAndSubscription = () => {
                   <p className="error-message">{errors.last_name}</p>
                 )}
               </div>
-
               <div className="form-group">
                 <label>Email*</label>
                 <input
@@ -418,7 +447,7 @@ const BillingAndSubscription = () => {
                   placeholder="Enter email address"
                   name="email"
                   defaultValue={selectedMember.email}
-                  onClick={()=>setText(true)}
+                  onClick={() => setText(true)}
                 />
                 <img loading="lazy" src={Edit_typeImg} alt="protected" />
                 {text && (
@@ -428,7 +457,6 @@ const BillingAndSubscription = () => {
                   <p className="error-message">{errors.email}</p>
                 )}
               </div>
-
               <div className="form-group">
                 <label>Phone Number</label>
                 <input
@@ -456,16 +484,13 @@ const BillingAndSubscription = () => {
             <div className="current-pan">
               <h2>Current Plan</h2>
               <div className="billing_dd-pan">
-
                 {currentPlan === 'free' ? (
                   <div className='currentPlan_sr'>
                     <p>{currentPlan}</p>
                     <p>
                       <Link to='/subscription'>Explore Plans</Link>
                     </p>
-
                   </div>
-
                 ) : currentPlan === 'classic' ? (
                   <>
                     <div className='currentPlan_sr'>
@@ -476,13 +501,10 @@ const BillingAndSubscription = () => {
                         ) : (
                           <Link to='/subscription'>Upgrade Plan</Link>
                         )}
-
                       </p>
                     </div>
                     <p className='monthly_prgph'>Monthly (Renews on August 17th, 2023)</p>
-
                   </>
-
                 ) : (
                   <>
                     <div className='currentPlan_sr'>
@@ -498,12 +520,10 @@ const BillingAndSubscription = () => {
                     <p className='monthly_prgph'>Monthly (Renews on August 17th, 2023)</p>
                     <Link to='/subscription' ><span>Switch to a Yearly plan and save up to 50%</span></Link>
                   </>
-
                 )
                 }
               </div>
             </div>
-
             <div className="extended-family">
               {owner === "false" ? (
                 <></>
@@ -534,10 +554,8 @@ const BillingAndSubscription = () => {
                         )}
                       </div>
                     </>
-
                   )}</>
               )}
-
             </div>
             <div className="payment-method">
               <h2>Payment Method</h2>
@@ -550,23 +568,36 @@ const BillingAndSubscription = () => {
                 </div>
               ) : (
                 <>
-
-
+                  {deletePopup && (<>
+                    {payments.map((cardData) => (<>
+                      <div className='Delete_payment_method'>
+                        <div className="delete-popup-container">
+                          <div className='Delete_payment_methodcontent'>
+                            <h1>Delete Payment Method</h1>
+                            <span>Are you sure you want to delete</span>
+                            <h3>Credit Card Ending in {cardData.cardLast4} </h3>
+                          </div>
+                          <div className='Delete_payment_method_buttons'>
+                            <button className='Delete_payCancel' onClick={() => { setDeletePopup(false) }}>Cancel</button>
+                            <button className='Delete_payYes' onClick={deletePaymentMethod}>Yes, Delete</button>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                    ))}
+                  </>)}
                   {payments.map((cardData) => (
                     <div key={cardData.id} className="payment-methods">
                       <p>Credit Card ending in {cardData.cardLast4}</p>
-                      <button onClick={changePaymetMethod}>Edit</button>
+                      <button className='deletepaymentbtn' onClick={() => setDeletePopup(true)}>Delete</button>
                     </div>
                   ))}
-
+                  <div className="add_payment_method">
+                    <button className='' onClick={changePaymetMethod} ><img loading="lazy" src={CirclePlu01Img} alt="protected" />Add a Payment Method</button>
+                  </div>
                 </>
-
               )}
             </div>
-
-
-
-
             <div className="billing-history">
               <h2>Billing History</h2>
               {currentPlan === 'free' || owner === "false" ? (
@@ -590,8 +621,9 @@ const BillingAndSubscription = () => {
                         {payments.map((payment) => (
                           <tr key={payment.id}>
                             <td>{formatDate(payment.created_at)}</td>
-                            <td>${parseFloat(payment.price.replace(/[^0-9.]/g, ''))}.00 USD</td>
-                            <td>{payment.plan}, {payment.billing}</td>
+                            {/* <td>${parseFloat(payment.price.replace(/[^0-9.]/g, ''))}.00 USD</td> */}
+                            <td>${payment.price ? `${parseFloat(payment.price.replace(/[^0-9.]/g, ''))}.00 USD` : 'null'}</td>
+                            <td>{payment.plan} , {payment.billing}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -600,14 +632,10 @@ const BillingAndSubscription = () => {
                 </>
               )}
             </div>
-            {/* Display other billing and subscription information here */}
           </div>
         </div>
       </div>)}
-
     </>
   );
 };
-
 export default BillingAndSubscription;
-

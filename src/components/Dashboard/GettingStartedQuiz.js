@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, Routes, Route } from 'react-router-dom';
 
 import ParentalSwitch from '../../images/Home.png';
+import DarkBlue_Home from '../../images/DarkBlue_Home.png';
+import blueTheme_Home from '../../images/blueTheme_Home.png';
+import orangeTheme_Home from '../../images/orangeTheme_Home.png';
+import pinkTheme_Home from '../../images/pinkTheme_Home.png';
+import purpleTheme_Home from '../../images/purpleTheme_Home.png';
+
 import Smiling from '../../images/emoji/02 Smiling.png';
 import Squinting from '../../images/emoji/07 Grinning Squinting Face.png';
 import Flushed from '../../images/emoji/18 Flushed Face.png';
@@ -29,6 +35,11 @@ const GettingStartedQuiz = (dataId) => {
     setUserdetail(user);
     setUsername(user.name.split(' ')[0]);
   };
+
+  useEffect(()=>{
+    const theme = sessionStorage.getItem("theme");
+    document.body.classList.add(theme);
+    },[sessionStorage.getItem("theme")])
  
   const handleEmojiClick = (reaction) => {
     console.log(reaction);
@@ -49,8 +60,16 @@ const GettingStartedQuiz = (dataId) => {
 
   return (
     <>
-      <div className='chosen-story-section'>
-        <Link className="nav-link" to="/Kids-view"  ><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
+      <div className='chosen-story-section nav_top_nav'>
+        <Link className="nav-link" to="/Kids-view">
+        <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
+          <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />
+          <img className="blueTheme_HomeIn defaultHome" loading="lazy" src={blueTheme_Home} alt='' />
+          <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
+          <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
+          <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
+
+          </Link>
         <div className='feedback-container-story' >
           <h2>How did the story make you feel?</h2>
           <p>Select an emotion!</p>

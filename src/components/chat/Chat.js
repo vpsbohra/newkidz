@@ -35,7 +35,7 @@ import paper_clip from '../../images/paper_clip.png';
 import emotes from '../../images/Frame.png';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import AudioPlayer from './AudioPlayer';
-
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 
 const Chat = ({ dataId, userId }) => {
@@ -787,6 +787,7 @@ const [STORYId,setStory_id]=useState();
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
+            <Scrollbars style={{ height: 330 }}>
             <div className="list-group user_list_sr_outer list-group-flush border-bottom scrollarea" style={{ textAlign: 'center' }}>
               {!loader ? (<>
                 {messages.length !== 0 ? (<>{messages.map((message, index) => (
@@ -1081,6 +1082,8 @@ const [STORYId,setStory_id]=useState();
               </>) : (<div className='no-chat'>    <img src={Load} alt="Loading..." /></div>
               )}
             </div>
+            </Scrollbars>
+
           </div>
         </div>
 

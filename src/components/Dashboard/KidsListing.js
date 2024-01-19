@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import AuthUser from '../../components/AuthUser';
+import Load from '../../images/index.gif';
 
 export default function KidsListing() {
   const { http } = AuthUser();
@@ -10,11 +11,16 @@ export default function KidsListing() {
   const [childProfiles, setChildProfiles] = useState([]);
   const [selectedChildId, setSelectedChildId] = useState(null);
   const childId = selectedChildId;
+  const [loader, setLoader] = useState(true);
+
 
   const fetchUserDetail = () => {
     setUserdetail(user);
     setUserId(user.id);
     http.get(`/child-profiles?user_id=${userId}`).then((res) => {
+      if(res.data){
+        setLoader(false);
+      }
       setChildProfiles(res.data);
     });
   };
@@ -28,7 +34,6 @@ export default function KidsListing() {
     setSelectedChildId(childId);
     sessionStorage.setItem('childId', childId);
     sessionStorage.setItem('setChildName', child_name);
-
 };
 
   return (
@@ -39,7 +44,7 @@ export default function KidsListing() {
             <h1>Select Kid Profile</h1>
           </div>
           <div className="who-are-you-kids">
-            {childProfiles.length > 0 ? (
+            {loader ?(<><div className='no-chat'>    <img src={Load} alt="Loading..." /></div></>):(<>{childProfiles.length > 0 ? (
               <div className='row'>
                 {childProfiles.map((childProfile) => (
                   <div className='item-who-are-you profile_type_two col-md-4 kids-listing-cstm'>
@@ -57,7 +62,8 @@ export default function KidsListing() {
               </div>
             ) : (
               <p>No child profiles found.</p>
-            )}
+            )}</>)}
+            
           </div>
         </div>
       </div>

@@ -5,6 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import RecordRTC from 'recordrtc';
 import AuthUser from '../AuthUser';
 import ParentalSwitch from '../../images/Home.png';
+import DarkBlue_Home from '../../images/DarkBlue_Home.png';
+import blueTheme_Home from '../../images/blueTheme_Home.png';
+import orangeTheme_Home from '../../images/orangeTheme_Home.png';
+import pinkTheme_Home from '../../images/pinkTheme_Home.png';
+import purpleTheme_Home from '../../images/purpleTheme_Home.png';
+
 import Transitionblob from '../../images/Transitionblob.png';
 import StanyCheering from '../../images/stany cheering.png';
 import Union from '../../images/Union.png';
@@ -341,10 +347,17 @@ const TransitionScreen = () => {
 
   return (
     <>
-      <div className='chosen-story-section all_activity_sr'>
+      <div className='chosen-story-section all_activity_sr TransitionScreen'>
         <div className='all_activity_navSR'>
           <div className='left_activity_btns' >
-            <Link className="nav-link" to="/Kids-view"><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
+            <Link className="nav-link" to="/Kids-view">
+            <img className="defaultHome" loading="lazy" src={ParentalSwitch} alt='' />
+          <img className="DarkBlue_HomeIn defaultHome" loading="lazy" src={DarkBlue_Home} alt='' />
+          <img className="blueTheme_HomeIn defaultHome" loading="lazy" src={blueTheme_Home} alt='' />
+          <img className="orangeTheme_HomeIn defaultHome" loading="lazy" src={orangeTheme_Home} alt='' />
+          <img className="pinkTheme_HomeIn defaultHome" loading="lazy" src={pinkTheme_Home} alt='' />
+          <img className="purpleTheme_HomeIn defaultHome" loading="lazy" src={purpleTheme_Home} alt='' />
+            </Link>
           </div>
           <div className='right_activity_btns' >
             <a class="nav-link toggle-profile" href=""> <span><img loading="lazy" src={Vector} /></span>3,500</a>
