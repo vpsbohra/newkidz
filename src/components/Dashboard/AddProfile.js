@@ -74,7 +74,7 @@ export default function DashboardAddprofile() {
       phone: phone,
       user_id: userId,
     };
-    axios.post('https://mykidz.online/DK/AS/test/backend/public/api/add-member', memberData, { headers })
+    axios.post('https://mykidz.online/api/add-member', memberData, { headers })
       .then(response => {
         console.log('Member added successfully:', response.data);
         // isMember(false);

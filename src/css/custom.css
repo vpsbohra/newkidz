@@ -11842,12 +11842,17 @@ margin: 0 auto;
 padding-left: 0;
 padding-top: 15px;
 }
+/* added css for animation */
 
 .all_activity_sr_inner .popup .popup-content span.all_activity_points {animation: 3s slide-up;margin-top:0%;opacity: 0;}
 @keyframes slide-up {
 from {margin-top: 0%;height: 100%;opacity: 1;}
 to {margin-top: -15%;height: 100%;opacity: 0;}
 }
+
+
+
+
 
 .feedback-container-story .correct_item_sr .point-earned-popup span {animation: 4s slide-upp;margin-top:0%;opacity: 0;}
 @keyframes slide-upp {
