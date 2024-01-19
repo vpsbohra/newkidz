@@ -3,7 +3,7 @@ import ParentalSwitch from '../../images/Home.png';
 import KidzBottomNav from './KidzBottomNav';
 import axios from 'axios';
 import AuthUser from '../AuthUser';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PNLeft_arrow from '../../images/PN_Arrow_Left.png';
 import PNRight_arrow from '../../images/PNArrow_right.png';
 import Play_Story_Button from '../../images/Play_Story_Button.png';
@@ -23,6 +23,7 @@ const AudioPlayer = () => {
   const audio = useRef(new Audio(currentaudio));
   const [highlightTimeout, sethighlightTimeout] = useState(null);
   const [x, setX] = useState(true);
+  const navigate = useNavigate();
 
  
   const handleNextPage = () => {
@@ -32,7 +33,7 @@ const AudioPlayer = () => {
       setcurrentImage(coverImgDataArray[currentPage + 1]);
       setCurrentAudioIndex(currentPage + 1);
       setCurrentPage(currentPage + 1);
-      localStorage.removeItem('highlightStep');
+      localStorage.setItem('highlightStep',0);
     } else {
       window.location.href = '/donewithbook';
     }
@@ -45,7 +46,7 @@ const AudioPlayer = () => {
       setcurrentImage(coverImgDataArray[currentPage - 1]);
       setCurrentAudioIndex(currentPage - 1);
       setCurrentPage(currentPage - 1);
-      localStorage.removeItem('highlightStep');
+      localStorage.setItem('highlightStep',0);
     }
   };
   
@@ -63,7 +64,7 @@ const AudioPlayer = () => {
     const originalText = textElement.textContent;
     const words = originalText.split(' ');
 
-    let step = localStorage.getItem('highlightStep') || 0;
+    let step = JSON.parse(localStorage.getItem('highlightStep')) || 0;
 
     const duration = durationInSeconds - step * (durationInSeconds / words.length);
     const interval = duration / (words.length - step);
@@ -85,7 +86,7 @@ const AudioPlayer = () => {
         localStorage.setItem('highlightStep', step);
         sethighlightTimeout(setTimeout(updateHighlighting, interval));
       } else {
-        localStorage.removeItem('highlightStep');
+        localStorage.setItem('highlightStep',0);
         setX(true);
       }
     }
@@ -137,7 +138,7 @@ const AudioPlayer = () => {
   useEffect(() => {
     const handleAudioEnd = () => {
       handleNextPage();
-      localStorage.removeItem('highlightStep');
+      localStorage.setItem('highlightStep',0);
     };
     updateAudio();
   
@@ -191,9 +192,18 @@ const AudioPlayer = () => {
       console.error('Error fetching readedstory data:', error);
     }
   };
+  const update=()=>{
+    localStorage.setItem('highlightStep', 0);
+    pause();
+    setTimeout(() => {
+    navigate('/kids-view');
+      
+    }, 1000);
+
+  }
   return (
     <div className='chosen-story-section openbook_page_kidz'>
-      <Link className="nav-link" to="/kids-view"><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
+      <Link className="nav-link"  onClick={update}><img loading="lazy" src={ParentalSwitch} alt='' /></Link>
       <div className="top-nav">
         <KidzBottomNav />
       </div>
