@@ -347,7 +347,7 @@ const Start_Printing = () => {
                                 <title>Print</title>
                                 <style>
                                     body {
-                                        margin: 15px;
+                                        margin: 0;
                                         padding: 0;
                                     }
                                     img {
