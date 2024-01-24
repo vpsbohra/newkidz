@@ -11859,3 +11859,40 @@ to {margin-top: -15%;height: 100%;opacity: 0;}
 from {margin-top: 0%;height: 100%;opacity: 1;}
 to {margin-top: -22%;height: 100%;opacity: 0;}
 }
+
+
+.page_ttls .toggle_characters {
+	margin-bottom: 70px;
+}
+.page_ttls .toggle_characters span {
+	font-family: Plus Jakarta Sans;
+	font-size: 32px;
+	font-weight: 400;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+	margin-right: 32px;
+	position: relative;
+	padding-bottom: 32px;
+	cursor: pointer;
+}
+.page_ttls .toggle_characters span.active {
+	font-weight: 800;
+}
+.page_ttls .toggle_characters span::after {
+	content: '';
+	background: transparent;
+	height: 16px;
+	width: 0%;
+	display: block;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	border-radius: 30px;
+	transition: width .5s;
+}
+.page_ttls .toggle_characters span.active::after {
+	background: #FDD835;
+	width: 100%;
+}

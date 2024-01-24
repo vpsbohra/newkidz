@@ -23,9 +23,9 @@ export default function AuthUser(){
 
     const getUserId = () => {
         return user ? user.id : null;
-      };
-
-    const [token,setToken] = useState(getToken());
+    };
+        
+        const [token,setToken] = useState(getToken());
     const [user,setUser] = useState(getUser());
 
     const saveToken = (user,token) =>{
