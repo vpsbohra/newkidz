@@ -67,13 +67,11 @@ function Guest() {
                     <Route path="/quiz-question" element={<Quiz />} />
                     <Route path="/logout" element={<Home />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="*" element={<Navigate to="/login" />} />
                     <Route path="/T&C" element={<TC />} />
                     <Route path="/Privacy_policy" element={<Privacy_policy />} />
                     <Route path="/ForgetPassword" element={<ForgetPassword />} />
                     <Route path="/ResetPassword" element={<ResetPassword />} />
-
-
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </div>
         </>
