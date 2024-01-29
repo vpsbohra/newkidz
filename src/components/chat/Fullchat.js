@@ -298,7 +298,7 @@ const Fullchat = ({ selectedDate, dataId }) => {
             dataaudio.push(item.audio_path);
             question.push(item.question_voice_answer);
             seconds.push(item.total_second);
-            console.log("!", dataaudio);
+            // console.log("!", dataaudio);
           } else if (
             item.voice_answer !== null &&
             itemDate.getDate() === selectedDay.getDate() &&
@@ -308,7 +308,7 @@ const Fullchat = ({ selectedDate, dataId }) => {
             dataaudio.push(item.voice_answer);
             question.push(item.question_voice_answer);
             seconds.push(item.total_second);
-            console.log("!1", dataaudio);
+            // console.log("!1", dataaudio);
           }
           else if (
             item.question_voice !== null &&
@@ -319,7 +319,7 @@ const Fullchat = ({ selectedDate, dataId }) => {
             dataaudio.push(item.question_voice);
             question.push(item.question_voice_answer);
             seconds.push(item.total_second);
-            console.log("!2", dataaudio);
+            // console.log("!2", dataaudio);
           }
         });
       } else {
@@ -367,6 +367,7 @@ const Fullchat = ({ selectedDate, dataId }) => {
       } else {
         sessionStorage.setItem("TOGGLE", true);
         setTaudio(false);
+        setLoader(false);
       }
       for (let i = 0; i < dataaudio.length; i++) {
         let audioFile = dataaudio[i];
@@ -398,7 +399,6 @@ const Fullchat = ({ selectedDate, dataId }) => {
     }
   };
   const [hidden, setHidden] = useState(false);
-  const remainingMembersCount = members.length - displayedMembers.length;
   const [showAllMembers, setShowAllMembers] = useState(false);
   const [hide, setHide] = useState(true);
   const handleShowAllMembersClick = () => {

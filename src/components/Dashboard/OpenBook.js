@@ -44,9 +44,7 @@ const OpenStory = () => {
   }, [sessionStorage.getItem("theme")])
 
   useEffect(() => {
-    setTimeout(() => {
-      setWait(true)
-    }, 2000);
+    
     if (stories.length > 0 && currentAudioIndex >= 0) {
       const selectedStory = stories[0];
       const audioParts = selectedStory.english_audio_part.split(',');
@@ -209,7 +207,11 @@ const OpenStory = () => {
   const coverImgData = stories[0]?.cover_image || '';
   const coverImgDataArray = coverImgData.split(',');
   const handleNextPage = () => {
+   
     setWait(false);
+    setTimeout(() => {
+      setWait(true)
+    }, 2000);
     setRep(false);
     pause();
     if (currentPage < totalPages - 1) {
@@ -266,6 +268,9 @@ const OpenStory = () => {
   }
   const handlePrevPage = () => {
     setWait(false);
+    setTimeout(() => {
+      setWait(true)
+    }, 2000);
     setRep(false);
     pause();
     if (currentPage > 0) {
@@ -350,6 +355,7 @@ const OpenStory = () => {
       console.error('Error fetching child data:', error);
     }
   };
+
   return (
     <div className='chosen-story-section openbook_page_kidz nav_top_nav'>
       <Link className="nav-link" onClick={update}>
@@ -369,13 +375,16 @@ const OpenStory = () => {
           {story.id == StoryId &&
             <div className='openbook_section_sr'>
               <div className='openbook_section_left'>
-                <img  src={currentImage} alt='' onClick={openModal} />
+                <img src={currentImage} alt='' onClick={openModal} />
               </div>
               <div className='openbook_section_right'>
                 {wait && (<>
-                  {rep ? (<><button className='Play_Storys_sr' onClick={() => { play(); setRep(false) }} >
+                  {rep ? (<><button className='Play_Storys_sr' onClick={() => {
+                    play();
+                    setRep(false)
+                  }}>
                     <img loading="lazy" src={Replay} />
-                  </button> </>)
+                  </button></>)
                     :
                     (<><button className='Play_Storys_sr' onClick={x ? play : pause} >
                       <img loading="lazy" src={x ? Play_Story_Button : Pause_Story_Button} />
@@ -390,8 +399,11 @@ const OpenStory = () => {
                 </div>
               </div>
               <div className="pagination">
-                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
+                {wait && (<>
+                  <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
                 <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" src={PNRight_arrow} alt='' /></button>
+                </>)}
+               
               </div>
             </div>
           }

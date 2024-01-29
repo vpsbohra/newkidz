@@ -388,6 +388,14 @@ const Settings = () => {
     setShowPopupTwo(false);
     setShowPopupThree(true);
   };
+
+  function getCurrentDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
   { refreshComponent && <Settings /> }
   return (
     <>
@@ -635,6 +643,7 @@ const Settings = () => {
                       placeholder="Enter birth date"
                       value={child.birthday}
                       onChange={(e) => handleChildInputChange(index, 'birthday', e.target.value)}
+                      max={getCurrentDate()}
                     />
 
                     {/* <button onClick={() => handleUpdateChildData(index)}>Update</button> */}
