@@ -183,9 +183,9 @@
     .contact_page_sr {background-position: left center;padding-top: 0;padding-bottom: 60px;}
     .row.kidzeconnect_bring_btn {width: 100%;margin-top: 20px;max-width: 100%;margin: 10px 0 0 0;}
 
-    .account_created-dash .row.display-table-row .navbar-toggler {position: absolute;left: 20px;top: 20px;z-index: 999;width: 100%;max-width: 50px;}
+    .account_created-dash .row.display-table-row .navbar-toggler {position: absolute;left: 20px;top: 20px;z-index: 999999;width: 100%;max-width: 50px;}
     .account_created-dash .row.display-table-row .navbar-toggler.dashboard_menuActive {position: fixed;}
-    .account_created-dash .row.display-table-row #navigation {position: fixed;left: 0;top: 0;transform: translateX(-50vw);animation: mymove 5s infinite;transition: transform 250ms linear;z-index: 99;}
+    .account_created-dash .row.display-table-row #navigation {position: fixed;left: 0;top: 0;transform: translateX(-50vw);animation: mymove 5s infinite;transition: transform 250ms linear;z-index: 99999;}
     .account_created-dash .row.display-table-row #navigation.show {width: 100%;visibility: inherit;opacity: 1;overflow: inherit;padding: 20px;max-width: 400px;padding-top: 100px;transform: translateX(0vw);}
     .account_created-dash .row.display-table-row .navbar-toggler .navbar-toggler-icon {width: 100%;height: 100%;}
     .account_created-dash .row.display-table-row .navbar-toggler .navbar-toggler-icon img {width: 100%;height: 100%;}
@@ -678,6 +678,9 @@
     }
     .notification-active-cnt .audio-player .progress-bar .time-display2 .current-time {
         font-size: 12px;
+    }
+    .fullconver_chat .audio_fullcon.audio_fullcon-cstm {
+        width: 100% !important;
     }
 }
 
