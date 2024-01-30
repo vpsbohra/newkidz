@@ -301,7 +301,7 @@ const Chat = ({ dataId, userId }) => {
   //   }
   // }
 
-  const storydetails = JSON.parse(localStorage.getItem('storiesLocal'));
+  const storydetails = JSON.parse(localStorage.getItem('storiesLocal'))|| '';
   const storyId =  storydetails.id?storydetails.id:'';
   useEffect(()=>{
     localStorage.setItem("ThankyouResponse",'null')
