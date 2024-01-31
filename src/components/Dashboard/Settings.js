@@ -39,6 +39,14 @@ const Settings = () => {
   const [refreshComponent, setRefreshComponent] = useState(false);
   const [showbtns, setshowbtns] = useState(false);
   const [refresh, setRefresh] = useState(true);
+  // Add these state variables
+  const [pushNotificationValue, setPushNotificationValue] = useState(
+    JSON.parse(localStorage.getItem('notification1')) || false
+  );
+  const [emailNotificationValue, setEmailNotificationValue] = useState(
+    JSON.parse(localStorage.getItem('notification2')) || false
+  );
+
 
   const removeBodyClass1 = () => {
     document.body.classList.remove('popup_active');
@@ -180,7 +188,7 @@ const Settings = () => {
       const { name, ...userData } = response.data;
       const [fname, lname] = name.split(' ');
       console.log(response.data);
-      
+
       setUserData({ fname, lname, ...userData });
       const userSpouse = JSON.parse(sessionStorage.getItem('userSpouse'));
       response.data.spouse = userSpouse;
@@ -188,7 +196,7 @@ const Settings = () => {
       const user_detail = JSON.stringify(response.data);
       // console.log('123123123' , user_detail);
       if (user_detail) {
-         sessionStorage.setItem("user", user_detail);
+        sessionStorage.setItem("user", user_detail);
       }
 
 
@@ -388,6 +396,28 @@ const Settings = () => {
     setShowPopupTwo(false);
     setShowPopupThree(true);
   };
+
+
+  const pushNotification = () => {
+    setshowbtns(true);
+    const updatedValue = !pushNotificationValue;
+    setPushNotificationValue(updatedValue);
+    localStorage.setItem('notification1', JSON.stringify(updatedValue));
+  };
+
+  const mailNotification = () => {
+    setshowbtns(true);
+    const updatedValue = !emailNotificationValue;
+    setEmailNotificationValue(updatedValue);
+    localStorage.setItem('notification2', JSON.stringify(updatedValue));
+  };
+  function getCurrentDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
   { refreshComponent && <Settings /> }
   return (
     <>
@@ -450,10 +480,10 @@ const Settings = () => {
                 <form onSubmit={handleSubmit}>
                   {UploadDiv && (
                     <>
-                    <div className='profile_item_group'>
-                      <input className='file_choise_profile' type="file" onChange={handleImageChange} />
-                      <span><img loading="lazy" src={Image_UploadImage}/> Upload Image</span>
-                    </div>
+                      <div className='profile_item_group'>
+                        <input className='file_choise_profile' type="file" onChange={handleImageChange} />
+                        <span><img loading="lazy" src={Image_UploadImage} /> Upload Image</span>
+                      </div>
                     </>
                   )}
                   {Upload && (
@@ -590,7 +620,7 @@ const Settings = () => {
               <div key={index} className="kids_control information_input_sr">
                 <p className='kidz_profile_section'>Child profile {index + 1}</p>
                 <button className="cancel" onClick={() => removeChildProfile(index)}>
-                Delete Profile
+                  Delete Profile
                 </button>
                 <div className="personal_information_input">
                   <div className="form-group">
@@ -635,6 +665,7 @@ const Settings = () => {
                       placeholder="Enter birth date"
                       value={child.birthday}
                       onChange={(e) => handleChildInputChange(index, 'birthday', e.target.value)}
+                      max={getCurrentDate()}
                     />
 
                     {/* <button onClick={() => handleUpdateChildData(index)}>Update</button> */}
@@ -728,14 +759,24 @@ const Settings = () => {
                 <div className="form-group">
                   <p>Push Notifications</p>
                   <label className="switch">
-                    <input type="checkbox" className="form-control" />
+                    <input
+                      type="checkbox"
+                      className="form-control"
+                      onChange={pushNotification}
+                      checked={pushNotificationValue}
+                    />
                     <span className="sliderr round"></span>
                   </label >
                 </div>
                 <div className="form-group">
                   <p>Email Notifications</p>
                   <label className="switch">
-                    <input type="checkbox" className="form-control" />
+                    <input
+                      type="checkbox"
+                      className="form-control"
+                      onChange={mailNotification}
+                      checked={emailNotificationValue}
+                    />
                     <span className="sliderr round"></span>
                   </label >
 
@@ -764,8 +805,8 @@ const Settings = () => {
                     }>
                       <button className='Cancel_setting_btn' onClick={() => {
                         setRefresh(false);
-  
-                       setshowbtns(false);
+
+                        setshowbtns(false);
                         setTimeout(() => {
                           setRefresh(true);
                           fetchProfileImage();
@@ -780,7 +821,7 @@ const Settings = () => {
                           Update();
                           childProfiles.forEach((child, index) => {
                             handleUpdateChildData(index);
-                          }); 
+                          });
                           setshowbtns(false);
                           setRefresh(false);
                           setTimeout(() => {
