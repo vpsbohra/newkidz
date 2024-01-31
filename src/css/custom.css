@@ -10520,7 +10520,7 @@ input:checked~.checkmark {
 .imagepopupdiv.modal.selected-popup .modal-content {
 	width: 95%;
 	border-radius: 22px;
-	max-width: 535px;
+	max-width: 520px;
 	margin: 0px auto;
 	position: absolute;
 	left: 0;
@@ -10530,10 +10530,10 @@ input:checked~.checkmark {
 }
 
 .imagepopupdiv.modal.selected-popup .modal-content img {
-	border-radius: 22px;
-	height: 533px;
-	object-fit: contain;
-	border: 10px solid #FDD835;
+    border-radius: 22px;
+    height: 630px;
+    object-fit: cover;
+    object-position: top;
 }
 
 .imagepopupdiv.modal.selected-popup .modal-content .close {
