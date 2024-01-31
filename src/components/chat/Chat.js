@@ -230,6 +230,20 @@ const Chat = ({ dataId, userId }) => {
       pusher.unsubscribe('chat');
     };
   }, []);
+  useEffect(() => {
+    const updateParentId = () => {
+      const scrollArea = document.querySelector('.scrollarea');
+      if (scrollArea && scrollArea.parentNode) {
+        scrollArea.parentNode.setAttribute('id', 'chat-messages-page');
+      }
+    };
+
+    updateParentId(); // Call the function once when the component mounts
+
+    // Clean up function to remove event listeners, etc. (if needed)
+    // For this example, since it's a one-time operation, we don't need cleanup
+
+  }, []);
 
   useEffect(() => {
     const audioPlayers = document.querySelectorAll('.audio-player');
@@ -778,7 +792,7 @@ const [STORYId,setStory_id]=useState();
   return (
     <>
       <div className="chat_section_sr">
-        <div id="chat-messages-page" className="chat_section_sr_right" >
+        <div className="chat_section_sr_right" >
           <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" ref={chatSectionRightRef}>
             <div className="user_name_chat d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
               <input
