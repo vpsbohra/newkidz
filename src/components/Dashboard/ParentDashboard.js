@@ -109,18 +109,23 @@ const ParentDashboard = () => {
     setSelectedChildId(childId, userId);
   };
 
-  const fetchProfileImage = async () => {
+const fetchProfileImage = async () => {
     try {
-      const response = await axios.get(`https://mykidz.online/api/get-profile-image/${user.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        responseType: 'blob',
-      });
-
-      const imageUrl = URL.createObjectURL(response.data);
-      console.log(imageUrl);
-      setProfileImage(imageUrl);
+      // Check if user.id is available
+      if (user && user.id) {
+        const response = await axios.get(`https://mykidz.online/api/get-profile-image/${user.id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          responseType: 'blob',
+        });
+  
+        const imageUrl = URL.createObjectURL(response.data);
+        console.log(imageUrl);
+        setProfileImage(imageUrl);
+      } else {
+        console.error('User ID is not available.');
+      }
     } catch (error) {
       console.error('Error fetching profile image:', error);
     }

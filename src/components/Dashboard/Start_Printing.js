@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import KidsNav from "../../navbar/kidzNav";
+import axios from "axios";
 
 import balum1 from "../../images/characters/BalumBalum/1.webp";
 import balum2 from "../../images/characters/BalumBalum/2.webp";
@@ -11,7 +12,7 @@ import balum6 from "../../images/characters/BalumBalum/6.webp";
 import balum7 from "../../images/characters/BalumBalum/7.webp";
 import balum8 from "../../images/characters/BalumBalum/8.webp";
 import balum9 from "../../images/characters/BalumBalum/9.webp";
-
+//git check 
 import booboo1 from "../../images/characters/Booboo/1.webp";
 import booboo2 from "../../images/characters/Booboo/2.webp";
 import booboo3 from "../../images/characters/Booboo/3.webp";
@@ -176,11 +177,34 @@ import Medium from "../../images/Sizes/Medium.jpg";
 import Normal from "../../images/Sizes/Normal.jpg";
 import close from "../../images/Close.png";
 
+import colored_balum1 from "../../images/colored_images/balum1.webp";
+import colored_cindy1 from "../../images/colored_images/cindy1.webp";
+import colored_cindy2 from "../../images/colored_images/cindy2.webp";
+import colored_drawing_room1 from "../../images/colored_images/drawing_room1.webp";
+import colored_friends1 from "../../images/colored_images/friends1.webp";
+import colored_friends2 from "../../images/colored_images/friends2.webp";
+import colored_friends3 from "../../images/colored_images/friends3.webp";
+import colored_giovanni1 from "../../images/colored_images/giovanni1.webp";
+import colored_giovanni2 from "../../images/colored_images/giovanni2.webp";
+import colored_giovanni3 from "../../images/colored_images/giovanni3.webp";
+import colored_hospital1 from "../../images/colored_images/hospital1.webp";
+import colored_hospital2 from "../../images/colored_images/hospital2.webp";
+import colored_magicdoor1 from "../../images/colored_images/magicdoor1.webp";
+import colored_party1 from "../../images/colored_images/party1.webp";
+import colored_party2 from "../../images/colored_images/party2.webp";
+import colored_stanycar1 from "../../images/colored_images/stanycar1.webp";
+import colored_stefy1 from "../../images/colored_images/stefy1.webp";
+import colored_stefy2 from "../../images/colored_images/stefy2.webp";
+import colored_stefy3 from "../../images/colored_images/stefy3.webp";
+import colored_stefy4 from "../../images/colored_images/stefy4.webp";
+
+
+
 
 const Start_Printing = () => {
-    const navigate = useNavigate();
-    const [selectedSize, setSelectedSize] = useState("Big");
+    const [selectedSize, setSelectedSize] = useState("big");
     const [start, setStart] = useState(false);
+    const [printChartype, setPrintCharType] = useState(true);
     const characters = [
         balum1, balum2, balum3, balum4, balum5, balum6, balum7, balum8, balum9,
         booboo1, booboo2, booboo3, booboo4, booboo5, booboo6, booboo7,
@@ -201,22 +225,36 @@ const Start_Printing = () => {
         Stephy1, Stephy2, Stephy3, Stephy4, Stephy5, Stephy6,
         Stock1, Stock2, Stock3, Stock4, Stock5, Stock6, Stock7, Stock8, Stock9, Stock10, Stock11, Stock12,
     ];
-    
-
+    const [colored_characters, setColoredCharacters] = useState([]);
+    useEffect(() => {
+        fetchColoredCharacters();
+    }, [])
+    const fetchColoredCharacters = async () => {
+        try {
+            const response = await axios.get(`https://mykidz.online/api/get-all-images`);
+            console.log("Response", response);
+            const data = response.data;
+            setColoredCharacters(data);
+            console.log('colored_characters', response.data);
+        } catch (error) {
+            console.error('Error fetching members:', error);
+        }
+    };
     const [selectedImage, setSelectedImage] = useState(null);
-
-    const [ w , setW]=useState(3);
-    const [ h , setH]=useState(3);
-    const [ s , setS]=useState(9);
+    const [w, setW] = useState(3);
+    const [h, setH] = useState(3);
+    const [s, setS] = useState(9);
     console.log("selectedSize", selectedSize)
-    const handleSizeSelect = (size,w,h,s) => {
-       setW(w);
-       setH(h);
-       setS(s);
+    const handleSizeSelect = (size, w, h, s) => {
+        setW(w);
+        setH(h);
+        setS(s);
         setSelectedSize(size);
     }
-    const openModal = (image) => {
+    const [imageIndex, setImageIndex] = useState();
+    const openModal = (image, index) => {
         setSelectedImage(image);
+        setImageIndex(index);
         setIsModalOpen(true);
     };
 
@@ -231,20 +269,19 @@ const Start_Printing = () => {
         setStart(true);
     };
 
-    const handleClose =()=>{
-
+    const handleClose = () => {
         setStart(false);
         setIsModalOpen(false);
     }
 
     const handlePrintMain = () => {
-        if(selectedSize === 'Normal'){
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                const image = new Image();
-                image.src = selectedImage;
-                image.onload = () => {
-                    iframe.contentDocument.write(`
+        if (selectedSize === 'Normal') {
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            const image = new Image();
+            image.src = selectedImage;
+            image.onload = () => {
+                iframe.contentDocument.write(`
                         <html>
                             <head>
                                 <title>Print</title>
@@ -266,48 +303,44 @@ const Start_Printing = () => {
                             </body>
                         </html>
                     `);
-            
-                    const printImage = iframe.contentDocument.querySelector('img');
-                    printImage.onload = () => {
-                        iframe.contentWindow.print();
-                        document.body.removeChild(iframe);
-                    };
+
+                const printImage = iframe.contentDocument.querySelector('img');
+                printImage.onload = () => {
+                    iframe.contentWindow.print();
+                    document.body.removeChild(iframe);
                 };
-            
-                document.body.appendChild(iframe);
+            };
+
+            document.body.appendChild(iframe);
         }
-        else{
-           
-           
+        else {
+
+
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
-        
+
             const image = new Image();
             image.src = selectedImage;
-        
+
             image.onload = () => {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
-        
-                const pageWidth = image.width; // A4 width in pixels
-                const pageHeight = image.height; // A4 height in pixels
-        
+
+                const pageWidth = image.width; 
+                const pageHeight = image.height;
+
                 canvas.width = pageWidth;
                 canvas.height = pageHeight;
-        
+
                 context.drawImage(image, 0, 0, image.width, image.height);
-        
-                // Calculate quadrant dimensions
+
                 const quadrantWidth = image.width / w;
                 const quadrantHeight = image.height / h;
-        
-                // Print each quadrant on a separate page
+
                 for (let i = 0; i < s; i++) {
                     const x = (i % w) * quadrantWidth;
                     const y = Math.floor(i / w) * quadrantHeight;
-        
                     const imageData = context.getImageData(x, y, quadrantWidth, quadrantHeight);
-        
                     iframe.contentDocument.write(`
                         <html>
                             <head>
@@ -326,13 +359,12 @@ const Start_Printing = () => {
                             </head>
                             <body>
                                 <div style="page-break-before: always;">
-                                    <img src="data:image/png;base64,${encodeBase64(imageData)}" alt="Print">
+                                    <img src="data:image/png;base64,${encodeBase641(imageData)}" alt="Print">
                                 </div>
                             </body>
                         </html>
                     `);
                 }
-        
                 const printImage = iframe.contentDocument.querySelector('img');
                 if (printImage) {
                     printImage.onload = () => {
@@ -341,14 +373,11 @@ const Start_Printing = () => {
                     };
                 }
             };
-        
             document.body.appendChild(iframe);
         }
-
-       
     };
-    
-    const encodeBase64 = (imageData) => {
+
+    const encodeBase641 = (imageData) => {
         const canvas = document.createElement('canvas');
         canvas.width = imageData.width;
         canvas.height = imageData.height;
@@ -356,69 +385,125 @@ const Start_Printing = () => {
         context.putImageData(imageData, 0, 0);
         return canvas.toDataURL('image/png').split(',')[1];
     };
-    
 
+
+    const handleColorPrint = () => {
+        const printImagesOnPage = (imageUrls) => {
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+    
+            document.body.appendChild(iframe); 
+    
+            const printDocument = imageUrls
+                .map(imageUrl => `<img src="${imageUrl}" alt="Print">`)
+                .join('');
+    
+            iframe.contentDocument.write(`
+                <html>
+                    <head>
+                        <title>Print</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                padding: 0;
+                            }
+                            img {
+                                max-width: 100%;
+                                height: 100vh;
+                                object-fit: contain;
+                                page-break-before: always;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        ${printDocument}
+                    </body>
+                </html>
+            `);
+    
+            const lastImage = iframe.contentDocument.querySelector('img:last-child');
+            lastImage.onload = () => {
+                iframe.contentWindow.print();
+                document.body.removeChild(iframe);
+            };
+        };
+        if (selectedSize === 'Normal') {
+            printImagesOnPage([selectedImage]);
+        } else {
+            const selectedImageUrls = colored_characters[imageIndex][selectedSize].split(',').map(url => url.trim());
+            printImagesOnPage(selectedImageUrls);
+        }
+    };
     return (
         <>
-            <div className={`kidzdashboard ${start ? 'active_popup':""}`} >
+            <div className={`kidzdashboard start_printing_pageSr ${start ? 'active_popup' : ""}`} >
                 <div className="container-fluids display-table">
                     <KidsNav />
-                   
-                        <div className="main-content">
-                            <div className="page_ttls">
-                                <div className='kidz_allcharacters_Sr start_printing'>
-                                    <div className='kidz_profile_popupsr_inner'>
+                    <div className="main-content">
+                        <div className="page_ttls">
+                            <div className="toggle_characters">
+                                <span onClick={() => { setPrintCharType(true) }} className={printChartype ? 'active' : ''} >Illustrations</span>
+                                <span onClick={() => { setPrintCharType(false) }} className={printChartype ? '' : 'active'} >Coloring Pages</span>
+                            </div>
+                            <div className={`kidz_allcharacters_Sr start_printing  ${printChartype?"":"coloring_acitve"}`}>
+                                <div className='kidz_profile_popupsr_inner'>
+                                    {printChartype ? (<>
                                         {characters.map((character, index) => (
                                             <div className="kidz_profile_popupsr_content" onClick={() => openModal(character)}>
                                                 <img loading="lazy" src={character} alt={`Character ${index + 1}`} className="modal-image" />
                                             </div>
                                         ))}
-                                    </div>
+                                    </>) : (<>
+                                        {colored_characters.map((character, index) => (
+                                            <div className="kidz_profile_popupsr_content" onClick={() => openModal(character.profile_image, index)}>
+                                                <img loading="lazy" src={character.profile_image} alt={`Character ${index + 1}`} className="modal-image" />
+                                            </div>
+                                        ))}
+                                    </>)}
                                 </div>
                             </div>
                         </div>
-                   
-
+                    </div>
                     {start && (
                         <div className="select_size_main">
-                             <img className="close_btn_size" src={close} alt="close" onClick={handleClose} />
+                            <img className="close_btn_size" src={close} alt="close" onClick={handleClose} />
                             <div className="main-content">
-                               
+
                                 <div className="select_size_mainInner">
                                     <div className="left_content">
-                                        <img src={selectedSize === "Big" ? Big : selectedSize === "Jumbo" ? Jumbo : selectedSize === "Larger" ? Larger : selectedSize === "Medium" ? Medium : Normal} alt="room_image" />
+                                        <img src={selectedSize === "big" ? Big : selectedSize === "jumbo" ? Jumbo : selectedSize === "larger" ? Larger : selectedSize === "medium" ? Medium : Normal} alt="room_image" />
                                     </div>
                                     <div className="right_content">
-                                        <button className="start_printingBtn" onClick={handlePrintMain}><span>START PRINTING</span></button>
+                                        <button className="start_printingBtn" onClick={printChartype ? handlePrintMain : handleColorPrint}><span>START PRINTING</span></button>
 
                                         <p>Choose the perfect size for your illustration!</p>
                                         <div className="select_size_bottomBTn">
                                             <div className="bottom_content">
-                                            <button className={`normal${selectedSize == "Normal" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Normal") }}><span>NORMAL</span></button>
-                                            <button className={`medium${selectedSize == "Medium" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Medium") }}><span>MEDIUM</span></button>
-                                            <button className={`big${selectedSize == "Big" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Big") }}><span>BIG</span></button>
-                                            <button className={`larger${selectedSize == "Larger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Larger") }}><span>LARGER</span></button>
-                                            <button className={`jumbo${selectedSize == "Jumbo" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Jumbo") }}><span>JUMBO</span></button>
+                                                <button className={`normal${selectedSize == "Normal" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Normal") }}><span>NORMAL</span></button>
+                                                <button className={`medium${selectedSize == "medium" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("medium") }}><span>MEDIUM</span></button>
+                                                <button className={`big${selectedSize == "big" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("big") }}><span>BIG</span></button>
+                                                <button className={`bigger${selectedSize == "bigger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("bigger", 5, 4, 20) }}><span>BIGGER</span></button>
+                                                <button className={`larger${selectedSize == "larger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("larger") }}><span>LARGER</span></button>
+                                                <button className={`jumbo${selectedSize == "jumbo" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("jumbo") }}><span>JUMBO</span></button>
                                             </div>
                                         </div>
                                         <img src={selectedImage} alt="Your_character_image" />
                                     </div>
                                 </div>
                                 <div className="select_size_bottomBTn">
-
                                     <div className="bottom_content">
                                         <button className={`normal${selectedSize == "Normal" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Normal") }}><span>NORMAL</span></button>
-                                        <button className={`medium${selectedSize == "Medium" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Medium",2,2,4) }}><span>MEDIUM</span></button>
-                                        <button className={`big${selectedSize == "Big" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Big",3,3,9) }}><span>BIG</span></button>
-                                        <button className={`bigger${selectedSize == "Bigger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Bigger",5,4,20) }}><span>BIGGER</span></button>
-                                        <button className={`larger${selectedSize == "Larger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Larger",6,6,36)}}><span>LARGER</span></button>
-                                        <button className={`jumbo${selectedSize == "Jumbo" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Jumbo",8,6,48 )}}><span>JUMBO</span></button>
+                                        <button className={`medium${selectedSize == "medium" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("medium", 2, 2, 4) }}><span>MEDIUM</span></button>
+                                        <button className={`big${selectedSize == "big" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("big", 3, 3, 9) }}><span>BIG</span></button>
+                                        <button className={`bigger${selectedSize == "bigger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("bigger", 5, 4, 20) }}><span>BIGGER</span></button>
+                                        <button className={`larger${selectedSize == "larger" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("larger", 6, 6, 36) }}><span>LARGER</span></button>
+                                        <button className={`jumbo${selectedSize == "jumbo" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("jumbo", 8, 6, 48) }}><span>JUMBO</span></button>
                                     </div>
-                                </div> 
-                                
+                                </div>
+
                             </div>
                         </div>
-                    )}                                      
+                    )}
 
                 </div>
             </div>
@@ -437,7 +522,7 @@ const Start_Printing = () => {
                     </div>
                 </div>
             ) : (<></>)}
-        </> 
+        </>
     );
 };
 

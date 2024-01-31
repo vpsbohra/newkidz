@@ -22,20 +22,20 @@ export default function Login() {
     const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        const storedUser = sessionStorage.getItem("user");
-        if (storedUser) {
-            navigate('/parent-dashboard');
-        }
-        const rememberMeCheck = sessionStorage.getItem("rememberMe");
-        if (rememberMeCheck === "true") {
-            const storedEmail = sessionStorage.getItem("email");
-            if (storedEmail) {
-                navigate('/parent-dashboard');
-            }
-        }
-    }, [navigate]);
+    //     const storedUser = sessionStorage.getItem("user");
+    //     if (storedUser) {
+    //         navigate('/parent-dashboard');
+    //     }
+    //     const rememberMeCheck = sessionStorage.getItem("rememberMe");
+    //     if (rememberMeCheck === "true") {
+    //         const storedEmail = sessionStorage.getItem("email");
+    //         if (storedEmail) {
+    //             navigate('/parent-dashboard');
+    //         }
+    //     }
+    // }, [navigate]);
 
     const submitForm = () => {
         setFormStatus('loading');

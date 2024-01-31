@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import Home from '../components/home';
 import Dashboard from '../components/dashboard';
 import WhoAreYou from '../components/Dashboard/WhoAreYou';
@@ -39,6 +40,7 @@ import Start_Printing from '../components/Dashboard/Start_Printing.js';
 import TransitionScreen from '../components/Dashboard/TransitionScreen.js';
 
 function Auth() {
+    const Navigate = useNavigate();
 
     return (
         <>
@@ -81,6 +83,8 @@ function Auth() {
                     <Route path="/PlayStory" element={<PlayStory />} />
                     <Route path="/start_printing" element={<Start_Printing />} />
                     <Route path="/TransitionScreen" element={<TransitionScreen />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+
                 </Routes>
             </div>
         </>

@@ -1,6 +1,6 @@
 /********************* Responsive CSS Here *********************/
 
-    @media screen and (max-width: 1500px) {
+@media screen and (max-width: 1500px) {
     .section-meet-character2 {padding: 210px 0 300px;margin: 50px 0 100px;}
     .section-meet-character2::after {display: none;}
     .section-meet-character2 .right.col-6 img {width: 100%;}
@@ -98,7 +98,7 @@
     .main-content {max-width: 1180px;padding-left: 20px;padding-right: 20px;}
     .kidzdashboard .kidsname {padding: 0 10px;}
     /* .main-content .kids_stories_slider.slider_mainsr .slick-list .slick-track .slick-slide .slide_mainsr img {max-height: 100% !important;width: 100%;min-height: 100% !important;} */
-    .story-open-container .openbook_section_sr .openbook_section_right {background-size: cover;background-position: right center;padding: 30px 40px 11px 30px;position: relative;overflow: hidden;height: 100%;margin-left: 2px;}
+    .story-open-container .openbook_section_sr .openbook_section_right {background-size: cover;background-position: right center;padding: 30px 40px 11px 30px;position: relative;overflow: hidden;height: 100%;}
     .story-open-container .openbook_section_sr .openbook_section_left {background-size: cover;background-position: left center;padding: 0px 0 0px 38px;position: relative;overflow: hidden;height: 100%;}
     .story-open-container .openbook_section_sr .openbook_section_left img {border-radius: 32px 0 0 32px;width: 100%;height: 110%;object-fit: cover;}
     .story-open-container .openbook_section_sr .openbook_section_left img {border-radius: 0;width: 110%;height: 100%;object-fit: cover;object-position: bottom;}
@@ -111,6 +111,8 @@
     .kids_view_mainSlider .slider_mainsr .slick-list .slick-track .slick-slide.slick-current .slide_mainsr .slide_mainsr_img .slide_mainsr_img_inn img {height: 196px;}
     .modal-content.start_printing_popup .print_btn_strPrint {position: absolute;right: 0;display: table;width: 285px;top: -85px;left: 0;margin: 0 auto;}
     
+
+    .right_sidebar_parent .user_list_sr .user_list_groupsr .small.user_message_sr {width: calc(100% - 180px) !important;}
     } 
     
     @media screen and (max-width: 1180px) {
@@ -181,9 +183,9 @@
     .contact_page_sr {background-position: left center;padding-top: 0;padding-bottom: 60px;}
     .row.kidzeconnect_bring_btn {width: 100%;margin-top: 20px;max-width: 100%;margin: 10px 0 0 0;}
 
-    .account_created-dash .row.display-table-row .navbar-toggler {position: absolute;left: 20px;top: 20px;z-index: 999;width: 100%;max-width: 50px;}
+    .account_created-dash .row.display-table-row .navbar-toggler {position: absolute;left: 20px;top: 20px;z-index: 999999;width: 100%;max-width: 50px;}
     .account_created-dash .row.display-table-row .navbar-toggler.dashboard_menuActive {position: fixed;}
-    .account_created-dash .row.display-table-row #navigation {position: fixed;left: 0;top: 0;transform: translateX(-50vw);animation: mymove 5s infinite;transition: transform 250ms linear;z-index: 99;}
+    .account_created-dash .row.display-table-row #navigation {position: fixed;left: 0;top: 0;transform: translateX(-50vw);animation: mymove 5s infinite;transition: transform 250ms linear;z-index: 99999;}
     .account_created-dash .row.display-table-row #navigation.show {width: 100%;visibility: inherit;opacity: 1;overflow: inherit;padding: 20px;max-width: 400px;padding-top: 100px;transform: translateX(0vw);}
     .account_created-dash .row.display-table-row .navbar-toggler .navbar-toggler-icon {width: 100%;height: 100%;}
     .account_created-dash .row.display-table-row .navbar-toggler .navbar-toggler-icon img {width: 100%;height: 100%;}
@@ -457,6 +459,12 @@
     .select_size_main .close_btn_size {position: absolute;right: 20px;top: 15px;cursor: pointer;}
     .all_activity_sr_inner .popup .popup-content span.all_activity_points {right: 0;top: 10px;left: 0;margin: 0 auto;text-align: center;}
 
+    .right_sidebar_parent .user_list_sr .user_list_groupsr .small.user_message_sr {width: calc(100% - 50px) !important;}
+    .user_list_sr .user_list_groupsr .chat-audio .audio-player {gap: 12px;}
+    .user_list_sr .user_list_groupsr .chat-audio .progress-bar {width: calc(100% - 50px) !important;}
+
+    .reply_chat_btn {position: static;}
+
 }
     
     
@@ -642,6 +650,38 @@
     .Main_Gaming_Sec.KidzOnGoingStory .gaming-section img.game_img {height: 260px;}
     .select_theme_cnt .choose_themes .themes_btn {width: 52px;height: 52px;}
     .select_theme_cnt .choose_themes {gap: 8px;}
+    .user_message_sr.story_reaction_sr .story_reaction_item span > br {display: none;}
+
+    .audio_fullcon.audio_fullcon-cstm #audio {
+        gap: 14px;
+        padding: 10px 0 10px 0;
+    }
+    .audio_fullcon.audio_fullcon-cstm #audio .play-pause-btn::before {
+        width: 36px;
+        height: 36px;
+    }
+    .audio_fullcon.audio_fullcon-cstm #audio .play-pause-btn {
+        width: 36px;
+        height: 36px;
+    }
+    .audio_fullcon .audio-player_inner {
+        gap: 7px;
+    }
+    .audio_fullcon {
+        padding: 20px 10px 10px 10px;
+    }
+    .audio_fullcon.audio_fullcon-cstm #audio .progress-bar {
+        gap: 5px;
+    }
+    .time-display {
+        margin-left: 0;
+    }
+    .notification-active-cnt .audio-player .progress-bar .time-display2 .current-time {
+        font-size: 12px;
+    }
+    .fullconver_chat .audio_fullcon.audio_fullcon-cstm {
+        width: 100% !important;
+    }
 }
 
 
@@ -709,21 +749,26 @@
     .emoji-section .single-emoji-section .nav-link img {max-width: 40px;}
     .kidzdashboard .main-content .selected_character_sr_content .selected_character_right .slider_mainsr .slick-list .slick-slide .slide_mainsr img {width: 100%;max-width: 90%;}
     .navbar .right-icons {gap: 10px;}
-    .user_list_sr .user_list_groupsr .small.user_message_sr {line-height: 22px;}
+    .user_list_sr .user_list_groupsr .small.user_message_sr {line-height: 22px;font-size: 14px;}
     .story-open-container .openbook_section_sr .openbook_section_right .Play_Storys_sr {top: 10px;right: 10px;}
     .forward_popup .forward_popup_inner .copylink {padding: 18px 15px 18px 10px;display: flex;font-size: 14px;line-height: 24px;}
     .forward_popup .forward_popup_inner .copylink #link-input {font-size: 14px;line-height: 24px;}
     .forward_popup .forward_popup_inner .copylink .copylink_right img {margin: 0 auto;}
     .forward_popup .forward_popup_inner .copylink .copylink_right p {display: none;}
     .chat_section_sr .chat_form_input button.sendAudio_btn {font-size: 20px;width: 85%;height:65px;}
-    .react-calendar__viewContainer .react-calendar__month-view__days .react-calendar__tile {height: auto;padding: 6px 0px;}
+    .react-calendar__viewContainer .react-calendar__month-view__days .react-calendar__tile {height: auto;padding: 3px 3px;}
     .kids_view_mainSlider .slider_mainsr .slick-slider {padding-bottom: 50px;}
     .main-content .slider_mainsr .slick-slider .slick-slide.slick-current div p {font-size: 18px;line-height: 26px;}
     .start_printing.kidz_allcharacters_Sr .kidz_profile_popupsr_inner .kidz_profile_popupsr_content {height: 220px;}
     .Main_Gaming_Sec.KidzOnGoingStory .gaming-section img.game_img {height: 220px;}
 
     .select_size_main .close_btn_size {max-width: 30px;}
-    
+    .user_message_sr.story_reaction_sr .story_reaction_item span {font-size: 20px;line-height: 26px;}
+    .user_message_sr.story_reaction_sr .story_reaction_item img {max-width: 180px;}
+    .top_interactions_parent .top_interactions_parent_inner .chat-popup .chat-popup_inner {padding: 20px 10px;}
+    .right_sidebar_parent .chat-popup .chat-popup_inner .chat_form_input {padding-top: 10px;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;}
+    .chat_form_input_btncnrlRight img {max-width: 45px;}
+
 }
 
 @media screen and (max-width: 430px) {

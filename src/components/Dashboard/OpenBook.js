@@ -44,9 +44,7 @@ const OpenStory = () => {
   }, [sessionStorage.getItem("theme")])
 
   useEffect(() => {
-    setTimeout(() => {
-      setWait(true)
-    }, 2000);
+    
     if (stories.length > 0 && currentAudioIndex >= 0) {
       const selectedStory = stories[0];
       const audioParts = selectedStory.english_audio_part.split(',');
@@ -55,11 +53,7 @@ const OpenStory = () => {
       const imageUrl = imageParts[currentPage].trim();
 
       setcurrentImage(imageUrl);
-
-      // Set up the audio element
       audio.current = new Audio(audioUrl);
-
-      // Add event listener for the 'onCanPlay' event
       audio.current.addEventListener('canplay', handleAudioLoad);
     }
   }, [currentPage, currentAudioIndex]);
@@ -213,14 +207,18 @@ const OpenStory = () => {
   const coverImgData = stories[0]?.cover_image || '';
   const coverImgDataArray = coverImgData.split(',');
   const handleNextPage = () => {
+   
     setWait(false);
+    setTimeout(() => {
+      setWait(true)
+    }, 2000);
     setRep(false);
     pause();
     if (currentPage < totalPages - 1) {
       const nextPage = parseInt(currentPage, 10) + 1;
       setAudio(audioArray[nextPage]);
       setcurrentImage(coverImgDataArray[nextPage]);
-      setCurrentAudioIndex(nextPage);
+      setCurrentAudioIndex(currentPage + 1);
       setCurrentPage(nextPage);
       localStorage.setItem('highlightStep', 0);
       localStorage.setItem("page", nextPage);
@@ -270,6 +268,9 @@ const OpenStory = () => {
   }
   const handlePrevPage = () => {
     setWait(false);
+    setTimeout(() => {
+      setWait(true)
+    }, 2000);
     setRep(false);
     pause();
     if (currentPage > 0) {
@@ -302,6 +303,9 @@ const OpenStory = () => {
 
   };
   const update = () => {
+    localStorage.setItem('highlightStep', 0);
+    pause();
+
     console.log("setChildID", setChildID);
     const headers = {
       "Content-type": "application/json",
@@ -340,7 +344,7 @@ const OpenStory = () => {
         console.log('test123' + child.currently_reading_page);
         localStorage.setItem("page", JSON.parse(child.currently_reading_page, 10));
 
-        const p = JSON.parse(localStorage.getItem("page"));
+        const p = JSON.parse(localStorage.getItem("page")) || 0;
         setAudio(audioArray[p]);
         setcurrentImage(coverImgDataArray[p]);
         setCurrentAudioIndex(p);
@@ -351,6 +355,7 @@ const OpenStory = () => {
       console.error('Error fetching child data:', error);
     }
   };
+
   return (
     <div className='chosen-story-section openbook_page_kidz nav_top_nav'>
       <Link className="nav-link" onClick={update}>
@@ -370,13 +375,16 @@ const OpenStory = () => {
           {story.id == StoryId &&
             <div className='openbook_section_sr'>
               <div className='openbook_section_left'>
-                <img loading="lazy" src={currentImage} alt='' onClick={openModal} />
+                <img src={currentImage} alt='' onClick={openModal} />
               </div>
               <div className='openbook_section_right'>
                 {wait && (<>
-                  {rep ? (<><button className='Play_Storys_sr' onClick={() => { play(); setRep(false) }} >
+                  {rep ? (<><button className='Play_Storys_sr' onClick={() => {
+                    play();
+                    setRep(false)
+                  }}>
                     <img loading="lazy" src={Replay} />
-                  </button> </>)
+                  </button></>)
                     :
                     (<><button className='Play_Storys_sr' onClick={x ? play : pause} >
                       <img loading="lazy" src={x ? Play_Story_Button : Pause_Story_Button} />
@@ -391,8 +399,11 @@ const OpenStory = () => {
                 </div>
               </div>
               <div className="pagination">
-                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
+                {wait && (<>
+                  <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
                 <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" src={PNRight_arrow} alt='' /></button>
+                </>)}
+               
               </div>
             </div>
           }

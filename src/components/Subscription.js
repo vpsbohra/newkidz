@@ -22,8 +22,8 @@ export default function Subscription() {
   const [oneTime, setOneTime] = useState('');
   const [user, setUser] = useState('');
   const [planType, setPlanType] = useState('');
-  
-  
+
+
   const handlePlanClick = (plan) => {
     setSelectedPlan(plan);
   };
@@ -39,7 +39,7 @@ export default function Subscription() {
 
 
 
- 
+
 
   console.log("currentPlan", currentPlan);
   const renderBilledButtons = () => {
@@ -81,7 +81,7 @@ export default function Subscription() {
             <input type="radio" name="billing" value="onetime" onChange={() => handleBillingSelect1('onetime')} />
             One-time purchase {selectedBilling === 'Onetime' && <span className='discount_span'>save 50%</span>}
           </label>
-          
+
         </div>
       );
     }
@@ -105,10 +105,10 @@ export default function Subscription() {
             <input type="radio" name="billing" value="Onetime" onChange={() => handleBillingSelect1('Onetime')} />
             One-time purchase {selectedBilling === 'Onetime' && <span className='discount_span'>save 50%</span>}
           </label>
-      
+
 
         </div>
-        
+
       );
     }
 
@@ -200,20 +200,20 @@ export default function Subscription() {
 
   useEffect(() => {
     console.log("currentPlan", currentPlan);
-  
+
     if (currentPlan === 'family') {
       setSelectedPlan('family');
       handleBillingSelect('yearly');
       console.log("selectedPlan", selectedPlan);
     }
-  
+
     if (currentPlan === 'fidelity') {
       setSelectedPlan('fidelity');
       handleBillingSelect('yearly');
       console.log("selectedPlan", selectedPlan);
     }
-  }, [currentPlan]);  
-  
+  }, [currentPlan]);
+
 
 
 
@@ -389,9 +389,9 @@ export default function Subscription() {
                     <li><FontAwesomeIcon icon={faCheck} /> conversation history for 24 months</li>
                   </ul>
 
-                  {currentPlan === 'fidelity' && selectedBilling != "yearly"  && planType == selectedBilling ?(
+                  {currentPlan === 'fidelity' && selectedBilling != "yearly" && planType == selectedBilling ? (
 
-                    
+
                     <button type="button" disabled className='disabled-plan-btns'>
                       Current Plan
                     </button>
@@ -406,7 +406,7 @@ export default function Subscription() {
 
 
                 {currentPlan === 'family' ? (
-                  <div className={`col plans_item_sr ${selectedPlan === 'family' ? 'selected' : ''}`}onClick={() => handlePlanClick('family')}  >
+                  <div className={`col plans_item_sr ${selectedPlan === 'family' ? 'selected' : ''}`} onClick={() => handlePlanClick('family')}  >
                     <h2>Family</h2>
                     <p className="fiedly-price"><span className='discount-number'>{renderFamilyPrice()}</span> {renderFamilyPrice1()}</p>
                     <ul>
@@ -414,7 +414,7 @@ export default function Subscription() {
                       <li><FontAwesomeIcon icon={faCheck} /> Up to 3 child profiles</li>
                       <li><FontAwesomeIcon icon={faCheck} /> Up to 7 parents and relatives</li>
                     </ul>
-                    {currentPlan === 'family' && selectedBilling != "yearly"  && planType == selectedBilling ?(
+                    {currentPlan === 'family' && selectedBilling != "yearly" && planType == selectedBilling ? (
                       <button type="button" className='disabled-plan-btns' disabled>
                         Current Plan
                       </button>
@@ -469,7 +469,7 @@ export default function Subscription() {
                 )}
               </div>
 
-         
+
               <div className="prev-next-page">
                 {user ? (
                   <Link className='button_cntr_sub button_cntrlogin' to="/parent-dashboard">
@@ -483,10 +483,10 @@ export default function Subscription() {
 
 
                 {user ? (
-                  <Link to={`/upgrade-plan?plan=${selectedPlan}${selectedPlan === 'family' ? `&price=${renderFamilyPrice1()}&billing=${selectedBilling}`
+                  <Link to={selectedPlan?`/upgrade-plan?plan=${selectedPlan}${selectedPlan === 'family' ? `&price=${renderFamilyPrice1()}&billing=${selectedBilling}`
                     : ''
                     }${selectedPlan === 'fidelity' ? `&price=${renderFidelityPrice1()}&billing=${selectedBilling}` : ''}${selectedPlan === 'classic' ? `&price=${renderClassicPrice()}&billing=${selectedBilling}` : ''
-                    }`} className='button_cntr_sub button_cntrcontinue' >
+                    }`:``} className='button_cntr_sub button_cntrcontinue' >
                     <button type="button">
                       Continue
                     </button>
@@ -494,23 +494,22 @@ export default function Subscription() {
                 ) : (
                   <Link
                     className='button_cntr_sub button_cntrcontinue'
-                    to={`/sign-up?plan=${selectedPlan}${selectedPlan === 'family' ? `&price=${renderFamilyPrice1()}&billing=${selectedBilling}`
+                    to={selectedPlan?`/sign-up?plan=${selectedPlan}${selectedPlan === 'family' ? `&price=${renderFamilyPrice1()}&billing=${selectedBilling}`
                       : ''
                       }${selectedPlan === 'fidelity' ? `&price=${renderFidelityPrice1()}&billing=${selectedBilling}` : ''}${selectedPlan === 'classic' ? `&price=${renderClassicPrice()}&billing=${selectedBilling}` : ''
-                      }`}
+                      }`:``}
                   >
-                    <button type="button">
+                    <button type="button" >
                       Continue
                     </button>
                   </Link>
                 )}
-
               </div>
             </div>
           </section>
         </>
       )}
-    
+
     </>
   )
 }

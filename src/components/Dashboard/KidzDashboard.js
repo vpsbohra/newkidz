@@ -20,29 +20,68 @@ import orangeThemeGaming from '../../images/Character/orangeTheme_Characters.png
 import greenThemeGaming from '../../images/Character/greenTheme_Characters.png';
 import pinkThemeGaming from '../../images/Character/pinkTheme_Characters.png';
 import purpleThemeGaming from '../../images/Character/purpleTheme_Characters.png';
-import Story1 from '../../images/Story/stories_kids01.png';
-import Story2 from '../../images/Story/stories_kids02.png';
-import Story3 from '../../images/Story/stories_kids03.png';
-import ChildChat from '../chat/ChildChat';
+
 import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Previous_ButtonImg from '../../images/Previous_Button.png';
-import stany_1 from "../../images/Character/stany(1).png";
-import stany_2 from "../../images/Character/stany(2).png";
-import stany_3 from "../../images/Character/stany(3).png";
-import stefy_1 from "../../images/Character/stefy(1).png";
-import stefy_2 from "../../images/Character/stefy(2).png";
-import stefy_3 from "../../images/Character/stefy(3).png";
-import stefy_4 from "../../images/Character/stefy(4).png";
-import stefy_5 from "../../images/Character/stefy(5).png";
-import stefy_6 from "../../images/Character/stefy(6).png";
+
+import balum1 from "../../images/characters/BalumBalum/1.webp";
+import booboo1 from "../../images/characters/Booboo/1.webp";
+import Bradford1 from "../../images/characters/Bradford/1.webp";
+import Cindy1 from "../../images/characters/Cindy/1.webp";
+import Dad1 from "../../images/characters/Dad/1.webp";
+import Filoo1 from "../../images/characters/Filoo/1.webp";
+import Giovanni1 from "../../images/characters/Giovanni/1.webp";
+import Gregory1 from "../../images/characters/Gregory/1.webp";
+import Kapinga1 from "../../images/characters/Kapinga/1.webp";
+import Karima1 from "../../images/characters/Karima/1.webp";
+import Martin1 from "../../images/characters/Martin/1.webp";
+import Mom1 from "../../images/characters/Mom/1.webp";
+import Rodrigo1 from "../../images/characters/Rodrigo/1.webp";
+import Sheriff1 from "../../images/characters/Sheriff/1.webp";
+import Songa1 from "../../images/characters/Songa/1.webp";
+import Stany1 from "../../images/characters/Stany/1.webp";
+import Stephy1 from "../../images/characters/Stephy/1.webp";
+import Stock1 from "../../images/characters/Stock/1.webp";
+
+const characterImages = [
+  balum1,
+  booboo1,
+  Bradford1,
+  Cindy1,
+  Dad1,
+  Filoo1,
+  Giovanni1,
+  Gregory1,
+  Kapinga1,
+  Karima1,
+  Martin1,
+  Mom1,
+  Rodrigo1,
+  Sheriff1,
+  Songa1,
+  Stany1,
+  Stephy1,
+  Stock1,
+];
+const shuffleArray = (array) => {
+  const shuffledArray = array.slice();
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
+const getRandomImages = (array, count) => {
+  const shuffledArray = shuffleArray(array);
+  return shuffledArray.slice(0, count);
+};
 
 export default function KidzDashboard() {
   const navigate = useNavigate();
   const [randomCharacterImages, setRandomCharacterImages] = useState([]);
-
   const StoryId = String(sessionStorage.getItem('childStory'));
   const ChildId = String(sessionStorage.getItem('childId'));
   const [userid, setuserid] = useState('');
@@ -57,21 +96,6 @@ export default function KidzDashboard() {
   const [selectedStory, setSelectedStory] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(-1);
   const [chid, setChid] = useState();
-  const [characterImages, setCharacterImages] = useState([]);
-
-  const shuffleArray = (array) => {
-    const shuffledArray = array.slice();
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-    }
-    return shuffledArray;
-  };
-  const getRandomImages = (array, count) => {
-    const shuffledArray = shuffleArray(array);
-    return shuffledArray.slice(0, count);
-  };
-
   const truncateText = (text, maxLength) => {
     const words = text.split(' ');
     if (words.length <= maxLength) {
@@ -92,25 +116,19 @@ export default function KidzDashboard() {
 
   // Manage the fetched data here
   const [fdata, setFdata] = useState([]);
-  const [img,setImg]=useState('');
 
   useEffect(() => {
-    if (characterImages && characterImages.length > 0) {
-      const randomImages = getRandomImages(characterImages, 4).map(image => image['slider-images'].split(','));
-      setRandomCharacterImages(randomImages);
-    }
-  }, [characterImages]);
-  
-
+    setRandomCharacterImages(getRandomImages(characterImages, 4));
+  }, []);
 
   useEffect(() => {
-    const Allcharacters = JSON.parse(localStorage.getItem("All_Characters"));
-    setCharacterImages(Allcharacters);
     const userInformation = sessionStorage.getItem('user');
     const user = JSON.parse(userInformation);
     const { id } = user;
     setuserid(String(id));
-  }, []);
+
+    fetchreadedstory();
+  }, [userid]); // Depend on userid
 
   const responsiveSettings = {
     breakpoint: 767, // For mobile devices
@@ -362,11 +380,11 @@ export default function KidzDashboard() {
             <div className="Main_Gaming_Sec KidzOnGoingStory">
               <div className="gaming-section games_item">
                 <div className='games_section'>
-                {randomCharacterImages.map((image, index) => (
-            <div key={index} className='games_section_item'>
-              <img loading="lazy" height={150} width={150} className='game_img' src={image[index]} alt={`Random Character ${index + 1}`} />
-            </div>
-          ))}
+                  {randomCharacterImages.map((image, index) => (
+                    <div className='games_section_item' key={index}>
+                      <img loading="lazy" height={150} width={150} className='game_img' src={image} />
+                    </div>
+                  ))}
                 </div>
                 <Link to='/start_printing' className='start_printing_btn'>
                   <button className='all_games'><span className='all_games_span'>START PRINTING</span></button>

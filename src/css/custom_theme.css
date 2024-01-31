@@ -737,6 +737,12 @@
 .pinkTheme .online-story-container {background: #eea6d2;}
 .purpleTheme .online-story-container {background: #8a6cb1;}
 
+
+.darkblueTheme .page_ttls .toggle_characters span, .blueTheme .page_ttls .toggle_characters span, .orangeTheme .page_ttls .toggle_characters span {
+	color: #fff;
+}
+
+
 /*
 .darkblueTheme
 .blueTheme
