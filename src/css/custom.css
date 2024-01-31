@@ -10532,8 +10532,8 @@ input:checked~.checkmark {
 .imagepopupdiv.modal.selected-popup .modal-content img {
     border-radius: 22px;
     height: 630px;
-    object-position: top;
     object-fit: cover;
+    object-position: top;
 }
 
 .imagepopupdiv.modal.selected-popup .modal-content .close {
