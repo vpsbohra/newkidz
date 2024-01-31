@@ -10533,6 +10533,7 @@ input:checked~.checkmark {
 	border-radius: 22px;
 	height: 533px;
 	object-fit: contain;
+	border: 10px solid #FDD835
 }
 
 .imagepopupdiv.modal.selected-popup .modal-content .close {
@@ -11760,7 +11761,7 @@ input[type="range"]::-webkit-slider-thumb {
 .select_size_mainInner .right_content img {width: 100%;border-radius: 22px;max-width: 275px;}
 .select_size_mainInner .right_content .select_size_bottomBTn {display: none;}
 
-.select_size_main {background: #FEFEFE;width: 100%;max-width: 1400px;margin: 0 auto;padding: 20px 20px;border-radius: 22px;position: fixed;top: 50%;transform: translateY(-50%);left: 0;right: 0;z-index: 999;}
+.select_size_main {background: #FEFEFE;width: 100%;max-width: 1170px;margin: 0 auto;padding: 20px 20px;border-radius: 22px;position: fixed;top: 50%;transform: translateY(-50%);left: 0;right: 0;z-index: 999;}
 .select_size_main .close_btn_size {position: absolute;right: 61px;top: 16px;cursor: pointer;}
 .sliding-text-container {overflow: hidden;}
 .sliding-text {animation: slideFromLeft 1s ease;}
