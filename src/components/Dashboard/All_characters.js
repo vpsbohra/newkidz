@@ -184,7 +184,7 @@ import stock9 from "../../images/characters/Stock/9.webp";
 import stock10 from "../../images/characters/Stock/10.webp";
 import stock11 from "../../images/characters/Stock/11.webp";
 import stock12 from "../../images/characters/Stock/12.webp";
-import Rectangle_82 from "../../images/Character/Rectangle_82.png";
+import Rectangle_82 from "../../images/Character/Rectangle_82.webp";
 import { Link } from "react-router-dom";
 import Selected_character from "./Selected_character";
 import { useNavigate } from "react-router-dom"
