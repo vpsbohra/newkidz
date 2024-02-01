@@ -540,6 +540,7 @@ const Settings = () => {
                       name="email"
                       value={editedData.email || userData.email}
                       onChange={handleInputChange}
+                      autoComplete="off"
                     />
 
                     {/* {editedData.email && <button className='' onClick={() => handleUpdate('email')}>Change Email Address</button>} */}
@@ -570,7 +571,9 @@ const Settings = () => {
                     name="user_code"
                     value={editedData.user_code || userData.user_code}
                     onChange={handleInputChange}
-                    maxLength={4} />
+                    maxLength={4} 
+                    autoComplete="new-password"
+                    />
                   {editedData.user_code && <button onClick={() => handleUpdate('user_code')}>Change parent dashboard code</button>}
                 </div>
                 <div className="form-group">
