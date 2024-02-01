@@ -19,7 +19,7 @@ export default function Dashboard() {
     const [owner, setOwner] = useState(false);
     const [username, setUsername] = useState(null);
     const [members, setMembers] = useState([]);
-    const [userId, setUserId] = useState('');
+    const [userId, setUserId] = useState();
     const { http } = AuthUser();
     const { user } = AuthUser();
     const [childProfiles, setChildProfiles] = useState([]);
@@ -52,6 +52,12 @@ export default function Dashboard() {
             }
         }
     }, []);
+
+    useEffect(() => {
+        fetchMembers();
+        fetchUserDetail();
+
+    }, [userId]);
     const setOWner = () => {
         sessionStorage.setItem('owner', true);
     }
@@ -63,7 +69,6 @@ export default function Dashboard() {
 
 
     const fetchMembers = async () => {
-        fetchUserDetail();
         try {
             const response = await axios.get(`https://mykidz.online/api/members/${userId}`);
             const membersData = response.data;
@@ -95,18 +100,27 @@ export default function Dashboard() {
         removeBodyClass();
     };
 
-    const fetchUserDetail = () => {
+    const fetchUserDetail = async () => {
         console.log('Fetching user detail');
+        
         setUserdetail(user);
         setUserId(user.id);
-        http.get(`/child-profiles?user_id=${userId}`).then((res) => {
+        console.log("USER ID", user.id);
+    
+        try {
+            const res = await http.get(`/child-profiles?user_id=${user.id}`);
             setChildProfiles(res.data);
-            if(childProfiles && members){
+            console.log('childProfiles', childProfiles);
+    
+            if (childProfiles && members) {
                 setLoader(false);
             }
-
-        });
+        } catch (error) {
+            // Handle error appropriately, e.g., log or display an error message
+            console.error('Error fetching user details:', error);
+        }
     };
+    
 
     const handleChildClick = (childId, child_name) => {
         console.log(childId);
@@ -115,14 +129,11 @@ export default function Dashboard() {
         sessionStorage.setItem('setChildName', child_name);
 
     };
-
-
     const handleParentalSwitch = () => {
         setShowPopup(true);
         setErrorMessage('');
         setIsParentalSwitchActive(true);
     };
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const storedCode = JSON.parse(sessionStorage.getItem('user')).user_code;
@@ -134,10 +145,8 @@ export default function Dashboard() {
 
         } else {
             setErrorMessage('Invalid code entered. Please try again.');
-            console.log('Incorrect code entered!');
         }
     };
-
     const handleCancel = () => {
         setShowPopup(false);
         setIsParentalSwitchActive(false);
@@ -145,8 +154,6 @@ export default function Dashboard() {
     const handleCodeEntry = (event) => {
         setCode(event.target.value);
     };
-
-
     useEffect(() => {
         const handleBackButton = (event) => {
             event.preventDefault();
@@ -174,16 +181,7 @@ export default function Dashboard() {
 
 
 
-    useEffect(() => {
-
-
-        const userInformation = sessionStorage.getItem('user');
-
-        const user = JSON.parse(userInformation);
-        const { id } = user;
-        setUserId(id);
-
-    }, []);
+    
 
 
     useEffect(() => {
@@ -195,13 +193,7 @@ export default function Dashboard() {
     }, [isParentalSwitchActive]);
 
 
-    useEffect(() => {
-
-        fetchMembers();
-
-        console.log("userdetail", userdetail);
-
-    }, [userId]);
+   
     return (
         <>
             <div className="who-are-you_inner">
