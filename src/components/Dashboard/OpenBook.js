@@ -40,22 +40,7 @@ const OpenStory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [wait, setWait] = useState(false);
   const [isAudioReady, setIsAudioReady] = useState(false);
-  const handleRefreshAudio = () => {
-    if (stories.length > 0 && currentAudioIndex >= 0) {
-      const selectedStory = stories[0];
-      const audioParts = selectedStory.english_audio_part.split(',');
-      const audioUrl = audioParts[currentPage].trim();
-      const imageParts = selectedStory.book_cover_images.split(',');
-      const imageUrl = imageParts[currentPage].trim();
 
-      setcurrentImage(imageUrl);
-      audio.current.src = audioUrl;
-      audio.current.addEventListener('canplay', () => {
-        setIsAudioReady(true);
-        handleAudioLoad();
-      });
-    }
-  };
   useEffect(() => {
     const theme = sessionStorage.getItem("theme");
     document.body.classList.add(theme);
@@ -76,7 +61,7 @@ const OpenStory = () => {
         handleAudioLoad();
       });
     }
-  }, [currentPage, currentAudioIndex]);
+  }, [currentPage, currentAudioIndex,stories]);
   const handleAudioLoad = () => {
     setIsAudioLoaded(true);
   };
@@ -117,7 +102,7 @@ const OpenStory = () => {
       audio.current = new Audio(audioUrl);
       audio.current.addEventListener('canplay', handleAudioLoad);
     }
-  }, [stories, currentAudioIndex, currentPage]);
+  }, []);
 
   const play = () => {
     setX(false);
@@ -429,9 +414,10 @@ const OpenStory = () => {
                 </div>
               </div>
               <div className="pagination">
-               
-                  <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
-                <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" src={PNRight_arrow} alt='' /></button>
+               {audio.current && audio.current.readyState >= 2 && (<>
+                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
+                <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" src={PNRight_arrow} alt='' /></button></>)}
+                  
                
                
               </div>
