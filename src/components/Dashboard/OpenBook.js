@@ -245,7 +245,7 @@ const OpenStory = () => {
       const nextPage = parseInt(currentPage, 10) + 1;
       setAudio(audioArray[nextPage]);
       setcurrentImage(coverImgDataArray[nextPage]);
-      setCurrentAudioIndex(currentPage + 1);
+      setCurrentAudioIndex(nextPage);
       setCurrentPage(nextPage);
       localStorage.setItem('highlightStep', 0);
       localStorage.setItem("page", nextPage);
