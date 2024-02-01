@@ -24,7 +24,7 @@ const OpenStory = () => {
   const [currentaudio, setAudio] = useState();
   const [currentImage, setcurrentImage] = useState();
   const [currentPage, setCurrentPage] = useState(0);
-  const [currentAudioIndex, setCurrentAudioIndex] = useState("0");
+  const [currentAudioIndex, setCurrentAudioIndex] = useState(0);
   const StoryId = sessionStorage.getItem('childStory');
   const a = sessionStorage.getItem('setChildID');
   const b = sessionStorage.getItem('childId');
@@ -243,9 +243,11 @@ const OpenStory = () => {
     pause();
     if (currentPage < totalPages - 1) {
       const nextPage = parseInt(currentPage, 10) + 1;
-      setAudio(audioArray[nextPage]);
+      console.log("nextpage",nextPage);
+      console.log("current Page",currentPage+1);
+      setAudio(audioArray[currentPage+1]);
       setcurrentImage(coverImgDataArray[nextPage]);
-      setCurrentAudioIndex(nextPage);
+      setCurrentAudioIndex(currentPage+1);
       setCurrentPage(nextPage);
       localStorage.setItem('highlightStep', 0);
       localStorage.setItem("page", nextPage);
