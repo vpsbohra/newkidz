@@ -180,6 +180,10 @@ const BillingAndSubscription = () => {
     const card_cvc = document.getElementsByName('cvv')[0].value;
     const card_expire_date = document.getElementsByName('expiration')[0].value;
     const lastFourDigits = card_number.slice(-4);
+    if (!card_number || !card_cvc || !card_expire_date) {
+      alert("Please fill in all required fields.");
+      return;
+    }
     const cardData = {
       paymentMethodId: paymentMethodId,
       card_number: card_number,
