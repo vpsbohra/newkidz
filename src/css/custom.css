@@ -11800,3 +11800,4 @@ to {margin-top: -22%;height: 100%;opacity: 0;}
 .page_ttls .toggle_characters span.active::after {background: #FDD835;width: 100%;}
 /* .start_printing_pageSr.active_popup .main-content {margin-top: 20px;} */
 .start_printing_pageSr .select_size_main {max-width: 1152px;}
+.chat_section_sr_right.chat_pagemainSR .d-flex.flex-column.bg-white {background: transparent !important;}
