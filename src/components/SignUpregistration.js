@@ -14,7 +14,7 @@ const sendEmail = () => {
     const emailAddresses = myVariable; //PLEASE ENTER YOUR EMAIL ID HERE
 
     const templateParams = { 
-        message: `Please verify your email address ${myVariable}. Please click on the link to verify your email address: 'http://localhost:3000/mailverification?email=${myVariable}'` 
+        message: `Please verify your email address ${myVariable}. Please click on the link to verify your email address: 'https://dev.kidzconnect.online/mailverification?email=${myVariable}'` 
     };
         templateParams.user_email = emailAddresses;
 
