@@ -79,7 +79,9 @@ const ChatPopup = ({ chats, onClose, toggle, selectedDate }) => {
   useEffect(() => {
     // start();
     //  fetchData();
-    let timer;
+    let timer; 
+
+    
 
     if (recorder) {
       if (!stop) {

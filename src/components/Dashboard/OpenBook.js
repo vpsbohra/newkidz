@@ -13,7 +13,9 @@ import PNLeft_arrow from '../../images/PN_Arrow_Left.png';
 import PNRight_arrow from '../../images/PNArrow_right.png';
 import Play_Story_Button from '../../images/Play_Story_Button.png';
 import Pause_Story_Button from '../../images/Pause_Story_Button.png';
-import Replay from '../../images/Replay Audio.png'
+import Replay from '../../images/Replay Audio.png';
+import Load from '../../images/index.gif';
+
 const OpenStory = () => {
   const navigate = useNavigate();
   const [rep, setRep] = useState(false);
@@ -22,7 +24,7 @@ const OpenStory = () => {
   const [currentaudio, setAudio] = useState();
   const [currentImage, setcurrentImage] = useState();
   const [currentPage, setCurrentPage] = useState(0);
-  const [currentAudioIndex, setCurrentAudioIndex] = useState("0");
+  const [currentAudioIndex, setCurrentAudioIndex] = useState(0);
   const StoryId = sessionStorage.getItem('childStory');
   const a = sessionStorage.getItem('setChildID');
   const b = sessionStorage.getItem('childId');
@@ -30,13 +32,14 @@ const OpenStory = () => {
   const [userid, setuserid] = useState();
   const [fdata, setFdata] = useState([]);
   const { token } = AuthUser();
-  const audio = useRef(new Audio(currentaudio));
+  const audio = useRef(new Audio());
+  const [isAudioLoaded, setIsAudioLoaded] = useState(false);
   const [highlightTimeout, sethighlightTimeout] = useState(null);
   const { user } = AuthUser();
   const [page, setPage] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAudioLoaded, setIsAudioLoaded] = useState(false);
   const [wait, setWait] = useState(false);
+  const [isAudioReady, setIsAudioReady] = useState(false);
 
   useEffect(() => {
     const theme = sessionStorage.getItem("theme");
@@ -44,9 +47,6 @@ const OpenStory = () => {
   }, [sessionStorage.getItem("theme")])
 
   useEffect(() => {
-    setTimeout(() => {
-      setWait(true)
-    }, 2000);
     if (stories.length > 0 && currentAudioIndex >= 0) {
       const selectedStory = stories[0];
       const audioParts = selectedStory.english_audio_part.split(',');
@@ -55,10 +55,13 @@ const OpenStory = () => {
       const imageUrl = imageParts[currentPage].trim();
 
       setcurrentImage(imageUrl);
-      audio.current = new Audio(audioUrl);
-      audio.current.addEventListener('canplay', handleAudioLoad);
+      audio.current.src = audioUrl;
+      audio.current.addEventListener('canplay', () => {
+        setIsAudioReady(true);
+        handleAudioLoad();
+      });
     }
-  }, [currentPage, currentAudioIndex]);
+  }, [currentPage, currentAudioIndex,stories]);
   const handleAudioLoad = () => {
     setIsAudioLoaded(true);
   };
@@ -99,56 +102,63 @@ const OpenStory = () => {
       audio.current = new Audio(audioUrl);
       audio.current.addEventListener('canplay', handleAudioLoad);
     }
-  }, [stories, currentAudioIndex, currentPage]);
+  }, []);
 
   const play = () => {
-
     setX(false);
     const audioElement = audio.current;
-    const durationInSeconds = audioElement.duration * 1000;
-    console.log('Audio duration:', durationInSeconds);
-    audioElement.play();
-    const textElement = document.getElementById('textToHighlight');
-    console.log(textElement);
-    const originalText = textElement.textContent;
-    const words = originalText.split(' ');
-    let step = JSON.parse(localStorage.getItem('highlightStep')) || 0;
-    const duration = durationInSeconds - step * (durationInSeconds / words.length);
-    const interval = duration / (words.length - step);
-    function clearHighlight() {
-      // Remove existing highlight spans
-      for (let i = 0; i < words.length; i++) {
-        words[i] = words[i].replace(/<span class="highlight">|<\/span>/g, '');
+
+    // Check if the audio is loaded
+    if (isAudioLoaded) {
+      // Audio is loaded, proceed with playing
+      const durationInSeconds = audioElement.duration * 1000;
+      console.log('Audio duration:', durationInSeconds);
+      audioElement.play();
+      const textElement = document.getElementById('textToHighlight');
+      console.log(textElement);
+      const originalText = textElement.textContent;
+      const words = originalText.split(' ');
+      let step = JSON.parse(localStorage.getItem('highlightStep')) || 0;
+      const duration = durationInSeconds - step * (durationInSeconds / words.length);
+      const interval = duration / (words.length - step);
+  
+      function clearHighlight() {
+        // Remove existing highlight spans
+        for (let i = 0; i < words.length; i++) {
+          words[i] = words[i].replace(/<span class="highlight">|<\/span>/g, '');
+        }
+        textElement.innerHTML = words.join(' ');
       }
-      textElement.innerHTML = words.join(' ');
-    }
-
-
-    function updateHighlighting() {
-      if (step < words.length && x == true) {
-        for (let i = step - 1; i >= 0; i--) {
-          if (!words[i].includes('<span class="highlight">')) {
-            words[i] = '<span class="highlight">' + words[i] + '</span>';
-          } else {
-            break;
+  
+      function updateHighlighting() {
+        if (step < words.length && x == true) {
+          for (let i = step - 1; i >= 0; i--) {
+            if (!words[i].includes('<span class="highlight">')) {
+              words[i] = '<span class="highlight">' + words[i] + '</span>';
+            } else {
+              break;
+            }
           }
+          if (!words[step].includes('<span class="highlight">')) {
+            words[step] = '<span class="highlight">' + words[step] + '</span>';
+            textElement.innerHTML = words.join(' ');
+          }
+          step++;
+          localStorage.setItem('highlightStep', step);
+          sethighlightTimeout(setTimeout(updateHighlighting, interval));
+        } else {
+          localStorage.setItem('highlightStep', 0);
+          setRep(true);
+          // setX(true);
         }
-        if (!words[step].includes('<span class="highlight">')) {
-          words[step] = '<span class="highlight">' + words[step] + '</span>';
-          textElement.innerHTML = words.join(' ');
-        }
-        step++;
-        localStorage.setItem('highlightStep', step);
-
-        sethighlightTimeout(setTimeout(updateHighlighting, interval));
-      } else {
-        localStorage.setItem('highlightStep', 0);
-        setRep(true);
-        // setX(true);
       }
+  
+      // clearHighlight(); 
+      updateHighlighting();
+    } else {
+      // Audio is not loaded yet, you may want to handle this case accordingly
+      console.log('Audio is not loaded yet');
     }
-    // clearHighlight(); 
-    updateHighlighting();
   };
   const pause = () => {
     setX(true);
@@ -209,14 +219,20 @@ const OpenStory = () => {
   const coverImgData = stories[0]?.cover_image || '';
   const coverImgDataArray = coverImgData.split(',');
   const handleNextPage = () => {
+   
     setWait(false);
+    setTimeout(() => {
+      setWait(true)
+    }, 2000);
     setRep(false);
     pause();
     if (currentPage < totalPages - 1) {
       const nextPage = parseInt(currentPage, 10) + 1;
-      setAudio(audioArray[nextPage]);
+      console.log("nextpage",nextPage);
+      console.log("current Page",currentPage+1);
+      setAudio(audioArray[currentPage+1]);
       setcurrentImage(coverImgDataArray[nextPage]);
-      setCurrentAudioIndex(currentPage + 1);
+      setCurrentAudioIndex(currentPage+1);
       setCurrentPage(nextPage);
       localStorage.setItem('highlightStep', 0);
       localStorage.setItem("page", nextPage);
@@ -266,6 +282,9 @@ const OpenStory = () => {
   }
   const handlePrevPage = () => {
     setWait(false);
+    setTimeout(() => {
+      setWait(true)
+    }, 2000);
     setRep(false);
     pause();
     if (currentPage > 0) {
@@ -350,6 +369,8 @@ const OpenStory = () => {
       console.error('Error fetching child data:', error);
     }
   };
+ 
+
   return (
     <div className='chosen-story-section openbook_page_kidz nav_top_nav'>
       <Link className="nav-link" onClick={update}>
@@ -369,17 +390,20 @@ const OpenStory = () => {
           {story.id == StoryId &&
             <div className='openbook_section_sr'>
               <div className='openbook_section_left'>
-                <img  src={currentImage} alt='' onClick={openModal} />
+                <img src={currentImage} alt='' onClick={openModal} />
               </div>
               <div className='openbook_section_right'>
-                {wait && (<>
-                  {rep ? (<><button className='Play_Storys_sr' onClick={() => { play(); setRep(false) }} >
+                {audio.current && audio.current.readyState >= 2  ? (<>
+                  {rep ? (<><button className='Play_Storys_sr' onClick={() => {
+                    play();
+                    setRep(false)
+                  }}>
                     <img loading="lazy" src={Replay} />
-                  </button> </>)
+                  </button></>)
                     :
                     (<><button className='Play_Storys_sr' onClick={x ? play : pause} >
                       <img loading="lazy" src={x ? Play_Story_Button : Pause_Story_Button} />
-                    </button></>)}</>)}
+                    </button></>)}</>):(<></>)}
 
                 <div className='openbook_section_right_inner'>
                   {story.description.split("*").slice(currentPage * paragraphsPerPage, (currentPage + 1) * paragraphsPerPage).map((paragraph, pIndex) => (
@@ -390,10 +414,9 @@ const OpenStory = () => {
                 </div>
               </div>
               <div className="pagination">
-                {wait && (<>
-                  <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
+               {wait &&(<>
+                <button className='previous_btn_sr Np_btn_sr' onClick={handlePrevPage} disabled={currentPage === 0}><img loading="lazy" src={PNLeft_arrow} alt='' /></button>
                 <button className='next_btn_sr Np_btn_sr' onClick={handleNextPage}><img loading="lazy" src={PNRight_arrow} alt='' /></button></>)}
-                
               </div>
             </div>
           }

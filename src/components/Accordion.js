@@ -5,7 +5,6 @@ import Circle_Chev_Downa from '../images/Circle_Chev_Down01.png';
 
 function Accordion({ title, content }) {
   const [isExpanded, setIsExpanded] = useState(false);
-
   const toggleAccordion = () => {
     setIsExpanded(!isExpanded);
   };

@@ -342,7 +342,7 @@ export default function All_characters() {
             image: Simon,
             imagetoken: Simon2,
 
-            description: "The history and geography teacher at Stany and Stephy's school, a patient and understanding teacher who always encourages her pupils to give their best. She is 40 years old.`}><div className='kidz_profile_popupsr_content",
+            description: "The history and geography teacher at Stany and Stephy's school, a patient and understanding teacher who always encourages her pupils to give their best. She is 40 years old.",
             sliderImages: [Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82, Rectangle_82],
         },
         {

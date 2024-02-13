@@ -75,7 +75,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 body {
 	font-family: 'Plus Jakarta Sans', sans-serif;
 }
@@ -90,7 +90,7 @@ body {
 }
 
 .navbar-expand-sm .navbar-collapse {
-	justify-content: flex-end;
+	justify-content: center;
 }
 
 .header_inner .navbar {
@@ -120,16 +120,17 @@ body {
 
 .header_inner .navbar .navbar-nav li .nav-link {
 	font-size: 16px;
-	font-weight: 500;
-	line-height: 20px;
+	font-weight: 700;
+	line-height: 22px;
 	letter-spacing: 0em;
-	color: #0C4486;
-	text-transform: capitalize;
+	color: #1A60B1;
+	font-family: "Nunito", sans-serif;
+	
 }
 
 .header_inner .navbar .navbar-nav li.active .nav-link,
 .header_inner .navbar .navbar-nav li .nav-link:hover {
-	color: #0065D9;
+	color: #f28a35;
 }
 
 .header_inner .navbar .navbar-nav {
@@ -898,7 +899,7 @@ html {
 	overflow-x: hidden;
 }
 
-.login_page_sr {
+.login_page_sr, .SignUpNew_Page {
 	height: 100%;
 	min-height: 100vh;
 	position: relative;
@@ -913,13 +914,14 @@ html {
 }
 
 .card.login_sr_cnt .text-center.mb-3 {
+	color: #F28A35;
+	margin-bottom: 24px !important;
+	font-family: "Nunito", sans-serif;
 	font-size: 32px;
-	font-weight: 700;
+	font-weight: 800;
 	line-height: 38px;
 	letter-spacing: 0em;
 	text-align: center;
-	color: #F28A35;
-	margin-bottom: 24px !important;
 }
 
 .card.login_sr_cnt .form-group {
@@ -994,12 +996,12 @@ html {
 	border: 1px solid #F28A35;
 	border-radius: 22px;
 	padding: 10px 18px 10px 18px;
-	text-transform: uppercase;
 	font-size: 16px;
-	font-weight: 600;
-	line-height: 24px;
+	font-weight: 800;
+	line-height: 22px;
 	letter-spacing: 0em;
 	text-align: center;
+	font-family: "Nunito", sans-serif;
 }
 
 .card.login_sr_cnt .form-group.or_text {
@@ -1037,7 +1039,7 @@ html {
 	background: transparent;
 	padding: 10px 16px 10px 16px;
 	border-radius: 22px;
-	font-family: 'Inter', sans-serif;
+	font-family: "Nunito", sans-serif;
 	font-size: 16px;
 	font-weight: 600;
 	line-height: 24px;
@@ -1051,7 +1053,7 @@ html {
 
 .card.login_sr_cnt .form-group.Signup_btn p {
 	margin: 0;
-	font-family: 'Inter', sans-serif;
+	font-family: "Nunito", sans-serif;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 20px;
@@ -1068,19 +1070,19 @@ html {
 	width: 100%;
 	border-radius: 22px;
 	font-size: 16px;
-	font-weight: 600;
-	line-height: 20px;
+	font-weight: 800;
+	line-height: 22px;
 	letter-spacing: 0em;
 	text-align: center;
 	padding: 12px 10px;
-	text-transform: uppercase;
 	margin: 16px auto;
 	margin-top: 16px;
 	max-width: 264px;
 	display: table;
+	font-family: "Nunito", sans-serif;
 }
 
-.login_page_sr::before {
+.login_page_sr::before, .SignUpNew_Page::before {
 	content: '';
 	background-image: url('../images/login_left-shape.png');
 	background-size: cover;
@@ -1094,7 +1096,7 @@ html {
 	left: auto;
 }
 
-.login_page_sr::after {
+.login_page_sr::after, .SignUpNew_Page::after {
 	content: '';
 	background-image: url('../images/login_right-shape.png');
 	background-size: cover;
@@ -1875,7 +1877,7 @@ html {
 	width: 100%;
 	max-width: 575px;
 	margin: 0 auto;
-	margin-top: 80px;
+	margin-top: 0px;
 	display: table;
 	margin-bottom: 54px;
 }
@@ -1887,17 +1889,17 @@ html {
 }
 
 .account_created_mainsr .account_created_header h1 {
-	font-family: Plus Jakarta Sans;
-	font-size: 32px;
-	font-weight: 700;
-	line-height: 40px;
-	letter-spacing: 0em;
-	text-align: center;
 	color: #262626;
 	display: flex;
 	justify-content: center;
 	margin-bottom: 20px;
 	gap: 10px;
+	font-family: Nunito;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 44px;
+	letter-spacing: 0em;
+	text-align: center;
 }
 
 .account_created_mainsr .account_created_header h1 p {
@@ -1948,9 +1950,9 @@ html {
 	border-radius: 16px;
 	background: #fff;
 	width: 100%;
-	max-width: 264px;
+	/* max-width: 264px;
 	margin: 0 auto;
-	margin-bottom: 40px;
+	margin-bottom: 40px; */
 }
 
 .account_created_mainsr .account_created_formsr .continue-code {
@@ -1977,9 +1979,9 @@ html {
 .child_profile {
 	width: 100%;
 	height: 100%;
-	display: flex;
+	/* display: flex;
 	align-items: center;
-	min-height: 100vh;
+	min-height: 100vh; */
 }
 
 .child_profile .child_profile_innersr {
@@ -2047,7 +2049,7 @@ html {
 }
 
 .child_profile .child_profile_innersr .confirm {
-	background: #F28A35;
+	background: #0065D9;
 	border: none;
 	width: auto;
 	border-radius: 22px;
@@ -2061,7 +2063,7 @@ html {
 	display: table;
 	max-width: 290px;
 	min-width: 290px;
-	box-shadow: 0px 4px 8px -2px #FFB579;
+	box-shadow: 0px 4px 8px -2px #0065D9;
 	color: #FFFFFF;
 	text-decoration: none;
 	margin: 0 auto;
@@ -2071,10 +2073,10 @@ html {
 	padding: 60px;
 	width: 28%;
 	background: #FDFDFA;
-	border-radius: 0 60px 0px 0px;
+	border-radius: 0;
 }
 
-.account_created-dash #navigation .logo p {
+/* .account_created-dash #navigation .logo p {
 	color: #404040;
 	font-family: Plus Jakarta Sans;
 	font-size: 24px;
@@ -2082,9 +2084,9 @@ html {
 	font-weight: 600;
 	line-height: normal;
 	text-transform: capitalize;
-}
+} */
 
-.account_created-dash #navigation .logo a {
+.account_created-dash #navigation .logo a.profile_linkdah {
 	font-size: 0px;
 	border-radius: 100px;
 	background: #D9D9D9;
@@ -2121,17 +2123,19 @@ html {
 }
 
 .account_created-dash #navigation .navi ul.navi-ul li a {
-	color: #00897B;
-	font-family: Plus Jakarta Sans;
-	font-size: 16px;
+	color: #1A60B1;
 	font-style: normal;
-	font-weight: 600;
-	line-height: normal;
 	text-decoration: unset;
 	padding: 10px 16px 10px 12px;
 	align-items: flex-start;
 	gap: 8px;
 	display: flex;
+	font-family: Nunito;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: left;
 }
 
 .account_created-dash #navigation .navi ul.navi-ul .child-list ul {
@@ -2438,6 +2442,8 @@ input:checked+.slider:before {
 	width: 100%;
 	min-width: 245px;
 	cursor: pointer;
+	right: 0;
+	z-index: 99;
 }
 
 .navbar .right-icons .nav-link.toggle-profile {
@@ -3239,8 +3245,8 @@ input:checked+.slider:before {
 	color: #fff;
 }
 
-.account_created-dash #navigation .navi ul.navi-ul li.active>a {
-	background: #6DC1B4 !important;
+.account_created-dash #navigation .navi ul.navi-ul li.active > a {
+	background: #F7C35F !important;
 }
 
 .account_created-dash #navigation .navi ul.navi-ul h2 {
@@ -4298,8 +4304,13 @@ extended-family .manage_member_sr button:hover {
 	background-repeat: no-repeat;
 	background-position: right;
 }
+.main-container.faq_page.active_faq::before {
+	background-image: url('../images/faq_activeShape.png');
+	width: 110px;
+	height: 310px;
+}
 
-.main-container.faq_page::after {
+.main-container.faq_page.active_faq::after {
 	content: '';
 	background-image: url('../images/faq_rightShape.png');
 	position: absolute;
@@ -4328,6 +4339,11 @@ extended-family .manage_member_sr button:hover {
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: right;
+}
+.active_faq .faq_page_inner::before {
+	background-image: url('../images/faq_quet_blue.png');
+	width: 60px;
+	height: 100px;
 }
 
 .faq_page_inner::after {
@@ -5176,7 +5192,7 @@ extended-family .manage_member_sr button:hover {
 	align-items: flex-start;
 	align-items: center;
 	border-radius: 8px;
-	color: #00897b;
+	color: #1A60B1;
 	display: flex;
 	font-family: Plus Jakarta Sans;
 	font-size: 16px;
@@ -5194,7 +5210,7 @@ extended-family .manage_member_sr button:hover {
 }
 
 .account_created-dash #navigation .navi ul.navi-ul li.active .dropdown #my-kids-dropdown {
-	background: #6dc1b4;
+	background: #F7C35F;
 	color: #fff;
 }
 
@@ -5832,7 +5848,7 @@ extended-family .manage_member_sr button:hover {
 	padding: 60px;
 	width: 28%;
 	background: #FDFDFA;
-	border-radius: 0 60px 0px 0px;
+	border-radius: 0;
 }
 
 .account_created-dash #navigation #navigations {
@@ -5848,7 +5864,7 @@ extended-family .manage_member_sr button:hover {
 	display: block;
 	min-height: 100vh;
 	position: relative;
-	max-width: 386px;
+	/* max-width: 386px; */
 }
 
 .account_created-dash .row.display-table-row .navbar-toggler {
@@ -6408,10 +6424,10 @@ extended-family .manage_member_sr button:hover {
 .feedback-container-story {
 	margin: 40px 0;
 	background: #fff;
-	padding: 65px 50px;
+	padding: 55px 50px;
 	border-radius: 28px;
 	text-align: center;
-	min-height: 600px;
+	min-height: 220px;
 	max-width: 1200px;
 	margin: 0 auto;
 	position: relative;
@@ -6643,7 +6659,30 @@ extended-family .manage_member_sr button:hover {
 } */
 .record-section {
 	width: 100%;
-	margin-top: 70px;
+	margin-top: 20px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns {
+	position: absolute;
+	top: 30%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	background: #F7C35F;
+	max-width: 570px;
+	padding: 40px 23px;
+	border-radius: 22px;
+	display: flex;
+	gap: 30px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .left {
+	width: 100%;
+	max-width: 170px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .left img {
+	width: 100%;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .right {
+	width: auto;
 }
 
 .story-open-container .openbook_section_sr .pagination {
@@ -6653,6 +6692,35 @@ extended-family .manage_member_sr button:hover {
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
+}
+
+
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .right .txt {
+	background-image: url('../images/recod_answer_popup_bg.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 22px 20px;
+	padding-left: 40px;
+	max-width: 325px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .right .btn {
+	padding: 0;
+	margin-top: 22px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .right .btn button {
+	background: #0065D9;
+	border: none;
+	min-width: 300px;
+	color: #fff;
+	font-family: Nunito;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: center;
+	padding: 16px 0;
+	border-radius: 22px;
 }
 
 .story-open-container .openbook_section_sr .pagination .Np_btn_sr {
@@ -7173,6 +7241,16 @@ extended-family .manage_member_sr button:hover {
 	right: 15px;
 	top: 41px;
 	z-index: 99;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: Plus Jakarta Sans;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: right;
+	color: #667085;
 }
 
 .user_list_sr_outer .user_list_sr.sent-by-user .user_list_groupsr .user_message_sr.sent-by-user-message {
@@ -8812,9 +8890,8 @@ body.popup_actives::after {
 }
 
 .activeitemchild {
-	color: #00897B !important;
+	color: #1A60B1 !important;
 }
-
 
 
 .suggest-features .content .emotes a img.active_review {
@@ -8971,7 +9048,7 @@ body.popup_actives::after {
 }
 
 .Currently_Reading_right .Currently_Reading_btn button {
-	background: #E0F2F1;
+	background: #A6CFFF;
 	border: none;
 	border-radius: 8px;
 	width: 100%;
@@ -8990,7 +9067,9 @@ body.popup_actives::after {
 	align-items: center;
 	min-height: 48px;
 }
-
+.Currently_Reading_right .Currently_Reading_btn.Currently_Reading_btnsecnd button {
+	background: #F7C35F;
+}
 .top_currently_notification .password-update {
 	box-shadow: none;
 	/* border: none; */
@@ -11761,10 +11840,10 @@ to {transform: translateX(0);}
 .top_interactions_parent .top_interactions_parent_inner .chat-popup .chat-popup_inner {padding: 24px 30px;margin-bottom: 20px;box-shadow: 0px -1px 3px 0px #1F98A71A;border: 1px solid #1F98A71A;border-radius: 22px;padding-bottom: 18px;margin-top: 32px;}
 .child_chat_messages_dashboard > div > div:nth-last-child(1) > div {height: 32px !important;}
 .child_chat_messages_dashboard > div > div:nth-last-child(1) {width: 8px !important;}
-.right_sidebar_parent .chat_section_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) {width: 8px !important;}
-.right_sidebar_parent .chat_section_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) > div {height: 32px !important;}
-.chat_section_sr.childchatsection_sr .childchatsection_inner_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) {width: 10px !important;}
-.chat_section_sr.childchatsection_sr .childchatsection_inner_sr #chat-messages-page .d-flex > div > div:nth-last-child(1) > div {height: 32px !important;background: #fff !important;}
+.right_sidebar_parent .chat_section_sr .chat_pagemainSR .d-flex > div > div:nth-last-child(1) {width: 8px !important;}
+.right_sidebar_parent .chat_section_sr .chat_pagemainSR .d-flex > div > div:nth-last-child(1) > div {height: 32px !important;}
+.chat_section_sr.childchatsection_sr .childchatsection_inner_sr .chat_pagemainSR .d-flex > div > div:nth-last-child(1) {width: 10px !important;}
+.chat_section_sr.childchatsection_sr .childchatsection_inner_sr .chat_pagemainSR .d-flex > div > div:nth-last-child(1) > div {height: 32px !important;background: #fff !important;}
 
 .TransitionScreen .all_activity_navSR {max-width: 1200px;padding-bottom: 0;padding-right: 60px;}
 /* .TransitionScreen .all_activity_sr_inner {max-width: 1152px;} */
@@ -11798,3 +11877,1281 @@ to {margin-top: -22%;height: 100%;opacity: 0;}
 .page_ttls .toggle_characters span.active::after {background: #FDD835;width: 100%;}
 /* .start_printing_pageSr.active_popup .main-content {margin-top: 20px;} */
 .start_printing_pageSr .select_size_main {max-width: 1152px;}
+.chat_section_sr_right.chat_pagemainSR .d-flex.flex-column.bg-white {background: transparent !important;}
+
+
+
+.right_header_login ul {
+	list-style: none;
+	display: flex;
+	gap: 30px;
+	margin: 0;
+	align-items: center;
+	padding: 0;
+}
+.right_header_login ul li.nav-item.login-btn .nav-link {
+	background: #F28A35;
+	color: #fff;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	min-width: 165px;
+	padding: 12px 0;
+	border-radius: 50px;
+	text-transform: uppercase;
+}
+.right_header_login ul li.nav-item.sign-btn .nav-link {
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #1A60B1;
+}
+.right_header_login ul li.nav-item.sign-btn .nav-link:hover {
+	color: #f28a35;
+}
+
+.top_header {
+	width: 100%;
+}
+.top_header .container {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+.top_header .container .btn.dropdown-toggle {
+	color: #fff;
+	font-family: "Nunito", sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	border: none !important;
+}
+.top_header {
+	width: 100%;
+	background: #4394F2;
+	padding: 3px 0;
+}
+
+
+
+.top_header .container .btn.dropdown-toggle::after {
+	content: "";
+	margin: 0;
+	border: none;
+	background-image: url('../images/dropdown_lang.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 10px;
+	height: 6px;
+	margin-top: 0;
+}
+.top_header .container .dropdown-menu .dropdown-item {
+	display: flex;
+	align-items: center;
+}
+.top_header .container .dropdown-menu .dropdown-item span {
+	margin-left: 5px;
+}
+.top_header .container .dropdown-menu .dropdown-item svg {
+	width: 19px;
+}
+.header_inner .navbar .navbar-nav li.nav-item .nav-link {
+	background: transparent;
+	border-radius: 22px;
+	padding: 8px 16px 8px 16px;
+}
+.header_inner .navbar .navbar-nav li.nav-item.active .nav-link, .header_inner .navbar .navbar-nav li.nav-item:hover .nav-link {
+	background: #A6CFFF;
+	color: #fff;
+}
+
+
+.faq_page_inner_sections {
+	width: 100%;
+	display: grid;
+	grid-gap: 35px;
+	grid-template-columns: repeat(2, 1fr);
+	row-gap: 40px;
+}
+.faq_page_inner_sections .faq_page_inner_items {
+	background: linear-gradient(0deg, #FFB579, #FFB579), linear-gradient(0deg, #F28A35, #F28A35);
+	border: 2px solid #F28A35;
+	padding: 32px 24px;
+	text-align: center;
+	border-radius: 22px;
+	cursor: pointer;
+}
+.faq_page_inner_sections .faq_page_inner_items h5 {
+	font-family: "Nunito", sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 25px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #FFFFFF;
+	max-width: 190px;
+	margin: 0 auto;
+	margin-top: 24px;
+}
+
+.FrequentlyAsked_content .navlink_Page {
+	width: 100%;
+	text-align: center;
+	font-family: "Nunito", sans-serif;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 16px;
+	letter-spacing: 0em;
+	color: #0A5CBC;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 7px;
+}
+.FrequentlyAsked_content .navlink_Page a {
+	cursor: pointer;
+}
+
+
+.signup_header {
+	width: 100%;
+	padding: 25px 0;
+}
+.signup_header .signup_header_inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.signup_header .signup_header_right .btn.dropdown-toggle {
+	color: #404040;
+	font-family: "Nunito", sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	border: none !important;
+}
+.signup_header .signup_header_right .dropdown .btn.dropdown-toggle::after {
+	content: "";
+	margin: 0;
+	border: none;
+	background-image: url('../images/dropdown_lang_black.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 10px;
+	height: 6px;
+	margin-top: 0;
+}
+.signup_header .signup_header_right .dropdown .dropdown-menu .dropdown-item {
+	display: flex;
+	align-items: center;
+}
+.signup_header .signup_header_right .dropdown .dropdown-menu .dropdown-item span {
+	margin-left: 5px;
+}
+.signup_header .signup_header_right .dropdown .dropdown-menu .dropdown-item svg {
+	width: 19px;
+}
+
+.SignUpNew {
+	width: 100%;
+	padding-top: 120px;
+	padding-bottom: 40px;
+}
+.SignUpNew .SignUpNew_inner {
+	width: 100%;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_opt {
+	display: flex;
+	max-width: 758px;
+	margin: 0 auto;
+	gap: 32px;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_opt .SignUpNew_opt_item {
+	background: #FBDBC0;
+	width: 100%;
+	padding: 58px 20px;
+	text-align: center;
+	border-radius: 22px;
+	cursor: pointer;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_opt .SignUpNew_opt_item p {
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 38px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #F28A35;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_opt .SignUpNew_opt_item.SignUpNew_institution {
+	background: #E3D8F0;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_opt .SignUpNew_opt_item.SignUpNew_institution p {
+	color: #8A6CB1;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_community {
+	width: 100%;
+	margin-top: 51px;
+	text-align: center;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_community p {
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 38px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+	margin: 0;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_bottom {
+	margin-top: 70px;
+	width: 100%;
+	text-align: center;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_bottom p {
+	font-family: "Nunito", sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: 0em;
+	width: 100%;
+	margin: 0;
+	color: #737373;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_bottom a {
+	display: table;
+	margin: 0 auto;
+	margin-top: 11px;
+}
+.SignUpNew .SignUpNew_inner .SignUpNew_bottom a .btn.btn-primary {
+	margin: 0 !important;
+	background: #f28a35;
+	border-radius: 50px;
+	color: #fff;
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 0;
+	line-height: 20px;
+	min-width: 264px;
+	padding: 16px 0;
+	text-align: center;
+	text-transform: uppercase;
+	border-color: #f28a35;
+}
+
+
+.SignUpNew .SignUpNew_inner .Signup_form {
+	width: 100%;
+	max-width: 456px;
+	margin: 0 auto;
+}
+.SignUpNew .SignUpNew_inner .Signup_form .Signup_form_opt {
+	width: 100%;
+}
+.SignUpNew .SignUpNew_inner .Signup_form .Signup_form_opt h1 {
+	font-family: "Nunito", sans-serif;
+	font-size: 32px;
+	font-weight: 800;
+	line-height: 38px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #8A6CB1;
+	margin-bottom: 24px;
+}
+.SignUpNew .SignUpNew_inner .Signup_form .Signup_form_opt .Signup_form {
+	display: flex;
+	align-items: center;
+}
+.SignUpNew_inner .Signup_form .SignupForm_Toggle {
+	width: 100%;
+	display: flex;
+	margin-bottom: 24px;
+}
+.SignUpNew_inner .Signup_form .SignupForm_Toggle .SignupForm_toggle {
+	width: 50%;
+	background: #fff;
+	border-radius: 8px;
+	padding: 8px 0;
+	color: #8A6CB1;
+	font-family: Nunito;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 38px;
+	letter-spacing: 0em;
+	text-align: center;
+	cursor: pointer;
+}
+.SignUpNew_inner .Signup_form .SignupForm_Toggle .SignupForm_toggle.active {
+	background: #E3D8F0;
+}
+.SignUpNew .Signup_form .SignupFormMain {
+	width: 100%;
+}
+.SignUpNew .Signup_form .SignupFormMain .form-group {
+	margin-bottom: 10px;
+	width: 100%;
+}
+.SignUpNew .Signup_form .SignupFormMain .form-group label {
+	color: #344054;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0;
+	line-height: 20px;
+	margin-bottom: 6px;
+	text-align: left;
+}
+.SignUpNew .Signup_form .SignupFormMain .form-group input {
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 22px;
+	box-shadow: 0 1px 2px 0 #1018280d;
+	color: #667085;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0;
+	line-height: 24px;
+	padding: 14px;
+	text-align: left;
+}
+.SignUpNew .Signup_form .SignupFormMain .form-group select {
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 22px;
+	box-shadow: 0 1px 2px 0 #1018280d;
+	color: #667085;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0;
+	line-height: 24px;
+	padding: 14px;
+	text-align: left;
+	cursor: pointer;
+	background-image: url('../images/Icon-awesome-caret-down.png');
+	background-position: 97% 50%;
+	background-repeat: no-repeat;
+	background-size: 18px;
+	cursor: pointer;
+
+}
+.SignUpNew .Signup_form .SignupFormMain .form-group.Password_form_sr {
+	position: relative;
+}
+.SignUpNew .Signup_form .SignupFormMain .form-group.Password_form_sr .show_passw_btn {
+	background: transparent;
+	border: none;
+	padding: 0;
+	position: absolute;
+	right: 15px;
+	top: 41px;
+	z-index: 99;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: Plus Jakarta Sans;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: right;
+	color: #667085;
+	cursor: pointer;
+}
+.SignUpNew .Signup_form .SignupFormMain .SignUpNew_parentForm_bottom {
+	width: 100%;
+	margin-top: 24px;
+}
+.SignUpNew .Signup_form .SignupFormMain .SignUpNew_parentForm_bottom p {
+	font-family: Plus Jakarta Sans;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #344054;
+	margin-bottom: 24px;
+}
+.SignUpNew .Signup_form .SignupFormMain .SignUpNew_parentForm_bottom p input {
+	border: 1px solid #e5e5e5;
+	scale: 1.2;
+	margin-right: 8px;
+}
+.SignUpNew .Signup_form .SignupFormMain .SignUpNew_parentForm_bottom p span a {
+	color: #4394F2;
+	font-family: "Nunito", sans-serif;
+	cursor: pointer;
+}
+.SignUpNew .Signup_form .SignupFormMain .SignUpNew_parentForm_bottom .btn.btn-primary {
+	background: #8A6CB1;
+	border: 1px solid #8A6CB1;
+	border-radius: 22px;
+	margin: 0 !important;
+	padding: 10px 18px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 22px;
+	letter-spacing: 0em;
+}
+.SignUpNew .Signup_form .SignupFormMain .SignUpNew_parentForm_bottom .btn.btn-primary:hover {
+	background: #1a60b1;
+}
+.SignUpNew .SignUpNew_inner .Signup_form .form-group.mt-3.or_text {
+	position: relative;
+}
+.SignUpNew .SignUpNew_inner .Signup_form .form-group.mt-3.or_text::after {
+	background: #eaecf0;
+	content: "";
+	height: 1px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	width: 100%;
+}
+.SignUpNew .SignUpNew_inner .Signup_form .form-group.mt-3.or_text span {
+	background: #fff;
+	display: table;
+	margin: 0 auto;
+	padding: 4px 20px;
+	position: relative;
+	z-index: 99;
+}
+.SignUpNew_inner .Signup_form .login_with_btncnrl {
+	display: grid;
+	gap: 16px;
+}
+.SignUpNew_inner .Signup_form .login_with_btncnrl button {
+	background: transparent;
+	border: 1px solid #e5e5e5;
+	border-radius: 22px;
+	color: #344054;
+	display: flex;
+	font-family: Inter,sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+	gap: 12px;
+	justify-content: center;
+	letter-spacing: 0;
+	line-height: 24px;
+	padding: 10px 16px;
+	text-align: center;
+}
+.SignUpNew_inner .Signup_form .login_with_btncnrl button:hover {
+	border-color: #1a60b1;
+}
+
+.signupregistration {
+	width: 100%;
+	padding: 150px 0 0 0;
+}
+.signupregistration .signupregistration_inner, .signUpmailverify .signUpmailverify_inner {
+	width: 100%;
+	max-width: 460px;
+	margin: 0 auto;
+	text-align: center;
+}
+.signupregistration .signupregistration_inner .signupregistration_body {
+	width: 100%;
+}
+.signupregistration .signupregistration_body img {
+	max-width: 130px;
+	margin: 0 auto;
+}
+.signupregistration .signupregistration_body h1,  .signUpmailverify .signUpmailverify_inner h1 {
+	font-family: "Nunito", sans-serif;
+	font-size: 32px;
+	font-weight: 800;
+	line-height: 38px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+	margin: 16px 0;
+}
+.signupregistration .signupregistration_body p {
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: center;
+	margin: 8px 0;
+	color: #404040;
+	font-family: "Nunito", sans-serif;
+}
+.signupregistration .signupregistration_btn, .signUpmailverify .signUpmailverify_btn {
+	width: 100%;
+	margin-top: 24px;
+}
+.signupregistration .signupregistration_btn .btn.btn-primary, .signUpmailverify .signUpmailverify_btn .btn.btn-primary {
+	margin: 0 !important;
+	width: 100%;
+	background: #8A6CB1;
+	border: 1px solid #8A6CB1;
+	border-radius: 22px;
+	padding: 10px 18px 10px 18px;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: center;
+}
+.signUpmailverify .signUpmailverify_btn .btn.btn-primary {
+	background: #F28A35;
+	border: 1px solid #F28A35;
+}
+.signupregistration .signupregistration_btn .btn.btn-primary:hover {
+	background: #1a60b1;
+}
+
+.signupregistration_pageSr, .signUpmailverify_pageSr {
+	height: 100%;
+	min-height: 100vh;
+	position: relative;
+}
+.signupregistration_pageSr .signupregistration {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 40%;
+	transform: translateY(-50%);
+	padding-top: 0;
+	z-index: 9;
+}
+.signupregistration_pageSr::before {
+	content: '';
+	background-image: url('../images/registration_left.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom: 0%;
+	width: 317px;
+	height: 306px;
+	left: 0;
+	right: auto;
+}
+.signupregistration_pageSr::after {
+	content: '';
+	background-image: url('../images/registration_right.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 14%;
+	width: 190px;
+	height: 500px;
+	right: 0;
+	left: auto;
+}
+
+/* ***************************** */
+
+.signUpmailverify_pageSr .signUpmailverify {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	padding-top: 0;
+	z-index: 9;
+}
+.signUpmailverify_pageSr::before {
+	content: '';
+	background-image: url('../images/mailverification_left.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom: 5%;
+	width: 348px;
+	height: 652px;
+	left: 0;
+	right: auto;
+}
+.signUpmailverify_pageSr::after {
+	content: '';
+	background-image: url('../images/mailverification_right.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom: 0%;
+	width: 364px;
+	height: 442px;
+	right: 0;
+	left: auto;
+}
+
+
+.progressbar_Top {
+	width: 100%;
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 54px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	justify-content: center;
+}
+.account_created_mainsr .account_created_formsr .Password_form_Sr {
+	width: 100%;
+	position: relative;
+	max-width: 264px;
+	margin: 0 auto;
+	margin-bottom: 0px;
+	margin-bottom: 40px;
+}
+.account_created_mainsr .account_created_formsr .Password_form_Sr img {
+	background: transparent;
+	border: none;
+	padding: 0;
+	position: absolute;
+	right: 15px;
+	top: 18px;
+	z-index: 99;
+	cursor: pointer;
+}
+.progressbar_Top .back_btn_link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	gap: 10px;
+}
+.progressbar_Top .back_btn_link p {
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+	margin: 0;
+}
+
+.profile_info {
+	width: 100%;
+}
+.profile_info .profile_info_inner {
+	width: 100%;
+	max-width: 460px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+}
+.profile_info .profile_info_inner .profile_info_head {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 32px;
+}
+.profile_info .profile_info_inner .profile_info_head h1 {
+	font-family: "Nunito", sans-serif;
+	font-size: 32px;
+	font-weight: 800;
+	line-height: 38px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+}
+.profile_info_inner form {
+	width: 100%;
+}
+
+.profile_info_inner form .form-group {
+	margin-bottom: 10px;
+	width: 100%;
+}
+.profile_info_inner form .form-group.half_item {
+	display: flex;
+	gap: 15px;
+}
+.profile_info_inner form .form-group label {
+	color: #344054;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0;
+	line-height: 20px;
+	margin-bottom: 6px;
+	text-align: left;
+	font-family: "Nunito", sans-serif;
+}
+.profile_info_inner form .form-group .form-control {
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 22px;
+	box-shadow: 0 1px 2px 0 #1018280d;
+	color: #667085;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0;
+	line-height: 24px;
+	padding: 14px;
+	text-align: left;
+}
+.profile_info_inner form .form-group.half_item .half_item_form.col-md-6 {
+	flex: inherit;
+	width: 100%;
+}
+.profile_info_inner form .form-group .select_ss.form-control {
+	padding: 10px 14px;
+}
+.profile_info_inner form .profile_info_btn {
+	width: 100%;
+	margin-top: 32px;
+}
+.profile_info_inner form .profile_info_btn .btn.btn-primary {
+	background: #0065D9;
+	border: 1px solid #0065D9;
+	border-radius: 22px;
+	margin: 0 !important;
+	padding: 10px 18px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 22px;
+	letter-spacing: 0em;
+	max-width: 294px;
+	margin: 0 auto !important;
+	display: table;
+}
+
+.profile_all_page {
+	height: 100%;
+	min-height: 100vh;
+	position: relative;
+	display: table;
+	width: 100%;
+}
+.profile_all_page::before {
+	content: '';
+	background-image: url('../images/account-created_ShapeRight.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom: 15%;
+	width: 126px;
+	height: 240px;
+	right: 0;
+	left: auto;
+}
+
+.profile_all_page::after {
+	content: '';
+	background-image: url('../images/account-created_ShapeLeft.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 0%;
+	width: 190px;
+	height: 600px;
+	left: 0;
+	right: auto;
+}
+
+
+.add_profile_page.profile_all_page .addprofile_row {
+	align-items: center;
+	justify-content: center;
+	grid-template-columns: repeat(3, 1fr) !important;
+	display: grid !important;
+	gap: 30px;
+}
+.add_profile_page.profile_all_page .addprofile_row .item-who-are-you.profile_type_two.col-md-4 {
+	width: 100%;
+}
+.add_profile_page.profile_all_page .addProfile_btn {
+	margin-top: 60px;
+	margin-bottom: 60px;
+}
+.add_profile_page.profile_all_page .addProfile_btn a {
+	margin: 0 auto;
+	display: table;
+}
+.add_profile_page.profile_all_page .addProfile_btn a .btn.btn-primary {
+	background: #0065D9;
+	border: 1px solid #0065D9;
+	border-radius: 22px;
+	margin: 0 !important;
+	padding: 10px 18px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 22px;
+	letter-spacing: 0em;
+	min-width: 294px;
+}
+
+
+.add_profile_page.profile_all_page .addprofile_row.profile_memAdd {
+	display: block !important;
+}
+.addProfile_formMem {
+	display: flex;
+	margin: 0 auto;
+	max-width: 671px;
+	gap: 40px;
+	align-items: center;
+}
+.addProfile_formMem .addProfile_img {
+	max-width: 267px;
+	width: 100%;
+}
+.addProfile_formMem .addProfile_form {
+	width: 100%;
+}
+.addProfile_formMem .addProfile_form h1 {
+	font-family: Plus Jakarta Sans;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #262626;
+	border-bottom: 1px solid #D4D4D4;
+	padding-bottom: 32px;
+	margin-bottom: 24px;
+}
+.addProfile_formMem .addProfile_form form {
+	width: 100%;
+}
+.addProfile_formMem .addProfile_form form .addProfile_form_items {
+	width: 100%;
+}
+.addProfile_formMem .addProfile_form form .addProfile_form_items label {
+	color: #344054;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0;
+	line-height: 20px;
+	margin-bottom: 6px;
+	text-align: left;
+	width: 100%;
+}
+.addProfile_formMem .addProfile_form form .addProfile_form_items input {
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 22px;
+	box-shadow: 0 1px 2px 0 #1018280d;
+	color: #667085;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0;
+	line-height: 24px;
+	padding: 14px;
+	text-align: left;
+}
+.addProfile_formMem .addProfile_form form .addProfile_form_btnCnrl {
+	width: 100%;
+	margin-top: 40px;
+}
+.addProfile_formMem .addProfile_form form .addProfile_form_btnCnrl {
+	width: 100%;
+	margin-top: 40px;
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+}
+.addProfile_formMem .addProfile_form form .addProfile_form_btnCnrl button {
+	background: #fff;
+	border: 1px solid #0065D9;
+	border-radius: 22px;
+	margin: 0 !important;
+	padding: 10px 18px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 22px;
+	letter-spacing: 0em;
+	color: #0065D9;
+}
+.addProfile_formMem .addProfile_form form .addProfile_form_btnCnrl button.addProfile_form_confirm, .addProfile_formMem .addProfile_form form .addProfile_form_btnCnrl button:hover {
+	background: #0065D9;
+	border: 1px solid #0065D9;
+	color: #fff;
+}
+
+.done_page .done_page_inner {
+	width: 100%;
+}
+.done_page .done_page_inner .done_body {
+	max-width: 400px;
+	margin: 0 auto;
+	margin-top: 130px;
+	text-align: center;
+}
+.done_page .done_page_inner .done_body h1 {
+	font-family: "Nunito", sans-serif;
+	font-size: 32px;
+	font-weight: 800;
+	line-height: 44px;
+	letter-spacing: 0em;
+	color: #404040;
+	margin-bottom: 40px;
+}
+.done_page .done_page_inner .done_body .confirm {
+	background: #0065D9;
+	border: 1px solid #0065D9;
+	border-radius: 22px;
+	padding: 10px 18px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 22px;
+	letter-spacing: 0em;
+	color: #fff;
+	display: table;
+	max-width: 294px;
+	margin: 0 auto !important;
+	text-decoration: none;
+}
+
+
+.topbar {
+	display: flex;
+	justify-content: space-between;
+	padding: 30px 60px;
+	box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+	box-shadow: 0px -1px 3px 0px rgba(31, 152, 167, 0.1);
+}
+.topbar .switch-dashboard {
+	background: #0065D9;
+	padding: 10px 16px;
+	border-radius: 48px;
+	display: flex;
+	align-items: center;
+}
+.topbar .switch-dashboard a {
+	font-family: Plus Jakarta Sans;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 15px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #FFFFFF;
+	padding: 10px 10px;
+	text-decoration: none;
+	border-radius: 30px;
+}
+.topbar .switch-dashboard a.active {
+	background: #F7C35F;
+}
+.account_created-dash #navigation .navi ul.navi-ul li .dropdown .dropdown-menu .addChildPro {
+	background: transparent;
+	color: #1A60B1;
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: left;
+	margin-top: 10px;
+}
+
+.account_created-dash #navigation #navigations .logo {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+.account_created-dash #navigation #navigations .logo .profile_text_dash {
+	width: auto;
+}
+.account_created-dash #navigation #navigations .logo .profile_text_dash .text_dash_name {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	justify-content: space-evenly;
+	text-decoration: none;
+}
+.account_created-dash #navigation #navigations .logo .profile_text_dash .text_dash_name p {
+	font-family: "Nunito", sans-serif;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 33px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+	margin: 0;
+}
+.account_created-dash #navigation #navigations .logo .profile_text_dash span {
+	font-family: "Nunito", sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #404040;
+}
+.account_created-dash #navigation #navigations .logo .profile_text_dash {
+	width: auto;
+	text-decoration: none;
+}
+.Currently_Reading_right .Currently_Reading_btn button svg circle {
+	fill: #1A60B1;
+}
+.Currently_Reading_right .Currently_Reading_btn button svg path {
+	stroke: #1A60B1;
+}
+.top_currently_parent .inner-container .inner-container-right p {
+	color: #262626;
+	font-family: "Nunito", sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 18px;
+	letter-spacing: 0em;
+	text-align: left;
+}
+.top_currently_parent .inner-container .no_story {
+	margin: 0 auto;
+	text-align: center;
+}
+.top_currently_parent .inner-container .no_story p, .no-chat .no-chat_inner p {
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #525252;
+	margin: 10px 0 0 0;
+}
+.no-chat .no-chat_inner {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.souvenir_main_inner {
+	width: 100%;
+}
+.souvenir_main_inner .souvenir_top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.souvenir_main_inner .souvenir_top .souvenir_top_ttl {
+	width: auto;
+}
+.souvenir_main_inner .souvenir_top .souvenir_top_ttl h1 {
+	font-family: "Nunito", sans-serif;
+	font-size: 24px;
+	font-weight: 800;
+	line-height: 33px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #404040;
+	margin: 0;
+}
+.souvenir_main_inner .souvenir_top .souvenir_filter {
+	width: auto;
+}
+.souvenir_main_inner .souvenir_top .souvenir_filter button {
+	background: transparent;
+	border: 2px solid #D0D5DD;
+	box-shadow: 0px 1px 2px 0px #1018280D;
+	border-radius: 8px;
+	padding: 10px 20px;
+	font-family: Inter;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #1A60B1;
+	display: flex;
+	align-items: center;
+	gap: 7px;
+}
+.souvenir_body {
+	width: 100%;
+}
+.souvenir_body .souvenir_card {
+	width: 100%;
+}
+.souvenir_body .souvenir_card .souvenircard_top {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 56px;
+	align-items: center;
+	margin-bottom: 24px;
+}
+.souvenir_body .souvenir_card .souvenircard_top .souvenirtitle {
+	font-family: "Nunito", sans-serif;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 33px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #404040;
+}
+.souvenir_body .souvenir_card .souvenircard_top .souvenircardViewAll {
+	width: auto;
+}
+.souvenir_body .souvenir_card .souvenircard_top .souvenircardViewAll button {
+	background: transparent;
+	border: none;
+	padding: 0;
+	font-family: "Nunito", sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 19px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #404040;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.souvenir_body .souvenir_card .souvenir_audiofull {
+	width: 100% !important;
+	max-width: 100%;
+	margin-bottom: 24px !important;
+	display: flex;
+	gap: 16px;
+	align-items: center;
+}
+.souvenir_body .souvenir_card .souvenir_audiofull .audio_fullcon_image {
+	text-align: center;
+}
+.souvenir_body .souvenir_card .souvenir_audiofull .audio_fullcon_image img {
+	max-width: 123px;
+	margin: 0 auto;
+	background: #FFF9C4;
+	border-radius: 100px;
+}
+.souvenir_body .souvenir_card .souvenir_audiofull .audio_fullcon_image h4 {
+	font-family: "Nunito", sans-serif;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #404040;
+	margin-top: 8px;
+}
+.souvenir_body .souvenir_card .souvenir_audiofull .audio_fullcon_content {
+	width: 100%;
+}
+.souvenir_body .souvenir_card .souvenir_audiofull .audio_fullcon_content .audio-player {
+	padding: 0;
+}
+.souvenir_body .souvenir_card .souvenir_audiofull .audio_fullcon_content .sliding-text-container p {
+	font-family: Plus Jakarta Sans;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #8A6CB1;
+}
+
+.souvenir_body .souvenir_card .card_bottom {
+	width: 100%;
+	display: flex;
+	gap: 41px;
+	align-items: center;
+}
+.souvenir_body .souvenir_card .card_bottom .memo {
+	width: 100%;
+	max-width: 300px;
+	background: #C8E6C9;
+	padding: 16px 22px;
+	border-radius: 22px;
+}
+.souvenir_body .souvenir_card .card_bottom .memo .memo_top {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+.souvenir_body .souvenir_card .card_bottom .memo .memo_top p {
+	font-family: Nunito;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #4CAF50;
+	margin: 0;
+}
+.souvenir_body .souvenir_card .card_bottom .memo .memo_description {
+	width: 100%;
+}
+.souvenir_body .souvenir_card .card_bottom .memo .memo_description textarea {
+	padding: 0;
+	border: none;
+	appearance: none;
+	width: 100%;
+	background: transparent;
+	color: #388E3C80;
+	font-family: Nunito;
+	font-size: 14px;
+	font-style: italic;
+	font-weight: 600;
+	line-height: 19px;
+	letter-spacing: 0em;
+	text-align: left;
+	box-shadow: none;
+	outline: 0;
+}
+.souvenir_body .souvenir_card .card_bottom .add_image {
+	width: auto;
+}
+.souvenir_read_tabs_fullconversation .social_icons {
+	margin-top: 24px;
+}
+.souvenir_read_tabs_fullconversation .social_icons_outer {
+	margin-top: 34px;
+}
+
+
+.chosen-story-section.all_activity_sr {
+	padding-bottom: 100px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.all_activity_sr_inner.record_answer_page_srrr::before {
+	display: none;
+}
+.all_activity_sr_inner.record_answer_page_srrr .feedback-container-story::before, .all_activity_sr_inner.record_answer_page_srrr .feedback-container-story::after {
+	display: none;
+}

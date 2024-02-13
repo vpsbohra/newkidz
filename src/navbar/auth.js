@@ -38,7 +38,9 @@ import Faq from '../components/Faq';
 import PlayStory from '../components/Dashboard/playStory';
 import Start_Printing from '../components/Dashboard/Start_Printing.js';
 import TransitionScreen from '../components/Dashboard/TransitionScreen.js';
-
+import Top from '../components/top.js';
+import ProfileInfo from '../components/Dashboard/profileInfo.js';
+import Done from '../components/Dashboard/done.js';
 function Auth() {
     const Navigate = useNavigate();
 
@@ -83,6 +85,9 @@ function Auth() {
                     <Route path="/PlayStory" element={<PlayStory />} />
                     <Route path="/start_printing" element={<Start_Printing />} />
                     <Route path="/TransitionScreen" element={<TransitionScreen />} />
+                    <Route path="/top" element={<Top />} />
+                    <Route path="/profileinfo" element={<ProfileInfo />} />
+                    <Route path="/done" element={<Done />} />
                     <Route path="*" element={<Navigate to="/" />} />
 
                 </Routes>

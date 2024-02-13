@@ -33,6 +33,7 @@ import getToKnow from '../Audio/getToKnow.wav';
 import hasResponded from '../Audio/hasResponded.wav';
 import paper_clip from '../../images/paper_clip.png';
 import emotes from '../../images/Frame.png';
+import No_conversations from '../../images/No_conversations.png';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import AudioPlayer from './AudioPlayer';
 import { Scrollbars } from 'react-custom-scrollbars-2';
@@ -315,8 +316,8 @@ const Chat = ({ dataId, userId }) => {
   //   }
   // }
 
-  const storydetails = JSON.parse(localStorage.getItem('storiesLocal'));
-  const storyId =  storydetails.id?storydetails.id:'';
+  const storydetails = JSON.parse(localStorage.getItem("storiesLocal"));
+  const storyId = storydetails && storydetails.id ? storydetails.id : "";
   useEffect(()=>{
     localStorage.setItem("ThankyouResponse",'null')
   },[storyId])
@@ -792,7 +793,7 @@ const [STORYId,setStory_id]=useState();
   return (
     <>
       <div className="chat_section_sr">
-        <div className="chat_section_sr_right" >
+        <div className="chat_section_sr_right chat_pagemainSR">
           <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" ref={chatSectionRightRef}>
             <div className="user_name_chat d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
               <input
@@ -1091,7 +1092,7 @@ const [STORYId,setStory_id]=useState();
                       </>
                     )}
                   </>
-                ))}</>) : (<div className='no-chat'> <p> No chats </p></div>)}
+                ))}</>) : (<div className='no-chat'> <div className='no-chat_inner'><img src={No_conversations} alt="" /> <p> No conversations yet </p></div></div>)}
 
               </>) : (<div className='no-chat'>    <img src={Load} alt="Loading..." /></div>
               )}
