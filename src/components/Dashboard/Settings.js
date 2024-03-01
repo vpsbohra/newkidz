@@ -23,6 +23,7 @@ const Settings = () => {
   const [userData, setUserData] = useState({});
   const [editedData, setEditedData] = useState({});
   const [isPasswordUpdate, setIsPasswordUpdate] = useState(false);
+  const [isMailUpdate, setIsMailUpdate] = useState(false);
   const [childd, isChild] = useState(false);
   const { getUserId } = AuthUser();
   const { http, setToken } = AuthUser();
@@ -475,6 +476,45 @@ const Settings = () => {
               <button className='Update_pass_btn' onClick={() => handleUpdate('password')}>Reset Password</button>
             </div>
           )}
+          {isMailUpdate && (
+            <div className="password-update">
+              <button className='closed_popup_password' onClick={() => setIsMailUpdate(false)}><img loading="lazy" src={close_btnImage} alt="protected" /></button>
+              <h2>Change Email Address</h2>
+              <div className="form-group">
+                <label>Current Email Address</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="email"
+                  value={editedData.email || ''}
+                  onChange={handleInputChange}
+                />
+                {fieldErrors && <span className="error-message">{fieldErrors}</span>}
+              </div>
+              <div className="form-group">
+                <label>New Email Address</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="newEmail"
+                  value={editedData.email || ''}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="currentPassword"
+                  value={editedData.password || ''}
+                  onChange={handleInputChange}
+                />
+              </div>
+              {fieldErrorsPassMatched && <span className="error-message">{fieldErrorsPassMatched}</span>}
+              <button className='Update_pass_btn' >Change Email Address</button>
+            </div>
+          )}
 
           <div className='top_currently_parent'>
             <h1>Profile</h1>
@@ -542,6 +582,9 @@ const Settings = () => {
                       onChange={handleInputChange}
                       autoComplete="off"
                     />
+                    {!isMailUpdate && (
+                    <button className='chnage_pas_sr' onClick={() => setIsMailUpdate(true)}>Change email address</button>
+                  )}
 
                     {/* {editedData.email && <button className='' onClick={() => handleUpdate('email')}>Change Email Address</button>} */}
                   </div>

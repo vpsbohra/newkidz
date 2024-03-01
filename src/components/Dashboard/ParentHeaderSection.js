@@ -5,6 +5,7 @@ import CurrentlyReading from './CurrentlyReading';
 import Calendar from 'react-calendar';
 import { useLocation } from "react-router-dom";
 
+
 export default function ParentHeaderSection(props) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -46,6 +47,7 @@ export default function ParentHeaderSection(props) {
       <div className='right_sidebar_parent'>
         {toggle ? (
           <>
+
             <CurrentlyReading toggle={toggle} selectedDate={selectedDate} />
           </>
         ) : (

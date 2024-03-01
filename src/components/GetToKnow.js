@@ -9,8 +9,8 @@ export default function GetToKnow() {
                 <div className="row">
                     <div className="left-section col-6">
                         <h1>Get to know your child</h1>
-                        <p>Get a deeper understanding of your child's world and gain valuable insights into their development, interests, and strengths, empowering you to support and nurture their individual growth. KidzConnect allows you to connect on a whole new level, fostering a stronger relationship built on knowledge, understanding, and shared experiences.</p>
-                        <button className='content_btn' type='button'>Let Me Get Started</button>
+                        <p>Get a deeper understanding of your child's world and gain valuable insights into their development, empowering you to nurture their individual growth.</p>
+                        <button className='content_btn' type='button'>START FOR FREE</button>
                     </div>
                     <div className="right-section col-6">
                         <img loading="lazy" src={Image1} alt="Description of the" />    

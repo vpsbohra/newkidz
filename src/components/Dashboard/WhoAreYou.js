@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate, Routes, Route } from "react-router-dom";
-
 import { useEffect, useState } from "react";
 import ReactivePopup from "./ReactivePopup";
 import axios from "axios";
@@ -61,12 +60,14 @@ export default function Dashboard() {
   };
 
   const fetchMembers = async () => {
+
     try {
       const response = await axios.get(
         `https://mykidz.online/api/members/${userId}`
       );
       const membersData = response.data;
       setMembers(membersData);
+
       console.log("memebers",members);
     } catch (error) {
       console.error("Error fetching members:", error);
@@ -138,7 +139,6 @@ export default function Dashboard() {
     if (code === storedCode) {
       setIsParentalSwitchActive("false");
       document.documentElement.classList.remove("parental-switch-active");
-
       navigate("/parent-dashboard");
     } else {
       setErrorMessage("Invalid code entered. Please try again.");
@@ -154,6 +154,7 @@ export default function Dashboard() {
   useEffect(() => {
     const handleBackButton = (event) => {
       event.preventDefault();
+
       //   alert('true');
     };
 
@@ -163,6 +164,7 @@ export default function Dashboard() {
       window.removeEventListener("popstate", handleBackButton);
     };
   }, [showPopup]);
+
 
   function renderElement() {
     if (userdetail) {
@@ -183,6 +185,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="who-are-you_inner">
+
         <div className="container">
           <div className="who-are-you_header">
             <h1>Who are you?</h1>
@@ -204,6 +207,7 @@ export default function Dashboard() {
                 {username}
               </Link>
             </div>
+
             {loader ? (
               <>
                 <div className="no-chat">

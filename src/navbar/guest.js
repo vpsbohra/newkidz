@@ -4,7 +4,7 @@ import Home from '../components/home';
 import Login from '../components/login';
 import About from '../components/about';
 // import Register from '../components/register';
-import SignUp from '../components/SignUp';
+import SignUp from '../components/SignUpOld.js';
 import Suscription from '../components/Subscription';
 import Logo from '../images/KIDZCONNECT-1.png';
 import StripePayment from '../components/PaymentGateway/StripePayment';
@@ -17,9 +17,17 @@ import RecordedAnswer from '../components/Dashboard/RecordedAnswer';
 import { Navigate } from 'react-router-dom';
 import TC from '../components/T&C';
 import Privacy_policy from '../components/Privacy_policy';
-
 import ForgetPassword from '../components/ForgetPassword';
 import ResetPassword from '../components/ResetPassword';
+import SignUpNew from '../components/SignUpNew.js';
+import SignUpregistration from '../components/SignUpregistration.js';
+import SignUpmailverify from '../components/SignUpmailverify.js';
+import WhoAreYou from '../components/Dashboard/WhoAreYou';
+import AccountCreatedCodeSetup from '../components/Dashboard/AccountCreatedCodeSetup';
+import CreateChildProfile from '../components/Dashboard/CreateChildProfile';
+import DashboardAddprofile from '../components/Dashboard/AddProfile';
+import ProfileInfo from '../components/Dashboard/profileInfo.js';
+import Done from '../components/Dashboard/done.js';
 
 // import KidsStory from '../components/Dashboard/KidzStory';
 // import KidzOnGoingStory from '../components/Dashboard/KidzOnGoingStory';
@@ -71,7 +79,16 @@ function Guest() {
                     <Route path="/Privacy_policy" element={<Privacy_policy />} />
                     <Route path="/ForgetPassword" element={<ForgetPassword />} />
                     <Route path="/ResetPassword" element={<ResetPassword />} />
+                    <Route path="/SignUpNew" element={<SignUpNew />} />
+                    <Route path="/SignUpregistration" element={<SignUpregistration />} />
+                    <Route path="/mailverification" element={<SignUpmailverify />} />
                     <Route path="*" element={<Navigate to="/" />} />
+                    <Route path="/who-are-you" element={<WhoAreYou />} />
+                    <Route path="/account-created" element={<AccountCreatedCodeSetup />} />
+                    <Route path="/create-child-profile" element={<CreateChildProfile />} />
+                    <Route path="/add-profile" element={<DashboardAddprofile />} />
+                    <Route path="/profileinfo" element={<ProfileInfo />} />
+                    <Route path="/done" element={<Done />} />
                 </Routes>
             </div>
         </>

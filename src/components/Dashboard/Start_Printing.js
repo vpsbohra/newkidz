@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import KidsNav from "../../navbar/kidzNav";
 import axios from "axios";
+import Back from "../../images/BackButton.png";
+import { Link } from "react-router-dom";
+
 
 import balum1 from "../../images/characters/BalumBalum/1.webp";
 import balum2 from "../../images/characters/BalumBalum/2.webp";
@@ -177,29 +180,6 @@ import Medium from "../../images/Sizes/Medium.jpg";
 import Normal from "../../images/Sizes/Normal.jpg";
 import close from "../../images/Close.png";
 
-import colored_balum1 from "../../images/colored_images/balum1.webp";
-import colored_cindy1 from "../../images/colored_images/cindy1.webp";
-import colored_cindy2 from "../../images/colored_images/cindy2.webp";
-import colored_drawing_room1 from "../../images/colored_images/drawing_room1.webp";
-import colored_friends1 from "../../images/colored_images/friends1.webp";
-import colored_friends2 from "../../images/colored_images/friends2.webp";
-import colored_friends3 from "../../images/colored_images/friends3.webp";
-import colored_giovanni1 from "../../images/colored_images/giovanni1.webp";
-import colored_giovanni2 from "../../images/colored_images/giovanni2.webp";
-import colored_giovanni3 from "../../images/colored_images/giovanni3.webp";
-import colored_hospital1 from "../../images/colored_images/hospital1.webp";
-import colored_hospital2 from "../../images/colored_images/hospital2.webp";
-import colored_magicdoor1 from "../../images/colored_images/magicdoor1.webp";
-import colored_party1 from "../../images/colored_images/party1.webp";
-import colored_party2 from "../../images/colored_images/party2.webp";
-import colored_stanycar1 from "../../images/colored_images/stanycar1.webp";
-import colored_stefy1 from "../../images/colored_images/stefy1.webp";
-import colored_stefy2 from "../../images/colored_images/stefy2.webp";
-import colored_stefy3 from "../../images/colored_images/stefy3.webp";
-import colored_stefy4 from "../../images/colored_images/stefy4.webp";
-
-
-
 
 const Start_Printing = () => {
     const [selectedSize, setSelectedSize] = useState("big");
@@ -326,7 +306,7 @@ const Start_Printing = () => {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
 
-                const pageWidth = image.width; 
+                const pageWidth = image.width;
                 const pageHeight = image.height;
 
                 canvas.width = pageWidth;
@@ -391,13 +371,13 @@ const Start_Printing = () => {
         const printImagesOnPage = (imageUrls) => {
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
-    
-            document.body.appendChild(iframe); 
-    
+
+            document.body.appendChild(iframe);
+
             const printDocument = imageUrls
                 .map(imageUrl => `<img src="${imageUrl}" alt="Print">`)
                 .join('');
-    
+
             iframe.contentDocument.write(`
                 <html>
                     <head>
@@ -420,7 +400,7 @@ const Start_Printing = () => {
                     </body>
                 </html>
             `);
-    
+
             const lastImage = iframe.contentDocument.querySelector('img:last-child');
             lastImage.onload = () => {
                 iframe.contentWindow.print();
@@ -475,8 +455,8 @@ const Start_Printing = () => {
                                     </div>
                                     <div className="right_content">
                                         <button className="start_printingBtn" onClick={printChartype ? handlePrintMain : handleColorPrint}><span>START PRINTING</span></button>
+                                        {printChartype ? (<><p>Choose the perfect size for your illustration!</p></>) : (<><p>Choose the perfect size to color!</p></>)}
 
-                                        <p>Choose the perfect size for your illustration!</p>
                                         <div className="select_size_bottomBTn">
                                             <div className="bottom_content">
                                                 <button className={`normal${selectedSize == "Normal" ? (' active') : ('')}`} onClick={() => { handleSizeSelect("Normal") }}><span>NORMAL</span></button>
@@ -512,7 +492,7 @@ const Start_Printing = () => {
 
                     <div className="modal-content start_printing_popup">
                         <div className="print_btn_strPrint"><button onClick={() => { handlePrint() }}>PRINT</button></div>
-                        <span className="close" onClick={closeModal}>
+                        <span className="close" onClick={closeModal} >
                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="32" height="32" rx="16" fill="#F28A35" />
                                 <path d="M20.1074 22.3803C21.1535 23.4805 22.8039 21.769 21.7579 20.6444L17.6433 16.3168L21.7579 11.9892C22.8039 10.8889 21.1767 9.15301 20.1074 10.2777L15.9928 14.6053L11.8782 10.2777C10.8321 9.15301 9.18163 10.8889 10.251 11.9892C11.6225 13.4317 12.9708 14.8742 14.3655 16.3168L10.251 20.6444C9.18163 21.7446 10.8321 23.4805 11.8782 22.3803L15.9928 18.0527L20.1074 22.3803Z" fill="white" />

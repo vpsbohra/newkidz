@@ -10,11 +10,21 @@ import BillingImage from '../../images/Billings-icon.png';
 import SettingsImage from '../../images/Settings-icon.png';
 import SuggestImage from '../../images/Suggest-Features-icon.png';
 import SupportImage from '../../images/Support-icon.png';
+import LogoutImage from '../../images/Logout_icon.png';
+
+import BillingImage_b from '../../images/Billings-icon_blue.png';
+import MykidsImage_b from '../../images/my_kids_blue.png';
+import SettingsImage_b from '../../images/Settings-icon_blue.png';
+import SuggestImage_b from '../../images/Suggest-Features-icon_blue.png';
+import SupportImage_b from '../../images/Support-icon_blue.png';
+import LogoutImage_b from '../../images/Logout_icon_blue.png';
+
+
 import Billing_whtImage from '../../images/Billings-icon_white.png';
 import Settings_whtImage from '../../images/Settings-icon_white.png';
 import Suggest_whtImage from '../../images/Suggest-Features-icon_white.png';
 import Support_whtImage from '../../images/Support-icon_white.png';
-import LogoutImage from '../../images/Logout_icon.png';
+
 import Menu_toggleImage from '../../images/menu_toggle_sr.png';
 import Menu_toggleclosedImage from '../../images/menu_toggle_sr_closed.png';
 import ParentHeaderSection from './ParentHeaderSection';
@@ -24,6 +34,12 @@ import BillingAndSubscription from './BillingAndSubscription';
 import SuggestFeatures from './SuggestFeatures';
 import Support from './Support';
 import PlayButtonAudio from '../../images/PlayAudioVector.png';
+import add from '../../images/addchild.png';
+import souvenir from '../../images/souvenir.png';
+import souvenirwht from '../../images/souvenirwhite.png'; 
+import Profile_icon_dash from '../../images/profile_icon_dash.png'; 
+import Usertop from './Usertop';
+import Souvenir from './Souvenir';
 
 
 const ParentDashboard = () => {
@@ -175,10 +191,10 @@ const fetchProfileImage = async () => {
 
   return (
     <>
-
       <div className="account_created-dash">
         <div className="container-fluid display-table">
           <div className="row display-table-row">
+            <Usertop/>
           <button id='bttna' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigations" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"><img loading="lazy" className='menu_toggle_open' src={Menu_toggleImage} alt="Profile" onClick={activeClosebutton} /> <img loading="lazy" className='menu_toggle_closed' src={Menu_toggleclosedImage} alt="Profile" onClick={activeOpenbutton} /></span>
             </button>
@@ -186,12 +202,15 @@ const fetchProfileImage = async () => {
 
               <div className="col-md-12 col-sm-12 hidden-xs display-table-cell v-align box collapse navbar-collapse" id="navigations">
                 <div className="logo">
-                  <Link>
+                  <Link className='profile_linkdah'>
                     <div className="profile_image">
                       <img loading="lazy" src={`https://mykidz.online/profile_images/${user.profile_image}`} alt="Profile" />
                     </div>
                   </Link>
-                  <p>Welcome {renderElement()}</p>
+                  <div className='profile_text_dash'>
+                   <Link className='text_dash_name'>{renderElement()} <img src={Profile_icon_dash} alt="Profile" /></Link>
+                   <span>Parent Space</span>
+                  </div>
                 </div>
                 <div className="navi">
                   <ul className="navi-ul navbar-nav">
@@ -202,13 +221,14 @@ const fetchProfileImage = async () => {
                      
 <Dropdown show={isDropdownOpen} onToggle={handleToggle}>
                         <Dropdown.Toggle variant="light" id="my-kids-dropdown">
-                          <img loading="lazy" className='Left_img_clr' src={Mykids_clrImage} alt="protected" />
+                          <img loading="lazy" className='Left_img_clr' src={MykidsImage_b} alt="protected" />
                           <img loading="lazy" className='Left_img_active' src={MykidsImage} alt="protected" />
                           My Kids
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                           {childProfiles.length > 0 ? (
                             childProfiles.map((childProfile, index) => (
+                              <>
                               <Dropdown.Item
                                 key={childProfile.id}
                                 onClick={() => {
@@ -220,14 +240,28 @@ const fetchProfileImage = async () => {
                               >
                                 {childProfile.child_name}
                               </Dropdown.Item>
+                             </>
                             ))
                           ) : (
                             <Dropdown.Item disabled>No child profiles found.</Dropdown.Item>
                           )}
+                        <Link className='addChildPro'><img src={add}/><span>Add child profile</span></Link>
+
                         </Dropdown.Menu>
+                       
                       </Dropdown>
 
 
+                    </li>
+                    <li
+                      className={`item nav-item ${activeComponent === 'Souvenir' ? 'active' : ''}`}
+                      onClick={() =>{ handleLiClick('Souvenir');
+                      handleClose();
+                      }}
+                    >
+                      <Link href="#">
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={souvenir} alt="protected" /><img loading="lazy" className='Left_img_active' src={souvenirwht} alt="protected" /> Souvenir</span>
+                      </Link>
                     </li>
                     <li
                       className={`item nav-item ${activeComponent === 'BillingAndSubscription' ? 'active' : ''}`}
@@ -237,7 +271,7 @@ const fetchProfileImage = async () => {
                       }}
                     >
                       <Link href="#">
-                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={BillingImage} alt="protected" /><img loading="lazy" className='Left_img_active' src={Billing_whtImage} alt="protected" /> Billings and Subscriptions</span>
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={BillingImage_b} alt="protected" /><img loading="lazy" className='Left_img_active' src={Billing_whtImage} alt="protected" /> Billings and Subscriptions</span>
                       </Link>
                     </li>
 
@@ -248,7 +282,7 @@ const fetchProfileImage = async () => {
                       }}
                     >
                       <Link href="#">
-                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={SettingsImage} alt="protected" /><img loading="lazy" className='Left_img_active' src={Settings_whtImage} alt="protected" /> Settings</span>
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={SettingsImage_b} alt="protected" /><img loading="lazy" className='Left_img_active' src={Settings_whtImage} alt="protected" /> Settings</span>
                       </Link>
                     </li>
                     <li
@@ -258,7 +292,7 @@ const fetchProfileImage = async () => {
                       }}
                     >
                       <Link href="#">
-                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={SuggestImage} alt="protected" /><img loading="lazy" className='Left_img_active' src={Suggest_whtImage} alt="protected" /> Suggest Features</span>
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={SuggestImage_b} alt="protected" /><img loading="lazy" className='Left_img_active' src={Suggest_whtImage} alt="protected" /> Suggest Features</span>
                       </Link>
                     </li>
                     <li
@@ -267,25 +301,24 @@ const fetchProfileImage = async () => {
                       handleClose();}}
                     >
                       <Link href="#">
-                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={SupportImage} alt="protected" /><img loading="lazy" className='Left_img_active' src={Support_whtImage} alt="protected" /> Support</span>
+                        <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={SupportImage_b} alt="protected" /><img loading="lazy" className='Left_img_active' src={Support_whtImage} alt="protected" /> Support</span>
                       </Link>
                     </li>
                     <li className='nav-item'>
                       <Link href="#">
-                        <span onClick={logoutUser} className="hidden-xs hidden-sm"><img loading="lazy" src={LogoutImage} alt="protected" /> Logout</span>
+                        <span onClick={logoutUser} className="hidden-xs hidden-sm"><img loading="lazy" src={LogoutImage_b} alt="protected" /> Logout</span>
                       </Link>
                     </li>
                   </ul>
-                  <div className="switch-dashboard">
-                    <Link className="active" to="/parent-dashboard" >Parents</Link>
-                    <Link className="" to="/kids-listing" >Kids</Link>
-                  </div>
+                
                 </div>
               </div>
             </nav>
             {activeComponent === 'parentHeaderSection' ? (
              <ParentHeaderSection key={refreshCurrentlyReading ? 'refresh' : 'no-refresh'} childId={selectedChildId} userId={userId} />
-            ) : activeComponent === 'Settings' ? (
+            ) : activeComponent === 'Souvenir' ? (
+              <Souvenir />
+            ): activeComponent === 'Settings' ? (
               <Settings />
             ) : activeComponent === 'BillingAndSubscription' ? (
               <BillingAndSubscription />
@@ -293,7 +326,7 @@ const fetchProfileImage = async () => {
               <SuggestFeatures handleLiClick={handleLiClick} />
               ) : activeComponent === 'Support' ? (
               <Support />
-            ) : null}
+            )  : null}
           </div>
         </div>
       </div>

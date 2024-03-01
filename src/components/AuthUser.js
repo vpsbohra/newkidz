@@ -48,7 +48,7 @@ export default function AuthUser(){
 
     
     const updateCode = (user_code) => {
-        const token = getToken();
+        const token = localStorage.getItem("accesstoken");
         const headers = {   
             "Content-type" : "application/json",
             "Authorization" : `Bearer ${token}` 
@@ -62,9 +62,9 @@ export default function AuthUser(){
     
                 const updatedUser = { ...user_detail, user_code };
                 
-                sessionStorage.setItem('user', JSON.stringify(updatedUser));
+                // sessionStorage.setItem('user', JSON.stringify(updatedUser));
     
-                navigate('/add-profile');
+                // navigate('/profileinfo');
             })
             .catch((error) => {
                 console.error(error);

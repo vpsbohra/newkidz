@@ -75,7 +75,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 body {
 	font-family: 'Plus Jakarta Sans', sans-serif;
 }
@@ -90,7 +90,7 @@ body {
 }
 
 .navbar-expand-sm .navbar-collapse {
-	justify-content: flex-end;
+	justify-content: center;
 }
 
 .header_inner .navbar {
@@ -120,16 +120,17 @@ body {
 
 .header_inner .navbar .navbar-nav li .nav-link {
 	font-size: 16px;
-	font-weight: 500;
-	line-height: 20px;
+	font-weight: 700;
+	line-height: 22px;
 	letter-spacing: 0em;
-	color: #0C4486;
-	text-transform: capitalize;
+	color: #1A60B1;
+	font-family: "Nunito", sans-serif;
+	
 }
 
 .header_inner .navbar .navbar-nav li.active .nav-link,
 .header_inner .navbar .navbar-nav li .nav-link:hover {
-	color: #0065D9;
+	color: #f28a35;
 }
 
 .header_inner .navbar .navbar-nav {
@@ -898,7 +899,7 @@ html {
 	overflow-x: hidden;
 }
 
-.login_page_sr {
+.login_page_sr, .SignUpNew_Page {
 	height: 100%;
 	min-height: 100vh;
 	position: relative;
@@ -913,13 +914,14 @@ html {
 }
 
 .card.login_sr_cnt .text-center.mb-3 {
+	color: #F28A35;
+	margin-bottom: 24px !important;
+	font-family: "Nunito", sans-serif;
 	font-size: 32px;
-	font-weight: 700;
+	font-weight: 800;
 	line-height: 38px;
 	letter-spacing: 0em;
 	text-align: center;
-	color: #F28A35;
-	margin-bottom: 24px !important;
 }
 
 .card.login_sr_cnt .form-group {
@@ -994,12 +996,12 @@ html {
 	border: 1px solid #F28A35;
 	border-radius: 22px;
 	padding: 10px 18px 10px 18px;
-	text-transform: uppercase;
 	font-size: 16px;
-	font-weight: 600;
-	line-height: 24px;
+	font-weight: 800;
+	line-height: 22px;
 	letter-spacing: 0em;
 	text-align: center;
+	font-family: "Nunito", sans-serif;
 }
 
 .card.login_sr_cnt .form-group.or_text {
@@ -1037,7 +1039,7 @@ html {
 	background: transparent;
 	padding: 10px 16px 10px 16px;
 	border-radius: 22px;
-	font-family: 'Inter', sans-serif;
+	font-family: "Nunito", sans-serif;
 	font-size: 16px;
 	font-weight: 600;
 	line-height: 24px;
@@ -1051,7 +1053,7 @@ html {
 
 .card.login_sr_cnt .form-group.Signup_btn p {
 	margin: 0;
-	font-family: 'Inter', sans-serif;
+	font-family: "Nunito", sans-serif;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 20px;
@@ -1068,19 +1070,19 @@ html {
 	width: 100%;
 	border-radius: 22px;
 	font-size: 16px;
-	font-weight: 600;
-	line-height: 20px;
+	font-weight: 800;
+	line-height: 22px;
 	letter-spacing: 0em;
 	text-align: center;
 	padding: 12px 10px;
-	text-transform: uppercase;
 	margin: 16px auto;
 	margin-top: 16px;
 	max-width: 264px;
 	display: table;
+	font-family: "Nunito", sans-serif;
 }
 
-.login_page_sr::before {
+.login_page_sr::before, .SignUpNew_Page::before {
 	content: '';
 	background-image: url('../images/login_left-shape.png');
 	background-size: cover;
@@ -1094,7 +1096,7 @@ html {
 	left: auto;
 }
 
-.login_page_sr::after {
+.login_page_sr::after, .SignUpNew_Page::after {
 	content: '';
 	background-image: url('../images/login_right-shape.png');
 	background-size: cover;
@@ -1875,7 +1877,7 @@ html {
 	width: 100%;
 	max-width: 575px;
 	margin: 0 auto;
-	margin-top: 80px;
+	margin-top: 0px;
 	display: table;
 	margin-bottom: 54px;
 }
@@ -1887,17 +1889,17 @@ html {
 }
 
 .account_created_mainsr .account_created_header h1 {
-	font-family: Plus Jakarta Sans;
-	font-size: 32px;
-	font-weight: 700;
-	line-height: 40px;
-	letter-spacing: 0em;
-	text-align: center;
 	color: #262626;
 	display: flex;
 	justify-content: center;
 	margin-bottom: 20px;
 	gap: 10px;
+	font-family: Nunito;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 44px;
+	letter-spacing: 0em;
+	text-align: center;
 }
 
 .account_created_mainsr .account_created_header h1 p {
@@ -1948,9 +1950,9 @@ html {
 	border-radius: 16px;
 	background: #fff;
 	width: 100%;
-	max-width: 264px;
+	/* max-width: 264px;
 	margin: 0 auto;
-	margin-bottom: 40px;
+	margin-bottom: 40px; */
 }
 
 .account_created_mainsr .account_created_formsr .continue-code {
@@ -1977,9 +1979,9 @@ html {
 .child_profile {
 	width: 100%;
 	height: 100%;
-	display: flex;
+	/* display: flex;
 	align-items: center;
-	min-height: 100vh;
+	min-height: 100vh; */
 }
 
 .child_profile .child_profile_innersr {
@@ -2047,7 +2049,7 @@ html {
 }
 
 .child_profile .child_profile_innersr .confirm {
-	background: #F28A35;
+	background: #0065D9;
 	border: none;
 	width: auto;
 	border-radius: 22px;
@@ -2061,7 +2063,7 @@ html {
 	display: table;
 	max-width: 290px;
 	min-width: 290px;
-	box-shadow: 0px 4px 8px -2px #FFB579;
+	box-shadow: 0px 4px 8px -2px #0065D9;
 	color: #FFFFFF;
 	text-decoration: none;
 	margin: 0 auto;
@@ -2071,10 +2073,10 @@ html {
 	padding: 60px;
 	width: 28%;
 	background: #FDFDFA;
-	border-radius: 0 60px 0px 0px;
+	border-radius: 0;
 }
 
-.account_created-dash #navigation .logo p {
+/* .account_created-dash #navigation .logo p {
 	color: #404040;
 	font-family: Plus Jakarta Sans;
 	font-size: 24px;
@@ -2082,9 +2084,9 @@ html {
 	font-weight: 600;
 	line-height: normal;
 	text-transform: capitalize;
-}
+} */
 
-.account_created-dash #navigation .logo a {
+.account_created-dash #navigation .logo a.profile_linkdah {
 	font-size: 0px;
 	border-radius: 100px;
 	background: #D9D9D9;
@@ -2121,17 +2123,19 @@ html {
 }
 
 .account_created-dash #navigation .navi ul.navi-ul li a {
-	color: #00897B;
-	font-family: Plus Jakarta Sans;
-	font-size: 16px;
+	color: #1A60B1;
 	font-style: normal;
-	font-weight: 600;
-	line-height: normal;
 	text-decoration: unset;
 	padding: 10px 16px 10px 12px;
 	align-items: flex-start;
 	gap: 8px;
 	display: flex;
+	font-family: Nunito;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: left;
 }
 
 .account_created-dash #navigation .navi ul.navi-ul .child-list ul {
@@ -3241,8 +3245,8 @@ input:checked+.slider:before {
 	color: #fff;
 }
 
-.account_created-dash #navigation .navi ul.navi-ul li.active>a {
-	background: #6DC1B4 !important;
+.account_created-dash #navigation .navi ul.navi-ul li.active > a {
+	background: #F7C35F !important;
 }
 
 .account_created-dash #navigation .navi ul.navi-ul h2 {
@@ -4300,8 +4304,13 @@ extended-family .manage_member_sr button:hover {
 	background-repeat: no-repeat;
 	background-position: right;
 }
+.main-container.faq_page.active_faq::before {
+	background-image: url('../images/faq_activeShape.png');
+	width: 110px;
+	height: 310px;
+}
 
-.main-container.faq_page::after {
+.main-container.faq_page.active_faq::after {
 	content: '';
 	background-image: url('../images/faq_rightShape.png');
 	position: absolute;
@@ -4330,6 +4339,11 @@ extended-family .manage_member_sr button:hover {
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: right;
+}
+.active_faq .faq_page_inner::before {
+	background-image: url('../images/faq_quet_blue.png');
+	width: 60px;
+	height: 100px;
 }
 
 .faq_page_inner::after {
@@ -5178,7 +5192,7 @@ extended-family .manage_member_sr button:hover {
 	align-items: flex-start;
 	align-items: center;
 	border-radius: 8px;
-	color: #00897b;
+	color: #1A60B1;
 	display: flex;
 	font-family: Plus Jakarta Sans;
 	font-size: 16px;
@@ -5196,7 +5210,7 @@ extended-family .manage_member_sr button:hover {
 }
 
 .account_created-dash #navigation .navi ul.navi-ul li.active .dropdown #my-kids-dropdown {
-	background: #6dc1b4;
+	background: #F7C35F;
 	color: #fff;
 }
 
@@ -5834,7 +5848,7 @@ extended-family .manage_member_sr button:hover {
 	padding: 60px;
 	width: 28%;
 	background: #FDFDFA;
-	border-radius: 0 60px 0px 0px;
+	border-radius: 0;
 }
 
 .account_created-dash #navigation #navigations {
@@ -5850,7 +5864,7 @@ extended-family .manage_member_sr button:hover {
 	display: block;
 	min-height: 100vh;
 	position: relative;
-	max-width: 386px;
+	/* max-width: 386px; */
 }
 
 .account_created-dash .row.display-table-row .navbar-toggler {
@@ -6410,10 +6424,10 @@ extended-family .manage_member_sr button:hover {
 .feedback-container-story {
 	margin: 40px 0;
 	background: #fff;
-	padding: 65px 50px;
+	padding: 55px 50px;
 	border-radius: 28px;
 	text-align: center;
-	min-height: 600px;
+	min-height: 220px;
 	max-width: 1200px;
 	margin: 0 auto;
 	position: relative;
@@ -6645,7 +6659,30 @@ extended-family .manage_member_sr button:hover {
 } */
 .record-section {
 	width: 100%;
-	margin-top: 70px;
+	margin-top: 20px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns {
+	position: absolute;
+	top: 30%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	background: #F7C35F;
+	max-width: 570px;
+	padding: 40px 23px;
+	border-radius: 22px;
+	display: flex;
+	gap: 30px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .left {
+	width: 100%;
+	max-width: 170px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .left img {
+	width: 100%;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .right {
+	width: auto;
 }
 
 .story-open-container .openbook_section_sr .pagination {
@@ -6655,6 +6692,35 @@ extended-family .manage_member_sr button:hover {
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
+}
+
+
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .right .txt {
+	background-image: url('../images/recod_answer_popup_bg.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 22px 20px;
+	padding-left: 40px;
+	max-width: 325px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .right .btn {
+	padding: 0;
+	margin-top: 22px;
+}
+.all_activity_sr_inner.record_answer_page_srrr .popup_recordedAns .right .btn button {
+	background: #0065D9;
+	border: none;
+	min-width: 300px;
+	color: #fff;
+	font-family: Nunito;
+	font-size: 16px;
+	font-weight: 800;
+	line-height: 22px;
+	letter-spacing: 0em;
+	text-align: center;
+	padding: 16px 0;
+	border-radius: 22px;
 }
 
 .story-open-container .openbook_section_sr .pagination .Np_btn_sr {
@@ -7175,6 +7241,16 @@ extended-family .manage_member_sr button:hover {
 	right: 15px;
 	top: 41px;
 	z-index: 99;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: Plus Jakarta Sans;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0em;
+	text-align: right;
+	color: #667085;
 }
 
 .user_list_sr_outer .user_list_sr.sent-by-user .user_list_groupsr .user_message_sr.sent-by-user-message {
@@ -8814,9 +8890,8 @@ body.popup_actives::after {
 }
 
 .activeitemchild {
-	color: #00897B !important;
+	color: #1A60B1 !important;
 }
-
 
 
 .suggest-features .content .emotes a img.active_review {
@@ -8973,7 +9048,7 @@ body.popup_actives::after {
 }
 
 .Currently_Reading_right .Currently_Reading_btn button {
-	background: #E0F2F1;
+	background: #A6CFFF;
 	border: none;
 	border-radius: 8px;
 	width: 100%;
@@ -8992,7 +9067,9 @@ body.popup_actives::after {
 	align-items: center;
 	min-height: 48px;
 }
-
+.Currently_Reading_right .Currently_Reading_btn.Currently_Reading_btnsecnd button {
+	background: #F7C35F;
+}
 .top_currently_notification .password-update {
 	box-shadow: none;
 	/* border: none; */

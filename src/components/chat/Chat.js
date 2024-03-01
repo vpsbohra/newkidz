@@ -33,6 +33,7 @@ import getToKnow from '../Audio/getToKnow.wav';
 import hasResponded from '../Audio/hasResponded.wav';
 import paper_clip from '../../images/paper_clip.png';
 import emotes from '../../images/Frame.png';
+import No_conversations from '../../images/No_conversations.png';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import AudioPlayer from './AudioPlayer';
 import { Scrollbars } from 'react-custom-scrollbars-2';
@@ -1091,7 +1092,7 @@ const [STORYId,setStory_id]=useState();
                       </>
                     )}
                   </>
-                ))}</>) : (<div className='no-chat'> <p> No chats </p></div>)}
+                ))}</>) : (<div className='no-chat'> <div className='no-chat_inner'><img src={No_conversations} alt="" /> <p> No conversations yet </p></div></div>)}
 
               </>) : (<div className='no-chat'>    <img src={Load} alt="Loading..." /></div>
               )}

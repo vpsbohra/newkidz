@@ -9,21 +9,22 @@ import show_passwEYEImage from '../images/show_passwEyeOn.png';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleAuthLogin from './GoogleAuthLogin';
 import Load from '../images/index.gif';
+import Topbar from "./top";
+
 
 export default function Login() {
-  const [formStatus, setFormStatus] = React.useState('LOGIN');
+    const [formStatus, setFormStatus] = React.useState('LOGIN');
 
     const { http, setToken } = AuthUser();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
-    const[error,setError]=useState(false);
+    const [error, setError] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
     // useEffect(() => {
-        
     //     const storedUser = sessionStorage.getItem("user");
     //     if (storedUser) {
     //         navigate('/parent-dashboard');
@@ -42,13 +43,13 @@ export default function Login() {
 
         http.post('/login', { email: email, password: password }).then((res) => {
 
-                if (rememberMe) {
-                    sessionStorage.setItem("email", email);
-                    sessionStorage.setItem("rememberMe", true);
-                } else {
-                    sessionStorage.removeItem("email");
-                    sessionStorage.removeItem("rememberMe");
-                }
+            if (rememberMe) {
+                sessionStorage.setItem("email", email);
+                sessionStorage.setItem("rememberMe", true);
+            } else {
+                sessionStorage.removeItem("email");
+                sessionStorage.removeItem("rememberMe");
+            }
             setToken(res.data.user, res.data.access_token);
         }).catch((error) => {
             setFormStatus("LOGIN");
@@ -82,22 +83,23 @@ export default function Login() {
 
     const [errorMessage, setErrorMessage] = useState('');
 
-    
+
 
     return (
         <div className="login_page_sr">
+            <Topbar />
             <div className="container">
                 <div className="row justify-content-center pt-5">
                     <div className="col-sm-6">
                         <div className="card login_sr_cnt p-4">
-                            <h1 className="text-center mb-3">Login </h1>
+                            <h1 className="text-center mb-3">Log in </h1>
                             <div className="form-group">
                                 <label>Email address:</label>
                                 <input
                                     type="email"
                                     className="form-control"
                                     placeholder="Enter email"
-                                    onChange={e=>setEmail(e.target.value)}
+                                    onChange={e => setEmail(e.target.value)}
                                     id="email"
                                 />
                                 {errors && errors.email && (
@@ -117,9 +119,9 @@ export default function Login() {
                                     <span className="text-danger">{errors.password[0]}</span>
                                 )}
                                 <button className="show_passw_btn" onClick={function () { toggleShowPassword(); changeImg() }}>
-                                    <img loading="lazy" src={imgSrc} alt="meet-character-1" />
+                                    {showPassword ? 'Hide' : 'Show'}<img loading="lazy" src={imgSrc} alt="meet-character-1" />
                                 </button>
-                                <span className={error?'actveError':'deactiveError'}>Please enter correct Email or Password</span>
+                                <span className={error ? 'actveError' : 'deactiveError'}>Please enter correct Email or Password</span>
                             </div>
                             <div className="form-group Password_group mt-3">
                                 <div className="show-pass">
@@ -128,7 +130,7 @@ export default function Login() {
                                         className="ch"
                                         id="rememberCheck"
                                         checked={rememberMe}
-                                        onChange={(e) => setRememberMe(e.target.checked)} 
+                                        onChange={(e) => setRememberMe(e.target.checked)}
                                     />
                                     Remember Me
                                 </div>
@@ -140,15 +142,15 @@ export default function Login() {
                             </div>
                             <div className="form-group login_btnsr mt-3">
                                 <button type="button" onClick={submitForm} className="btn btn-primary mt-4">{formStatus === 'loading' ? (
-    <img loading="lazy" src={Load} alt="Loading..." />
-):(<>LOGIN</>)}</button>
+                                    <img loading="lazy" src={Load} alt="Loading..." />
+                                ) : (<>Log in</>)}</button>
                             </div>
                             <div className="form-group mt-3 or_text">
                                 <span>OR</span>
                             </div>
                             <div className="form-group login_with_btncnrl mt-3">
                                 <GoogleOAuthProvider clientId="211892139032-031hag3n8u2u3m1s39nhpjjrauakc32k.apps.googleusercontent.com">
-                                    <GoogleAuthLogin onError={handleError}/>
+                                    <GoogleAuthLogin onError={handleError} />
                                 </GoogleOAuthProvider>
                                 <button type="button" className="login-with-facebook-btn" >
                                     <img loading="lazy" src={FBImage} alt="meet-character-1" /> Sign in with Facebook
@@ -159,13 +161,13 @@ export default function Login() {
                             </div>
                             <div className="form-group Signup_btn mt-3">
                                 <p>Don't have an account?</p>
-                                <Link className="btn btn-primary mt-4" to="/subscription">Signup</Link>
+                                <Link className="btn btn-primary mt-4" to="/SignUpNew">Create an account</Link>
                             </div>
-                        </div>
+                        </div>  
                     </div>
                 </div>
             </div>
-             
+
         </div>
     );
 }
