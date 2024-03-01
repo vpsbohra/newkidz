@@ -1,17 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate, Routes, Route } from "react-router-dom";
-
 import { useEffect, useState } from "react";
 import ReactivePopup from "./ReactivePopup";
 import axios from "axios";
 import AuthUser from "../../components/AuthUser";
 import protectImg1 from "../../images/036-protect.png";
 import Load from "../../images/index.gif";
-import Topbar from '../../components/top';
+
 export default function Dashboard() {
   const location = useLocation();
   const [selectedItem, setSelectedItem] = useState(null);
   const [showPopupReactive, setshowPopupReactive] = useState(false);
+  const [owner, setOwner] = useState(false);
   const [username, setUsername] = useState(null);
   const [members, setMembers] = useState([]);
   const [userId, setUserId] = useState();
@@ -27,23 +27,8 @@ export default function Dashboard() {
   const [code, setCode] = useState("");
   const navigate = useNavigate();
   const [userdetail, setUserdetail] = useState("");
-  const fetchMembers = async () => {
-    if(localStorage.getItem("members")){
-      setMembers(JSON.parse(localStorage.getItem('members')))
-    }
-    else{
-    try {
-      const response = await axios.get(
-        `https://mykidz.online/api/members/${userId}`
-      );
-      const membersData = response.data;
-      setMembers(membersData);
-      localStorage.setItem('members',JSON.stringify(membersData));
-    } catch (error) {
-      console.error("Error fetching members:", error);
-    }
-  }
-  };
+  const [loader, setLoader] = useState(true);
+
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
     const user = JSON.parse(storedUser);
@@ -62,23 +47,7 @@ export default function Dashboard() {
       }
     }
   }, []);
-  const fetchUserDetail = async () => {
-    setUserdetail(user);
- 
-      setUserId(user.id);
-    if(localStorage.getItem('children')){
-      setChildProfiles(JSON.parse(localStorage.getItem('children')))
-    }
-    else{
-    try {
-      const res = await http.get(`/child-profiles?user_id=${user.id}`);
-      setChildProfiles(res.data);
-      localStorage.setItem('children',JSON.stringify(res.data));
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  }
-  };
+
   useEffect(() => {
     fetchMembers();
     fetchUserDetail();
@@ -89,12 +58,28 @@ export default function Dashboard() {
   const setOWNer = () => {
     sessionStorage.setItem("owner", false);
   };
+
+  const fetchMembers = async () => {
+
+    try {
+      const response = await axios.get(
+        `https://mykidz.online/api/members/${userId}`
+      );
+      const membersData = response.data;
+      setMembers(membersData);
+
+      console.log("memebers",members);
+    } catch (error) {
+      console.error("Error fetching members:", error);
+    }
+  };
   const addBodyClass = () => {
     document.body.classList.add("popup_actives");
   };
   const removeBodyClass = () => {
     document.body.classList.remove("popup_actives");
   };
+
   const handleClick = (itemName) => {
     const storedUser = sessionStorage.getItem("user");
     if (storedUser) {
@@ -109,6 +94,34 @@ export default function Dashboard() {
     setshowPopupReactive(false);
     removeBodyClass();
   };
+
+  const fetchUserDetail = async () => {
+    console.log("Fetching user detail");
+
+    setUserdetail(user);
+    const x = JSON.parse(sessionStorage.getItem("user"));
+    if (x) {
+      setUserId(x.id);
+      console.log("USER ID session", user.id);
+    } else {
+      setUserId(user.id);
+      console.log("USER ID", user.id);
+    }
+
+    try {
+      const res = await http.get(`/child-profiles?user_id=${user.id}`);
+      setChildProfiles(res.data);
+      console.log("childProfiles", childProfiles);
+
+      if (childProfiles && members) {
+        setLoader(false);
+      }
+    } catch (error) {
+      // Handle error appropriately, e.g., log or display an error message
+      console.error("Error fetching user details:", error);
+    }
+  };
+
   const handleChildClick = (childId, child_name) => {
     console.log(childId);
     setSelectedChildId(childId);
@@ -141,12 +154,26 @@ export default function Dashboard() {
   useEffect(() => {
     const handleBackButton = (event) => {
       event.preventDefault();
+
+      //   alert('true');
     };
+
     window.addEventListener("popstate", handleBackButton);
+
     return () => {
       window.removeEventListener("popstate", handleBackButton);
     };
   }, [showPopup]);
+
+
+  function renderElement() {
+    if (userdetail) {
+      return <p>{userdetail.name.split(" ")[0]}</p>;
+    } else {
+      return <p>Loading.....</p>;
+    }
+  }
+
   useEffect(() => {
     if (isParentalSwitchActive) {
       document.documentElement.classList.add("parental-switch-active");
@@ -154,18 +181,20 @@ export default function Dashboard() {
       document.documentElement.classList.remove("parental-switch-active");
     }
   }, [isParentalSwitchActive]);
+
   return (
     <>
       <div className="who-are-you_inner">
-        <Topbar />
+
         <div className="container">
           <div className="who-are-you_header">
             <h1>Who are you?</h1>
           </div>
           <div className="row who-are-you-parents">
             <div
-              className={`item-who-are-you profile_type_two col-md-4 ${selectedItem === "owner" ? "selected" : ""
-                }`}
+              className={`item-who-are-you profile_type_two col-md-4 ${
+                selectedItem === "owner" ? "selected" : ""
+              }`}
               onClick={() => {
                 handleClick(username ? username.split(" ")[0] : "");
                 setOWner();
@@ -178,57 +207,68 @@ export default function Dashboard() {
                 {username}
               </Link>
             </div>
-            {members && childProfiles ? (<>
-              {members.map((member) => (
-                <div
-                  key={member.id}
-                  className={`item-who-are-you profile_type_two col-md-4 ${selectedItem === "user" ? "selected" : ""
-                    }`}
-                  onClick={() => {
-                    handleClick(
-                      member.first_name ? member.first_name.split(" ")[0] : ""
-                    );
-                    setOWNer();
-                  }}
-                >
-                  <Link onClick={handleParentalSwitch} name="user">
-                    <span className="profile_type_letter">
-                      {member.first_name ? member.first_name.charAt(0) : ""}
-                    </span>{" "}
-                    {member.first_name}
-                  </Link>
-                </div>
-              ))}
-              {childProfiles.map((childProfile) => (
-                <div className="item-who-are-you profile_type_two col-md-4 ">
-                  <Link
-                    className="col"
-                    key={childProfile.id}
-                    userId={user.id}
-                    childId={childId}
-                    to={`/Kids-view`}
-                    onClick={() =>
-                      handleChildClick(
-                        childProfile.id,
-                        childProfile.child_name
-                      )
-                    }
-                  >
-                    <span className="profile_type_letter">
-                      {childProfile.child_name
-                        ? childProfile.child_name.charAt(0)
-                        : ""}
-                    </span>
-                    {childProfile.child_name}
-                  </Link>
-                </div>
-              ))}</>) : (<>
+
+            {loader ? (
+              <>
                 <div className="no-chat">
+                  {" "}
                   <img src={Load} alt="Loading..." />
-                </div></>)}
+                </div>
+              </>
+            ) : (
+              <>
+                {" "}
+                {members.map((member) => (
+                  <div
+                    key={member.id}
+                    className={`item-who-are-you profile_type_two col-md-4 ${
+                      selectedItem === "user" ? "selected" : ""
+                    }`}
+                    onClick={() => {
+                      handleClick(
+                        member.first_name ? member.first_name.split(" ")[0] : ""
+                      );
+                      setOWNer();
+                    }}
+                  >
+                    <Link onClick={handleParentalSwitch} name="user">
+                      <span className="profile_type_letter">
+                        {member.first_name ? member.first_name.charAt(0) : ""}
+                      </span>{" "}
+                      {member.first_name}
+                    </Link>
+                  </div>
+                ))}
+                {childProfiles.map((childProfile) => (
+                  <div className="item-who-are-you profile_type_two col-md-4 ">
+                    <Link
+                      className="col"
+                      key={childProfile.id}
+                      userId={user.id}
+                      childId={childId}
+                      to={`/Kids-view`}
+                      onClick={() =>
+                        handleChildClick(
+                          childProfile.id,
+                          childProfile.child_name
+                        )
+                      }
+                    >
+                      <span className="profile_type_letter">
+                        {childProfile.child_name
+                          ? childProfile.child_name.charAt(0)
+                          : ""}
+                      </span>
+                      {childProfile.child_name}
+                    </Link>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
         {showPopupReactive && <ReactivePopup handleClose={handleClosePopup} />}
+
         {showPopup && (
           <div className="code-popup">
             {/* <h1>Welcome, {renderElement()}</h1> */}

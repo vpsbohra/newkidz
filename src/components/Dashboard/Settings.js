@@ -581,7 +581,6 @@ const Settings = () => {
                       value={editedData.email || userData.email}
                       onChange={handleInputChange}
                       autoComplete="off"
-                      disabled
                     />
                     {!isMailUpdate && (
                     <button className='chnage_pas_sr' onClick={() => setIsMailUpdate(true)}>Change email address</button>

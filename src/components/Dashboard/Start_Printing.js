@@ -425,7 +425,7 @@ const Start_Printing = () => {
                                 <span onClick={() => { setPrintCharType(true) }} className={printChartype ? 'active' : ''} >Illustrations</span>
                                 <span onClick={() => { setPrintCharType(false) }} className={printChartype ? '' : 'active'} >Coloring Pages</span>
                             </div>
-                            <div className={`kidz_allcharacters_Sr start_printing  ${printChartype ? "" : "coloring_acitve"}`}>
+                            <div className={`kidz_allcharacters_Sr start_printing  ${printChartype?"":"coloring_acitve"}`}>
                                 <div className='kidz_profile_popupsr_inner'>
                                     {printChartype ? (<>
                                         {characters.map((character, index) => (

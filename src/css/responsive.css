@@ -115,8 +115,6 @@
     
 
     .right_sidebar_parent .user_list_sr .user_list_groupsr .small.user_message_sr {width: calc(100% - 180px) !important;}
-
-
     } 
     
     @media screen and (max-width: 1180px) {
@@ -480,10 +478,6 @@
     .user_list_sr .user_list_groupsr .chat-audio .progress-bar {width: calc(100% - 50px) !important;}
 
     .reply_chat_btn {position: static;}
-    .signupregistration .signupregistration_inner, .signUpmailverify .signUpmailverify_inner {padding: 0 10px;}
-    .signupregistration_pageSr::before {width: 200px;height: 190px;}
-    .signupregistration_pageSr::after {width: 100px;height: 280px;}
-    .signUpmailverify_pageSr::before {width: 150px;height: 286px;bottom: 30%;}
 
 }
     
@@ -672,20 +666,42 @@
     .select_theme_cnt .choose_themes {gap: 8px;}
     .user_message_sr.story_reaction_sr .story_reaction_item span > br {display: none;}
 
-    .audio_fullcon.audio_fullcon-cstm #audio {gap: 14px;padding: 10px 0 10px 0;}
-    .audio_fullcon.audio_fullcon-cstm #audio .play-pause-btn::before {width: 36px;height: 36px;}
-    .audio_fullcon.audio_fullcon-cstm #audio .play-pause-btn {width: 36px;height: 36px;}
-    .audio_fullcon .audio-player_inner {gap: 7px;}
-    .audio_fullcon {padding: 20px 10px 10px 10px;}
-    .audio_fullcon.audio_fullcon-cstm #audio .progress-bar {gap: 5px;}
-    .time-display {margin-left: 0;}
-    .notification-active-cnt .audio-player .progress-bar .time-display2 .current-time {font-size: 12px;}
-    .fullconver_chat .audio_fullcon.audio_fullcon-cstm {width: 100% !important;}
+    .audio_fullcon.audio_fullcon-cstm #audio {
+        gap: 14px;
+        padding: 10px 0 10px 0;
+    }
+    .audio_fullcon.audio_fullcon-cstm #audio .play-pause-btn::before {
+        width: 36px;
+        height: 36px;
+    }
+    .audio_fullcon.audio_fullcon-cstm #audio .play-pause-btn {
+        width: 36px;
+        height: 36px;
+    }
+    .audio_fullcon .audio-player_inner {
+        gap: 7px;
+    }
+    .audio_fullcon {
+        padding: 20px 10px 10px 10px;
+    }
+    .audio_fullcon.audio_fullcon-cstm #audio .progress-bar {
+        gap: 5px;
+    }
+    .time-display {
+        margin-left: 0;
+    }
+    .notification-active-cnt .audio-player .progress-bar .time-display2 .current-time {
+        font-size: 12px;
+    }
+    .fullconver_chat .audio_fullcon.audio_fullcon-cstm {
+        width: 100% !important;
+    }
     .page_ttls .toggle_characters span {font-size: 22px;margin-right: 20px;padding-bottom: 18px;}
     .page_ttls .toggle_characters span::after {height: 10px;}
-    .navbar .right-icons .theme_change_cnt .theme_change {padding: 9px 10px;min-width: 225px;}
-
-
+    .navbar .right-icons .theme_change_cnt .theme_change {
+        padding: 9px 10px;
+        min-width: 225px;
+    }
 }
 
 
@@ -773,10 +789,13 @@
     .right_sidebar_parent .chat-popup .chat-popup_inner .chat_form_input {padding-top: 10px;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;}
     .chat_form_input_btncnrlRight img {max-width: 45px;}
     .select_theme_cnt .close_btn_theme {right: 30px;top: 11px;}
-    .select_theme_cnt .bow_bow .boobo_text {padding: 15px 24px;font-size: 16px;line-height: 18px;top: 15px;left: 100px;}
-    .signup_header .signup_header_inner .signup_header_left .logo img {max-width: 220px;}
-    .signupregistration .signupregistration_btn .btn.btn-primary {padding: 10px 8px 10px 8px;}
-    .signUpmailverify_pageSr .signUpmailverify {top: 40%;}
+    .select_theme_cnt .bow_bow .boobo_text {
+        padding: 15px 24px;
+        font-size: 16px;
+        line-height: 18px;
+        top: 15px;
+        left: 100px;
+    }
 
 }
 
@@ -798,6 +817,6 @@
     .navbar .right-icons .theme_change_cnt .nav-link.toggle-profile {padding: 8px 8px;}
     .navbar .right-icons .nav-link.points {min-width: 135px;}
     .navbar .right-icons .theme_change_cnt .nav-link.toggle-profile img {margin-right: 4px;}
-.signup_header .signup_header_inner .signup_header_left .logo img {max-width: 200px;}
+
 
 } 

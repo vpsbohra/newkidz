@@ -25,7 +25,6 @@ export default function Login() {
     const navigate = useNavigate();
 
     // useEffect(() => {
-
     //     const storedUser = sessionStorage.getItem("user");
     //     if (storedUser) {
     //         navigate('/parent-dashboard');
