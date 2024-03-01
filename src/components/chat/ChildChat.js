@@ -51,7 +51,15 @@ const ChildChat = () => {
 
   console.log("firstnotification", firstnotification);
   console.log("firstnotification", firstnotification);
-
+  useEffect(() => {
+    const updateParentId = () => {
+      const scrollArea = document.querySelector('.scrollarea');
+      if (scrollArea && scrollArea.parentNode) {
+        scrollArea.parentNode.setAttribute('id', 'chat-messages-page');
+      }
+    };
+    updateParentId(); 
+  }, []);
 
 
   useEffect(()=>{
@@ -652,7 +660,7 @@ const ChildChat = () => {
 
               </div>
               <div className="child_chat_sr_right">
-                <div id="chat-messages-page" className="chat_section_sr_right" ref={chatSectionRightRef}>
+                <div className="chat_section_sr_right chat_pagemainSR" ref={chatSectionRightRef}>
                   <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
                     <div className="user_name_chat d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
                       <input

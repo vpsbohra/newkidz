@@ -33,6 +33,8 @@ const Settings = () => {
   const [Upload, setUpload] = useState(null);
   const [btn, setBtn] = useState(true);
   const [country, setCountry] = useState('');
+  const [push, setPush] = useState('');
+  const [email, setEmail] = useState('');
   const [city, setCity] = useState('');
   const [name, setName] = useState('');
   const [screenTimeLimit, setScreenTimeLimit] = useState('1');
@@ -63,6 +65,8 @@ const Settings = () => {
     handleUpdate('country');
     handleUpdate('city');
     handleUpdate('postal_code');
+    handleUpdate('push_notification');
+    handleUpdate('email_notification');
 
   }
   const countries = getCountries().map((country) => ({
@@ -111,6 +115,36 @@ const Settings = () => {
 
     }));
   };
+
+
+  const handlePush = (value) => {
+    console.log("pushvalue", value);
+    setPush(value);
+    setshowbtns(true);
+
+    setEditedData((prevState) => ({
+      ...prevState,
+      push_notification: value,
+
+    }));
+
+  };
+
+
+
+  const handleEmail = (value) => {
+    console.log("Emailvalue", value);
+    setEmail(value);
+    setshowbtns(true);
+
+    setEditedData((prevState) => ({
+      ...prevState,
+      email_notification: value,
+
+    }));
+
+  };
+
 
   const handleCityChange = (selectedOption) => {
     setCity(selectedOption);
@@ -180,15 +214,18 @@ const Settings = () => {
       const { name, ...userData } = response.data;
       const [fname, lname] = name.split(' ');
       console.log(response.data);
-      
+
       setUserData({ fname, lname, ...userData });
+      console.log("pusshhhh", userData.push_notification)
+      setPush(userData.push_notification);
+      setEmail(userData.email_notification);
       const userSpouse = JSON.parse(sessionStorage.getItem('userSpouse'));
       response.data.spouse = userSpouse;
       // console.log('12312312311111111111' , response.data);
       const user_detail = JSON.stringify(response.data);
       // console.log('123123123' , user_detail);
       if (user_detail) {
-         sessionStorage.setItem("user", user_detail);
+        sessionStorage.setItem("user", user_detail);
       }
 
 
@@ -206,6 +243,7 @@ const Settings = () => {
   const handleUpdate = async (field) => {
     try {
       const updateData = { ...editedData };
+      console.log("helllllllo", updateData)
 
       if (field === 'password') {
         if (editedData.newPassword && editedData.newPassword === editedData.confirmPassword) {
@@ -230,7 +268,7 @@ const Settings = () => {
           updateData.name = editedData.lname;
         }
         delete updateData.lname;
-      }
+      } 
 
       await axios.patch(`https://mykidz.online/api/update-user-data/${user.id}`, updateData, {
         headers: {
@@ -252,7 +290,6 @@ const Settings = () => {
       }
     }
   };
-
 
   /******************************************** Child Information API codes ************************************************/
   const [childProfiles, setChildProfiles] = useState([]);
@@ -388,14 +425,6 @@ const Settings = () => {
     setShowPopupTwo(false);
     setShowPopupThree(true);
   };
-
-  function getCurrentDate() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, '0');
-    const day = now.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
   { refreshComponent && <Settings /> }
   return (
     <>
@@ -458,10 +487,10 @@ const Settings = () => {
                 <form onSubmit={handleSubmit}>
                   {UploadDiv && (
                     <>
-                    <div className='profile_item_group'>
-                      <input className='file_choise_profile' type="file" onChange={handleImageChange} />
-                      <span><img loading="lazy" src={Image_UploadImage}/> Upload Image</span>
-                    </div>
+                      <div className='profile_item_group'>
+                        <input className='file_choise_profile' type="file" onChange={handleImageChange} />
+                        <span><img loading="lazy" src={Image_UploadImage} /> Upload Image</span>
+                      </div>
                     </>
                   )}
                   {Upload && (
@@ -511,6 +540,7 @@ const Settings = () => {
                       name="email"
                       value={editedData.email || userData.email}
                       onChange={handleInputChange}
+                      autoComplete="off"
                     />
 
                     {/* {editedData.email && <button className='' onClick={() => handleUpdate('email')}>Change Email Address</button>} */}
@@ -541,7 +571,9 @@ const Settings = () => {
                     name="user_code"
                     value={editedData.user_code || userData.user_code}
                     onChange={handleInputChange}
-                    maxLength={4} />
+                    maxLength={4} 
+                    autoComplete="new-password"
+                    />
                   {editedData.user_code && <button onClick={() => handleUpdate('user_code')}>Change parent dashboard code</button>}
                 </div>
                 <div className="form-group">
@@ -598,7 +630,7 @@ const Settings = () => {
               <div key={index} className="kids_control information_input_sr">
                 <p className='kidz_profile_section'>Child profile {index + 1}</p>
                 <button className="cancel" onClick={() => removeChildProfile(index)}>
-                Delete Profile
+                  Delete Profile
                 </button>
                 <div className="personal_information_input">
                   <div className="form-group">
@@ -624,16 +656,6 @@ const Settings = () => {
                       value={ageOptions.find((option) => option.value === (child.child_age || ageOptions[0].value))}
                       onChange={(selectedOption) => handleChildInputChange(index, 'child_age', selectedOption.value)}
                     />
-
-
-
-
-
-
-
-
-
-
                   </div>
                   <div className="form-group Birthday_input">
                     <label>Birthday</label>
@@ -643,7 +665,6 @@ const Settings = () => {
                       placeholder="Enter birth date"
                       value={child.birthday}
                       onChange={(e) => handleChildInputChange(index, 'birthday', e.target.value)}
-                      max={getCurrentDate()}
                     />
 
                     {/* <button onClick={() => handleUpdateChildData(index)}>Update</button> */}
@@ -737,14 +758,26 @@ const Settings = () => {
                 <div className="form-group">
                   <p>Push Notifications</p>
                   <label className="switch">
-                    <input type="checkbox" className="form-control" />
+                    <input
+                      type="checkbox"
+                      className="form-control"
+                      checked={push || editedData.push_notification && userData.push_notification === 1}
+                      onChange={(event) => handlePush(event.target.checked)}
+                    />
+
                     <span className="sliderr round"></span>
-                  </label >
+                  </label>
                 </div>
+
                 <div className="form-group">
                   <p>Email Notifications</p>
                   <label className="switch">
-                    <input type="checkbox" className="form-control" />
+                  <input
+                      type="checkbox"
+                      className="form-control"
+                      checked={email || editedData.email_notification && userData.email_notification === 1}
+                      onChange={(event) => handleEmail(event.target.checked)}
+                    />
                     <span className="sliderr round"></span>
                   </label >
 
@@ -773,8 +806,8 @@ const Settings = () => {
                     }>
                       <button className='Cancel_setting_btn' onClick={() => {
                         setRefresh(false);
-  
-                       setshowbtns(false);
+
+                        setshowbtns(false);
                         setTimeout(() => {
                           setRefresh(true);
                           fetchProfileImage();
@@ -789,7 +822,7 @@ const Settings = () => {
                           Update();
                           childProfiles.forEach((child, index) => {
                             handleUpdateChildData(index);
-                          }); 
+                          });
                           setshowbtns(false);
                           setRefresh(false);
                           setTimeout(() => {
