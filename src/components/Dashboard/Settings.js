@@ -1,14 +1,13 @@
 //everything is fine expecting country ,cities and screen time limit value is not displaying
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef } from 'react';
 import PopupOne from './settingsPopupOne';
 import PopupTwo from './settingsPopupTwo';
 import PopupThree from './settingsPopupThree';
 import Select from 'react-select';
-
 import AuthUser from '../AuthUser';
 import axios from 'axios';
-import CirclePlu01Img from '../../images/Circle_Plus012.png';
+import CirclePlu01Img from '../../images/Circle_Plus_blue.png';
 import close_iconImage from '../../images/close_icon_sr.png';
 import close_btnImage from '../../images/Close_btn_sr.png';
 import Image_UploadImage from '../../images/Image_Upload.png';
@@ -42,21 +41,34 @@ const Settings = () => {
   const [refreshComponent, setRefreshComponent] = useState(false);
   const [showbtns, setshowbtns] = useState(false);
   const [refresh, setRefresh] = useState(true);
-
   const removeBodyClass1 = () => {
     document.body.classList.remove('popup_active');
     setShowPopupOne(false);
     setShowPopupTwo(false);
   };
-
-
-
-  const refreshComponentHandler = () => {
-    setRefreshComponent(true);
-    fetchUserData();
-    fetchChildData();
-    fetchProfileImage();
-  };
+  const popupRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsMailUpdate(false);
+        setIsPasswordUpdate(false);
+      }
+    };
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        setIsMailUpdate(false);
+        setIsPasswordUpdate(false);
+      }
+    };
+    if (isMailUpdate || isPasswordUpdate) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isMailUpdate , isPasswordUpdate]);
 
   const Update = () => {
     handleUpdate('fname');
@@ -91,8 +103,6 @@ const Settings = () => {
     label: `${1 + index} hour per day`,
   }));
 
-
-
   useEffect(() => {
     fetchProfileImage();
     fetchUserData();
@@ -112,45 +122,27 @@ const Settings = () => {
     setEditedData((prevState) => ({
       ...prevState,
       country: selectedOption.value,
-
-
     }));
   };
-
-
   const handlePush = (value) => {
-    console.log("pushvalue", value);
     setPush(value);
     setshowbtns(true);
-
     setEditedData((prevState) => ({
       ...prevState,
       push_notification: value,
-
     }));
-
   };
-
-
-
   const handleEmail = (value) => {
-    console.log("Emailvalue", value);
     setEmail(value);
     setshowbtns(true);
-
     setEditedData((prevState) => ({
       ...prevState,
       email_notification: value,
-
     }));
-
   };
-
-
   const handleCityChange = (selectedOption) => {
     setCity(selectedOption);
     setshowbtns(true);
-
     setEditedData((prevState) => ({
       ...prevState,
       city: selectedOption.value,
@@ -184,11 +176,9 @@ const Settings = () => {
         },
       });
       await fetchUserData();
-
     } catch (error) {
       console.error('Error updating profile image:', error);
     }
-
   };
 
   const handleRemoveImage = async () => {
@@ -214,22 +204,15 @@ const Settings = () => {
 
       const { name, ...userData } = response.data;
       const [fname, lname] = name.split(' ');
-      console.log(response.data);
-
       setUserData({ fname, lname, ...userData });
-      console.log("pusshhhh", userData.push_notification)
       setPush(userData.push_notification);
       setEmail(userData.email_notification);
       const userSpouse = JSON.parse(sessionStorage.getItem('userSpouse'));
       response.data.spouse = userSpouse;
-      // console.log('12312312311111111111' , response.data);
       const user_detail = JSON.stringify(response.data);
-      // console.log('123123123' , user_detail);
       if (user_detail) {
         sessionStorage.setItem("user", user_detail);
       }
-
-
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -244,8 +227,6 @@ const Settings = () => {
   const handleUpdate = async (field) => {
     try {
       const updateData = { ...editedData };
-      console.log("helllllllo", updateData)
-
       if (field === 'password') {
         if (editedData.newPassword && editedData.newPassword === editedData.confirmPassword) {
           updateData.password = editedData.newPassword;
@@ -303,12 +284,8 @@ const Settings = () => {
         },
       });
       const updatedChildProfiles = response.data;
-      console.log(updatedChildProfiles);
       setChildProfiles(updatedChildProfiles);
       localStorage.setItem("childProfilesLocal", JSON.stringify(updatedChildProfiles));
-
-
-
     } catch (error) {
       console.error('Error fetching child data:', error);
     }
@@ -330,14 +307,6 @@ const Settings = () => {
       return updatedProfiles;
     });
   };
-
-
-
-
-
-
-
-
   const handleUpdateChildData = async (index) => {
     const childData = childProfiles[index];
     try {
@@ -352,7 +321,6 @@ const Settings = () => {
     }
   };
   const ShowChildProfile = () => {
-
     isChild(true);
   }
   const addChildProfile = (e) => {
@@ -376,22 +344,15 @@ const Settings = () => {
         console.error(error);
       });
   }
-
-  // Function to add the body class when Deactivate button is clicked
   const addBodyClass = () => {
     document.body.classList.add('popup_active');
   };
-
-
-  // Function to remove the body class when "Got It!" is clicked
   const removeBodyClass = () => {
     document.body.classList.remove('popup_active');
     setBtn(false);
   };
-
   const removeChildProfile = async (index) => {
     const childData = childProfiles[index];
-    console.log(childData.id);
     try {
       await axios.patch(`https://mykidz.online/api/remove-child-data?user_id=${user.id}`, {
         headers: {
@@ -426,6 +387,20 @@ const Settings = () => {
     setShowPopupTwo(false);
     setShowPopupThree(true);
   };
+  function getCurrentDate() {
+    const today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; // January is 0!
+    const yyyy = today.getFullYear() - 5;
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    return yyyy + '-' + mm + '-' + dd;
+  }
+  
   { refreshComponent && <Settings /> }
   return (
     <>
@@ -434,8 +409,7 @@ const Settings = () => {
         <div className='right_sidebar_parent'>
 
           {isPasswordUpdate && (
-            <div className="password-update">
-              <button className='closed_popup_password' onClick={() => setIsPasswordUpdate(false)}><img loading="lazy" src={close_btnImage} alt="protected" /></button>
+            <div className="password-update" ref={popupRef}>
               <h2>Reset Password</h2>
               <div className="form-group">
                 <label>Current Password</label>
@@ -477,8 +451,7 @@ const Settings = () => {
             </div>
           )}
           {isMailUpdate && (
-            <div className="password-update">
-              <button className='closed_popup_password' onClick={() => setIsMailUpdate(false)}><img loading="lazy" src={close_btnImage} alt="protected" /></button>
+            <div className="password-update" ref={popupRef}>
               <h2>Change Email Address</h2>
               <div className="form-group">
                 <label>Current Email Address</label>
@@ -581,12 +554,12 @@ const Settings = () => {
                       value={editedData.email || userData.email}
                       onChange={handleInputChange}
                       autoComplete="off"
+                      disabled
                     />
                     {!isMailUpdate && (
                     <button className='chnage_pas_sr' onClick={() => setIsMailUpdate(true)}>Change email address</button>
                   )}
 
-                    {/* {editedData.email && <button className='' onClick={() => handleUpdate('email')}>Change Email Address</button>} */}
                   </div>
                 </div>
                 <div className="form-group">
@@ -707,6 +680,7 @@ const Settings = () => {
                       className="form-control"
                       placeholder="Enter birth date"
                       value={child.birthday}
+                      max={getCurrentDate()} 
                       onChange={(e) => handleChildInputChange(index, 'birthday', e.target.value)}
                     />
 

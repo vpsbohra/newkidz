@@ -11,24 +11,19 @@ import SettingsImage from '../../images/Settings-icon.png';
 import SuggestImage from '../../images/Suggest-Features-icon.png';
 import SupportImage from '../../images/Support-icon.png';
 import LogoutImage from '../../images/Logout_icon.png';
-
 import BillingImage_b from '../../images/Billings-icon_blue.png';
 import MykidsImage_b from '../../images/my_kids_blue.png';
 import SettingsImage_b from '../../images/Settings-icon_blue.png';
 import SuggestImage_b from '../../images/Suggest-Features-icon_blue.png';
 import SupportImage_b from '../../images/Support-icon_blue.png';
 import LogoutImage_b from '../../images/Logout_icon_blue.png';
-
-
 import Billing_whtImage from '../../images/Billings-icon_white.png';
 import Settings_whtImage from '../../images/Settings-icon_white.png';
 import Suggest_whtImage from '../../images/Suggest-Features-icon_white.png';
 import Support_whtImage from '../../images/Support-icon_white.png';
-
 import Menu_toggleImage from '../../images/menu_toggle_sr.png';
 import Menu_toggleclosedImage from '../../images/menu_toggle_sr_closed.png';
 import ParentHeaderSection from './ParentHeaderSection';
-import Chat from '../chat/Chat';
 import Settings from './Settings';
 import BillingAndSubscription from './BillingAndSubscription';
 import SuggestFeatures from './SuggestFeatures';
@@ -36,14 +31,13 @@ import Support from './Support';
 import PlayButtonAudio from '../../images/PlayAudioVector.png';
 import add from '../../images/addchild.png';
 import souvenir from '../../images/souvenir.png';
-import souvenirwht from '../../images/souvenirwhite.png'; 
-import Profile_icon_dash from '../../images/profile_icon_dash.png'; 
+import souvenirwht from '../../images/souvenirwhite.png';
+import Profile_icon_dash from '../../images/profile_icon_dash.png';
 import Usertop from './Usertop';
 import Souvenir from './Souvenir';
 
 
 const ParentDashboard = () => {
-  console.log('testsetsetsets',PlayButtonAudio);
   const { http } = AuthUser();
   const [userdetail, setUserdetail] = useState('');
   const [childProfiles, setChildProfiles] = useState([]);
@@ -55,11 +49,16 @@ const ParentDashboard = () => {
   const [selectedChild, setSelectedChild] = useState(null);
   const [Menu, setMenu] = useState(true);
   const [refreshCurrentlyReading, setRefreshCurrentlyReading] = useState(false);
-
-
-
   const [activeComponent, setActiveComponent] = useState('parentHeaderSection');
-   const handleLiClick = (componentName) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+  const [activeChildIndex, setActiveChildIndex] = useState(0);
+  const navigationDiv = document.getElementById('navigation');
+  const closedImage = document.querySelector('.menu_toggle_closed');
+  const openedImage = document.querySelector('.menu_toggle_open');
+  const handleToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  const handleLiClick = (componentName) => {
     setActiveComponent(componentName);
   };
 
@@ -77,7 +76,7 @@ const ParentDashboard = () => {
     }
   };
   useEffect(() => {
-    
+
     fetchUserDetail();
     fetchProfileImage();
   }, [localStorage.getItem("childProfilesLocal")]);
@@ -89,43 +88,59 @@ const ParentDashboard = () => {
       setSelectedChildId(defaultChildId);
     }
   }, [childProfiles]);
-
   const fetchUserDetail = () => {
     setUserdetail(user);
     setUserId(user.id);
-
     const childProfilesFromLocal = localStorage.getItem("childProfilesLocal");
-    
-    if(childProfilesFromLocal){
+    if (childProfilesFromLocal) {
       setChildProfiles(JSON.parse(childProfilesFromLocal));
-      console.log("if condition")
-    }else{
+    } else {
       http.get(`/child-profiles?user_id=${userId}`).then((res) => {
         setChildProfiles(res.data);
-        localStorage.setItem("childProfilesLocal", JSON.stringify(res.data)); 
-      console.log("else condition");
-
+        localStorage.setItem("childProfilesLocal", JSON.stringify(res.data));
       });
 
     }
-   
+
   };
-
-  
-
   function renderElement() {
-    if (userdetail) {
-      return <p>{userdetail.name.split(' ')[0]}</p>;
+    const x = JSON.parse(sessionStorage.getItem('owner'));
+    if (x) {
+      if (userdetail) {
+        return <p>{userdetail.name.split(' ')[0]}</p>;
+
+      } else {
+        return <p>Loading.....</p>;
+      }
     } else {
-      return <p>Loading.....</p>;
+      return <p>{sessionStorage.getItem('userSpouse')}</p>;
+
     }
+
+  }
+  function renderImage() {
+    const x = JSON.parse(sessionStorage.getItem('owner'));
+    let profileImageSrc = '';
+
+    if (x) {
+      if (userdetail) {
+        profileImageSrc = `https://mykidz.online/profile_images/${userdetail.profile_image}`;
+      }
+    } else {
+      profileImageSrc = sessionStorage.getItem('memberDp');
+    }
+
+    return (
+      <div>
+        {profileImageSrc && <img loading="lazy" src={profileImageSrc} alt="Profile" />}
+      </div>
+    );
   }
 
   const handleChildClick = (childId, userId) => {
     setSelectedChildId(childId, userId);
   };
-
-const fetchProfileImage = async () => {
+  const fetchProfileImage = async () => {
     try {
       // Check if user.id is available
       if (user && user.id) {
@@ -135,9 +150,8 @@ const fetchProfileImage = async () => {
           },
           responseType: 'blob',
         });
-  
+
         const imageUrl = URL.createObjectURL(response.data);
-        console.log(imageUrl);
         setProfileImage(imageUrl);
       } else {
         console.error('User ID is not available.');
@@ -146,70 +160,47 @@ const fetchProfileImage = async () => {
       console.error('Error fetching profile image:', error);
     }
   };
-
-  const navigationDiv = document.getElementById('navigation');
-  const closedImage = document.querySelector('.menu_toggle_closed');
-  const openedImage = document.querySelector('.menu_toggle_open');
- 
   //code for hiding displaying close open button in responsive for menu and also for hiding menu bar when clicked on any of menus in list
   const handleClose = () => {
     navigationDiv.classList.remove('show');
-    closedImage.style.display='none';
-    openedImage.style.display="block";
+    closedImage.style.display = 'none';
+    openedImage.style.display = "block";
     const btn = document.getElementById("bttna");
     btn.classList.remove('dashboard_menuActive');
   };
-
-
-  const activeClosebutton=()=>{
-
+  const activeClosebutton = () => {
     const btn = document.getElementById("bttna");
     btn.classList.add('dashboard_menuActive');
-    closedImage.style.display='block';
-    openedImage.style.display="none";
+    closedImage.style.display = 'block';
+    openedImage.style.display = "none";
   }
-
-  const activeOpenbutton=()=>{
-    closedImage.style.display='none';
-    openedImage.style.display="block";
+  const activeOpenbutton = () => {
+    closedImage.style.display = 'none';
+    openedImage.style.display = "block";
     const btn = document.getElementById("bttna");
     btn.classList.remove('dashboard_menuActive');
   }
-
-
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
-
-  const handleToggle = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-  const [activeChildIndex, setActiveChildIndex] = useState(0);
-
-  console.log("activeChildIndex", activeChildIndex);
-
-
 
   return (
     <>
       <div className="account_created-dash">
         <div className="container-fluid display-table">
           <div className="row display-table-row">
-            <Usertop/>
-          <button id='bttna' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigations" aria-expanded="false" aria-label="Toggle navigation">
+            <Usertop />
+            <button id='bttna' className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigations" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"><img loading="lazy" className='menu_toggle_open' src={Menu_toggleImage} alt="Profile" onClick={activeClosebutton} /> <img loading="lazy" className='menu_toggle_closed' src={Menu_toggleclosedImage} alt="Profile" onClick={activeOpenbutton} /></span>
             </button>
             <nav id="navigation" className="navbar navbar-expand-lg navbar-light bg-light">
-
               <div className="col-md-12 col-sm-12 hidden-xs display-table-cell v-align box collapse navbar-collapse" id="navigations">
                 <div className="logo">
                   <Link className='profile_linkdah'>
                     <div className="profile_image">
-                      <img loading="lazy" src={`https://mykidz.online/profile_images/${user.profile_image}`} alt="Profile" />
+                      {renderImage()}
                     </div>
                   </Link>
                   <div className='profile_text_dash'>
-                   <Link className='text_dash_name'>{renderElement()} <img src={Profile_icon_dash} alt="Profile" /></Link>
-                   <span>Parent Space</span>
+                    <Link className='text_dash_name' to='/who-are-you'>{renderElement()} <img src={Profile_icon_dash} alt="Profile" /></Link>
+                    <span>Parent Space</span>
                   </div>
                 </div>
                 <div className="navi">
@@ -218,8 +209,7 @@ const fetchProfileImage = async () => {
                       className={`item nav-item  ${activeComponent === 'parentHeaderSection' ? 'active' : ''}`}
                       onClick={() => handleLiClick('parentHeaderSection')}
                     >
-                     
-<Dropdown show={isDropdownOpen} onToggle={handleToggle}>
+                      <Dropdown show={isDropdownOpen} onToggle={handleToggle}>
                         <Dropdown.Toggle variant="light" id="my-kids-dropdown">
                           <img loading="lazy" className='Left_img_clr' src={MykidsImage_b} alt="protected" />
                           <img loading="lazy" className='Left_img_active' src={MykidsImage} alt="protected" />
@@ -229,34 +219,31 @@ const fetchProfileImage = async () => {
                           {childProfiles.length > 0 ? (
                             childProfiles.map((childProfile, index) => (
                               <>
-                              <Dropdown.Item
-                                key={childProfile.id}
-                                onClick={() => {
-                                  handleChildSelection(childProfile);
-                                  handleClose();
-                                  setActiveChildIndex(index);
-                                }}
-                                className={activeChildIndex === index ? 'activeitemchild' : ''}
-                              >
-                                {childProfile.child_name}
-                              </Dropdown.Item>
-                             </>
+                                <Dropdown.Item
+                                  key={childProfile.id}
+                                  onClick={() => {
+                                    handleChildSelection(childProfile);
+                                    handleClose();
+                                    setActiveChildIndex(index);
+                                  }}
+                                  className={activeChildIndex === index ? 'activeitemchild' : ''}
+                                >
+                                  {childProfile.child_name}
+                                </Dropdown.Item>
+                              </>
                             ))
                           ) : (
                             <Dropdown.Item disabled>No child profiles found.</Dropdown.Item>
                           )}
-                        <Link className='addChildPro'><img src={add}/><span>Add child profile</span></Link>
-
+                          <Link className='addChildPro' to='/create-child-profile'><img src={add} /><span>Add child profile</span></Link>
                         </Dropdown.Menu>
-                       
                       </Dropdown>
-
-
                     </li>
                     <li
                       className={`item nav-item ${activeComponent === 'Souvenir' ? 'active' : ''}`}
-                      onClick={() =>{ handleLiClick('Souvenir');
-                      handleClose();
+                      onClick={() => {
+                        handleLiClick('Souvenir');
+                        handleClose();
                       }}
                     >
                       <Link href="#">
@@ -277,8 +264,9 @@ const fetchProfileImage = async () => {
 
                     <li
                       className={`item nav-item ${activeComponent === 'Settings' ? 'active' : ''}`}
-                      onClick={() =>{ handleLiClick('Settings');
-                      handleClose();
+                      onClick={() => {
+                        handleLiClick('Settings');
+                        handleClose();
                       }}
                     >
                       <Link href="#">
@@ -287,8 +275,9 @@ const fetchProfileImage = async () => {
                     </li>
                     <li
                       className={`item nav-item ${activeComponent === 'SuggestFeatures' ? 'active' : ''}`}
-                      onClick={() =>{ handleLiClick('SuggestFeatures');
-                      handleClose();
+                      onClick={() => {
+                        handleLiClick('SuggestFeatures');
+                        handleClose();
                       }}
                     >
                       <Link href="#">
@@ -297,8 +286,10 @@ const fetchProfileImage = async () => {
                     </li>
                     <li
                       className={`item nav-item ${activeComponent === 'Support' ? 'active' : ''}`}
-                      onClick={() => {handleLiClick('Support');
-                      handleClose();}}
+                      onClick={() => {
+                        handleLiClick('Support');
+                        handleClose();
+                      }}
                     >
                       <Link href="#">
                         <span className="hidden-xs hidden-sm"><img loading="lazy" className='Left_img_clr' src={SupportImage_b} alt="protected" /><img loading="lazy" className='Left_img_active' src={Support_whtImage} alt="protected" /> Support</span>
@@ -310,31 +301,27 @@ const fetchProfileImage = async () => {
                       </Link>
                     </li>
                   </ul>
-                
                 </div>
               </div>
             </nav>
             {activeComponent === 'parentHeaderSection' ? (
-             <ParentHeaderSection key={refreshCurrentlyReading ? 'refresh' : 'no-refresh'} childId={selectedChildId} userId={userId} />
+              <ParentHeaderSection key={refreshCurrentlyReading ? 'refresh' : 'no-refresh'} childId={selectedChildId} userId={userId} />
             ) : activeComponent === 'Souvenir' ? (
               <Souvenir />
-            ): activeComponent === 'Settings' ? (
+            ) : activeComponent === 'Settings' ? (
               <Settings />
             ) : activeComponent === 'BillingAndSubscription' ? (
               <BillingAndSubscription />
             ) : activeComponent === 'SuggestFeatures' ? (
               <SuggestFeatures handleLiClick={handleLiClick} />
-              ) : activeComponent === 'Support' ? (
+            ) : activeComponent === 'Support' ? (
               <Support />
-            )  : null}
+            ) : null}
           </div>
         </div>
       </div>
-
     </>
   );
 };
 
 export default ParentDashboard;
-
-

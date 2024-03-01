@@ -288,8 +288,6 @@ export default function CurrentlyReading({ toggle, chats, selectedDate, chatsFor
       console.log("session child id", cid);
       const child = childProfiles.find((n) => n.id === parseInt(cid, 10));
       if (child) {
-        console.log('test123' + child.currenty_reading
-        );
         setCurrentyReading(child.currenty_reading);
       }
 
@@ -471,7 +469,7 @@ export default function CurrentlyReading({ toggle, chats, selectedDate, chatsFor
       ) : (
         <>
 
-          <div className='top_currently_notification'>
+          {/* <div className='top_currently_notification'>
             <div className='main_heading'>
               <h3> Notifications </h3>
             </div>
@@ -518,7 +516,7 @@ export default function CurrentlyReading({ toggle, chats, selectedDate, chatsFor
               </>
             )}
 
-          </div>
+          </div> */}
           <div className='main_heading'>
             <h3> Currently Reading </h3>
           </div>

@@ -16,7 +16,6 @@ function App() {
 
   const handlePasswordSubmit = (password) => {
     console.log(password);
-    // Replace 'KidzConnect @123' with the actual password
     if (password === 'KidzConnect@123') {
       setAuthenticated(true);
     }else{
@@ -31,7 +30,7 @@ function App() {
   if (!getToken()) {
     return (
       <>
-        {!authenticated ? <Guest /> : (
+        {authenticated ? <Guest /> : (
           <>
             {!door && <Coming_soon onDoorClick={handleDoorClick} />}
             {door && <PasswordPage onPasswordSubmit={handlePasswordSubmit} />}

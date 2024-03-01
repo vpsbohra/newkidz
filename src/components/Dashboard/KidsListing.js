@@ -33,6 +33,7 @@ export default function KidsListing() {
     console.log(childId);
     setSelectedChildId(childId);
     sessionStorage.setItem('childId', childId);
+    sessionStorage.setItem('setChildID', childId);
     sessionStorage.setItem('setChildName', child_name);
 };
 

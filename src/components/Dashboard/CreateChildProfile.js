@@ -21,6 +21,7 @@ export default function CreateChildProfile() {
     setChildProfiles([...childProfiles, { childName: '', childAge: '' }]);
   };
   const handleSubmit = () => {
+    sessionStorage.removeItem('children');
     http
       .post('/create-child-profile', { childProfiles, userId })
       .then((res) => {

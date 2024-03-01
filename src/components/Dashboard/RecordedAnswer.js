@@ -81,12 +81,23 @@ const RecordedAnswer = () => {
   useEffect(() => {
     console.log("currentQuestionIndex", currentQuestionIndex);
     console.log("localStorage.getItem('question')", localStorage.getItem('question'));
-
+  
     if (currentQuestionIndex === localStorage.getItem('question')) {
-
       let audio = new Audio(currentaudio);
-      audio.play();
-      audio.addEventListener('ended', handleAudioEnded);
+  
+      const playAudio = async () => {
+        try {
+          await audio.play();
+          audio.addEventListener('ended', handleAudioEnded);
+        } catch (error) {
+          // Handle the autoplay error silently
+          console.error("Autoplay error:", error);
+        }
+      };
+  
+      // Play audio when the component mounts
+      playAudio();
+  
       return () => {
         audio.removeEventListener('ended', handleAudioEnded);
         audio.pause();
@@ -94,6 +105,8 @@ const RecordedAnswer = () => {
       };
     }
   }, [currentaudio, currentQuestionIndex]);
+  
+  
   const [story_id, setStory_id] = useState();
   const fetchData = async () => {
     const x = localStorage.getItem('question');

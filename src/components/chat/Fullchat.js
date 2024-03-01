@@ -177,8 +177,6 @@ const Fullchat = ({ selectedDate, dataId }) => {
     }
     const selected = `${selectedMonth} ${selectedDay},${selectedYear}`;
     sessionStorage.setItem("selectedDate", JSON.stringify(selected));
-    console.log("selectedDate", selectedDate);
-    console.log("selectedDate", selectedDate);
     navigate(`/parent-dashboard?datetoggle=${datetoggle}&selectedDate=${selectedDate}`);
     const chatsForSelectedDate = messages.filter((message) => {
       const messageDate = new Date(message.created_at).toDateString();

@@ -41,6 +41,7 @@ import TransitionScreen from '../components/Dashboard/TransitionScreen.js';
 import Top from '../components/top.js';
 import ProfileInfo from '../components/Dashboard/profileInfo.js';
 import Done from '../components/Dashboard/done.js';
+import SouvenirPlayer from '../components/chat/SouvenirPlayer.js';
 function Auth() {
     const Navigate = useNavigate();
 
